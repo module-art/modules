@@ -21,6 +21,7 @@ class PageController extends Controller
 
   public function __construct(FooterRepository $footerRepository, MenusRepository $menusRepository)
   {
+    $this->middleware('authAsAdmin', ['except' => ['show']]);
     $this->footerRepository = $footerRepository;
     $this->menusRepository = $menusRepository;
   }

@@ -16,7 +16,6 @@ class BlocController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
-    //$this->middleware('authAsAdmin');
     //$this->middleware('Ajax', ['only' => ['update', 'destroy']]);
   }
 
