@@ -19,6 +19,9 @@ body {
 #global-wrapper {
   width: 100%;
   min-height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #sidebar {
@@ -238,9 +241,6 @@ p.lead {
 }
 .main-container{
   height: 100vh;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   .overlay{
     background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0));
   }
@@ -454,10 +454,8 @@ footer {
   @include destroy_button(15px, 15px);
 }
 
-#form-contact{
-  .fa-cog{
-    display: none;
-  }
+.fa-cog{
+  display: none;
 }
 
 .dropy{

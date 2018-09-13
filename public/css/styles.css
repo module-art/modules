@@ -10474,6 +10474,9 @@ body {
 #global-wrapper {
   width: 100%;
   min-height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #sidebar {
@@ -10718,9 +10721,6 @@ p.lead {
 
 .main-container {
   height: 100vh;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .main-container .overlay {
@@ -11016,7 +11016,7 @@ footer li a:hover {
   display: block;
 }
 
-#form-contact .fa-cog {
+.fa-cog {
   display: none;
 }
 

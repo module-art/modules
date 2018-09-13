@@ -18,7 +18,7 @@ $(function()
     .done(function(data) {
       $('.fa-cog').css('display', 'none');
       alert(data['response']);
-      form[0].reset();
+      form[0].reset;
       $('.redactor-in').html('');
     })
     .fail(function(data) {

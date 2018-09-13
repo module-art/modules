@@ -147,7 +147,8 @@ $(document).ready(function()
         editor.on('focus', function (e) {
           //console.log(e);
           var tar = $(e.target.bodyElement),
-              initBackgroundImage = tar[0].style.backgroundImage,
+              imageNode = $('#global-wrapper'),
+              initBackgroundImage = imageNode.css('background-image'),
             replacement = '<section id="replacement" class="row justify-content-center mb-4"><div class="col-12 col-md-8 col-lg-6 col-xl-5"><div class="card"><div class="card-body">'+
             '<form method="post" enctype="multipart/form-data" class="" id="replacement-form"><div class="form-group">'+
             '<label for="image" class="col-form-label">Changer l\'image de fond</label>'+
@@ -159,7 +160,7 @@ $(document).ready(function()
             '</div>'+
             '<input id="texte" type="hidden" name="texte" />'+
             '<input type="hidden" name="_token" value="' + csrfToken + '" />'+
-            '<button id="btn-save" class="btn btn-primary pull-right" >Enregistrer</button><button id="btn-cancel" class="btn btn-secondary pull-right" >Annuler</button>'+
+            '<button id="btn-save" class="btn btn-primary pull-right" ><i class="fas fa-cog fa-spin fa-lg"></i> Enregistrer</button><button id="btn-cancel" class="btn btn-secondary pull-right" >Annuler</button>'+
             '</form></div></div></div></section>';
 
           tar.css('padding', '10vh 0 19vh');
@@ -168,10 +169,11 @@ $(document).ready(function()
             tar.parent().append(replacement);
           }
 
-          imageManage(tar);
+          imageManage(imageNode);
 
           $('#btn-save').click(function(e){
 
+            $('.fa-cog').css('display', 'inline-block');
             e.preventDefault();
             $('#texte').val(tar.html());
 
@@ -188,6 +190,7 @@ $(document).ready(function()
               contentType: false,
             })
             .done(function(data) {
+              $('.fa-cog').css('display', 'none');
               console.log(data['response']);
               setTimeout(function(){
                 tar.css({
@@ -198,7 +201,12 @@ $(document).ready(function()
               }, 100)
             })
             .fail(function() {
-              alert('La requête n\'a pas abouti. Êtes-vous bien connecté comme admin?');
+              $('.fa-cog').css('display', 'none');
+              var errors = data.responseJSON.message + '\n';
+              $.each(data.responseJSON.errors, function (key, value) {
+                errors += value + '\n';
+              });
+              alert('La requête n\'a pas abouti.\n'+errors);
             });
 
             resizeVideos();
@@ -209,6 +217,8 @@ $(document).ready(function()
             setTimeout(function(){
               tar.css({
                 padding: '',
+              });
+              imageNode.css({
                 backgroundImage: initBackgroundImage
               });
               $('#replacement').remove();
@@ -315,8 +325,8 @@ $(document).ready(function()
 
   function imageManage(rubriqueNode){
     var allowedTypes = ['jpg', 'jpeg', 'png'],
-    fileInput = document.querySelector('#image');
-    //preview = document.querySelector('#preview');
+        fileInput = document.querySelector('#image'),
+        form = document.querySelector('#replacement-form');
      
     fileInput.addEventListener('change', function() {
 
@@ -350,7 +360,7 @@ $(document).ready(function()
             }else{ 
               alert('Pour avoir un bon rendu sur tout type d\'écran, la largeur de l\'image doit être supérieure à ' + minImgWidth + 'px. Cette image fait ' + imgWidth + 'px.');
               files=[];
-              fileInput.reset();
+              form.reset();
             }
           }, 300)
 
@@ -363,7 +373,7 @@ $(document).ready(function()
           alert('Image de taille supérieure à ' + maxFileSize/1000 + 'ko. Il faut la réduire avec un logiciel adapté.');
         }
         files=[];
-        fileInput.reset();
+        form.reset();
       }
     }, false);
   }
@@ -398,6 +408,7 @@ $(document).ready(function()
           previousRow.prepend(newBlocNormal);
         }
       }
+      $('.after-rubrique').addClass('not-empty');
 
       initMceBlocs();
       listenToDestroy();
