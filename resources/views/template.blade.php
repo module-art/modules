@@ -13,8 +13,7 @@
     <link rel="stylesheet" href="/css/redactor/redactor.css" />
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="/css/styles.css">
-    <link rel="icon" type="image/png" href="/images/logo_example_128.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="/images/logo_example_128.png" sizes="16x16" />
+    <link rel="icon" type="image/jpg" href="/images/favicon.jpg" />
 
   </head>
   <body class="">
@@ -24,10 +23,6 @@
     <div class="container-fluid">
 
       <section id="global-wrapper">
-
-        <div class="head">
-          @yield('menu')
-        </div>
 
         @yield('contenu')
 

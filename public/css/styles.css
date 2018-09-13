@@ -1,3 +1,35 @@
+@font-face {
+  font-family: 'dejavu_sans';
+  src: url(/fonts/DejaVuSansMono-webfont.eot?7c36c7cacf7d63006776d4d189110ec3);
+  src: url(/fonts/DejaVuSansMono-webfont.eot?7c36c7cacf7d63006776d4d189110ec3) format("embedded-opentype"), url(/fonts/DejaVuSansMono-webfont.woff?36630fe049269c89186fdd7b7e24e0ab) format("woff"), url(/fonts/DejaVuSansMono-webfont.ttf?e45efaf06dd267fe5ece5bfe1692f6d0) format("truetype"), url(/fonts/DejaVuSansMono-webfont.svg?b3601c1c0e086ed79fd079d7fd313c4d) format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'dejavu_sans';
+  src: url(/fonts/DejaVuSansMono-Bold-webfont.eot?efeef1c95e76d0d6717699de17ea0796);
+  src: url(/fonts/DejaVuSansMono-Bold-webfont.eot?efeef1c95e76d0d6717699de17ea0796) format("embedded-opentype"), url(/fonts/DejaVuSansMono-Bold-webfont.woff?0b117e3199d747ba4bd875213627f2c0) format("woff"), url(/fonts/DejaVuSansMono-Bold-webfont.ttf?c0ba273c238ed1a0d9ec39d7eb1400c9) format("truetype"), url(/fonts/DejaVuSansMono-Bold-webfont.svg?41c19951413276fdb72b61be3101e4e2) format("svg");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'dejavu_sans';
+  src: url(/fonts/DejaVuSansMono-BoldOblique-webfont.eot?0f0aafe55b6a46778d7bef9548add5a7);
+  src: url(/fonts/DejaVuSansMono-BoldOblique-webfont.eot?0f0aafe55b6a46778d7bef9548add5a7) format("embedded-opentype"), url(/fonts/DejaVuSansMono-BoldOblique-webfont.woff?c1ee49680ef6e43ebe4b271d3354f6b3) format("woff"), url(/fonts/DejaVuSansMono-BoldOblique-webfont.ttf?eb7256cee4afc6856fb320d5983a5599) format("truetype"), url(/fonts/DejaVuSansMono-BoldOblique-webfont.svg?24b0a6cba4c1cc77bfd52e75c89b5340) format("svg");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'dejavu_sans';
+  src: url(/fonts/DejaVuSansMono-Oblique-webfont.eot?4d4a0c62ef50e09387b799a72e4c94f6);
+  src: url(/fonts/DejaVuSansMono-Oblique-webfont.eot?4d4a0c62ef50e09387b799a72e4c94f6) format("embedded-opentype"), url(/fonts/DejaVuSansMono-Oblique-webfont.woff?2fc2fc58c93fd2c0613707246621e00c) format("woff"), url(/fonts/DejaVuSansMono-Oblique-webfont.ttf?54d9d6f139a173265b0db95ad52db541) format("truetype"), url(/fonts/DejaVuSansMono-Oblique-webfont.svg?503730392057cddd054bed2053b1fe95) format("svg");
+  font-weight: normal;
+  font-style: italic;
+}
+
 /* Usage */
 
 /* 
@@ -48,7 +80,7 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: "Faune", Helvetica, Arial, sans-serif;
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -10435,7 +10467,7 @@ body {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
-  font-family: "Faune", Helvetica, Arial, sans-serif;
+  font-family: "dejavu_sans", Helvetica, Arial, sans-serif;
   font-size: 1rem;
 }
 
@@ -10444,6 +10476,7 @@ body {
 }
 
 #sidebar {
+  font-family: Georgia, Times, serif;
   background-color: #2e3d4f;
   color: #FDFFFC;
   min-width: 250px;
@@ -10549,6 +10582,13 @@ a[data-toggle="collapse"] {
 .head #sm-logo img {
   max-height: 100%;
   width: auto;
+}
+
+@media (min-width: 992px) {
+  .head #logo,
+  .head #sm-logo {
+    height: 10rem;
+  }
 }
 
 .head .navbar {
@@ -10679,12 +10719,20 @@ p.lead {
   }
 }
 
-div.heading {
+.main-container {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.main-container .overlay {
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.8)), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0));
+}
+
+div.heading {
   position: relative;
-  padding: 30vh 0 39vh;
+  padding: 15vh 0 24vh;
   font-size: 1.2rem;
   display: block;
   text-align: center;

@@ -8,28 +8,39 @@
   @include('back.inc.sidebar')
 @endsection
 
-@section('menu')
-  @include('menu')
-@endsection
-
 @section('contenu')
 
   <p id="id_page" class="d-none">{{ $page->id }}</p>
 
     @foreach($page->rubriques()->orderBy('place')->get() as $y => $rubrique)
 
-      <div class="main-container">
-        <div class="rubrique-container">
+      <div class="main-container"
+        @if(isset($rubrique->background_img_url))
+          style="background-image: url('{!! asset( $rubrique->background_img_url ) !!}');
+          background-image: -webkit-image-set( url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x );
+            background-image: image-set( url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x );" 
+        @endif
+      >
 
-          @include('back.inc.partial_rubrique')
+        <div class='overlay'>
 
-        </div><!--rubrique-->
+          <div class="head d-flex justify-content-center">
+            @include('menu')
+          </div>
 
-        <div class="container after-rubrique">
+          <div class="rubrique-container">
 
-          @include('back.inc.partial_bloc')
+            @include('back.inc.partial_rubrique')
 
-        </div><!--blocs-->
+          </div><!--rubrique-->
+
+          <div class="container after-rubrique">
+
+            @include('back.inc.partial_bloc')
+
+          </div><!--blocs-->
+        </div>
+
       </div>
 
     @endforeach
