@@ -4,4 +4,6 @@
 data-rubrique_id="{!! $rubrique->id !!}">
   {!! $rubrique->contenu !!}
 </div>
-{{--<a class="more" href="#blocs-rubrique{{ $rubrique->id }}">Voir</a>--}}
+@if($page->slug == 'contact')
+  <a class="more" href="#blocs-rubrique{{ $rubrique->id }}">Voir</a>
+@endif

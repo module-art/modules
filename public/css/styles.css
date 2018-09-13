@@ -10473,6 +10473,7 @@ body {
 
 #global-wrapper {
   width: 100%;
+  min-height: 100%;
 }
 
 #sidebar {
@@ -10605,12 +10606,8 @@ a[data-toggle="collapse"] {
   margin: 0.75rem;
 }
 
-.head .navbar .nav-item.active {
-  border-bottom: 4px #FDFFFC solid;
-}
-
-.head .navbar .nav-item:hover {
-  border-bottom: 4px #ffffb5 solid;
+.head .navbar .nav-item.active a {
+  color: #FF6B35;
 }
 
 .head .navbar ul {
@@ -10720,6 +10717,7 @@ p.lead {
 }
 
 .main-container {
+  height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -10937,7 +10935,13 @@ footer li a:hover {
 }
 
 .after-rubrique {
+  padding-top: 2rem;
   color: #fff;
+}
+
+.after-rubrique.not-empty {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 2rem 2rem 0 0;
 }
 
 .after-rubrique .row {

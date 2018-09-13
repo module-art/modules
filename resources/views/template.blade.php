@@ -30,7 +30,7 @@
 
       <a class="cd-top">Haut de page</a>
 
-      @if($footer)
+      @if(isset($footer) && $footer)
         @include('footer')
       @endif
     

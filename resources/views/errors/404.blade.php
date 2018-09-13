@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('contenu')
-  <div class="heading" 
+  <div class="heading main-container" 
        style="background-image: url('/storage/img/jungle3200.jpg');
        background-image: -webkit-image-set( url('/storage/img/jungle3200.jpg') 1x, url('/storage/img/jungle3200@2x.jpg') 2x );
        background-image: image-set( url('/storage/img/jungle3200.jpg') 1x, url('/storage/img/jungle3200@2x.jpg') 2x );" >

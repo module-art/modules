@@ -31,16 +31,20 @@ class PageController extends Controller
 
     $footer = $this->footerRepository->makeFooter();
     $menus = $this->menusRepository->makeMenus();
-    return view('front.page', compact('menus', 'page', 'footer'));
+    $first_rubrique = $page->rubriques()->first();
+    $bg_img = [ $first_rubrique->background_img_url, $first_rubrique->background_hd_url ];
+    return view('front.page', compact('menus', 'page', 'footer', 'bg_img'));
   }
 
   public function backShow($slug)
   {
-
     $page = Page::where('slug', $slug)->firstOrFail();
+
     $footer = $this->footerRepository->makeFooter();
     $menus = $this->menusRepository->makeAdminMenus();
-    return view('back.page', compact('menus', 'page', 'footer'));
+    $first_rubrique = $page->rubriques()->first();
+    $bg_img = [ $first_rubrique->background_img_url, $first_rubrique->background_hd_url ];
+    return view('back.page', compact('menus', 'page', 'footer', 'bg_img'));
   }
 
   public function create(){

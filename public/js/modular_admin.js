@@ -248,7 +248,7 @@ $(document).ready(function () {
               console.log(data['response']);
               setTimeout(function () {
                 tar.css({
-                  padding: '30vh 0 39vh'
+                  padding: ''
                 });
                 $('#replacement').remove();
                 $('.cols-button, .bloc-button').css('display', 'block');
@@ -264,7 +264,7 @@ $(document).ready(function () {
             e.preventDefault();
             setTimeout(function () {
               tar.css({
-                padding: '30vh 0 39vh',
+                padding: '',
                 backgroundImage: initBackgroundImage
               });
               $('#replacement').remove();

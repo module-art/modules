@@ -18,6 +18,7 @@ body {
 //admin-sidebar
 #global-wrapper {
   width: 100%;
+  min-height: 100%;
 }
 
 #sidebar {
@@ -126,11 +127,11 @@ a[data-toggle="collapse"] {
       white-space: nowrap;
       margin: $margin-base/2;
       &.active{
-        //background: linear-gradient(to top right, $green, white);
-        border-bottom: 4px $white solid;
+        a{
+          color: $yellow;
+        }
       }
       &:hover{
-        border-bottom: 4px $sable solid;
       }
     }
     ul{
@@ -236,6 +237,7 @@ p.lead {
 	}
 }
 .main-container{
+  height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -403,7 +405,12 @@ footer {
 }
 
 .after-rubrique{
+  padding-top: $spacer;
   color: $text-color;
+  &.not-empty{
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: $spacer $spacer 0 0;
+  }
   .row{
     position: relative;
     .bloc-button,.cols-button{

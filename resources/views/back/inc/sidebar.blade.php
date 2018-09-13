@@ -23,9 +23,9 @@
             <li>
               <a id="publication">{{ $page->publie? "Masquer" : "Publier" }}</a>
             </li>
-            <li>
+            {{--<li>
               <a id="add-rubrique">Ajouter une rubrique</a>
-            </li>
+            </li>--}}
           </ul>
         </li>
       @endif

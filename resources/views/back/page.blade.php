@@ -15,10 +15,10 @@
     @foreach($page->rubriques()->orderBy('place')->get() as $y => $rubrique)
 
       <div class="main-container"
-        @if(isset($rubrique->background_img_url))
-          style="background-image: url('{!! asset( $rubrique->background_img_url ) !!}');
-          background-image: -webkit-image-set( url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x );
-            background-image: image-set( url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x );" 
+           @if($bg_img[0] != '')
+          style="background-image: url('{!! asset( $bg_img[0] ) !!}');
+          background-image: -webkit-image-set( url('{!! asset( $bg_img[0] ) !!}') 1x, url('{!! asset( $bg_img[1] ) !!}') 2x );
+            background-image: image-set( url('{!! asset( $bg_img[0] ) !!}') 1x, url('{!! asset( $bg_img[1] ) !!}') 2x );" 
         @endif
       >
 
@@ -34,7 +34,7 @@
 
           </div><!--rubrique-->
 
-          <div class="container after-rubrique">
+          <div class="container after-rubrique{{ $rubrique->blocs()->count() > 0 ? ' not-empty' : ''}}">
 
             @include('back.inc.partial_bloc')
 
