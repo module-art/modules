@@ -21,70 +21,26 @@ class PageController extends Controller
 
   public function __construct(FooterRepository $footerRepository, MenusRepository $menusRepository)
   {
-    $this->middleware('authAsAdmin', ['except' => ['show']]);
     $this->footerRepository = $footerRepository;
     $this->menusRepository = $menusRepository;
   }
 
-  private function makePage($slug){
-
-    return Page::where('slug', $slug)->firstOrFail();
-
-  }
-
-  private function makeRubriques($page){
-
-    return $page->rubriques()->orderBy('place')->get(); 
-
-  }
-
-  private function makeRubriquesBlocs($rubriques){
-
-    $rubrique_blocs = array();
-
-    foreach($rubriques as $y => $rubrique){
-      $rubrique_blocs[$y] = array();
-      $n = $rubrique->blocs->count();
-      if($rubrique->ascendant){
-        for($i=0; $i<$n; $i++){
-          $rubrique_blocs[$y][$i] = $rubrique->blocs->where('place', '=', $i+1)->first();
-        }
-      }else{
-        $u = $n;
-        for($i=0; $i<$n; $i++){
-          $rubrique_blocs[$y][$i] = $rubrique->blocs->where('place', '=', $u)->first();
-          $u--;
-        }
-      }
-    }
-    return $rubrique_blocs;
-  }
-
   public function show($slug)
   {
+    $page = Page::where('slug', $slug)->where('publie', 1)->firstOrFail();
 
-    $page = $this->makePage($slug);
-
-    if(!$page->publie){
-      abort(404);
-    }
-
-    $rubriques = $this->makeRubriques($page);
-    $rubrique_blocs = $this->makeRubriquesBlocs($rubriques);
     $footer = $this->footerRepository->makeFooter();
     $menus = $this->menusRepository->makeMenus();
-    return view('front.page', compact('menus', 'page', 'rubriques', 'rubrique_blocs', 'footer'));
+    return view('front.page', compact('menus', 'page', 'footer'));
   }
 
   public function backShow($slug)
   {
 
-    $page = $this->makePage($slug);
+    $page = Page::where('slug', $slug)->firstOrFail();
     $footer = $this->footerRepository->makeFooter();
-    $rubriques = $this->makeRubriques($page);
-    $rubrique_blocs = $this->makeRubriquesBlocs($rubriques);
     $menus = $this->menusRepository->makeAdminMenus();
-    return view('back.page', compact('menus', 'page', 'rubriques', 'rubrique_blocs', 'footer'));
+    return view('back.page', compact('menus', 'page', 'footer'));
   }
 
   public function create(){

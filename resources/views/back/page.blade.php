@@ -16,7 +16,7 @@
 
   <p id="id_page" class="d-none">{{ $page->id }}</p>
 
-    @foreach($rubriques as $y => $rubrique)
+    @foreach($page->rubriques()->orderBy('place')->get() as $y => $rubrique)
 
       <div class="main-container">
         <div class="rubrique-container">

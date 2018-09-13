@@ -10,14 +10,13 @@
 
 @section('contenu')
 
-    @foreach($rubriques as $y => $rubrique)
+  @foreach($page->rubriques()->orderBy('place')->get() as $y => $rubrique)
       <div class="main-container">
         <div class="rubrique-container">
           <div class="heading{{ $y == 0 ? ' first' : '' }}" 
                style="background-image: url('{!! asset( $rubrique->background_img_url ) !!}');
                background-image: -webkit-image-set( url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x );
-               background-image: image-set( url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x );" 
-               data-rubrique_id="{!! $rubrique->id !!}">
+               background-image: image-set( url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x );">
                {!! $rubrique->contenu !!}
           </div>
           <a class="more" href="#blocs-rubrique{{ $rubrique->id }}">Voir</a>
@@ -35,32 +34,26 @@
                 $cols = ' col-md-6 col-lg-4';
                 break;
             }
-            $n = count($rubrique_blocs[$y]);
-            $clearfix_counter = 1;
-            $order= $rubrique->ascendant ? 'asc' : 'desc'; 
+            $order = $rubrique->ascendant ? 'asc' : 'desc'; 
           ?>
           <div class="row" id="blocs-rubrique{{ $rubrique->id }}">
 
-            @for($i=0; $i<$n; $i++)
-              @if($rubrique_blocs[$y][$i]->type == 'large')
+            @foreach($rubrique->blocs()->orderBy('place', $order)->get() as $bloc)
+              @if($bloc->type == 'large')
                 <div class="col-12">
                   <div>
-                    {!! $rubrique_blocs[$y][$i]->contenu !!}
+                    {!! $bloc->contenu !!}
                   </div>
                 </div>
-                <?php $clearfix_counter = 1 ?>
               @else
                 <div class="col-12{{ $cols }}">
                   <div>
-                    {!! $rubrique_blocs[$y][$i]->contenu !!}
+                    {!! $bloc->contenu !!}
                   </div>
                 </div>
-                @if($rubrique->cols > 1 && $clearfix_counter % $rubrique->cols == 0)
-                  <div class="clearfix md-visible-block"></div>
-                @endif
-                <?php $clearfix_counter++ ?>
               @endif
-            @endfor
+            @endforeach
+
           </div><!--row-->
         </div><!--container-->
       </div>
