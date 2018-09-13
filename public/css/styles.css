@@ -10613,6 +10613,10 @@ a[data-toggle="collapse"] {
   color: #FF6B35;
 }
 
+.head .navbar .nav-item .nav-link {
+  text-align: end;
+}
+
 .head .navbar ul {
   width: 100%;
   margin-right: 2rem;
