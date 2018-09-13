@@ -211,8 +211,33 @@ $(document).ready(function () {
       selector: '.editrubrique',
       language: 'fr_FR',
       inline: true,
-      plugins: 'code',
+      plugins: 'code image media',
       //toolbar: 'code',
+      images_upload_handler: function images_upload_handler(blobInfo, success, failure) {
+        var xhr, formData;
+        xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+        xhr.open('POST', '/coulisses/redactorimgupload');
+        xhr.onload = function () {
+          var json;
+
+          if (xhr.status != 200) {
+            failure('HTTP Error: ' + xhr.status);
+            return;
+          }
+          json = JSON.parse(xhr.responseText);
+
+          if (!json || typeof json.location != 'string') {
+            failure('Invalid JSON: ' + xhr.responseText);
+            return;
+          }
+          success(json.location);
+        };
+        formData = new FormData();
+        formData.append('_token', csrfToken);
+        formData.append('file', blobInfo.blob());
+        xhr.send(formData);
+      },
       init_instance_callback: function init_instance_callback(editor) {
         editor.on('focus', function (e) {
           //console.log(e);
@@ -256,7 +281,7 @@ $(document).ready(function () {
                 $('#replacement').remove();
                 $('.cols-button, .bloc-button').css('display', 'block');
               }, 100);
-            }).fail(function () {
+            }).fail(function (data) {
               $('.fa-cog').css('display', 'none');
               var errors = data.responseJSON.message + '\n';
               $.each(data.responseJSON.errors, function (key, value) {

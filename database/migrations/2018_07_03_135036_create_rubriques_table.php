@@ -17,7 +17,7 @@ class CreateRubriquesTable extends Migration
       $table->increments('id');
       $table->timestamps();
       $table->softDeletes();
-      $table->string('contenu');
+      $table->text('contenu');
       $table->smallInteger('place');
       $table->smallInteger('cols');
       $table->boolean('ascendant')->default(1);
