@@ -1,7 +1,7 @@
 
 <section class="container" id="contact">
-  <div class="row">
-    <div class="col-12 offset-md-2 col-md-8">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8">
       <div class="card card-info">
         <div class="card-body"> 
           {!! Form::open(['route' => 'page.mail', 'id' => 'form-contact']) !!}

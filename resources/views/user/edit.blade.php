@@ -4,11 +4,11 @@
   <title>Utilisateurs</title>
 @section('title')
 
-@section('menu')
-  @include('menu')
-@endsection
-
 @section('contenu')
+          
+<div class="head d-flex justify-content-center">
+  @include('menu')
+</div>
   <section class='row center-card'>
     <div class="col-12 col-md-8 col-lg-6">
       <div class="card"> 

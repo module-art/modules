@@ -4,12 +4,11 @@
   <title>{!! $title_tag !!}</title>
 @endsection
 
-@section('menu')
-  @include('menu')
-@endsection
-
-
 @section('contenu')
+          
+<div class="head d-flex justify-content-center">
+  @include('menu')
+</div>
   <div class="row center-card">
       <div class="col-12 col-md-8 col-lg-6">
           <div class="card">

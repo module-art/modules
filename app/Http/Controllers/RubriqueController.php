@@ -93,7 +93,7 @@ class RubriqueController extends Controller
 
       $end = $cols > 1 ? 's.' : '.';
 
-      return response()->json(['response' => $rubrique->contenu . ' présente ' . $cols . ' colonne' . $end]);
+      return response()->json(['response' => 'La rubrique référencée ' . $rubrique->id . ' présente ' . $cols . ' colonne' . $end]);
     }
 
     /**

@@ -9,6 +9,11 @@
 @endsection
 
 @section('contenu')
+          
+<div class="head d-flex justify-content-center">
+  @include('menu')
+</div>
+
 <div class="container">
     <div class="row center-card">
         <div class="col-md-8">

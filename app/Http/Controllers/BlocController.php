@@ -50,14 +50,14 @@ class BlocController extends Controller
      */
   public function partialShow($id_rubrique)
   {
-    $data = $this->partialData($id_rubrique);
-    return view('back.partial_bloc', $data);
+    $rubrique = Rubrique::findOrFail($id_rubrique);
+    return view('back.partial_bloc', compact('id_rubrique', 'rubrique'));
   }
 
   public function partialShowDrag($id_rubrique)
   {
-    $data = $this->partialData($id_rubrique);
-    return view('back.partial_drag', $data);
+    $rubrique = Rubrique::findOrFail($id_rubrique);
+    return view('back.partial_drag', compact('id_rubrique', 'rubrique'));
   }
 
     /**

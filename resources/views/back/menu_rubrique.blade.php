@@ -5,9 +5,9 @@
       <a class="dropdown-item change-col" data-colonnes="1">1 colonne</a>
       <a class="dropdown-item change-col" data-colonnes="2">2 colonnes</a>
       <a class="dropdown-item change-col" data-colonnes="3">3 colonnes</a>
-      <a class="dropdown-item ranger">ranger</a>
+      <a class="dropdown-item ranger">actualiser</a>
       <a class="dropdown-item inverser">inverser</a>
-      <a class="dropdown-item deplacer">déplacer un bloc</a>
+      <a class="dropdown-item deplacer">déplacer</a>
     </div>
   </div>
 

@@ -4,66 +4,70 @@
   <title>{{ $page->title }}</title>
 @endsection
 
-@section('menu')
-  @include('menu')
-@endsection
-
 @section('contenu')
 
   @foreach($page->rubriques()->orderBy('place')->get() as $y => $rubrique)
       <div class="main-container">
-        <div class="rubrique-container">
-          <div class="heading{{ $y == 0 ? ' first' : '' }}" 
-               style="background-image: url('{!! asset( $rubrique->background_img_url ) !!}');
-               background-image: -webkit-image-set( url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x );
-               background-image: image-set( url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x );">
-               {!! $rubrique->contenu !!}
+
+        <div class='overlay'>
+          
+          <div class="head d-flex justify-content-center">
+            @include('menu')
           </div>
-          <a class="more" href="#blocs-rubrique{{ $rubrique->id }}">Voir</a>
-        </div><!--rubrique-->
-        <div class="container after-rubrique">
-          <?php
-            switch ($rubrique->cols) {
-              case 1:
-                $cols = '';
-                break;
-              case 2:
-                $cols = ' col-md-6';
-                break;
-              case 3:
-                $cols = ' col-md-6 col-lg-4';
-                break;
-            }
-            $order = $rubrique->ascendant ? 'asc' : 'desc'; 
-          ?>
-          <div class="row" id="blocs-rubrique{{ $rubrique->id }}">
 
-            @foreach($rubrique->blocs()->orderBy('place', $order)->get() as $bloc)
-              @if($bloc->type == 'large')
-                <div class="col-12">
-                  <div>
-                    {!! $bloc->contenu !!}
-                  </div>
-                </div>
-              @else
-                <div class="col-12{{ $cols }}">
-                  <div>
-                    {!! $bloc->contenu !!}
-                  </div>
-                </div>
-              @endif
-            @endforeach
+          <div class="rubrique-container">
+            <div class="heading">
+              {!! $rubrique->contenu !!}
+            </div>
+            @if($page->slug == 'contact')
+              <a class="more" href="#blocs-rubrique{{ $rubrique->id }}">Voir</a>
+            @endif
+          </div><!--rubrique-->
+          <div class='d-flex justify-content-center'>
+            <div class="col-12 col-lg-10 col-xl-9 after-rubrique{{ $rubrique->blocs()->count() > 0 ? ' not-empty' : ''}}">
+              <?php
+                switch ($rubrique->cols) {
+                case 1:
+                  $cols = '';
+                  break;
+                case 2:
+                  $cols = ' col-md-6';
+                  break;
+                case 3:
+                  $cols = ' col-md-6 col-lg-4';
+                  break;
+                }
+                $order = $rubrique->ascendant ? 'asc' : 'desc'; 
+              ?>
+            <div class="row" id="blocs-rubrique{{ $rubrique->id }}">
 
-          </div><!--row-->
-        </div><!--container-->
-      </div>
+              @foreach($rubrique->blocs()->orderBy('place', $order)->get() as $bloc)
+                @if($bloc->type == 'large')
+                  <div class="col-12">
+                    <div>
+                      {!! $bloc->contenu !!}
+                    </div>
+                  </div>
+                @else
+                  <div class="col-12{{ $cols }}">
+                    <div>
+                      {!! $bloc->contenu !!}
+                    </div>
+                  </div>
+                @endif
+              @endforeach
+
+            </div><!--blocs-rubrique-->
+
+            @if($page->slug == 'contact')
+              @include('front.contact')
+            @endif
+
+            </div><!--after-rubrique-->
+          </div>
+        </div><!--overlay-->
+      </div><!--main-container-->
     @endforeach
-
-  @if($page->slug == 'contact')
-
-    @include('front.contact')
-
-  @endif
 
 @endsection
 

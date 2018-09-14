@@ -12,39 +12,39 @@
 
   <p id="id_page" class="d-none">{{ $page->id }}</p>
 
-    @foreach($page->rubriques()->orderBy('place')->get() as $y => $rubrique)
+  @foreach($page->rubriques()->orderBy('place')->get() as $y => $rubrique)
 
-      <div class="main-container"
-      >
+    <div class="main-container">
 
-        <div class='overlay'>
+      <div class='overlay'>
 
-          <div class="head d-flex justify-content-center">
-            @include('menu')
-          </div>
+        <div class="head d-flex justify-content-center">
+          @include('menu')
+        </div>
 
-          <div class="rubrique-container">
+        <div class="rubrique-container">
 
-            @include('back.inc.partial_rubrique')
+          @include('back.inc.partial_rubrique')
 
-          </div><!--rubrique-->
+        </div><!--rubrique-->
 
-          <div class="container after-rubrique{{ $rubrique->blocs()->count() > 0 ? ' not-empty' : ''}}">
+        <div class='after-rubrique-container d-flex justify-content-center'>
+          <div class="col-12 col-lg-10 col-xl-9 after-rubrique{{ $rubrique->blocs()->count() > 0 ? ' not-empty' : ''}}">
 
             @include('back.inc.partial_bloc')
 
-          </div><!--blocs-->
+            @if($page->slug == 'contact')
+              @include('front.contact')
+            @endif
+
+          </div><!--after-rubrique-->
         </div>
 
-      </div>
+      </div><!--overlay-->
 
-    @endforeach
+    </div><!--main-container-->
 
-    @if($page->slug == 'contact')
-
-      @include('front.contact')
-
-    @endif
+  @endforeach
       
 @endsection
 

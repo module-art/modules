@@ -299,19 +299,18 @@ $(document).ready(function()
           $('#btn-save').click(function(){
             var newBloc = tar.html(),
               bloc_id = tar.attr('data-bloc_id'),
+              isNewBloc = bloc_id == 0 ? true : false;
               type = '';
 
-            //alert(newBloc);
             if(newBloc === undefined) return;//exit to avoid TypeError
 
-            if(bloc_id == 0){
+            if(isNewBloc){
               type = tar.parent()[0].className == 'col-12' ? 'large' : 'normal';
-              bloc_id = 'rubrique-' + tar.parents('.container').first().prev().children('.editrubrique').attr('data-rubrique_id');
+              bloc_id = 'rubrique-' + tar.parents('.after-rubrique-container').first().prev().children('.editrubrique').attr('data-rubrique_id');
             }
 
             var action = '/coulisses/bloc/' + bloc_id;
 
-            //sendForm(newBloc, action, type);
             $.ajax({
                 url: action,
                 method: 'post',
@@ -327,7 +326,9 @@ $(document).ready(function()
             })
             .done(function(data) {
               console.log(data['response']);
-              tar.attr('data-bloc_id', data['newId']);
+              if(isNewBloc){
+                tar.attr('data-bloc_id', data['newId']);
+              }
             })
             .fail(function() {
               alert('La requête n\'a pas abouti. Êtes-vous bien connecté comme admin?');
@@ -507,7 +508,7 @@ $(document).ready(function()
           nbCols = parseInt( this.getAttribute('data-colonnes') ),
           newCols = "",
           targetChildren = previousRow.children('.col-12').not('.large-bloc'),
-          rubrique_id = previousRow.parent().prev().children('.editrubrique').first().attr('data-rubrique_id');
+          rubrique_id = previousRow.parents('.after-rubrique-container').prev().children('.editrubrique').first().attr('data-rubrique_id');
       rubrique_id = parseInt(rubrique_id);
        
       previousRow.children('.clearfix').remove();
@@ -548,7 +549,7 @@ $(document).ready(function()
 
     $('.ranger').click(function(){
       var container = $(this).parents('.after-rubrique').first(),
-          idRubrique = container.prev().children('.editrubrique').first().attr('data-rubrique_id');
+          idRubrique = container.parent().prev().children('.editrubrique').first().attr('data-rubrique_id');
       idRubrique = parseInt(idRubrique);
       container.load('/coulisses/partial_bloc/'+idRubrique, function(){
         console.log(idRubrique + ' actualisé.');
@@ -563,7 +564,7 @@ $(document).ready(function()
     $('.inverser').click(function(){
 
       var container = $(this).parents('.after-rubrique').first(),
-          idRubrique = container.prev().children('.editrubrique').first().attr('data-rubrique_id');
+          idRubrique = container.parent().prev().children('.editrubrique').first().attr('data-rubrique_id');
 
       $.ajax({
           method: 'post',
@@ -594,7 +595,7 @@ $(document).ready(function()
         $('.add-bloc').off();
 
         var container = $(this).parents('.after-rubrique').first(),
-            idRubrique = container.prev().children('.editrubrique').first().attr('data-rubrique_id');
+            idRubrique = container.parent().prev().children('.editrubrique').first().attr('data-rubrique_id');
 
         //alert(idRubrique);
         container.load('/coulisses/partial_drag/'+idRubrique, function(){

@@ -10473,7 +10473,7 @@ body {
 
 #global-wrapper {
   width: 100%;
-  min-height: 100%;
+  padding-bottom: 2rem;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -10724,7 +10724,7 @@ p.lead {
 }
 
 .main-container {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .main-container .overlay {
@@ -11024,38 +11024,38 @@ footer li a:hover {
   display: none;
 }
 
-.dropy img {
+#drag-mode .dropy img {
   max-width: 100%;
   height: auto;
 }
 
-.dropy iframe {
+#drag-mode .dropy iframe {
   max-width: 100%;
 }
 
-.dropy {
+#drag-mode .dropy {
   -webkit-transform: scale(0.8, 0.8);
           transform: scale(0.8, 0.8);
-  height: 300px;
+  height: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.dropy .upper {
+#drag-mode .dropy .upper {
   position: absolute;
   z-index: 2000;
   width: 100%;
   height: 100%;
 }
 
-.dropzone {
+#drag-mode .dropzone {
   -webkit-box-flex: 0;
       -ms-flex: none;
           flex: none;
 }
 
-.indropzone {
-  height: 300px;
+#drag-mode .indropzone {
+  height: 150px;
   border: 1px #a3a3a3 solid;
 }
 
