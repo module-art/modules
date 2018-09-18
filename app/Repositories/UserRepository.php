@@ -40,16 +40,12 @@ class UserRepository
 
   private function save(User $user, Array $inputs)
   {
-    $user->name = $inputs['name'];
-    $user->email = $inputs['email'];  
-    $user->role = $inputs['role'];
-
-    $user->save();
+    $user->save($inputs);
   }
 
   public function update($id, Array $inputs)
   {
-    $this->save($this->getById($id), $inputs);
+    $this->getByid($id)->update($inputs);
   }
 
   public function destroy($id)

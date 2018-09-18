@@ -712,8 +712,8 @@ $(document).ready(function () {
         numover = parseInt(this.dataset.position);
 
         dropzone = document.createElement('div');
-        dropzone.className = 'col-12 col-md-4 dropzone';
-        dropzone.innerHTML = '<div class="indropzone" ></div>';
+        dropzone.className = dragged.parentNode.className + ' dropzone';
+        dropzone.innerHTML = '<div class="indropzone" style = "height: ' + dragged.clientHeight + 'px" ></div>';
         dropzone.style.width = '2px';
 
         if (numdrag > numover) {

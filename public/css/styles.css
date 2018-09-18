@@ -119,7 +119,7 @@ section {
 
 body {
   margin: 0;
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: sans-serif, arial, monospace;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -6314,7 +6314,7 @@ button.close {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: sans-serif, arial, monospace;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -6439,7 +6439,7 @@ button.close {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: sans-serif, arial, monospace;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -10480,7 +10480,7 @@ body {
 }
 
 #sidebar {
-  font-family: Georgia, Times, serif;
+  font-family: sans-serif, arial, monospace;
   background-color: #2e3d4f;
   color: #FDFFFC;
   min-width: 250px;
@@ -10489,6 +10489,10 @@ body {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   margin-left: -250px;
+}
+
+#sidebar a {
+  color: #FDFFFC;
 }
 
 #sidebar.active {
@@ -10574,7 +10578,7 @@ a[data-toggle="collapse"] {
 .head .sidebarCollapse {
   position: fixed;
   z-index: 500;
-  bottom: 100px;
+  top: 200px;
 }
 
 .head #logo,
@@ -10916,6 +10920,15 @@ footer li a:hover {
   line-height: 50px;
 }
 
+.card-body a.pw-change {
+  color: #3097D1;
+  cursor: pointer;
+}
+
+.form-group.last {
+  margin-top: 2rem;
+}
+
 #upform {
   z-index: 100;
 }
@@ -11036,7 +11049,7 @@ footer li a:hover {
 #drag-mode .dropy {
   -webkit-transform: scale(0.8, 0.8);
           transform: scale(0.8, 0.8);
-  height: 150px;
+  height: 250px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -11048,6 +11061,10 @@ footer li a:hover {
   height: 100%;
 }
 
+#drag-mode .large-bloc .dropy {
+  height: 60px;
+}
+
 #drag-mode .dropzone {
   -webkit-box-flex: 0;
       -ms-flex: none;
@@ -11055,7 +11072,6 @@ footer li a:hover {
 }
 
 #drag-mode .indropzone {
-  height: 150px;
   border: 1px #a3a3a3 solid;
 }
 
@@ -11066,7 +11082,7 @@ footer li a:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 60vh;
+  min-height: 60vh;
 }
 
 .mce-edit-focus {

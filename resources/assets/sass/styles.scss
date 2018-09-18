@@ -26,7 +26,7 @@ body {
 }
 
 #sidebar {
-  font-family: $font-family-serif;
+  font-family: $font-family-base;
   background-color: lighten($dark-gray, 5%);
   color: $white;
   min-width: $navbar-width;
@@ -34,6 +34,9 @@ body {
   min-height: 100vh;
   transition: all 0.3s;
   margin-left: -$navbar-width;
+  a{
+    color: $white;
+  }
   &.active{
     margin-left: 0px;
   }
@@ -105,7 +108,7 @@ a[data-toggle="collapse"] {
   .sidebarCollapse{
     position: fixed;
     z-index: 500;
-    bottom: 100px;
+    top: 200px;
   }
 	
 	#logo, #sm-logo {
@@ -389,6 +392,16 @@ footer {
     }
   }
 
+.card-body{
+  a.pw-change{
+    color: $cyan;
+    cursor: pointer;
+  }
+}
+
+.form-group.last{
+  margin-top: $spacer;
+}
 
 #upform{
   z-index: 100;
@@ -475,7 +488,7 @@ footer {
 
   .dropy{
     transform: scale(0.8,0.8);
-    height: 150px;
+    height: 250px;
     overflow: hidden;
     text-overflow: ellipsis;
     .upper{
@@ -486,12 +499,15 @@ footer {
     }
   }
 
+  .large-bloc .dropy{
+    height: 60px;
+  }
+
   .dropzone{
     flex: none;
   }
 
   .indropzone{
-    height: 150px;
     border: 1px $light-gray solid;
   }
 }
@@ -499,7 +515,7 @@ footer {
 .center-card{
   justify-content: center;
   align-items: center;
-  height: 60vh;
+  min-height: 60vh;
 }
 
 .mce-edit-focus{

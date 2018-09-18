@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 use App\Http\Requests\UserUpdateRequest;
 
@@ -10,6 +11,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\FooterRepository;
 use App\Repositories\MenusRepository;
 use App\Models\Page;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -83,8 +85,9 @@ class UserController extends Controller
         $menus = $this->menusRepository->makeAdminMenus();
         $footer = $this->footerRepository->makeFooter();
         $user = $this->userRepository->getById($id);
+        $title_tag = 'Compte de ' . $user->name;
 
-        return view('user.edit',  compact('user', 'menus', 'operation', 'footer'));
+        return view('user.edit',  compact('title_tag', 'user', 'menus', 'operation', 'footer'));
     }
 
     /**
@@ -99,7 +102,12 @@ class UserController extends Controller
       if($this->userRepository->isLastAdmin($id) && $this->userRepository->roleChange($id, $request->input('role'))){
         return redirect()->route('user.index')->withError("Vous ne pouvez pas supprimer le dernier administrateur.");
       }else{
-        $this->userRepository->update($id, $request->all());
+        if($request->password != null){
+          $inputs = $request->all();
+        }else{
+          $inputs = $request->except(['password']);
+        }
+        $this->userRepository->update($id, $inputs);
         return redirect()->route('user.index')->withInfo("L'utilisateur " . $request->input('name') . " a été modifié.");
       }
     }

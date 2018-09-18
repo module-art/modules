@@ -16,7 +16,7 @@ Auth::routes();
 //Admin Group
 Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function () {
 
-  Route::resource('user', 'UserController', ['except' => ['show', 'store']]);
+  Route::resource('user', 'UserController', ['except' => ['show']]);
 
   Route::get('newpage', 'PageController@create')->name('add_page');
   Route::post('storepage', 'PageController@store')->name('store_page');

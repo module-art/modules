@@ -19,29 +19,6 @@ class BlocController extends Controller
     //$this->middleware('Ajax', ['only' => ['update', 'destroy']]);
   }
 
-  private function partialData($id_rubrique)
-  {
-    
-    $rubrique = Rubrique::findOrFail($id_rubrique);
-
-    $rubrique_blocs = array([]);
-
-    $n = $rubrique->blocs->count();
-    if($rubrique->ascendant){
-      for($i=0; $i<$n; $i++){
-        $rubrique_blocs[0][$i] = $rubrique->blocs->where('place', '=', $i+1)->first();
-      }
-    }else{
-      $u = $n;
-      for($i=0; $i<$n; $i++){
-        $rubrique_blocs[0][$i] = $rubrique->blocs->where('place', '=', $u)->first();
-        $u--;
-      }
-    }
-
-    return compact('id_rubrique', 'rubrique', 'rubrique_blocs');
-  }
-
     /**
      * Display the specified resource.
      *

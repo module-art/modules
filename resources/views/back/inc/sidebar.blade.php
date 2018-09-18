@@ -2,11 +2,10 @@
   <section id="fixed-sidebar">
 
     <div class="sidebar-header">
-      <h3>Administration</h3>
+      <h3> Bonjour {{ Auth::user()->name }}</h3>
     </div>
 
     <ul class="list-unstyled components">
-      <h4>Menu</h4>
       @if(isset($page))
         <li>
           <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Page</a>
@@ -31,6 +30,11 @@
       @endif
       <li>
         {{ link_to_route('user.index', 'Utilisateurs', null, ['class' => '']) }}
+      </li>
+      <li>
+        <a href='{{ route('user.edit', Auth::user()->id) }}'>
+          <i class="fas fa-user-circle"></i> Compte
+        </a>
       </li>
       <li>
         <a href="{{ route('logout') }}"

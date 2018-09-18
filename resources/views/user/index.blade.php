@@ -27,6 +27,7 @@
               <tr>
                 <th>Nom</th>
                 <th>E-Mail</th>
+                <th>Pseudo</th>
                 <th>Droits</th>
                 <th></th>
                 <th></th>
@@ -37,6 +38,7 @@
                 <tr>
                   <td class="text-primary"><strong>{!! $user->name !!}</strong></td>
                   <td class="text-primary"><strong>{!! $user->email !!}</strong></td>
+                  <td class="text-primary"><strong>{!! $user->username !!}</strong></td>
                   <td class="text-primary"><strong>{!! $user->role !!}</strong></td>
                   <td>
                     @if(Auth::user()->role == 'admin')

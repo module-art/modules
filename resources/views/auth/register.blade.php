@@ -6,16 +6,16 @@
 
 @section('contenu')
           
-<div class="head d-flex justify-content-center">
-  @include('menu')
-</div>
+  <div class="head d-flex justify-content-center">
+    @include('menu')
+  </div>
   <div class="row center-card">
       <div class="col-12 col-md-8 col-lg-6">
           <div class="card">
               <div class="card-header">{{ __('Ajout d\'un utilisateur') }}</div>
 
               <div class="card-body">
-                  <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
+                  <form method="POST" action="{{ route('user.store') }}" aria-label="{{ __('Register') }}">
                       @csrf
 
                       <div class="form-group row">
@@ -33,7 +33,7 @@
                       </div>
 
                       <div class="form-group row">
-                          <label for="username" class="col-md-2 col-form-label text-md-right">{{ __('Pseudo*') }}</label>
+                          <label for="username" class="col-md-2 col-form-label text-md-right">{{ __('Pseudo') }}</label>
 
                           <div class="col-md-8">
                               <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" autofocus>
@@ -61,15 +61,21 @@
                       </div>
 
                       <div class="form-group row{{ Auth::check() && Auth::user()->role == 'admin' ? '' : ' d-none'}}">
-                          <label for="role" class="col-md-2 col-form-label text-md-right">{{ __('Role') }}</label>
+                          <label for="role" class="col-md-2 col-form-label text-md-right">{{ __('Droits') }}</label>
                           <div class="col-md-8">
-                            {!! Form::select('role', ['admin' => 'Administrateur', 'user' => 'Utilisateur'], 'user', ['class' => 'form-control' . $errors->has('role') ? ' is-invalid' : '']) !!}
-                            {!! $errors->first('role', '<span class="invalid-feedback" role="alert"><strong>:message</strong></span>') !!}
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="role" value="user"/>
+                              <label class="form-check-label">Utilisateur</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="role" value="admin" checked/>
+                              <label class="form-check-label">Administrateur</label>
+                            </div>
                           </div>
                       </div>
 
                       <div class="form-group row">
-                          <label for="password" class="col-md-2 col-form-label text-md-right">{{ __('Mot de passe*') }}</label>
+                          <label for="password" class="col-md-2 col-form-label text-md-right">{{ __('Mot de passe') }}</label>
 
                           <div class="col-md-8">
                               <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password">
@@ -83,7 +89,7 @@
                       </div>
 
                       <div class="form-group row">
-                          <label for="password-confirm" class="col-md-2 col-form-label text-md-right">{{ __('Confirmation*') }}</label>
+                          <label for="password-confirm" class="col-md-2 col-form-label text-md-right">{{ __('Confirmation') }}</label>
 
                           <div class="col-md-8">
                               <input id="password-confirm" type="password" class="form-control" name="password_confirmation">

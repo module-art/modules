@@ -4,7 +4,7 @@
 
       <button type="button" class="btn btn-info sidebarCollapse">
         <i class="fas fa-align-left"></i>
-        <span>{{ Auth::user()->name }}</span>
+        <span>Menu</span>
       </button>
 
     @endif
