@@ -24,7 +24,7 @@
             @endif
           </div><!--rubrique-->
           <div class='d-flex justify-content-center'>
-            <div class="col-12 col-lg-10 col-xl-9 after-rubrique{{ $rubrique->blocs()->count() > 0 ? ' not-empty' : ''}}">
+            <div id="blocs-rubrique{{ $rubrique->id }}" class="col-12 col-lg-10 col-xl-9 after-rubrique{{ $rubrique->blocs()->count() > 0 ? ' not-empty' : ''}}">
               <?php
                 switch ($rubrique->cols) {
                 case 1:
@@ -39,25 +39,25 @@
                 }
                 $order = $rubrique->ascendant ? 'asc' : 'desc'; 
               ?>
-            <div class="row" id="blocs-rubrique{{ $rubrique->id }}">
+              <div class="row">
 
-              @foreach($rubrique->blocs()->orderBy('place', $order)->get() as $bloc)
-                @if($bloc->type == 'large')
-                  <div class="col-12">
-                    <div>
-                      {!! $bloc->contenu !!}
+                @foreach($rubrique->blocs()->orderBy('place', $order)->get() as $bloc)
+                  @if($bloc->type == 'large')
+                    <div class="col-12">
+                      <div>
+                        {!! $bloc->contenu !!}
+                      </div>
                     </div>
-                  </div>
-                @else
-                  <div class="col-12{{ $cols }}">
-                    <div>
-                      {!! $bloc->contenu !!}
+                  @else
+                    <div class="col-12{{ $cols }}">
+                      <div>
+                        {!! $bloc->contenu !!}
+                      </div>
                     </div>
-                  </div>
-                @endif
-              @endforeach
+                  @endif
+                @endforeach
 
-            </div><!--blocs-rubrique-->
+              </div><!--row-->
 
             @if($page->slug == 'contact')
               @include('front.contact')

@@ -13,7 +13,7 @@
   }
   $order= $rubrique->ascendant ? 'asc' : 'desc'; 
 ?>
-<div class="row" id="blocs-rubrique{{ $rubrique->id }}" >
+<div class="row" >
 
   @include('back.menu_rubrique')
 

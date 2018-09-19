@@ -29,7 +29,7 @@
         </div><!--rubrique-->
 
         <div class='after-rubrique-container d-flex justify-content-center'>
-          <div class="col-12 col-lg-10 col-xl-9 after-rubrique{{ $rubrique->blocs()->count() > 0 ? ' not-empty' : ''}}">
+          <div id="blocs-rubrique{{ $rubrique->id }}" class="col-12 col-lg-10 col-xl-9 after-rubrique{{ $rubrique->blocs()->count() > 0 ? ' not-empty' : ''}}">
 
             @include('back.inc.partial_bloc')
 

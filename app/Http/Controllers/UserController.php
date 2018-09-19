@@ -103,7 +103,11 @@ class UserController extends Controller
         return redirect()->route('user.index')->withError("Vous ne pouvez pas supprimer le dernier administrateur.");
       }else{
         if($request->password != null){
-          $inputs = $request->all();
+
+          $inputs = array_merge($request->except(['password']), [
+            'password' => Hash::make( $request->password ),
+          ]);
+
         }else{
           $inputs = $request->except(['password']);
         }

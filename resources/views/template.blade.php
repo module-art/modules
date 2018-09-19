@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="">
+    <meta name="keywords" content="">
     <meta name="author" content="">
     <!-- <link rel="icon" href="../../../../favicon.ico"> -->
 
     @yield('title')
 
-    <link rel="stylesheet" href="/css/redactor/redactor.css" />
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="icon" type="image/jpg" href="/images/favicon.jpg" />
