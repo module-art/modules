@@ -10,7 +10,7 @@
   @include('menu')
 </div>
   <section class='row center-card'>
-    <div class="col-12 col-md-8 col-lg-6">
+    <div class="col-12 col-lg-10">
       @if(session()->has('info'))
         <div class="alert alert-success alert-dismissible">{!! session('info') !!}</div>
       @endif

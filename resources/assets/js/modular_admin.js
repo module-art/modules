@@ -7,6 +7,7 @@ $(document).ready(function()
   //global vars
   var idPage = $('#id_page').html(),
       imageChange = false,
+      wasEdited = false,
       imgWidth = 0,
       maxFileSize = 4096000,
       minImgWidth = 3200,
@@ -141,7 +142,7 @@ $(document).ready(function()
       selector: '.editrubrique',
       language: 'fr_FR',
       inline: true,
-      plugins: 'code image media',
+      plugins: 'code image media link',
       //toolbar: 'code',
       images_upload_handler: function (blobInfo, success, failure) {
         var xhr, formData;
@@ -262,7 +263,7 @@ $(document).ready(function()
       selector: '.editable',
       language: 'fr_FR',
       inline: true,
-      plugins: 'code image media',
+      plugins: 'code image media link',
       //toolbar: 'code, newdocument, bold, italic, underline, strikethrough, alignleft, aligncenter, alignright, alignjustify, styleselect, formatselect, fontselect, fontsizeselect, cut, copy, paste, bullist, numlist, outdent, indent, blockquote, undo, redo, removeformat, subscript, superscript',
       images_upload_handler: function (blobInfo, success, failure) {
         var xhr, formData;
