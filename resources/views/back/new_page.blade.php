@@ -40,7 +40,11 @@
                 </div>
               @endforeach
               @if(!$page->place)
-                @php $y++; @endphp
+                @if($menus->count() > 0)
+                  @php $y++; @endphp
+                @else
+                  @php $y = 0; @endphp
+                @endif
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="place" id="inlineRadio{{ $y }}" value="{{ $y+1 }}" />
                     <label class="form-check-label" for="inlineRadio{{ $y }}">{{ $y+1 }}</label>
