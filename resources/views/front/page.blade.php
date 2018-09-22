@@ -19,9 +19,7 @@
             <div class="heading">
               {!! $rubrique->contenu !!}
             </div>
-            @if($page->slug == 'contact')
-              <a class="more" href="#blocs-rubrique{{ $rubrique->id }}">Voir</a>
-            @endif
+            <a class="more" href="#blocs-rubrique{{ $rubrique->id }}">Voir</a>
           </div><!--rubrique-->
           <div class='d-flex justify-content-center'>
             <div id="blocs-rubrique{{ $rubrique->id }}" class="col-12 col-lg-10 col-xl-9 after-rubrique{{ $rubrique->blocs()->count() > 0 ? ' not-empty' : ''}}">
