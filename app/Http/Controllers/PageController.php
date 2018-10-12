@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Mail;
-use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\PageRequest;
@@ -13,16 +12,17 @@ use App\Models\Page;
 use App\Models\Rubrique;
 use App\Models\Bloc;
 use App\Models\User;
+use App\Models\Type;
 
 class PageController extends Controller
 {
   
-  protected $footerRepository;
-
   public function __construct(FooterRepository $footerRepository, MenusRepository $menusRepository)
   {
     $this->footerRepository = $footerRepository;
     $this->menusRepository = $menusRepository;
+    $this->middleware('authAsAdmin', ['except' => ['show']]);
+    $this->middleware('ajax', ['only' => ['switchPublication']]);
   }
 
   public function show($slug)
@@ -40,20 +40,34 @@ class PageController extends Controller
   {
     $page = Page::where('slug', $slug)->firstOrFail();
 
+    $types = Type::all();
+
     $footer = $this->footerRepository->makeFooter();
     $menus = $this->menusRepository->makeAdminMenus();
     $first_rubrique = $page->rubriques()->first();
     $bg_img = [ $first_rubrique->background_img_url, $first_rubrique->background_hd_url ];
-    return view('back.page', compact('menus', 'page', 'footer', 'bg_img'));
+    return view('back.page', compact('menus', 'page', 'footer', 'bg_img','types'));
   }
 
+  /**
+   * Show the form for creating a new resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
   public function create(){
     $operation = 'create';
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
-    return view('back.new_page', compact('menus', 'operation', 'footer'));
+    $model = 'page';
+    return view('back.form', compact('menus', 'operation', 'footer', 'model'));
   }
 
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @return \Illuminate\Http\Response
+   */
   public function store(PageRequest $request){
 
     $maxplace = Page::max('place');
@@ -68,7 +82,7 @@ class PageController extends Controller
     $page = Page::create($inputs);
 
     $default_attr = array(
-      'contenu' => '<h2>' . $request->menu_title . '</h2>',
+      'contenu' => '<h1>' . $request->menu_title . '</h1>',
       'place' => 1,
       'cols' => 2,
       'ascendant' => 1,
@@ -80,14 +94,28 @@ class PageController extends Controller
     return redirect()->route('back_page.show', $page->slug);
   }
 
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
   public function edit($id){
     $operation = 'edit';
     $page = Page::findOrFail($id);
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
-    return view('back.new_page', compact('menus', 'page', 'operation', 'footer'));
+    $model = 'page';
+    return view('back.form', compact('menus', 'page', 'operation', 'footer', 'model'));
   }
 
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
   public function update(PageRequest $request, $id){
 
     $page = Page::findOrFail($id);
@@ -160,6 +188,12 @@ class PageController extends Controller
     return response()->json(['response' => 'Le message est bien envoyé.']);
   }
 
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
   public function destroy($id)
   {
     $page = Page::findOrFail($id);

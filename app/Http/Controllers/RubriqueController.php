@@ -2,27 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\RubriqueRequest;
 use App\Http\Requests\ImageUpdateRequest;
+use App\Repositories\ControlRepository;
 use App\Gestion\ImageGestion;
 use App\Models\Page;
 use App\Models\Rubrique;
+use App\Models\Type;
 
 class RubriqueController extends Controller
 {
 
-  public function __construct()
+  public function __construct(ControlRepository $controlRepository)
   {
-    $this->middleware('auth'); //, ['except' => ['index']]);
-    //$this->middleware('authAsAdmin');
-    //$this->middleware('Ajax', ['except' => ['newRubrique']]);
+    $this->middleware('auth', ['except' => ['getTypeContents']]);
+    $this->middleware('authAsAdmin', ['except' => ['getTypeContents']]);
+    $this->middleware('ajax', ['except' => ['getTypeContents']]);
+    $this->controlRepository = $controlRepository;
+  }
+
+  public function getTypeContents(Request $request, $type_name){
+
+    $type = Type::where('content_type', $type_name)->firstOrFail();
+    $champs = explode(',', $type->champs);
+    $results = $this->controlRepository->getSortedTypeRubriques($type_name, $request->orderby, $request->order);// results utilisable avec un foreach
+
+    $context = Auth::check() ? 'back' : 'front';
+    
+    return view($context . '.type-contents', compact('results', 'champs', 'type'));
   }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request'
      * @return \Illuminate\Http\Response
      */
     public function newRubrique($id_page)
@@ -105,20 +120,27 @@ class RubriqueController extends Controller
     public function destroy($id)
     {
       $rubrique = Rubrique::findOrFail($id);
-      $page = $rubrique->page;
 
-      $places_to_move = $page->rubriques()->where('place', '>', $rubrique->place)->get();
+      if(isset($rubrique->page_id)){
+        $page = $rubrique->page;
 
-      if($places_to_move){
-        foreach($places_to_move as $newplace){
-          $newplace->place = $newplace->place - 1;
-          $newplace->save();
-        } 
+        $places_to_move = $page->rubriques()->where('place', '>', $rubrique->place)->get();
+
+        if($places_to_move){
+          foreach($places_to_move as $newplace){
+            $newplace->place = $newplace->place - 1;
+            $newplace->save();
+          } 
+        }
+      }
+
+      foreach($rubrique->blocs as $bloc){
+        $bloc->delete();
       }
         
       $rubrique->delete();
 
-      return response('La rubrique '.$id . ' et ses blocs associés viennent d\'être effacés' );
+      return response('La rubrique '.$id . ' et ses blocs associés viennent d\'être effacés');
     }
 
     public function switchOrder($id)
@@ -167,5 +189,20 @@ class RubriqueController extends Controller
       }
 
       return response()->json(['response' => 'Le bloc ' . $init . ' est à la place du bloc ' . $final ]);
+    }
+
+    public function changeTypeContents(Request $request, $id)
+    {
+      $rubrique = Rubrique::findOrFail($id);
+      if($request->dbAction == 'add'){
+        $type = Type::where('content_type', $request->contentType)->first();
+        $rubrique->type_contents = $type->id;
+        $rubrique->save();
+        return response()->json(['response' => 'Les contenus de type ' . $request->contentType . ' sont insérés dans cette rubrique.']);
+      }elseif($request->dbAction == 'remove'){
+        $rubrique->type_contents = null;
+        $rubrique->save();
+        return response()->json(['response' => 'Les contenus de type ' . $request->contentType . ' ne sont plus insérés dans cette rubrique.']);
+      }
     }
 }

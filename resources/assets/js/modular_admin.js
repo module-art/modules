@@ -4,6 +4,26 @@ $(document).ready(function()
     $('#sidebar').toggleClass('active');
   });
 
+  //insertion des liste par type
+  
+  function getTypeContents(){
+    var typeContents = $('.type-contents');
+
+    typeContents.each(function(){
+      var type = $(this).attr('data-content_type');
+
+      $(this).load('/get-type-contents/'+type+'?orderby=titre&order=asc', function(response, status, xhr){
+        if( status == "error" ){
+          console.log(xhr.statusText);
+        }else{
+          initMceBlocs();
+          listenToDestroy();
+        }
+      });
+    });
+  }
+  getTypeContents();
+
   //global vars
   var idPage = $('#id_page').html(),
       imageChange = false,
@@ -41,14 +61,7 @@ $(document).ready(function()
         console.log( data['newId'] + ' rubrique actualisée.');
         initMceRubriques();
       });
-      $(newAfter).load('/coulisses/partial_bloc/'+data['newId'], function(){
-        console.log( data['newId'] + ' blocs actualisés.');
-        initMceBlocs();
-        colsManager();
-        listenToDestroy();
-        listenToAddBloc();
-        resizeVideos();
-      });
+      reloadBlocs($(newAfter), data['newId']);
       //window.scrollBy(0, window.innerHeight);
       $('body,html').animate({
         scrollTop: window.innerHeight,
@@ -408,6 +421,7 @@ $(document).ready(function()
   function listenToAddBloc(){
 
     $('.add-bloc').off();
+    $('.change-type').off();
 
     $('.add-bloc').click(function(){
       var previousRow = $(this).parents(".row").first(),
@@ -441,6 +455,32 @@ $(document).ready(function()
       listenToDestroy();
     });
 
+    $('.change-type').click(function(){
+      var container = $(this).parents('.after-rubrique').first(),
+          idRubrique = container.parent().prev().children('.editrubrique').first().attr('data-rubrique_id');
+      idRubrique = parseInt(idRubrique);
+
+      $.ajax({
+        method: 'post',
+        url: '/coulisses/change-type-content/'+idRubrique,
+        data: { 
+          dbAction: $(this).attr('data-dbAction'),
+          contentType: $(this).attr('data-contentType'),
+          _token: csrfToken
+        },
+        dataType : 'json'
+      })
+      .done(function(data) {
+        console.log(data['response']);
+        reloadBlocs(container, idRubrique);
+      })
+      .fail(function(data) {
+        console.log(data);
+        alert('Oups! une erreur a empêché la modification');
+      });
+
+    });
+
   }
 
   function listenToDestroy(){
@@ -469,6 +509,22 @@ $(document).ready(function()
               alert('Oups! une erreur a empêché la suppression.');
             });
           }
+        }else if(elem.hasClass('type-content')){
+          var idRubrique = $(this).attr('data-rubrique_id');
+
+          $.ajax({
+              method: 'post',
+              url: '/coulisses/destroyrubrique/'+ idRubrique,
+              data: { _token: csrfToken},//token!!!
+            })
+            .done(function(data) {
+              elem.parent().remove();
+              console.log(data);
+            })
+            .fail(function() {
+              alert('Oups! une erreur a empêché la suppression.');
+            });
+
         }else{
           var idBloc = $(this).next().attr('data-bloc_id');
 
@@ -552,14 +608,7 @@ $(document).ready(function()
       var container = $(this).parents('.after-rubrique').first(),
           idRubrique = container.parent().prev().children('.editrubrique').first().attr('data-rubrique_id');
       idRubrique = parseInt(idRubrique);
-      container.load('/coulisses/partial_bloc/'+idRubrique, function(){
-        console.log(idRubrique + ' actualisé.');
-        initMceBlocs();
-        colsManager();
-        listenToDestroy();
-        listenToAddBloc();
-        resizeVideos();
-      });
+      reloadBlocs(container, idRubrique);
     });
 
     $('.inverser').click(function(){
@@ -575,13 +624,7 @@ $(document).ready(function()
       .done(function(data) {
         console.log(data);
         parseInt(idRubrique);
-        container.load('/coulisses/partial_bloc/'+idRubrique, function(){
-          initMceBlocs();
-          colsManager();
-          listenToDestroy();
-          listenToAddBloc();
-          resizeVideos();
-        });
+        reloadBlocs(container, idRubrique);
       })
       .fail(function() {
         alert('Oups! une erreur a empêché l\'inversion.');
@@ -598,9 +641,13 @@ $(document).ready(function()
         var container = $(this).parents('.after-rubrique').first(),
             idRubrique = container.parent().prev().children('.editrubrique').first().attr('data-rubrique_id');
 
-        //alert(idRubrique);
-        container.load('/coulisses/partial_drag/'+idRubrique, function(){
-          dragdrop();
+        container.load('/coulisses/partial_drag/'+idRubrique, function(response, status, xhr){
+          if( status == "error" ){
+            console.log(xhr.statusText);
+          }else{
+            colsManager();
+            dragdrop();
+          }
         });
     });
   }
@@ -616,6 +663,22 @@ $(document).ready(function()
         $(this).height(Math.round(wid*9/16));
       })
     }
+  }
+
+  function reloadBlocs(container, idRubrique){
+    container.load('/coulisses/partial_bloc/'+idRubrique, function(response, status, xhr){
+      if( status == "error" ){
+        console.log(xhr.statusText);
+      }else{
+        console.log('Blocs de la rubrique ' + idRubrique + ' actualisés.');
+        initMceBlocs();
+        colsManager();
+        listenToDestroy();
+        listenToAddBloc();
+        resizeVideos();
+        getTypeContents();
+      }
+    });
   }
 
   function dragdrop(){
@@ -743,13 +806,7 @@ $(document).ready(function()
             .done(function(data) {
               console.log(data['response']);
               //location.reload();
-              container.load('/coulisses/partial_bloc/'+rubrique_id, function(){
-                initMceBlocs();
-                colsManager();
-                listenToDestroy();
-                listenToAddBloc();
-                resizeVideos();
-              });
+              reloadBlocs(container, rubrique_id);
             })
             .fail(function(data) {
               console.log(data);

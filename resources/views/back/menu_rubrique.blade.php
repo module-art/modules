@@ -16,5 +16,12 @@
     <div class="dropdown-menu" aria-labelledby="dropdownAddButton">
       <a class="dropdown-item add-bloc" data-format="large" data-order="{{ $order }}" >bloc large</a>
       <a class="dropdown-item add-bloc" data-format="normal" data-order="{{ $order }}" >bloc normal</a>
+      @if(!isset($rubrique->type_contents))
+        @foreach($types as $type)
+          <a class="dropdown-item change-type" data-contentType="{{ $type->content_type }}" data-dbAction="add">Les {{ $type->content_type }}s</a>
+        @endforeach
+      @else
+        <a class="dropdown-item change-type" data-contentType="{{ $rubrique->inclusive_type['content_type'] }}" data-dbAction="remove">Retirer les<br>{{ $rubrique->inclusive_type['content_type'] }}s</a>
+      @endif
     </div>
   </div>

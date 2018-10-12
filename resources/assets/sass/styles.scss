@@ -465,6 +465,9 @@ footer {
     @include destroy_button(-15px, -5px);
     margin-bottom: $spacer;
   }
+  .type-content{
+    @include destroy_button(-15px, 8px);
+  }
 }
 
 .rubrique-container{

@@ -11016,6 +11016,23 @@ footer li a:hover {
   display: block;
 }
 
+.after-rubrique .type-content {
+  position: relative;
+}
+
+.after-rubrique .type-content .btn-destroy {
+  z-index: 100;
+  position: absolute;
+  left: -15px;
+  top: 8px;
+  border-radius: 50%;
+  display: none;
+}
+
+.after-rubrique .type-content:hover .btn-destroy {
+  display: block;
+}
+
 .rubrique-container {
   position: relative;
 }

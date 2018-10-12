@@ -10,22 +10,21 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Repositories\UserRepository;
 use App\Repositories\FooterRepository;
 use App\Repositories\MenusRepository;
+use App\Repositories\ControlRepository;
 use App\Models\Page;
 use App\Models\User;
 
 class UserController extends Controller
 {
-    protected $userRepository;
 
-    protected $nbrPerPage = 12;
-
-    public function __construct(UserRepository $userRepository, FooterRepository $footerRepository, MenusRepository $menusRepository)
+    public function __construct(UserRepository $userRepository, FooterRepository $footerRepository, MenusRepository $menusRepository, ControlRepository $controlRepository)
     {
-        $this->userRepository = $userRepository;
-        $this->footerRepository = $footerRepository;
-        $this->menusRepository = $menusRepository;
-        $this->middleware('auth');
-        //$this->middleware('authAsAdmin');
+      $this->userRepository = $userRepository;
+      $this->footerRepository = $footerRepository;
+      $this->menusRepository = $menusRepository;
+      $this->middleware('auth');
+      $this->middleware('authAsAdmin');
+      $this->nbrPerPage = $controlRepository->nbrPerPage;
     }
 
     /**

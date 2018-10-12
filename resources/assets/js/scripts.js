@@ -3,6 +3,20 @@ require('./bootstrap');
 $(document).ready(function() {
 
   //$('#global-wrapper').hide().fadeIn(1500);
+  
+  //insertion des liste par type
+  
+  /*var typeContents = $('.type-contents');
+
+  typeContents.each(function(){
+    var type = $(this).attr('data-content_type');
+
+    $(this).load('/get-type-contents/'+type+'?orderby=titre&order=asc', function(response, status, xhr){
+      if( status == "error" ){
+        console.log(xhr.statusText);
+      }
+    });
+  });*/
 
 	/* Bouton retour en haut */
 	// browser window scroll (in pixels) after which the "back to top" link is shown

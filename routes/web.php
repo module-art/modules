@@ -18,12 +18,14 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
 
   Route::resource('user', 'UserController', ['except' => ['show']]);
 
-  Route::get('newpage', 'PageController@create')->name('add_page');
-  Route::post('storepage', 'PageController@store')->name('store_page');
-  Route::get('editpage/{id}', 'PageController@edit')->name('edit_page');
-  Route::post('updatepage/{page_id}', 'PageController@update')->name('update_page');
+  Route::get('newpage', 'PageController@create')->name('page.create');
+  Route::post('storepage', 'PageController@store')->name('page.store');
+  Route::get('editpage/{page_id}', 'PageController@edit')->name('page.edit');
+  Route::post('updatepage/{page_id}', 'PageController@update')->name('page.update');
   Route::post('destroypage/{id}', 'PageController@destroy');
   Route::post('publicationpage/{id}', 'PageController@switchPublication');
+
+  Route::resource('type', 'TypeController', ['except' => ['show']]);
 
   Route::post('bloc/{id}', 'BlocController@update');
   Route::post('destroybloc/{id}', 'BlocController@destroy');
@@ -37,16 +39,19 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
   Route::get('partial/coulisses/rubrique/{id}', 'RubriqueController@partialShow');
   Route::post('ascdesc/{id}', 'RubriqueController@switchOrder');
   Route::post('moveblock/{id}', 'RubriqueController@moveBlock');
+  Route::post('change-type-content/{id}', 'RubriqueController@changeTypeContents');
 
   Route::post('redactorimgupload', 'RedactorController@uploadImage');
   Route::get('imagemanager', 'RedactorController@imageManager');
 
+
   Route::get('{page_title}', 'PageController@backShow')->name('back_page.show');
-Route::get('home', function () { return redirect()->route('back_page.show', 'accueil'); });
+  Route::get('home', function () { return redirect()->route('back_page.show', 'accueil'); });
   Route::get('', function () { return redirect()->route('back_page.show', 'accueil'); });
 });
 
 Route::post('mail', 'PageController@mailFromContact')->name('page.mail');
+Route::get('get-type-contents/{type}', 'RubriqueController@getTypeContents');
 
 Route::get('/{page_title}', 'PageController@show')->name('page.show');
 

@@ -25,4 +25,14 @@ class Rubrique extends Model
     {
         return $this->belongsTo('App\Models\Page');
     }
+
+    public function type()
+    {
+        return $this->belongsTo('App\Models\Type');
+    }
+
+    public function inclusive_type()
+    {
+        return $this->belongsTo('App\Models\Type', 'type_contents');
+    }
 }

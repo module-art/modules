@@ -9,6 +9,7 @@ use App\Models\Page;
 use App\Models\Rubrique;
 use App\Models\Bloc;
 use App\Models\User;
+use App\Models\Type;
 
 class BlocController extends Controller
 {
@@ -16,7 +17,7 @@ class BlocController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
-    //$this->middleware('Ajax', ['only' => ['update', 'destroy']]);
+    $this->middleware('ajax');
   }
 
     /**
@@ -28,13 +29,15 @@ class BlocController extends Controller
   public function partialShow($id_rubrique)
   {
     $rubrique = Rubrique::findOrFail($id_rubrique);
-    return view('back.partial_bloc', compact('id_rubrique', 'rubrique'));
+    $types = Type::all();
+    return view('back.partial_bloc', compact('id_rubrique', 'rubrique', 'types'));
   }
 
   public function partialShowDrag($id_rubrique)
   {
     $rubrique = Rubrique::findOrFail($id_rubrique);
-    return view('back.partial_drag', compact('id_rubrique', 'rubrique'));
+    $types = Type::all();
+    return view('back.partial_drag', compact('id_rubrique', 'rubrique', 'types'));
   }
 
     /**

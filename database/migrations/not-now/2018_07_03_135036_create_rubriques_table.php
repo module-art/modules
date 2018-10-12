@@ -23,6 +23,11 @@ class CreateRubriquesTable extends Migration
       $table->boolean('ascendant')->default(1);
       $table->string('background_img_url')->nullable();
       $table->string('background_hd_url')->nullable();
+      $table->boolean('publie')->default(0);
+      $table->integer('type_id')->unsigned()->nullable();
+      $table->foreign('type_id')->references('id')->on('types')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
       $table->integer('page_id')->unsigned()->nullable();
       $table->foreign('page_id')->references('id')->on('pages')
             ->onDelete('cascade')
@@ -37,6 +42,9 @@ class CreateRubriquesTable extends Migration
    */
   public function down()
   {
+		Schema::table('rubriques', function(Blueprint $table) {
+			$table->dropForeign('rubriques_type_id_foreign');
+		});
 		Schema::table('rubriques', function(Blueprint $table) {
 			$table->dropForeign('rubriques_page_id_foreign');
 		});
