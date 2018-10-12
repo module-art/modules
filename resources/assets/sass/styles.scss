@@ -72,10 +72,15 @@ body {
     /*li.active > a, a[aria-expanded="true"] {
       color: $white;
       background: #6d7fcc;}*/
-    ul a {
-      font-size: 0.9em !important;
-      padding-left: 30px !important;
-      background-color: lighten($dark-gray, 15%);
+    ul{
+      a {
+        font-size: 0.9em !important;
+        padding-left: 30px !important;
+        background-color: lighten($dark-gray, 15%);
+      }
+      ul a{
+        background: lighten($dark-gray, 5%);
+      }
     }
     .sidebarCollapse{
       text-align: right;
