@@ -433,7 +433,7 @@ footer {
     .bloc-button,.cols-button{
       font-size: initial;
       position: absolute;
-      top: -5*$spacer;
+      top: -5/2*$spacer;
       .dropdown-menu{
         right: 0;
         left: inherit;

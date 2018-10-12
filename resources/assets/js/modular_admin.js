@@ -10,9 +10,10 @@ $(document).ready(function()
     var typeContents = $('.type-contents');
 
     typeContents.each(function(){
-      var type = $(this).attr('data-content_type');
+      var type = $(this).attr('data-content_type'),
+          filtre = $(this).attr('data-filtre');
 
-      $(this).load('/get-type-contents/'+type+'?orderby=titre&order=asc', function(response, status, xhr){
+      $(this).load('/get-type-contents/'+type+'?orderby='+filtre, function(response, status, xhr){
         if( status == "error" ){
           console.log(xhr.statusText);
         }else{

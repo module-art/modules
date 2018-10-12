@@ -57,6 +57,11 @@
 
               </div><!--row-->
 
+              @if(isset($rubrique->type_contents))
+                <div class="large-bloc type-contents" data-content_type='{{ $rubrique->inclusive_type['content_type'] }}' data-filtre="{{ $rubrique->inclusive_type['default_filtre'] }}">
+                </div>
+              @endif
+
             @if($page->slug == 'contact')
               @include('front.contact')
             @endif
@@ -74,17 +79,31 @@
   @else
     <script>
 
-    function resizeVideos(){
-      var videos = $('.after-rubrique iframe');
-      if(videos.length != 0){
-        videos.each(function(){
-          $(this).removeAttr('style');
-          var wid = $(this).width();
-          $(this).height(Math.round(wid*9/16));
-        })
-      }
+$(document).ready(function() {
+  //resize videos
+    var videos = $('.after-rubrique iframe');
+    if(videos.length != 0){
+      videos.each(function(){
+        $(this).removeAttr('style');
+        var wid = $(this).width();
+        $(this).height(Math.round(wid*9/16));
+      })
     }
-    resizeVideos();
+
+    //get types contents
+    var typeContents = $('.type-contents');
+
+    typeContents.each(function(){
+      var type = $(this).attr('data-content_type'),
+          filtre = $(this).attr('data-filtre');
+
+      $(this).load('/get-type-contents/'+type+'?orderby='+filtre, function(response, status, xhr){
+        if( status == "error" ){
+          console.log(xhr.statusText);
+        }
+      });
+    });
+});
     </script>
   @endif
 @endsection

@@ -38,6 +38,6 @@
 </div><!--row-->
 
 @if(isset($rubrique->type_contents))
-  <div class="large-bloc type-contents" data-content_type='{{ $rubrique->inclusive_type['content_type'] }}'>
+  <div class="large-bloc type-contents" data-content_type='{{ $rubrique->inclusive_type['content_type'] }}' data-filtre="{{ $rubrique->inclusive_type['default_filtre'] }}">
   </div>
 @endif

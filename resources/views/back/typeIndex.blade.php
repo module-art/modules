@@ -29,6 +29,7 @@
                 <th>Champs</th>
                 <th></th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -38,7 +39,12 @@
                   <td class="text-primary"><strong>{!! $type->champs !!}</strong></td>
                   <td>
                     @if(Auth::user()->role == 'admin')
-                      <a href="{{ route('type.edit', $type->id) }}" class="btn btn-warning"><i class="far fa-edit"></i><span class="sr-only"> Modifier</span></a>
+                      <a href="{{ route('type.insertform', $type->content_type) }}" class="btn btn-success" title="Insérer"><i class="far fa-edit"></i><span class="sr-only"> Modifier</span></a>
+                    @endif
+                  </td>
+                  <td>
+                    @if(Auth::user()->role == 'admin')
+                      <a href="{{ route('type.edit', $type->id) }}" class="btn btn-warning" title="Modifier" ><i class="far fa-edit"></i><span class="sr-only"> Modifier</span></a>
                     @endif
                   </td>
                   <td>

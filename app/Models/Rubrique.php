@@ -14,7 +14,7 @@ class Rubrique extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('contenu', 'place', 'cols', 'ascendant', 'background_img_url', 'background_hd_url', 'page_id');
+    protected $fillable = array('contenu', 'place', 'cols', 'ascendant', 'background_img_url', 'background_hd_url', 'type_contents', 'type_id', 'page_id');
 
     public function blocs()
     {

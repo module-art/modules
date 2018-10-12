@@ -12,6 +12,11 @@
     {!! Form::text('champs', $operation == 'create' ? old('champs') : $type->champs, ['class' => 'form-control' . ( $errors->has('champs') ? ' is-invalid' : '' )]) !!}
     {!! $errors->first('champs', '<small class="invalid-feedback">:message</small>') !!}
   </div>
+  <div class="form-group">
+    {!! Form::label('default_filtre', 'Filtre par défaut :', ['class' => 'control-label']) !!}
+    {!! Form::text('default_filtre', $operation == 'create' ? old('default_filtre') : $type->default_filtre, ['class' => 'form-control' . ( $errors->has('default_filtre') ? ' is-invalid' : '' )]) !!}
+    {!! $errors->first('default_filtre', '<small class="invalid-feedback">:message</small>') !!}
+  </div>
   {!! Form::submit($operation == 'create' ? 'Créer' : 'Modifier', ['class' => 'btn btn-info']) !!}
   <a href="javascript:history.back()" class="btn btn-primary pull-right">
     <i class="fa fa-redo"></i> Retour

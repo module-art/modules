@@ -42,6 +42,7 @@ class TypeRequest extends FormRequest
 
     return array_merge( $rules1, [
       'champs' => 'required',
+      'default_filtre' => 'required'
     ]);
   }
 }

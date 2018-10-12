@@ -31,19 +31,18 @@
       <li>
         <a href="#submenu-type" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Types</a>
         <ul class="collapse list-unstyled" id="submenu-type">
-          {{--@if(isset($types) && $types->count()>0)
+          @if(isset($types) && $types->count()>0)
             <li>
-              <a href="#subsubmenu-types" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ajouter</a>
+              <a href="#subsubmenu-types" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Inserer</a>
               <ul class="collapse list-unstyled" id="subsubmenu-types">
                 @foreach($types as $type)
                   <li>
-                    {{ $type->content_type }}
-                    [>{{ link_to_route('type.create', 'Ajouter', null, ['class' => '']) }}<]
+                    {{ link_to_route('type.insertform', $type->content_type, $type->content_type, ['class' => '']) }}
                   </li>
                 @endforeach
               </ul>
             </li>
-          @endif--}}
+          @endif
           <li>
             {{ link_to_route('type.create', 'Créer', null, ['class' => '']) }}
           </li>

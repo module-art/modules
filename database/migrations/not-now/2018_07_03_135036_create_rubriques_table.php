@@ -18,12 +18,12 @@ class CreateRubriquesTable extends Migration
       $table->timestamps();
       $table->softDeletes();
       $table->text('contenu');
-      $table->smallInteger('place');
-      $table->smallInteger('cols');
+      $table->smallInteger('place')->default(0);
+      $table->smallInteger('cols')->default(0);
       $table->boolean('ascendant')->default(1);
       $table->string('background_img_url')->nullable();
       $table->string('background_hd_url')->nullable();
-      $table->boolean('publie')->default(0);
+      $table->boolean('publie')->default(1);
       $table->integer('type_id')->unsigned()->nullable();
       $table->foreign('type_id')->references('id')->on('types')
             ->onDelete('cascade')

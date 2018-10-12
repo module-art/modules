@@ -26,6 +26,8 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
   Route::post('publicationpage/{id}', 'PageController@switchPublication');
 
   Route::resource('type', 'TypeController', ['except' => ['show']]);
+  Route::get('insert-type/{type_name}', 'TypeController@showInsertForm')->name('type.insertform');
+  Route::post('insert-type/{type_id}', 'TypeController@insertType')->name('type.insert');
 
   Route::post('bloc/{id}', 'BlocController@update');
   Route::post('destroybloc/{id}', 'BlocController@destroy');
