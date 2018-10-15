@@ -16,6 +16,9 @@ class authAsAdmin
     public function handle($request, Closure $next)
     {
       if($request->user()->role == 'admin'){
+        if ( ! session_id() ) @ session_start();
+        if ( ! isset($_SESSION['fmanager-ts'])) $_SESSION['fmanager-ts'] = time();
+        $_SESSION['fmanager'] = md5($_SESSION['fmanager-ts'].'5XxZyQvLMbZSLaPvAPMhdsEyL2T');
         return $next($request);
       }
       abort(403);

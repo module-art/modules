@@ -37,8 +37,27 @@ $(document).ready(function()
       scroll_top_duration = 1000,
       csrfToken = $('meta[name="csrf-token"]').attr('content');//get csrf-field in head
 
-  $('#add-rubrique').click(function(){
+  //tinyMCE vars
+  
+  var lang = 'fr_FR',
+      myPlugins = [
+            'advlist autolink lists link image charmap print preview anchor textcolor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table contextmenu paste code help wordcount responsivefilemanager'
+        ],
+      fullToolbar = 'pictos insertfile undo redo | styleselect | bold italic subscript superscript exposant removeformat | alignleft aligncenter alignright alignjustify | bullist numlist nonbreaking | link unlink media responsivefilemanager insertimage insertfile | table hr | forecolor backcolor emoticons | paste code | iconesliens | fontawesome',
+      mediumToolbar = 'bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify  | bullist numlist | link unlink | media responsivefilemanager',
+      myFormats = 'Paragraph=p;Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5',
+      myValidElements = '+*[*]',
+      fmPath = "/tools/rfm/filemanager/",
+      fmTitle = "Gestionnaire de fichiers",
+      fmSortBy = "date",
+      fmDesc = true,
+      fmKey = "fsUn8A5u9e6UypkZ",
+      myExternalPlugins = { "filemanager" : "/tools/rfm/filemanager/plugin.min.js"},
+      myExtendedValidElements = "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],$elements";
 
+  $('#add-rubrique').click(function(){
     var globalContainer = document.getElementById('global-wrapper');
 
     $.ajax({
@@ -72,11 +91,9 @@ $(document).ready(function()
     .fail(function() {
       alert('Oups! une erreur a empêché l\'ajout d\'un rubrique.');
     });
-  
   });
 
   $('#destroy-page').click(function(){
-
     if(confirm('Tous les contenus de cette page seront supprimés. Êtes vous vraiment sûr?')){
 
       $.ajax({
@@ -95,7 +112,6 @@ $(document).ready(function()
   });
 
   $('#publication').click(function(){
-
     var elem = this;
 
     $.ajax({
@@ -122,68 +138,9 @@ $(document).ready(function()
     resizeVideos();
   }
 
-  var uploader = {
-    function (blobInfo, success, failure) {
-      var xhr, formData;
-      xhr = new XMLHttpRequest();
-      xhr.withCredentials = false;
-      xhr.open('POST', '/redactorimgupload');
-      xhr.onload = function() {
-        var json;
+  /// ---------- TYNIMCE ------
 
-        if (xhr.status != 200) {
-          failure('HTTP Error: ' + xhr.status);
-          return;
-        }
-        json = JSON.parse(xhr.responseText);
-
-        if (!json || typeof json.location != 'string') {
-          failure('Invalid JSON: ' + xhr.responseText);
-          return;
-        }
-        success(json.location);
-      };
-      formData = new FormData();
-      formData.append('file', blobInfo.blob(), fileName(blobInfo));
-      xhr.send(formData);
-    }
-  };
-
-  function initMceRubriques(){
-    $('.editrubrique').off();
-
-    tinymce.init({
-      selector: '.editrubrique',
-      language: 'fr_FR',
-      inline: true,
-      plugins: 'code image media link',
-      //toolbar: 'code',
-      images_upload_handler: function (blobInfo, success, failure) {
-        var xhr, formData;
-        xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-        xhr.open('POST', '/coulisses/redactorimgupload');
-        xhr.onload = function() {
-          var json;
-
-          if (xhr.status != 200) {
-            failure('HTTP Error: ' + xhr.status);
-            return;
-          }
-          json = JSON.parse(xhr.responseText);
-
-          if (!json || typeof json.location != 'string') {
-            failure('Invalid JSON: ' + xhr.responseText);
-            return;
-          }
-          success(json.location);
-        };
-        formData = new FormData();
-        formData.append('_token', csrfToken);
-        formData.append('file', blobInfo.blob());
-        xhr.send(formData);
-      },
-      init_instance_callback: function (editor) {
+  function rubriqueCallback(editor) {
         editor.on('focus', function (e) {
           //console.log(e);
           var tar = $(e.target.bodyElement),
@@ -268,6 +225,91 @@ $(document).ready(function()
 
         });//close focus event
       }
+
+  function blocCallback(editor) {
+    editor.on('focus', function (e) {
+      //console.log(e);
+      var tar = $(e.target.bodyElement);
+
+      tar.parent().append('<div id="bloc-buttons"><button id="btn-save" class="btn btn-primary pull-right" >Enregistrer</button></div>');
+
+      $('#btn-save').click(function(){
+        var newBloc = tar.html(),
+          bloc_id = tar.attr('data-bloc_id'),
+          isNewBloc = bloc_id == 0 ? true : false;
+          type = '';
+
+        if(newBloc === undefined) return;//exit to avoid TypeError
+
+        if(isNewBloc){
+          type = tar.parent()[0].className == 'col-12' ? 'large' : 'normal';
+          bloc_id = 'rubrique-' + tar.parents('.after-rubrique-container').first().prev().children('.editrubrique').attr('data-rubrique_id');
+        }
+
+        var action = '/coulisses/bloc/' + bloc_id;
+
+        $.ajax({
+            url: action,
+            method: 'post',
+          data: { 
+            _token: csrfToken,
+            texte: newBloc,
+            format: type
+          },
+          dataType : 'json',
+          //async: false,
+          //processData: false,
+          //contentType: false,
+        })
+        .done(function(data) {
+          console.log(data['response']);
+          if(isNewBloc){
+            tar.attr('data-bloc_id', data['newId']);
+          }
+        })
+        .fail(function() {
+          alert('La requête n\'a pas abouti. Êtes-vous bien connecté comme admin?');
+        });
+
+        resizeVideos();
+      });
+
+    });//close focus event
+
+    editor.on('blur', function (e) {
+      setTimeout(function(){
+        $('#bloc-buttons').remove();
+      }, 100)
+    });
+  }
+
+  function initMceRubriques(){
+    $('.editrubrique').off();
+
+    tinymce.init({
+      selector: '.editrubrique',
+      inline: true,
+      language: lang,
+      //menubar: false,
+      branding: false,
+      plugins: myPlugins,
+      toolbar: mediumToolbar,
+      block_formats: myFormats,
+      paste_as_text: true,
+      image_advtab: true ,
+      valid_elements : myValidElements,
+      external_filemanager_path: fmPath,
+      filemanager_title: fmTitle,
+      filemanager_sort_by: fmSortBy,
+      filemanager_descending: fmDesc,
+      filemanager_access_key: fmKey,
+      relative_urls: false,
+      media_live_embeds: true,
+      external_plugins: myExternalPlugins,
+      extended_valid_elements : myExtendedValidElements,
+      init_instance_callback: function (editor) {
+        rubriqueCallback(editor);
+      }
     });
   }
 
@@ -275,90 +317,27 @@ $(document).ready(function()
     $('.editable').off();
     tinymce.init({
       selector: '.editable',
-      language: 'fr_FR',
       inline: true,
-      plugins: 'code image media link',
-      //toolbar: 'code, newdocument, bold, italic, underline, strikethrough, alignleft, aligncenter, alignright, alignjustify, styleselect, formatselect, fontselect, fontsizeselect, cut, copy, paste, bullist, numlist, outdent, indent, blockquote, undo, redo, removeformat, subscript, superscript',
-      images_upload_handler: function (blobInfo, success, failure) {
-        var xhr, formData;
-        xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-        xhr.open('POST', '/coulisses/redactorimgupload');
-        xhr.onload = function() {
-          var json;
-
-          if (xhr.status != 200) {
-            failure('HTTP Error: ' + xhr.status);
-            return;
-          }
-          json = JSON.parse(xhr.responseText);
-
-          if (!json || typeof json.location != 'string') {
-            failure('Invalid JSON: ' + xhr.responseText);
-            return;
-          }
-          success(json.location);
-        };
-        formData = new FormData();
-        formData.append('_token', csrfToken);
-        formData.append('file', blobInfo.blob());
-        xhr.send(formData);
-      },
+      language: lang,
+      //menubar: false,
+      branding: false,
+      plugins: myPlugins,
+      toolbar: mediumToolbar,
+      block_formats: myFormats,
+      paste_as_text: true,
+      image_advtab: true ,
+      valid_elements : myValidElements,
+      external_filemanager_path: fmPath,
+      filemanager_title: fmTitle,
+      filemanager_sort_by: fmSortBy,
+      filemanager_descending: fmDesc,
+      filemanager_access_key: fmKey,
+      relative_urls: false,
+      media_live_embeds: true,
+      external_plugins: myExternalPlugins,
+      extended_valid_elements : myExtendedValidElements,
       init_instance_callback: function (editor) {
-        editor.on('focus', function (e) {
-          //console.log(e);
-          var tar = $(e.target.bodyElement);
-
-          tar.parent().append('<div id="bloc-buttons"><button id="btn-save" class="btn btn-primary pull-right" >Enregistrer</button></div>');
-
-          $('#btn-save').click(function(){
-            var newBloc = tar.html(),
-              bloc_id = tar.attr('data-bloc_id'),
-              isNewBloc = bloc_id == 0 ? true : false;
-              type = '';
-
-            if(newBloc === undefined) return;//exit to avoid TypeError
-
-            if(isNewBloc){
-              type = tar.parent()[0].className == 'col-12' ? 'large' : 'normal';
-              bloc_id = 'rubrique-' + tar.parents('.after-rubrique-container').first().prev().children('.editrubrique').attr('data-rubrique_id');
-            }
-
-            var action = '/coulisses/bloc/' + bloc_id;
-
-            $.ajax({
-                url: action,
-                method: 'post',
-              data: { 
-                _token: csrfToken,
-                texte: newBloc,
-                format: type
-              },
-              dataType : 'json',
-              //async: false,
-              //processData: false,
-              //contentType: false,
-            })
-            .done(function(data) {
-              console.log(data['response']);
-              if(isNewBloc){
-                tar.attr('data-bloc_id', data['newId']);
-              }
-            })
-            .fail(function() {
-              alert('La requête n\'a pas abouti. Êtes-vous bien connecté comme admin?');
-            });
-
-            resizeVideos();
-          });
-
-        });//close focus event
-
-        editor.on('blur', function (e) {
-          setTimeout(function(){
-            $('#bloc-buttons').remove();
-          }, 100)
-        });
+        blocCallback(editor);
       }
     });//close mce init .editable
 

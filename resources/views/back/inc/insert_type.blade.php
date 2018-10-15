@@ -10,7 +10,8 @@
   @for($i=0; $i<$nb_champs; $i++)
     <div class="form-group">
       {!! Form::label($champs[$i], $champs[$i] . ' :', ['class' => 'control-label']) !!}
-      {!! Form::text($champs[$i], old($champs[$i]), ['class' => 'form-control']) !!}
+      {{--{!! Form::text($champs[$i], old($champs[$i]), ['class' => 'form-control redactored']) !!}--}}
+      <textarea name="{{ $champs[$i] }}" class="form-control redactored">{{ old($champs[$i]) }}</textarea>
     </div>
   @endfor
   {{--<div class="form-row justify-content-between">

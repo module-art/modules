@@ -115,8 +115,23 @@ $(document).ready(function () {
   scroll_top_duration = 1000,
       csrfToken = $('meta[name="csrf-token"]').attr('content'); //get csrf-field in head
 
-  $('#add-rubrique').click(function () {
+  //tinyMCE vars
 
+  var lang = 'fr_FR',
+      myPlugins = ['advlist autolink lists link image charmap print preview anchor textcolor', 'searchreplace visualblocks code fullscreen', 'insertdatetime media table contextmenu paste code help wordcount responsivefilemanager'],
+      fullToolbar = 'pictos insertfile undo redo | styleselect | bold italic subscript superscript exposant removeformat | alignleft aligncenter alignright alignjustify | bullist numlist nonbreaking | link unlink media responsivefilemanager insertimage insertfile | table hr | forecolor backcolor emoticons | paste code | iconesliens | fontawesome',
+      mediumToolbar = 'bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify  | bullist numlist | link unlink | media responsivefilemanager',
+      myFormats = 'Paragraph=p;Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5',
+      myValidElements = '+*[*]',
+      fmPath = "/tools/rfm/filemanager/",
+      fmTitle = "Gestionnaire de fichiers",
+      fmSortBy = "date",
+      fmDesc = true,
+      fmKey = "fsUn8A5u9e6UypkZ",
+      myExternalPlugins = { "filemanager": "/tools/rfm/filemanager/plugin.min.js" },
+      myExtendedValidElements = "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],$elements";
+
+  $('#add-rubrique').click(function () {
     var globalContainer = document.getElementById('global-wrapper');
 
     $.ajax({
@@ -150,7 +165,6 @@ $(document).ready(function () {
   });
 
   $('#destroy-page').click(function () {
-
     if (confirm('Tous les contenus de cette page seront supprimés. Êtes vous vraiment sûr?')) {
 
       $.ajax({
@@ -167,7 +181,6 @@ $(document).ready(function () {
   });
 
   $('#publication').click(function () {
-
     var elem = this;
 
     $.ajax({
@@ -192,136 +205,159 @@ $(document).ready(function () {
     resizeVideos();
   };
 
-  var uploader = {
-    function: function _function(blobInfo, success, failure) {
-      var xhr, formData;
-      xhr = new XMLHttpRequest();
-      xhr.withCredentials = false;
-      xhr.open('POST', '/redactorimgupload');
-      xhr.onload = function () {
-        var json;
+  /// ---------- TYNIMCE ------
 
-        if (xhr.status != 200) {
-          failure('HTTP Error: ' + xhr.status);
-          return;
-        }
-        json = JSON.parse(xhr.responseText);
+  function rubriqueCallback(editor) {
+    editor.on('focus', function (e) {
+      //console.log(e);
+      var tar = $(e.target.bodyElement),
+          imageNode = $('#global-wrapper'),
+          initBackgroundImage = imageNode.css('background-image'),
+          replacement = '<section id="replacement" class="row justify-content-center mb-4"><div class="col-12 col-md-8 col-lg-6 col-xl-5"><div class="card"><div class="card-body">' + '<form method="post" enctype="multipart/form-data" class="" id="replacement-form"><div class="form-group">' + '<label for="image" class="col-form-label">Changer l\'image de fond</label>' + '<div class="input-group mb-2">' + '<div class="input-group-prepend">' + '<div class="input-group-text"><i class="far fa-file-image"></i></div>' + '</div>' + '<input id="image" class="form-control" type="file" name="image" />' + '</div>' + '<input id="texte" type="hidden" name="texte" />' + '<input type="hidden" name="_token" value="' + csrfToken + '" />' + '<button id="btn-save" class="btn btn-primary pull-right" ><i class="fas fa-cog fa-spin fa-lg"></i> Enregistrer</button><button id="btn-cancel" class="btn btn-secondary pull-right" >Annuler</button>' + '</form></div></div></div></section>';
 
-        if (!json || typeof json.location != 'string') {
-          failure('Invalid JSON: ' + xhr.responseText);
-          return;
+      tar.css('padding', '10vh 0 19vh');
+      $('.cols-button, .bloc-button').css('display', 'none');
+      if ($('#replacement')[0] === undefined) {
+        tar.parent().append(replacement);
+      }
+
+      imageManage(imageNode);
+
+      $('#btn-save').click(function (e) {
+
+        $('.fa-cog').css('display', 'inline-block');
+        e.preventDefault();
+        $('#texte').val(tar.html());
+
+        var action = "/coulisses/rubrique/" + tar.attr('data-rubrique_id'),
+            formData = new FormData($('#replacement-form')[0]);
+
+        $.ajax({
+          url: action,
+          method: 'post',
+          data: formData,
+          dataType: 'json',
+          //async: false,
+          processData: false,
+          contentType: false
+        }).done(function (data) {
+          $('.fa-cog').css('display', 'none');
+          console.log(data['response']);
+          setTimeout(function () {
+            tar.css({
+              padding: ''
+            });
+            $('#replacement').remove();
+            $('.cols-button, .bloc-button').css('display', 'block');
+          }, 100);
+        }).fail(function (data) {
+          $('.fa-cog').css('display', 'none');
+          var errors = data.responseJSON.message + '\n';
+          $.each(data.responseJSON.errors, function (key, value) {
+            errors += value + '\n';
+          });
+          alert('La requête n\'a pas abouti.\n' + errors);
+        });
+
+        resizeVideos();
+      });
+
+      $('#btn-cancel').click(function (e) {
+        e.preventDefault();
+        setTimeout(function () {
+          tar.css({
+            padding: ''
+          });
+          imageNode.css({
+            backgroundImage: initBackgroundImage
+          });
+          $('#replacement').remove();
+          $('.cols-button, .bloc-button').css('display', 'block');
+        }, 100);
+      });
+    }); //close focus event
+  }
+
+  function blocCallback(editor) {
+    editor.on('focus', function (e) {
+      //console.log(e);
+      var tar = $(e.target.bodyElement);
+
+      tar.parent().append('<div id="bloc-buttons"><button id="btn-save" class="btn btn-primary pull-right" >Enregistrer</button></div>');
+
+      $('#btn-save').click(function () {
+        var newBloc = tar.html(),
+            bloc_id = tar.attr('data-bloc_id'),
+            isNewBloc = bloc_id == 0 ? true : false;
+        type = '';
+
+        if (newBloc === undefined) return; //exit to avoid TypeError
+
+        if (isNewBloc) {
+          type = tar.parent()[0].className == 'col-12' ? 'large' : 'normal';
+          bloc_id = 'rubrique-' + tar.parents('.after-rubrique-container').first().prev().children('.editrubrique').attr('data-rubrique_id');
         }
-        success(json.location);
-      };
-      formData = new FormData();
-      formData.append('file', blobInfo.blob(), fileName(blobInfo));
-      xhr.send(formData);
-    }
-  };
+
+        var action = '/coulisses/bloc/' + bloc_id;
+
+        $.ajax({
+          url: action,
+          method: 'post',
+          data: {
+            _token: csrfToken,
+            texte: newBloc,
+            format: type
+          },
+          dataType: 'json'
+          //async: false,
+          //processData: false,
+          //contentType: false,
+        }).done(function (data) {
+          console.log(data['response']);
+          if (isNewBloc) {
+            tar.attr('data-bloc_id', data['newId']);
+          }
+        }).fail(function () {
+          alert('La requête n\'a pas abouti. Êtes-vous bien connecté comme admin?');
+        });
+
+        resizeVideos();
+      });
+    }); //close focus event
+
+    editor.on('blur', function (e) {
+      setTimeout(function () {
+        $('#bloc-buttons').remove();
+      }, 100);
+    });
+  }
 
   function initMceRubriques() {
     $('.editrubrique').off();
 
     tinymce.init({
       selector: '.editrubrique',
-      language: 'fr_FR',
       inline: true,
-      plugins: 'code image media link',
-      //toolbar: 'code',
-      images_upload_handler: function images_upload_handler(blobInfo, success, failure) {
-        var xhr, formData;
-        xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-        xhr.open('POST', '/coulisses/redactorimgupload');
-        xhr.onload = function () {
-          var json;
-
-          if (xhr.status != 200) {
-            failure('HTTP Error: ' + xhr.status);
-            return;
-          }
-          json = JSON.parse(xhr.responseText);
-
-          if (!json || typeof json.location != 'string') {
-            failure('Invalid JSON: ' + xhr.responseText);
-            return;
-          }
-          success(json.location);
-        };
-        formData = new FormData();
-        formData.append('_token', csrfToken);
-        formData.append('file', blobInfo.blob());
-        xhr.send(formData);
-      },
+      language: lang,
+      //menubar: false,
+      branding: false,
+      plugins: myPlugins,
+      toolbar: mediumToolbar,
+      block_formats: myFormats,
+      paste_as_text: true,
+      image_advtab: true,
+      valid_elements: myValidElements,
+      external_filemanager_path: fmPath,
+      filemanager_title: fmTitle,
+      filemanager_sort_by: fmSortBy,
+      filemanager_descending: fmDesc,
+      filemanager_access_key: fmKey,
+      relative_urls: false,
+      media_live_embeds: true,
+      external_plugins: myExternalPlugins,
+      extended_valid_elements: myExtendedValidElements,
       init_instance_callback: function init_instance_callback(editor) {
-        editor.on('focus', function (e) {
-          //console.log(e);
-          var tar = $(e.target.bodyElement),
-              imageNode = $('#global-wrapper'),
-              initBackgroundImage = imageNode.css('background-image'),
-              replacement = '<section id="replacement" class="row justify-content-center mb-4"><div class="col-12 col-md-8 col-lg-6 col-xl-5"><div class="card"><div class="card-body">' + '<form method="post" enctype="multipart/form-data" class="" id="replacement-form"><div class="form-group">' + '<label for="image" class="col-form-label">Changer l\'image de fond</label>' + '<div class="input-group mb-2">' + '<div class="input-group-prepend">' + '<div class="input-group-text"><i class="far fa-file-image"></i></div>' + '</div>' + '<input id="image" class="form-control" type="file" name="image" />' + '</div>' + '<input id="texte" type="hidden" name="texte" />' + '<input type="hidden" name="_token" value="' + csrfToken + '" />' + '<button id="btn-save" class="btn btn-primary pull-right" ><i class="fas fa-cog fa-spin fa-lg"></i> Enregistrer</button><button id="btn-cancel" class="btn btn-secondary pull-right" >Annuler</button>' + '</form></div></div></div></section>';
-
-          tar.css('padding', '10vh 0 19vh');
-          $('.cols-button, .bloc-button').css('display', 'none');
-          if ($('#replacement')[0] === undefined) {
-            tar.parent().append(replacement);
-          }
-
-          imageManage(imageNode);
-
-          $('#btn-save').click(function (e) {
-
-            $('.fa-cog').css('display', 'inline-block');
-            e.preventDefault();
-            $('#texte').val(tar.html());
-
-            var action = "/coulisses/rubrique/" + tar.attr('data-rubrique_id'),
-                formData = new FormData($('#replacement-form')[0]);
-
-            $.ajax({
-              url: action,
-              method: 'post',
-              data: formData,
-              dataType: 'json',
-              //async: false,
-              processData: false,
-              contentType: false
-            }).done(function (data) {
-              $('.fa-cog').css('display', 'none');
-              console.log(data['response']);
-              setTimeout(function () {
-                tar.css({
-                  padding: ''
-                });
-                $('#replacement').remove();
-                $('.cols-button, .bloc-button').css('display', 'block');
-              }, 100);
-            }).fail(function (data) {
-              $('.fa-cog').css('display', 'none');
-              var errors = data.responseJSON.message + '\n';
-              $.each(data.responseJSON.errors, function (key, value) {
-                errors += value + '\n';
-              });
-              alert('La requête n\'a pas abouti.\n' + errors);
-            });
-
-            resizeVideos();
-          });
-
-          $('#btn-cancel').click(function (e) {
-            e.preventDefault();
-            setTimeout(function () {
-              tar.css({
-                padding: ''
-              });
-              imageNode.css({
-                backgroundImage: initBackgroundImage
-              });
-              $('#replacement').remove();
-              $('.cols-button, .bloc-button').css('display', 'block');
-            }, 100);
-          });
-        }); //close focus event
+        rubriqueCallback(editor);
       }
     });
   }
@@ -330,87 +366,27 @@ $(document).ready(function () {
     $('.editable').off();
     tinymce.init({
       selector: '.editable',
-      language: 'fr_FR',
       inline: true,
-      plugins: 'code image media link',
-      //toolbar: 'code, newdocument, bold, italic, underline, strikethrough, alignleft, aligncenter, alignright, alignjustify, styleselect, formatselect, fontselect, fontsizeselect, cut, copy, paste, bullist, numlist, outdent, indent, blockquote, undo, redo, removeformat, subscript, superscript',
-      images_upload_handler: function images_upload_handler(blobInfo, success, failure) {
-        var xhr, formData;
-        xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-        xhr.open('POST', '/coulisses/redactorimgupload');
-        xhr.onload = function () {
-          var json;
-
-          if (xhr.status != 200) {
-            failure('HTTP Error: ' + xhr.status);
-            return;
-          }
-          json = JSON.parse(xhr.responseText);
-
-          if (!json || typeof json.location != 'string') {
-            failure('Invalid JSON: ' + xhr.responseText);
-            return;
-          }
-          success(json.location);
-        };
-        formData = new FormData();
-        formData.append('_token', csrfToken);
-        formData.append('file', blobInfo.blob());
-        xhr.send(formData);
-      },
+      language: lang,
+      //menubar: false,
+      branding: false,
+      plugins: myPlugins,
+      toolbar: mediumToolbar,
+      block_formats: myFormats,
+      paste_as_text: true,
+      image_advtab: true,
+      valid_elements: myValidElements,
+      external_filemanager_path: fmPath,
+      filemanager_title: fmTitle,
+      filemanager_sort_by: fmSortBy,
+      filemanager_descending: fmDesc,
+      filemanager_access_key: fmKey,
+      relative_urls: false,
+      media_live_embeds: true,
+      external_plugins: myExternalPlugins,
+      extended_valid_elements: myExtendedValidElements,
       init_instance_callback: function init_instance_callback(editor) {
-        editor.on('focus', function (e) {
-          //console.log(e);
-          var tar = $(e.target.bodyElement);
-
-          tar.parent().append('<div id="bloc-buttons"><button id="btn-save" class="btn btn-primary pull-right" >Enregistrer</button></div>');
-
-          $('#btn-save').click(function () {
-            var newBloc = tar.html(),
-                bloc_id = tar.attr('data-bloc_id'),
-                isNewBloc = bloc_id == 0 ? true : false;
-            type = '';
-
-            if (newBloc === undefined) return; //exit to avoid TypeError
-
-            if (isNewBloc) {
-              type = tar.parent()[0].className == 'col-12' ? 'large' : 'normal';
-              bloc_id = 'rubrique-' + tar.parents('.after-rubrique-container').first().prev().children('.editrubrique').attr('data-rubrique_id');
-            }
-
-            var action = '/coulisses/bloc/' + bloc_id;
-
-            $.ajax({
-              url: action,
-              method: 'post',
-              data: {
-                _token: csrfToken,
-                texte: newBloc,
-                format: type
-              },
-              dataType: 'json'
-              //async: false,
-              //processData: false,
-              //contentType: false,
-            }).done(function (data) {
-              console.log(data['response']);
-              if (isNewBloc) {
-                tar.attr('data-bloc_id', data['newId']);
-              }
-            }).fail(function () {
-              alert('La requête n\'a pas abouti. Êtes-vous bien connecté comme admin?');
-            });
-
-            resizeVideos();
-          });
-        }); //close focus event
-
-        editor.on('blur', function (e) {
-          setTimeout(function () {
-            $('#bloc-buttons').remove();
-          }, 100);
-        });
+        blocCallback(editor);
       }
     }); //close mce init .editable
   }

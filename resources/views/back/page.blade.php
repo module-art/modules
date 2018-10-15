@@ -49,7 +49,7 @@
 @endsection
 
 @section('scripts')
-  <script src="/js/tinymce/tinymce.min.js"></script>
+  <script src="/tools/tinymce/tinymce.min.js"></script>
   <script src="/js/modular_admin.js"></script>
   <script src="/js/contact.js"></script>
 @endsection

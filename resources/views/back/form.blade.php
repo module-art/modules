@@ -30,3 +30,10 @@
   </section>
 
 @endsection
+
+@section('scripts')
+  @if($operation == 'insert' && $model == 'type')
+    <script src="/tools/tinymce/tinymce.min.js"></script>
+    <script src="/js/insert_form.js"></script>
+  @endif
+@endsection
