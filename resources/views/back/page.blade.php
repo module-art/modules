@@ -2,6 +2,8 @@
 
 @section('title')
   <title>{{ $page->title }}</title>
+  <link href="/css/admin.css" rel="stylesheet">
+  <link href="/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
 @endsection
 
 @section('sidebar')
@@ -50,6 +52,8 @@
 
 @section('scripts')
   <script src="/tools/tinymce/tinymce.min.js"></script>
+  <script src="/js/tempus-dominus/moment-with-locales.min.js"></script>
+  <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
   <script src="/js/modular_admin.js"></script>
   <script src="/js/contact.js"></script>
 @endsection

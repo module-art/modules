@@ -60,20 +60,20 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 37);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 37:
+/***/ 38:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(38);
+module.exports = __webpack_require__(39);
 
 
 /***/ }),
 
-/***/ 38:
+/***/ 39:
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
@@ -121,6 +121,7 @@ $(document).ready(function () {
       myPlugins = ['advlist autolink lists link image charmap print preview anchor textcolor', 'searchreplace visualblocks code fullscreen', 'insertdatetime media table contextmenu paste code help wordcount responsivefilemanager'],
       fullToolbar = 'pictos insertfile undo redo | styleselect | bold italic subscript superscript exposant removeformat | alignleft aligncenter alignright alignjustify | bullist numlist nonbreaking | link unlink media responsivefilemanager insertimage insertfile | table hr | forecolor backcolor emoticons | paste code | iconesliens | fontawesome',
       mediumToolbar = 'bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify  | bullist numlist | link unlink | media responsivefilemanager',
+      smallToolbar = 'styleselect | bold italic underline | forecolor backcolor | link unlink | media responsivefilemanager',
       myFormats = 'Paragraph=p;Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5',
       myValidElements = '+*[*]',
       fmPath = "/tools/rfm/filemanager/",
@@ -204,7 +205,6 @@ $(document).ready(function () {
   window.onload = function () {
     resizeVideos();
   };
-
   /// ---------- TYNIMCE ------
 
   function rubriqueCallback(editor) {
@@ -364,6 +364,8 @@ $(document).ready(function () {
 
   function initMceBlocs() {
     $('.editable').off();
+    $('.edititre').off();
+
     tinymce.init({
       selector: '.editable',
       inline: true,
@@ -388,7 +390,64 @@ $(document).ready(function () {
       init_instance_callback: function init_instance_callback(editor) {
         blocCallback(editor);
       }
-    }); //close mce init .editable
+    });
+
+    tinymce.init({
+      selector: '.edititre',
+      inline: true,
+      language: lang,
+      menubar: false,
+      branding: false,
+      plugins: myPlugins,
+      toolbar: smallToolbar,
+      block_formats: myFormats,
+      paste_as_text: true,
+      image_advtab: true,
+      valid_elements: myValidElements,
+      external_filemanager_path: fmPath,
+      filemanager_title: fmTitle,
+      filemanager_sort_by: fmSortBy,
+      filemanager_descending: fmDesc,
+      filemanager_access_key: fmKey,
+      relative_urls: false,
+      media_live_embeds: true,
+      external_plugins: myExternalPlugins,
+      extended_valid_elements: myExtendedValidElements,
+      init_instance_callback: function init_instance_callback(editor) {
+        blocCallback(editor);
+      }
+    });
+
+    /* ------- Tempus dominus --------- */
+
+    $('.editdate').datetimepicker({
+      locale: 'fr',
+      format: 'L',
+      debug: true
+    }).on('change.datetimepicker', function (event) {
+      //format moment.js object to string date
+      dateSender(moment(event.date).format("YYYYMMDD"), $(this).attr('data-bloc_id'));
+    });
+  }
+
+  function dateSender($date, bloc_id) {
+
+    var action = '/coulisses/bloc/' + bloc_id;
+
+    $.ajax({
+      url: action,
+      method: 'post',
+      data: {
+        _token: csrfToken,
+        texte: $date,
+        format: 'date'
+      },
+      dataType: 'json'
+    }).done(function (data) {
+      console.log(data['response']);
+    }).fail(function () {
+      alert('La requête n\'a pas abouti. Êtes-vous bien connecté comme admin?');
+    });
   }
 
   function imageManage(rubriqueNode) {

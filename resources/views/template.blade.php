@@ -12,7 +12,6 @@
     @yield('title')
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="/css/styles.css">
     <link rel="icon" type="image/jpg" href="/images/favicon.jpg" />
 
   </head>

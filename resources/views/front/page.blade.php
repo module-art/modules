@@ -2,6 +2,7 @@
 
 @section('title')
   <title>{{ $page->title }}</title>
+  <link href="/css/styles.css" rel="stylesheet">
 @endsection
 
 @section('contenu')
