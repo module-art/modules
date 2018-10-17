@@ -2,6 +2,8 @@
 
 @section('title')
   <title>{{ $operation == 'create' ? 'Ajouter' : 'Modifier' }} {{ $model }}</title>
+  <link href="/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+  <link href="/css/admin.css" rel="stylesheet">
 @endsection
 
 @section('contenu')
@@ -10,7 +12,7 @@
     @include('menu')
   </div>
   <section class='row center-card'>
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-lg-8">
       @if(session()->has('info'))
         <div class="alert alert-success alert-dismissible">{!! session('info') !!}</div>
       @endif
@@ -34,6 +36,8 @@
 @section('scripts')
   @if($operation == 'insert' && $model == 'type')
     <script src="/tools/tinymce/tinymce.min.js"></script>
+    <script src="/js/tempus-dominus/moment-with-locales.min.js"></script>
+    <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
     <script src="/js/insert_form.js"></script>
   @endif
 @endsection

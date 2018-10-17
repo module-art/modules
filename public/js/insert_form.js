@@ -120,6 +120,13 @@ $(document).ready(function () {
   tinyconf_small.toolbar1 = "bold italic | link unlink | subscript superscript | paste code";
 
   tinymce.init(tinyconf_small);
+
+  /* ------- Tempus dominus --------- */
+
+  $('.date').datetimepicker({
+    locale: 'fr',
+    format: 'L'
+  });
 });
 
 /***/ })

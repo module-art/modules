@@ -13,6 +13,11 @@
     {!! $errors->first('champs', '<small class="invalid-feedback">:message</small>') !!}
   </div>
   <div class="form-group">
+    <p>Chaque champ pourra être rempli avec du texte, des images, des vidéos.<br>
+    Si vous mettez le mot "date" dans le nom du champ, il sera rempli avec un calendrier.<br>
+    Pour les nombres, vous pouvez ajouter "_nb" ou "_une-unité" à la fin du nom du champ (ex "prix_€", "contenance_litres"...).</p>
+  </div>
+  <div class="form-group">
     {!! Form::label('default_filtre', 'Filtre par défaut :', ['class' => 'control-label']) !!}
     {!! Form::text('default_filtre', $operation == 'create' ? old('default_filtre') : $type->default_filtre, ['class' => 'form-control' . ( $errors->has('default_filtre') ? ' is-invalid' : '' )]) !!}
     {!! $errors->first('default_filtre', '<small class="invalid-feedback">:message</small>') !!}

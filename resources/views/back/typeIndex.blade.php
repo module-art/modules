@@ -2,6 +2,7 @@
 
 @section('title')
   <title>Types de contenu</title>
+  <link href="/css/admin.css" rel="stylesheet">
 @endsection
 
 @section('contenu')

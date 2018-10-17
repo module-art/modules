@@ -1,5 +1,10 @@
 @extends('template')
 
+@section('title')
+  <title>erreur 404</title>
+  <link href="/css/styles.css" rel="stylesheet">
+@endsection
+
 @section('contenu')
   <div class="heading main-container" 
        style="background-image: url('/storage/img/jungle3200.jpg');

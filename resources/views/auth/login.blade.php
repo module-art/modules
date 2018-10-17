@@ -2,6 +2,7 @@
 
 @section('title')
   <title>Connexion</title>
+  <link href="/css/styles.css" rel="stylesheet">
 @endsection
 
 @section('menu')

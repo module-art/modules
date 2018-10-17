@@ -95,12 +95,12 @@ $(document).ready(function () {
           console.log(xhr.statusText);
         } else {
           initMceBlocs();
+          listenToNumBlocs();
           listenToDestroy();
         }
       });
     });
   }
-  getTypeContents();
 
   //global vars
   var idPage = $('#id_page').html(),
@@ -197,7 +197,7 @@ $(document).ready(function () {
     });
   });
 
-  initMceBlocs();
+  getTypeContents();
   initMceRubriques();
   listenToAddBloc();
   listenToDestroy();
@@ -417,20 +417,46 @@ $(document).ready(function () {
         blocCallback(editor);
       }
     });
+  }
+
+  function listenToNumBlocs() {
 
     /* ------- Tempus dominus --------- */
 
     $('.editdate').datetimepicker({
       locale: 'fr',
-      format: 'L',
-      debug: true
+      format: 'L'
+      //debug: true
     }).on('change.datetimepicker', function (event) {
       //format moment.js object to string date
-      dateSender(moment(event.date).format("YYYYMMDD"), $(this).attr('data-bloc_id'));
+      numberSender(moment(event.date).format("YYYYMMDD"), $(this).attr('data-bloc_id'));
+    });
+
+    $('.editnumber').click(function () {
+      var tar = $(this),
+          bloc_id = tar.attr('data-bloc_id'),
+          $number = tar.html();
+
+      tar.addClass('d-none');
+      tar.parent().append('<input id="nmber" type="text" value="' + $number + '"/><div id="bloc-buttons"><button id="btn-save" class="btn btn-primary pull-right" >Enregistrer</button></div>');
+      var inputNumber = $('#nmber');
+      inputNumber.focus();
+      inputNumber.blur(function () {
+        tar.html($(this).val());
+        setTimeout(function () {
+          inputNumber.remove();
+          $('#bloc-buttons').remove();
+          tar.removeClass('d-none');
+        }, 100);
+      });
+
+      $('#btn-save').click(function () {
+        numberSender(inputNumber.val(), bloc_id);
+      });
     });
   }
 
-  function dateSender($date, bloc_id) {
+  function numberSender($num, bloc_id) {
 
     var action = '/coulisses/bloc/' + bloc_id;
 
@@ -439,7 +465,7 @@ $(document).ready(function () {
       method: 'post',
       data: {
         _token: csrfToken,
-        texte: $date,
+        texte: $num,
         format: 'date'
       },
       dataType: 'json'
@@ -741,12 +767,11 @@ $(document).ready(function () {
         console.log(xhr.statusText);
       } else {
         console.log('Blocs de la rubrique ' + idRubrique + ' actualisés.');
-        initMceBlocs();
+        getTypeContents();
         colsManager();
         listenToDestroy();
         listenToAddBloc();
         resizeVideos();
-        getTypeContents();
       }
     });
   }

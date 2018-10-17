@@ -2,6 +2,7 @@
 
 @section('title')
   <title>Utilisateurs</title>
+  <link href="/css/admin.css" rel="stylesheet">
 @endsection
 
 @section('contenu')

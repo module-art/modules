@@ -2,8 +2,8 @@
 
 @section('title')
   <title>{{ $page->title }}</title>
-  <link href="/css/admin.css" rel="stylesheet">
   <link href="/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+  <link href="/css/admin.css" rel="stylesheet">
 @endsection
 
 @section('sidebar')

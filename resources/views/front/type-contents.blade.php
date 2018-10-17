@@ -16,9 +16,15 @@
           <tr>
             <td><?php echo $result->contenu; ?></td>
             @foreach ($result->blocs as $bloc)
-              <td>
-                <div>{!! $bloc->contenu !!}</div>
-              </td>
+              @if(preg_match('/date/', $bloc->type))
+                <td>
+                  <div>{!! preg_replace('/(19|20)(\d{2})(\d{2})(\d{2})/', '$4/$3/$1$2', $bloc->contenu) !!}</div>
+                </td>
+              @else
+                <td>
+                  <div>{!! $bloc->contenu !!}</div>
+                </td>
+              @endif
             @endforeach
           </tr>
         @endforeach
