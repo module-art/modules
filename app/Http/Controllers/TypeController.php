@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\TypeRequest;
-use App\Http\Requests\InsertTypeRequest;
 use App\Repositories\FooterRepository;
 use App\Repositories\MenusRepository;
 use App\Repositories\ControlRepository;
@@ -64,7 +63,7 @@ class TypeController extends Controller
   {
     $inputs = $request->all();
     Type::create($inputs);
-    return redirect()->route('type.index')->withInfo('Le type ' . $request->type . ' est crée.');
+    return redirect()->route('type.index')->withInfo('Le type ' . $request->content_type . ' est crée.');
   }
 
   /**
@@ -91,7 +90,8 @@ class TypeController extends Controller
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
     $model = 'type';
-    return view('back.form', compact('type', 'menus', 'operation', 'footer', 'model'));
+    $champs = explode(',', $type->champs);
+    return view('back.form', compact('type', 'menus', 'operation', 'footer', 'model','champs'));
   }
 
   /**
@@ -105,6 +105,11 @@ class TypeController extends Controller
   {
     $type = Type::findOrFail($id);
     $inputs = $request->all();
+
+    if(!$request->has('descendant')){
+      $inputs = array_merge($inputs, ['descendant' => 0]);
+    }
+
     $type->update($inputs);
 
     return redirect()->route('type.index')->withInfo('Le type ' . $type->type . ' est modifié.');
@@ -138,13 +143,14 @@ class TypeController extends Controller
     return view('back.form', compact('type_name', 'type_id', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer'));
   }
 
-  public function insertType(InsertTypeRequest $request, $type_id)
+  public function insertType(Request $request, $type_id)
   {
+    //dd($request);
     $type = Type::findOrFail($type_id);
     $type_name = $type->content_type;
 
     $rubrique_inputs = [
-      'contenu' => $request->contenu,
+      'contenu' => $type_name,
       'type_id' => $type_id,
     ];
 
@@ -152,11 +158,16 @@ class TypeController extends Controller
     $rubrique_id = $typed_rubrique->id;
     $i = 1;
     
-    foreach($request->except(array('_token', 'contenu')) as $key => $value){
+    foreach($request->except(array('_token')) as $key => $value){
+      if(preg_match('/date/', $key)){
+        $value = preg_replace('/^(\d{2})\/(\d{2})\/(19|20)(\d{2})$/', '$3$4$2$1', $value);
+      }elseif(preg_match('/heure|horaire/', $key)){
+        $value = preg_replace('/:/', '', $value);
+      }
       Bloc::create([
         'contenu' => $value,
         'place' => $i,
-        'type' => $key,
+        'type' => preg_replace('/_/', ' ', $key),
         'rubrique_id' => $rubrique_id,
       ]);
       $i++;

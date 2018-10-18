@@ -18,7 +18,8 @@ class CreateTypesTable extends Migration
             $table->timestamps();
             $table->string('content_type')->unique();
             $table->text('champs');
-            $table->string('ordre')->nullable();
+            $table->string('default_filtre');
+            $table->boolean('descendant');
         });
     }
 

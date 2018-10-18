@@ -88,9 +88,10 @@ $(document).ready(function () {
 
     typeContents.each(function () {
       var type = $(this).attr('data-content_type'),
-          filtre = $(this).attr('data-filtre');
+          filtre = $(this).attr('data-filtre'),
+          desc = $(this).attr('data-desc');
 
-      $(this).load('/get-type-contents/' + type + '?orderby=' + filtre, function (response, status, xhr) {
+      $(this).load('/get-type-contents/' + type + '?orderby=' + filtre + '&desc=' + desc, function (response, status, xhr) {
         if (status == "error") {
           console.log(xhr.statusText);
         } else {
@@ -432,13 +433,23 @@ $(document).ready(function () {
       numberSender(moment(event.date).format("YYYYMMDD"), $(this).attr('data-bloc_id'));
     });
 
+    $('.editheure').datetimepicker({
+      locale: 'fr',
+      format: 'LT'
+      //debug: true
+    }).on('change.datetimepicker', function (event) {
+      //format moment.js object to string date
+      alert(moment(event.date).format("HHmm"));
+      numberSender(moment(event.date).format("HHmm"), $(this).attr('data-bloc_id'));
+    });
+
     $('.editnumber').click(function () {
       var tar = $(this),
           bloc_id = tar.attr('data-bloc_id'),
           $number = tar.html();
 
       tar.addClass('d-none');
-      tar.parent().append('<input id="nmber" type="text" value="' + $number + '"/><div id="bloc-buttons"><button id="btn-save" class="btn btn-primary pull-right" >Enregistrer</button></div>');
+      tar.parent().prepend('<input id="nmber" type="text" value="' + $number + '"/><div id="bloc-buttons"><button id="btn-save" class="btn btn-primary pull-right" >Enregistrer</button></div>');
       var inputNumber = $('#nmber');
       inputNumber.focus();
       inputNumber.blur(function () {

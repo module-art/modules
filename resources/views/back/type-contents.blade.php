@@ -5,33 +5,43 @@
     <table class="table">
       <thead>
         <tr>
-          <th></th>
+          <th>date de création</th>
           @foreach($champs as $champ)
-            <th>{{ $champ }}</th>
+            @if(preg_match('/\(nb\)/', $champ))
+              @php
+                $field_name = preg_replace('/\(nb\).*$/', '', $champ);
+              @endphp
+              <th>{{ $field_name }}</th>
+            @else
+              <th>{{ $champ }}</th>
+            @endif
           @endforeach
         </tr>
       </thead>
       <tbody>
+        @php //dd($results); @endphp
         @foreach ($results as $i => $result)
           <tr>
             <td class="type-content">
               <button class="btn btn-sm btn-outline-danger btn-destroy" data-rubrique_id="{{ $result->id }}"><i class="fas fa-trash-alt"></i></button>
-              <?php //echo $result->contenu; ?>
+              <?php echo $result->created_at; ?>
             </td>
             @foreach ($result->blocs as $y => $bloc)
               @if(preg_match('/date/', $bloc->type))
                 <td>
                   <div class="input-group editdate" id="datetimepicker{{ $i.$y }}" data-target-input="nearest" data-bloc_id="{!! $bloc->id !!}">
-                    <input type="text" class="form-control" data-target="#datetimepicker{{ $i.$y }}" value="{!! preg_replace('/(19|20)(\d{2})(\d{2})(\d{2})/', '$4/$3/$1$2', $bloc->contenu) !!}"/>
-                    <div class="input-group-append" data-target="#datetimepicker{{ $i.$y }}" data-toggle="datetimepicker">
-                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker{{ $i.$y }}" value="{!! preg_replace('/(19|20)(\d{2})(\d{2})(\d{2})/', '$4/$3/$1$2', $bloc->contenu) !!}" data-toggle="datetimepicker"/>
                   </div>
                 </td>
-              @elseif(preg_match('/_/', $bloc->type))
+              @elseif(preg_match('/heure|horaire/', $bloc->type))
+                <td>
+                  <div class="input-group editheure" id="datetimepicker{{ $i.$y }}" data-target-input="nearest" data-bloc_id="{!! $bloc->id !!}">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker{{ $i.$y }}" value="{!! preg_replace('/(\d{2})(\d{2})/', '$1:$2', $bloc->contenu) !!}" data-toggle="datetimepicker"/>
+                  </div>
+                </td>
+              @elseif(preg_match('/\(nb\)/', $bloc->type))
                 @php
-                  $unit = preg_replace('/^.*_/', '', $bloc->type);
-                  if( $unit == 'nb' ) $unit = '';
+                  $unit = preg_replace('/^.*\(nb\)/', '', $bloc->type);
                 @endphp
                 <td>
                   <span class="editnumber" data-bloc_id="{!! $bloc->id !!}">{!! $bloc->contenu !!}</span><span> {!! $unit !!}</span>

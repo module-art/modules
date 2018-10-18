@@ -17,7 +17,7 @@ class CreateBlocsTable extends Migration
       $table->increments('id');
       $table->timestamps();
 			$table->softDeletes();
-			$table->text('contenu');
+			$table->text('contenu')->nullable();
 			$table->smallInteger('place')->nullable();
 			$table->string('type')->nullable();
 			$table->integer('rubrique_id')->unsigned();

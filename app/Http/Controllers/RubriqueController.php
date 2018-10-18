@@ -27,7 +27,9 @@ class RubriqueController extends Controller
 
     $type = Type::where('content_type', $type_name)->firstOrFail();
     $champs = explode(',', $type->champs);
-    $results = $this->controlRepository->getSortedTypeRubriques($type_name, $request->orderby, $request->order);// results utilisable avec un foreach
+    $order = $request->desc ? 'desc' : 'asc';
+
+    $results = $this->controlRepository->getSortedTypeRubriques($type, $request->orderby, $order);// results utilisable avec un foreach
 
     $context = Auth::check() ? 'back' : 'front';
     

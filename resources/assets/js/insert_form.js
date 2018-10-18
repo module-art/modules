@@ -53,5 +53,16 @@ var tinyconf = {
   $('.date').datetimepicker({  
       locale: 'fr',
       format: 'L',
+      widgetPositioning: {
+        horizontal: 'right'
+      },
+    });
+
+  $('.heure').datetimepicker({  
+      locale: 'fr',
+      format: 'LT',
+      widgetPositioning: {
+        horizontal: 'right'
+      },
     });
 });

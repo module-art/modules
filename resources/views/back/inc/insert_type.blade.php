@@ -2,37 +2,42 @@
 <br/>
 <div class="card-body"> 
   {!! Form::open(array('route' => ['type.insert', $type_id], 'method' => 'POST')) !!}
-  <div class="form-group">
-    {!! Form::label('contenu', 'Nom principal :', ['class' => 'control-label']) !!}
-    {!! Form::text('contenu', old('contenu'), ['class' => 'form-control' . ( $errors->has('contenu') ? ' is-invalid' : '' )]) !!}
-    {!! $errors->first('contenu', '<small class="invalid-feedback">:message</small>') !!}
-  </div>
   @for($i=0; $i<$nb_champs; $i++)
     @if(preg_match('/date/', $champs[$i]))
       <div class="form-group">
-        <div class="input-group date" id="datetimepicker{{ $i }}" data-target-input="nearest">
+        <div class="input-group">
           {!! Form::label($champs[$i], $champs[$i] . ' :', ['class' => 'control-label']) !!}
-          <input type="text" name="{{ $champs[$i] }}" class="form-control col-12 col-lg-4 offset-lg-1" value="{{ old($champs[$i]) }}"/>
+          <input id="datetimepicker{{ $i }}" data-target-input="nearest" type="text" name="{{ $champs[$i] }}" class="form-control datetimepicker-input date col-12 col-lg-4 offset-lg-1" data-target="#datetimepicker{{ $i }}" data-toggle="datetimepicker" value="{{ old($champs[$i]) }}"/>
           <div class="input-group-append" data-target="#datetimepicker{{ $i }}" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
           </div>
         </div>
       </div>
-    @elseif(preg_match('/_/', $champs[$i]))
+    @elseif(preg_match('/heure|horaire/', $champs[$i]))
+      <div class="form-group">
+        <div class="input-group">
+          {!! Form::label($champs[$i], $champs[$i] . ' :', ['class' => 'control-label']) !!}
+          <input id="datetimepicker{{ $i }}" data-target-input="nearest" type="text" name="{{ $champs[$i] }}" class="form-control datetimepicker-input heure col-12 col-lg-4 offset-lg-1" data-target="#datetimepicker{{ $i }}" data-toggle="datetimepicker" value="{{ old($champs[$i]) }}"/>
+          <div class="input-group-append" data-target="#datetimepicker{{ $i }}" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-clock"></i></div>
+          </div>
+        </div>
+      </div>
+    @elseif(preg_match('/\(nb\)/', $champs[$i]))
       @php
-        $unit = preg_replace('/^.*_/', '', $champs[$i]);
-        $field_name = preg_replace('/_.*$/', '', $champs[$i]);
-        if( $unit == 'nb' ) $unit = '';
-        //dd($unit);
+        $unit = preg_replace('/^.*\(nb\)/', '', $champs[$i]);
+        $field_name = preg_replace('/\(nb\).*$/', '', $champs[$i]);
       @endphp
       <div class="form-group">
         <div class="form-row">
           <div class="input-group">
             {!! Form::label($champs[$i], $field_name . ' :', ['class' => 'control-label']) !!}
             <input type="number" name="{{ $champs[$i] }}" class="form-control col-12 col-lg-4 offset-lg-1" value="{{ old($champs[$i]) }}"/>
-            <div class="input-group-append">
-              <div class="input-group-text">{{ $unit }}</div>
-            </div>
+            @if($unit != '')
+              <div class="input-group-append">
+                <div class="input-group-text">{{ $unit }}</div>
+              </div>
+            @endif
           </div>
         </div>
       </div>

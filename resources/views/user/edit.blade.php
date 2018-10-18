@@ -2,6 +2,7 @@
 
 @section('title')
   <title>{!! $title_tag !!}</title>
+  <link href="/css/styles.css" rel="stylesheet">
 @section('title')
 
 @section('contenu')

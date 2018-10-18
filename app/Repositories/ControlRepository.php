@@ -50,16 +50,22 @@ class ControlRepository
     return $new_array;
   }
 
-  public function getSortedTypeRubriques($type_of_rubrique, $order_by, $order='asc'){
+  public function getSortedTypeRubriques($type, $order_by, $order='asc'){
 
-    $type = Type::where('content_type', $type_of_rubrique)->firstOrFail();
+    if($order_by == 'created_at' || $order_by == 'updated_at'){
 
-    //on récupère les blocs par type juste pour avoir l'ordre des rubriques
-    $blocs = $type->blocs()->where('type', $order_by)->orderBy('contenu', $order)->get();
+      $sorted_rubriques = Rubrique::where('type_id', $type->id)->orderBy($order_by, $order)->get();
 
-    $sorted_rubriques = array();
-    foreach($blocs as $bloc){
-      $sorted_rubriques[] = Rubrique::find($bloc->rubrique_id);
+    }else{
+
+      //on récupère les blocs par type juste pour avoir l'ordre des rubriques
+      $blocs = $type->blocs()->where('type', $order_by)->orderBy('contenu', $order)->get();
+
+      $sorted_rubriques = array();
+      foreach($blocs as $bloc){
+        $sorted_rubriques[] = Rubrique::find($bloc->rubrique_id);
+      }
+
     }
 
     return $sorted_rubriques;

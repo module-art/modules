@@ -59,7 +59,7 @@
               </div><!--row-->
 
               @if(isset($rubrique->type_contents))
-                <div class="large-bloc type-contents" data-content_type='{{ $rubrique->inclusive_type['content_type'] }}' data-filtre="{{ $rubrique->inclusive_type['default_filtre'] }}">
+                <div class="large-bloc type-contents" data-content_type='{{ $rubrique->inclusive_type['content_type'] }}' data-filtre="{{ $rubrique->inclusive_type['default_filtre'] }}" data-desc="{{ $rubrique->inclusive_type['descendant'] }}">
                 </div>
               @endif
 
@@ -96,9 +96,10 @@ $(document).ready(function() {
 
     typeContents.each(function(){
       var type = $(this).attr('data-content_type'),
-          filtre = $(this).attr('data-filtre');
+          filtre = $(this).attr('data-filtre'),
+          desc = $(this).attr('data-desc');
 
-      $(this).load('/get-type-contents/'+type+'?orderby='+filtre, function(response, status, xhr){
+      $(this).load('/get-type-contents/'+type+'?orderby='+filtre+'&desc='+desc, function(response, status, xhr){
         if( status == "error" ){
           console.log(xhr.statusText);
         }
