@@ -21,7 +21,7 @@ class PageController extends Controller
   {
     $this->footerRepository = $footerRepository;
     $this->menusRepository = $menusRepository;
-    $this->middleware('authAsAdmin', ['except' => ['show']]);
+    $this->middleware('authAsAdmin', ['except' => ['show', 'mailFromContact']]);
     $this->middleware('ajax', ['only' => ['switchPublication']]);
   }
 
@@ -179,10 +179,13 @@ class PageController extends Controller
   public function mailFromContact(ContactRequest $request)
   {
 
-    //return response()->json(['response' => $request->subject]);
-    Mail::send('back.email_contact', $request->all(), function($message)
+    $frommail = $request->email;
+    $subject = $request->subject;
+    $to = 'sylvestre@module-art.fr';
+    $is_sent = Mail::send('back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail)
     {
-      $message->to('contact@batipos.fr')->subject('Message du site');
+      $message->from($frommail, 'module-art.fr');
+      $message->to($to)->subject('Message du site : '.$subject);
     });
  
     return response()->json(['response' => 'Le message est bien envoyé.']);

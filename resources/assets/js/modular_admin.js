@@ -9,21 +9,27 @@ $(document).ready(function()
   function getTypeContents(){
     var typeContents = $('.type-contents');
 
-    typeContents.each(function(){
-      var type = $(this).attr('data-content_type'),
-          filtre = $(this).attr('data-filtre'),
-          desc = $(this).attr('data-desc');
+    if(typeContents.length > 0){
+      typeContents.each(function(){
+        var type = $(this).attr('data-content_type'),
+            filtre = $(this).attr('data-filtre'),
+            desc = $(this).attr('data-desc');
 
-      $(this).load('/get-type-contents/'+type+'?orderby='+filtre+'&desc='+desc, function(response, status, xhr){
-        if( status == "error" ){
-          console.log(xhr.statusText);
-        }else{
-          initMceBlocs();
-          listenToNumBlocs();
-          listenToDestroy();
-        }
+        $(this).load('/get-type-contents/'+type+'?orderby='+filtre+'&desc='+desc, function(response, status, xhr){
+          if( status == "error" ){
+            console.log(xhr.statusText);
+          }else{
+            initMceBlocs();
+            listenToNumBlocs();
+            listenToDestroy();
+          }
+        });
       });
-    });
+    }else{
+      initMceBlocs();
+      listenToDestroy();
+    }
+
   }
 
   //global vars

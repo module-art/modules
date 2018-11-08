@@ -1,0 +1,11 @@
+De retour de vacances, il faut :
+
+Faire un javascript pour dynamiser l'apparition des radios button dans le formulaire de création de types : resources/views/back/inc/new_type.blade.php
+
+Tester une mise en page des éléments de type par blocs au lieu du tableau.
+
+Page élément de type ?
+
+Donner accés à la sidebar dans toutes les pages d'admin.
+
+relier des types à des rubriques artisan->œuvres

@@ -13,6 +13,10 @@
     {!! $errors->first('champs', '<small class="invalid-feedback">:message</small>') !!}
   </div>
   <div class="form-group">
+    @if($operation == 'edit')
+      <p>On peut ajouter, supprimer ou modifier des champs.<br>
+      Attention ! Chaque opération doit être faite séparément.</p>
+    @endif
     <p>Chaque champ pourra être rempli avec du texte, des images, des vidéos.<br>
     Si vous mettez le mot "date" dans le nom du champ, il sera rempli avec un calendrier.<br>
     Pour les nombres, vous pouvez ajouter "(nb)" ou "(nb)une-unité" à la fin du nom du champ (ex "prix(nb)€", "contenance(nb)litres"...).<br>
@@ -24,7 +28,7 @@
     </div>
     <div class="col-10 form-group">
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="default_filtre" value="created_at"{{ $operation == 'edit' && $type->default_filtre  == 'created_at' ? 'checked' : '' }}/>
+        <input class="form-check-input" type="radio" name="default_filtre" value="created_at"{{ $operation == 'edit' && $type->default_filtre  == 'created_at' ? 'checked' : '' }}{{ $operation == 'create' ? 'checked' : '' }}/>
         <label class="form-check-label"> date de création</label>
       </div>
       <div class="form-check">
@@ -42,7 +46,7 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="descendant">Inverser le tri :</label>
+    <label for="descendant">Tri décroissant:</label>
     <input name="descendant" value="1" type="checkbox"{{ $operation == 'edit' && $type->descendant ? 'checked' : '' }}>
   </div>
   {!! Form::submit($operation == 'create' ? 'Créer' : 'Modifier', ['class' => 'btn btn-info']) !!}

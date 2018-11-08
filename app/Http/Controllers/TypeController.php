@@ -20,7 +20,6 @@ class TypeController extends Controller
     $this->menusRepository = $menusRepository;
     $this->controlRepository = $controlRepository;
     $this->middleware('authAsAdmin');
-    //$this->middleware('ajax', ['only' => ['switchPublication']]);
     $this->nbrPerPage = $controlRepository->nbrPerPage;
   }
   /**
@@ -105,6 +104,68 @@ class TypeController extends Controller
   {
     $type = Type::findOrFail($id);
     $inputs = $request->all();
+
+    //modification des champs dans les blocs
+    if($type->champs != $request->champs){
+      $old_champs = explode(',', $type->champs);
+      $new_champs = explode(',', $request->champs);
+      $old_length = count($old_champs);
+      $new_length = count($new_champs);
+
+      $difference = abs($old_length - $new_length);
+
+      if($old_length == $new_length){//modification de nom de champ
+        //$test[] = 'modif';
+        for($i=0;$i<$old_length;$i++){
+          if($old_champs[$i] != $new_champs[$i]){
+            foreach($type->blocs()->where('type', $old_champs[$i])->get() as $bloc){
+              $bloc->type = $new_champs[$i];
+              $bloc->save();
+              //$test[] = $bloc;
+            }
+          }
+        }
+      }elseif($old_length > $new_length){//suppression de champs
+        //$test[] = 'suppression';
+        $diffs = array_diff($old_champs, $new_champs);
+
+        //vérification que des actions contradictoires n'ont pas été effectuées
+        if(count($diffs) > $difference){
+          return redirect()->back()->withError('Ne pas modifier des champs existants lorsqu\'on modifie le nombre de champs !');
+        }
+
+        foreach($diffs as $diff){
+          foreach($type->blocs()->where('type', $diff)->get() as $bloc){
+            $bloc->forceDelete();
+            //$test[] = $bloc;
+          }
+        }
+      }elseif($old_length < $new_length){//ajout de champs
+        $diffs = array_diff($new_champs, $old_champs);
+        //$test[] = $diffs;
+
+        //vérification que des actions contradictoires n'ont pas été effectuées
+        if(count($diffs) > $difference){
+          return redirect()->back()->withError('Ne pas modifier des champs existants lorsqu\'on modifie le nombre de champs !');
+        }
+
+        $place = $old_length + 1;
+        foreach($diffs as $diff){
+          foreach($type->rubriques as $rubrique){
+            $new_bloc = [
+              'contenu' => 'Non renseigné',
+              'place' => $place,
+              'type' => $diff,
+              'rubrique_id' => $rubrique->id
+            ];
+            Bloc::create($new_bloc);
+            //$test[] = $new_bloc;
+          }
+          $place++;
+        }
+      }
+      //return response($test);
+    }
 
     if(!$request->has('descendant')){
       $inputs = array_merge($inputs, ['descendant' => 0]);
