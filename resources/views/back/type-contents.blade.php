@@ -5,6 +5,7 @@
     <table class="table">
       <thead>
         <tr>
+          <th>Lien Page</th>
           <th>date de création</th>
           @foreach($champs as $champ)
             @if(preg_match('/\(nb\)/', $champ))
@@ -22,9 +23,12 @@
         @php //dd($results); @endphp
         @foreach ($results as $i => $result)
           <tr>
+            <td>
+              <a href="{{ route('type_content', [$type->content_type, $result->id]) }}">link</a>
+            </td>
             <td class="type-content">
               <button class="btn btn-sm btn-outline-danger btn-destroy" data-rubrique_id="{{ $result->id }}"><i class="fas fa-trash-alt"></i></button>
-              <?php echo $result->created_at; ?>
+              {{ $result->created_at }}
             </td>
             @foreach ($result->blocs as $y => $bloc)
               @if(preg_match('/date/', $bloc->type))

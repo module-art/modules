@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\RubriqueRequest;
 use App\Http\Requests\ImageUpdateRequest;
 use App\Repositories\ControlRepository;
+use App\Repositories\FooterRepository;
+use App\Repositories\MenusRepository;
 use App\Gestion\ImageGestion;
 use App\Models\Page;
 use App\Models\Rubrique;
@@ -15,12 +17,14 @@ use App\Models\Type;
 class RubriqueController extends Controller
 {
 
-  public function __construct(ControlRepository $controlRepository)
+  public function __construct(ControlRepository $controlRepository, FooterRepository $footerRepository, MenusRepository $menusRepository)
   {
     $this->middleware('auth', ['except' => ['getTypeContents']]);
-    $this->middleware('authAsAdmin', ['except' => ['getTypeContents']]);
-    $this->middleware('ajax', ['except' => ['getTypeContents']]);
+    $this->middleware('authAsAdmin', ['except' => ['getTypeContents', 'showTypeContentPage']]);
+    $this->middleware('ajax', ['except' => ['getTypeContents', 'showTypeContentPage']]);
     $this->controlRepository = $controlRepository;
+    $this->footerRepository = $footerRepository;
+    $this->menusRepository = $menusRepository;
   }
 
   public function getTypeContents(Request $request, $type_name){
@@ -34,6 +38,28 @@ class RubriqueController extends Controller
     $context = Auth::check() ? 'back' : 'front';
     
     return view($context . '.type-contents', compact('results', 'champs', 'type'));
+  }
+
+  public function showTypeContentPage(Request $request, $type_name, $rubrique_id){
+
+    $type_content = Rubrique::findOrFail($rubrique_id);
+    $page = Page::where('slug', $type_name)->firstOrFail();
+    //return response($page);
+
+    $footer = $this->footerRepository->makeFooter();
+    $menus = $this->menusRepository->makeAdminMenus();
+    $first_rubrique = $page->rubriques()->first();
+    $bg_img = [ $first_rubrique->background_img_url, $first_rubrique->background_hd_url ];
+
+    if(Auth::check()){
+      $context = 'back';
+      $types = Type::all();
+    }else{
+      $context = 'front';
+      $types = false;
+    }
+    
+    return view($context . '.page', compact('type_content', 'menus', 'page', 'footer', 'bg_img','types'));
   }
 
     /**

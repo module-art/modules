@@ -84,7 +84,8 @@ $(document).ready(function () {
   //insertion des liste par type
 
   function getTypeContents() {
-    var typeContents = $('.type-contents');
+    var typeContents = $('.type-contents'),
+        typeContent = $('.type-content');
 
     if (typeContents.length > 0) {
       typeContents.each(function () {
@@ -96,16 +97,17 @@ $(document).ready(function () {
           if (status == "error") {
             console.log(xhr.statusText);
           } else {
-            initMceBlocs();
             listenToNumBlocs();
             listenToDestroy();
           }
         });
       });
+    } else if (typeContent.length > 0) {
+      listenToNumBlocs();
     } else {
-      initMceBlocs();
       listenToDestroy();
     }
+    initMceBlocs();
   }
 
   //global vars
@@ -429,7 +431,15 @@ $(document).ready(function () {
 
     /* ------- Tempus dominus --------- */
 
-    $('.editdate').datetimepicker({
+    if ($('.editdate').length > 1) {
+      var dateInputs = $('.editdate');
+    } else {
+      var dateInputs = $('.editdate').first();
+    }
+    //console.log($('.editdate'));
+    //console.log(dateInputs);
+
+    dateInputs.datetimepicker({
       locale: 'fr',
       format: 'L'
       //debug: true

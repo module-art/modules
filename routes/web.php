@@ -54,6 +54,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
 
 Route::post('mail', 'PageController@mailFromContact')->name('page.mail');
 Route::get('get-type-contents/{type}', 'RubriqueController@getTypeContents');
+Route::get('get-type-content/{type}/{id_rubrique}', 'RubriqueController@showTypeContentPage')->name('type_content');
 
 Route::get('/{page_title}', 'PageController@show')->name('page.show');
 

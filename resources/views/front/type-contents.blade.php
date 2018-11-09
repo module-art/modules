@@ -19,6 +19,7 @@
         </tr>
       </thead>
       <tbody>
+        {{--results are rubriques--}}
         @foreach ($results as $result)
           <tr>
             <td><?php echo $result->contenu; ?></td>
