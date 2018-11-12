@@ -84,8 +84,8 @@ $(document).ready(function () {
   //insertion des liste par type
 
   function getTypeContents() {
-    var typeContents = $('.type-contents'),
-        typeContent = $('.type-content');
+
+    var typeContents = $('.type-contents');
 
     if (typeContents.length > 0) {
       typeContents.each(function () {
@@ -97,17 +97,20 @@ $(document).ready(function () {
           if (status == "error") {
             console.log(xhr.statusText);
           } else {
+            initMceBlocs();
             listenToNumBlocs();
             listenToDestroy();
           }
         });
       });
-    } else if (typeContent.length > 0) {
+    } else if ($('.type-content').length > 0) {
+      initMceBlocs();
       listenToNumBlocs();
+      listenToDestroy();
     } else {
+      initMceBlocs();
       listenToDestroy();
     }
-    initMceBlocs();
   }
 
   //global vars
@@ -177,7 +180,7 @@ $(document).ready(function () {
     if (confirm('Tous les contenus de cette page seront supprimés. Êtes vous vraiment sûr?')) {
 
       $.ajax({
-        method: 'post',
+        method: 'delete',
         url: '/coulisses/destroypage/' + idPage,
         data: { _token: csrfToken } //token!!!
       }).done(function (data) {
@@ -431,32 +434,36 @@ $(document).ready(function () {
 
     /* ------- Tempus dominus --------- */
 
-    if ($('.editdate').length > 1) {
-      var dateInputs = $('.editdate');
-    } else {
-      var dateInputs = $('.editdate').first();
+    var dateInputs = $('.editdate');
+    var heureInputs = $('.editheure');
+
+    if (dateInputs.length > 0) {
+      dateInputs.datetimepicker({
+        locale: 'fr',
+        format: 'L'
+        //debug: true
+      });
+
+      dateInputs.on('change.datetimepicker', function (event) {
+        //format moment.js object to string date
+        //alert(event.date);
+        numberSender(moment(event.date).format("YYYYMMDD"), $(this).attr('data-bloc_id'));
+      });
     }
-    //console.log($('.editdate'));
-    //console.log(dateInputs);
 
-    dateInputs.datetimepicker({
-      locale: 'fr',
-      format: 'L'
-      //debug: true
-    }).on('change.datetimepicker', function (event) {
-      //format moment.js object to string date
-      numberSender(moment(event.date).format("YYYYMMDD"), $(this).attr('data-bloc_id'));
-    });
+    if (heureInputs.length > 0) {
+      heureInputs.datetimepicker({
+        locale: 'fr',
+        format: 'LT'
+        //debug: true
+      });
 
-    $('.editheure').datetimepicker({
-      locale: 'fr',
-      format: 'LT'
-      //debug: true
-    }).on('change.datetimepicker', function (event) {
-      //format moment.js object to string date
-      alert(moment(event.date).format("HHmm"));
-      numberSender(moment(event.date).format("HHmm"), $(this).attr('data-bloc_id'));
-    });
+      heureInputs.on('change.datetimepicker', function (event) {
+        //format moment.js object to string date
+        //alert(moment(event.date).format("HHmm"));
+        numberSender(moment(event.date).format("HHmm"), $(this).attr('data-bloc_id'));
+      });
+    }
 
     $('.editnumber').click(function () {
       var tar = $(this),

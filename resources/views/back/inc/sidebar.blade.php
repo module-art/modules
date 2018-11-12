@@ -25,32 +25,37 @@
             {{--<li>
               <a id="add-rubrique">Ajouter une rubrique</a>
             </li>--}}
+            <li>
+              {{ link_to_route('page.index', 'Liste des pages', null, ['class' => '']) }}
+            </li>
           </ul>
         </li>
       @endif
-      <li>
-        <a href="#submenu-type" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Types</a>
-        <ul class="collapse list-unstyled" id="submenu-type">
-          @if(isset($types) && $types->count()>0)
+      @if(Auth()->user()->role == 'maintainer')
+        <li>
+          <a href="#submenu-type" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Types</a>
+          <ul class="collapse list-unstyled" id="submenu-type">
+            @if(isset($types) && $types->count()>0)
+              <li>
+                <a href="#subsubmenu-types" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Inserer</a>
+                <ul class="collapse list-unstyled" id="subsubmenu-types">
+                  @foreach($types as $type)
+                    <li>
+                      {{ link_to_route('type.insertform', $type->content_type, $type->content_type, ['class' => '']) }}
+                    </li>
+                  @endforeach
+                </ul>
+              </li>
+            @endif
             <li>
-              <a href="#subsubmenu-types" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Inserer</a>
-              <ul class="collapse list-unstyled" id="subsubmenu-types">
-                @foreach($types as $type)
-                  <li>
-                    {{ link_to_route('type.insertform', $type->content_type, $type->content_type, ['class' => '']) }}
-                  </li>
-                @endforeach
-              </ul>
+              {{ link_to_route('type.create', 'Créer', null, ['class' => '']) }}
             </li>
-          @endif
-          <li>
-            {{ link_to_route('type.create', 'Créer', null, ['class' => '']) }}
-          </li>
-          <li>
-            {{ link_to_route('type.index', 'Voir les types de contenu', null, ['class' => '']) }}
-          </li>
-        </ul>
-      </li>
+            <li>
+              {{ link_to_route('type.index', 'Voir les types de contenu', null, ['class' => '']) }}
+            </li>
+          </ul>
+        </li>
+      @endif
       <li>
         {{ link_to_route('user.index', 'Utilisateurs', null, ['class' => '']) }}
       </li>

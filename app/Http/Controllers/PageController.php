@@ -8,6 +8,7 @@ use App\Http\Requests\ContactRequest;
 use App\Http\Requests\PageRequest;
 use App\Repositories\FooterRepository;
 use App\Repositories\MenusRepository;
+use App\Repositories\ControlRepository;
 use App\Models\Page;
 use App\Models\Rubrique;
 use App\Models\Bloc;
@@ -17,12 +18,29 @@ use App\Models\Type;
 class PageController extends Controller
 {
   
-  public function __construct(FooterRepository $footerRepository, MenusRepository $menusRepository)
+  public function __construct(FooterRepository $footerRepository, MenusRepository $menusRepository, ControlRepository $controlRepository)
   {
     $this->footerRepository = $footerRepository;
     $this->menusRepository = $menusRepository;
     $this->middleware('authAsAdmin', ['except' => ['show', 'mailFromContact']]);
     $this->middleware('ajax', ['only' => ['switchPublication']]);
+    $this->nbrPerPage = $controlRepository->nbrPerPage;
+  }
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index()
+  {
+    $operation = 'index';
+    $menus = $this->menusRepository->makeAdminMenus();
+    $footer = $this->footerRepository->makeFooter();
+    //$pages = page::where('place', 0)->paginate($this->nbrPerPage);
+    $pages = page::orderBy('place')->paginate($this->nbrPerPage);
+
+
+    return view('back.pageIndex', compact('pages', 'menus', 'operation', 'footer'));
   }
 
   public function show($slug)
@@ -167,9 +185,11 @@ class PageController extends Controller
       }
     }
 
-    $inputs = array_merge($request->all(), [
-      'slug' => str_slug($request->menu_title),
-    ]);
+    //si on veut modifier le slug à l'update
+    //$inputs = array_merge($request->all(), [
+      //'slug' => str_slug($request->menu_title),
+    //]);
+    $inputs = $request->all();
 
     $page->update($inputs);
 
@@ -197,7 +217,7 @@ class PageController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
+  public function destroy(Request $request, $id)
   {
     $page = Page::findOrFail($id);
 
@@ -212,7 +232,11 @@ class PageController extends Controller
     
     $page->delete();
 
-    return response('La page '.$id . ' et ce qu\'elle contient viennent d\'être effacés.' );
+    if ($request->ajax()){
+      return response('La page '.$id . ' et ce qu\'elle contient viennent d\'être effacés.' );
+    }
+
+    return redirect()->back()->withInfo('La page '.$id . ' et ce qu\'elle contient viennent d\'être effacés.');
   }
 
   public function switchPublication($id)

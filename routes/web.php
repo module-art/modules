@@ -18,16 +18,17 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
 
   Route::resource('user', 'UserController', ['except' => ['show']]);
 
+  Route::get('pages', 'PageController@index')->name('page.index');
   Route::get('newpage', 'PageController@create')->name('page.create');
   Route::post('storepage', 'PageController@store')->name('page.store');
   Route::get('editpage/{page_id}', 'PageController@edit')->name('page.edit');
   Route::post('updatepage/{page_id}', 'PageController@update')->name('page.update');
-  Route::post('destroypage/{id}', 'PageController@destroy');
+  Route::delete('destroypage/{id}', 'PageController@destroy')->name('page.destroy');
   Route::post('publicationpage/{id}', 'PageController@switchPublication');
 
-  Route::resource('type', 'TypeController', ['except' => ['show']]);
-  Route::get('insert-type/{type_name}', 'TypeController@showInsertForm')->name('type.insertform');
-  Route::post('insert-type/{type_id}', 'TypeController@insertType')->name('type.insert');
+  Route::resource('type', 'TypeController', ['except' => ['show']])->middleware('authAsMaintainer');
+  Route::get('insert-type/{type_name}', 'TypeController@showInsertForm')->middleware('authAsMaintainer')->name('type.insertform');
+  Route::post('insert-type/{type_id}', 'TypeController@insertType')->middleware('authAsMaintainer')->name('type.insert');
 
   Route::post('bloc/{id}', 'BlocController@update');
   Route::post('destroybloc/{id}', 'BlocController@destroy');
@@ -54,7 +55,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
 
 Route::post('mail', 'PageController@mailFromContact')->name('page.mail');
 Route::get('get-type-contents/{type}', 'RubriqueController@getTypeContents');
-Route::get('get-type-content/{type}/{id_rubrique}', 'RubriqueController@showTypeContentPage')->name('type_content');
+Route::get('{type}/{id_rubrique}', 'RubriqueController@showTypeContentPage')->name('type_content');
 
 Route::get('/{page_title}', 'PageController@show')->name('page.show');
 

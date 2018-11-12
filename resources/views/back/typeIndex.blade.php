@@ -39,17 +39,17 @@
                   <td class="text-primary"><strong>{!! $type->content_type !!}</strong></td>
                   <td class="text-primary"><strong>{!! $type->champs !!}</strong></td>
                   <td>
-                    @if(Auth::user()->role == 'admin')
-                      <a href="{{ route('type.insertform', $type->content_type) }}" class="btn btn-success" title="Insérer"><i class="far fa-edit"></i><span class="sr-only"> Modifier</span></a>
-                    @endif
+                    @auth
+                      <a href="{{ route('type.insertform', $type->content_type) }}" class="btn btn-success" title="Insérer"><i class="far fa-edit"></i><span class="sr-only"> Insérer</span></a>
+                    @endauth
                   </td>
                   <td>
-                    @if(Auth::user()->role == 'admin')
+                    @if(Auth::check())
                       <a href="{{ route('type.edit', $type->id) }}" class="btn btn-warning" title="Modifier" ><i class="far fa-edit"></i><span class="sr-only"> Modifier</span></a>
                     @endif
                   </td>
                   <td>
-                    @if(Auth::user()->role == 'admin')
+                    @if(Auth::check())
                       {!! Form::open(['method' => 'DELETE', 'route' => ['type.destroy', $type->id]]) !!}
                       {{-- Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return confirm(\'Vraiment supprimer cet utilisateur ?\')']) --}}
                       <button type="submit" class="btn btn-danger" onclick="return confirm('Vraiment supprimer ce type et tous les contenus associés ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
@@ -60,13 +60,15 @@
               @endforeach
             </tbody>
           </table>
-          @if(Auth::user()->role == 'admin')
+          {!! $types->links() !!}
+          <div class="row justify-content-between px-3">
+            @if(Auth::check())
             {!! link_to_route('type.create', 'Ajouter un type de contenu', [], ['class' => 'btn btn-info']) !!}
-          @endif
-          <a href="javascript:history.back()" class="btn btn-primary pull-right">
+            @endif
+          <a href="javascript:history.back()" class="btn btn-primary">
             <i class="fas fa-redo"></i> Retour
           </a>
-          {!! $types->links() !!}
+          </div>
         </div>
       </div>
     </div>

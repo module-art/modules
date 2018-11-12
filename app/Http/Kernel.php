@@ -61,5 +61,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'ajax' => \App\Http\Middleware\Ajax::class,
         'authAsAdmin' => \App\Http\Middleware\authAsAdmin::class,
+        'authAsMaintainer' => \App\Http\Middleware\authAsMaintainer::class,
     ];
 }

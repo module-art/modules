@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class authAsAdmin
+class authAsMaintainer
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class authAsAdmin
     public function handle($request, Closure $next)
     {
       $role = $request->user()->role;
-      if($role == 'admin' || $role == 'maintainer'){
+      if($role == 'maintainer'){
         if ( ! session_id() ) @ session_start();
         if ( ! isset($_SESSION['fmanager-ts'])) $_SESSION['fmanager-ts'] = time();
         $_SESSION['fmanager'] = md5($_SESSION['fmanager-ts'].'5XxZyQvLMbZSLaPvAPMhdsEyL2T');

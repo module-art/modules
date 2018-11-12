@@ -58,7 +58,11 @@ class RubriqueController extends Controller
       $context = 'front';
       $types = false;
     }
+
+    //obtention des champs d'un élément enfant !
+    //return response($type_content->children()->first()->blocs);
     
+    // !! La page avec l'adresse /{type} doit éxister en base
     return view($context . '.page', compact('type_content', 'menus', 'page', 'footer', 'bg_img','types'));
   }
 

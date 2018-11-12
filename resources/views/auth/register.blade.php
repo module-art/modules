@@ -61,7 +61,7 @@
                           </div>
                       </div>
 
-                      <div class="form-group row{{ Auth::check() && Auth::user()->role == 'admin' ? '' : ' d-none'}}">
+                      <div class="form-group row{{ Auth::check() ? '' : ' d-none'}}">
                           <label for="role" class="col-md-2 col-form-label text-md-right">{{ __('Droits') }}</label>
                           <div class="col-md-8">
                             <div class="form-check form-check-inline">

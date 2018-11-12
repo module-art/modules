@@ -35,4 +35,13 @@ class Rubrique extends Model
     {
         return $this->belongsTo('App\Models\Type', 'type_contents');
     }
+
+    public function children()
+    {
+      return $this->hasMany('App\Models\Rubrique','parent_id');
+    }
+
+    public function parent_rubrique() {
+        return $this->belongsTo('App\Models\Rubrique','parent_id');
+    }
 }

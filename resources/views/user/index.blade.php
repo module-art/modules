@@ -42,29 +42,31 @@
                   <td class="text-primary"><strong>{!! $user->username !!}</strong></td>
                   <td class="text-primary"><strong>{!! $user->role !!}</strong></td>
                   <td>
-                    @if(Auth::user()->role == 'admin')
+                    {{--@if(Auth::user()->role == 'admin')--}}
                       <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning"><i class="far fa-edit"></i><span class="sr-only"> Modifier</span></a>
-                    @endif
+                    {{--@endif--}}
                   </td>
                   <td>
-                    @if(Auth::user()->role == 'admin')
+                    {{--@if(Auth::user()->role == 'admin')--}}
                       {!! Form::open(['method' => 'DELETE', 'route' => ['user.destroy', $user->id]]) !!}
                       {{-- Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return confirm(\'Vraiment supprimer cet utilisateur ?\')']) --}}
                       <button type="submit" class="btn btn-danger" onclick="return confirm('Vraiment supprimer cet utilisateur ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
                       {!! Form::close() !!}
-                    @endif
+                    {{--@endif--}}
                   </td>
                 </tr>
               @endforeach
             </tbody>
           </table>
-          @if(Auth::user()->role == 'admin')
-            {!! link_to_route('user.create', 'Ajouter un utilisateur', [], ['class' => 'btn btn-info']) !!}
-          @endif
-          <a href="javascript:history.back()" class="btn btn-primary pull-right">
-            <i class="fas fa-redo"></i> Retour
-          </a>
           {!! $links !!}
+          <div class="row justify-content-between px-3">
+            {{--@if(Auth::user()->role == 'admin')--}}
+              {!! link_to_route('user.create', 'Ajouter un utilisateur', [], ['class' => 'btn btn-info']) !!}
+            {{--@endif--}}
+            <a href="javascript:history.back()" class="btn btn-primary">
+              <i class="fas fa-redo"></i> Retour
+            </a>
+          </div>
         </div>
       </div>
     </div>

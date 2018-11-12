@@ -33,7 +33,6 @@ class TypeController extends Controller
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
     $types = Type::paginate($this->nbrPerPage);
-    //$links = $users->render();
 
     return view('back.typeIndex', compact('types', 'menus', 'operation', 'footer'));
   }
