@@ -168,7 +168,9 @@ $(document).ready(function()
             '</div>'+
             '<input id="texte" type="hidden" name="texte" />'+
             '<input type="hidden" name="_token" value="' + csrfToken + '" />'+
-            '<button id="btn-save" class="btn btn-primary pull-right" ><i class="fas fa-cog fa-spin fa-lg"></i> Enregistrer</button><button id="btn-cancel" class="btn btn-secondary pull-right" >Annuler</button>'+
+            '<div class="row justify-content-between px-3">'+
+            '<button id="btn-save" class="btn btn-primary" ><i class="fas fa-cog fa-spin fa-lg"></i> Enregistrer</button><button id="btn-cancel" class="btn btn-secondary" >Annuler</button>'+
+            '</div>'+
             '</form></div></div></div></section>';
 
           tar.css('padding', '10vh 0 19vh');
