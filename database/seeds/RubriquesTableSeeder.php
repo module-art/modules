@@ -18,7 +18,7 @@ class RubriquesTableSeeder extends Seeder
     DB::table('rubriques')->insert([
       'created_at' => $date,
       'updated_at' => $date,
-      'contenu' => 'Rubrique 1',
+      'contenu' => '<h1>Rubrique 1</h1>',
       'place' => 1,
       'cols' => 3,
       'background_img_url' => null,

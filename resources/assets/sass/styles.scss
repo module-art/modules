@@ -185,8 +185,29 @@ p.lead {
 		font-size: $font-size-base*1.1;
 	}
 }
+
 .main-container{
   min-height: 100vh;
+  &.error{
+    padding-top: $line-height-base*25vh;
+    background-repeat: no-repeat; 
+    background-size: 100%; 
+    color:#fff;
+    text-shadow: 2px 2px 8px $dark-gray;
+    font-size: $font-size-base;
+    text-align: center;
+    a {
+      color:#fff;
+    }
+    h1{
+      font-size: $font-size-base * 4;
+      font-weight:600;
+
+      @include media-breakpoint-down(sm) {
+        font-size: $font-size-base * 3;
+      }
+    }
+  }
   .overlay{
     background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0));
   }
@@ -204,6 +225,7 @@ div.heading {
 	text-align: center;
 	color:#fff;
   text-shadow: 2px 2px 8px $dark-gray;
+
 	/* Set a specific height */
   min-height: ($line-height-base*12px);
   transition: all 0.8s ease;
@@ -220,6 +242,7 @@ div.heading {
       font-size: $font-size-base * 3;
     }
   }
+
 }
 
 .more {

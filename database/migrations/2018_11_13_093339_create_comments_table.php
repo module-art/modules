@@ -16,7 +16,7 @@ class CreateCommentsTable extends Migration
     Schema::create('comments', function (Blueprint $table) {
       $table->increments('id');
       $table->timestamps();
-      $table->tinyText('comment_author');
+      $table->string('comment_author', 100);
       $table->string('comment_author_email', 100)->nullable();
       $table->text('comment_content');
       $table->boolean('publie')->default(1);

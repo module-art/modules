@@ -20,4 +20,9 @@ class Type extends Model
         return $this->hasManyThrough('App\Models\Bloc', 'App\Models\Rubrique');
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany('App\Models\Categorie', 'type_categorie');
+    }
+
 }

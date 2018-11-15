@@ -18,7 +18,7 @@ class PagesTableSeeder extends Seeder
     DB::table('pages')->insert([
       'created_at' => $date,
       'updated_at' => $date,
-      'title' => 'Module-art, conception de sites web',
+      'title' => 'Association Les Grands Chemins, lectures champêtres itinérantes',
       'menu_title' => 'Accueil',
       'place' => 1,
       'slug' => str_slug('Accueil'),

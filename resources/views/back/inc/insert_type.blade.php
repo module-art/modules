@@ -1,4 +1,4 @@
-<div class="card-header"><h1>Insertion {{ $type_name }}</h1></div>
+<div class="card-header"><h2>Insertion {{ $type_name }}</h2></div>
 <br/>
 <div class="card-body"> 
   {!! Form::open(array('route' => ['type.insert', $type_id], 'method' => 'POST')) !!}
@@ -49,9 +49,4 @@
       </div>
     @endif
   @endfor
-  {!! Form::submit('Insérer', ['class' => 'btn btn-info']) !!}
-  <a href="javascript:history.back()" class="btn btn-primary pull-right">
-    <i class="fa fa-redo"></i> Retour
-  </a>
-  {!! Form::close() !!}
 </div>

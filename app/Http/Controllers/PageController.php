@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Mail;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\PageRequest;
@@ -39,7 +40,6 @@ class PageController extends Controller
     //$pages = page::where('place', 0)->paginate($this->nbrPerPage);
     $pages = page::orderBy('place')->paginate($this->nbrPerPage);
 
-
     return view('back.pageIndex', compact('pages', 'menus', 'operation', 'footer'));
   }
 
@@ -51,20 +51,13 @@ class PageController extends Controller
     $menus = $this->menusRepository->makeMenus();
     $first_rubrique = $page->rubriques()->first();
     $bg_img = [ $first_rubrique->background_img_url, $first_rubrique->background_hd_url ];
+
+    if(Auth::check()){
+      $types = Type::all();
+      return view('back.page', compact('menus', 'page', 'footer', 'bg_img','types'));
+    }
+
     return view('front.page', compact('menus', 'page', 'footer', 'bg_img'));
-  }
-
-  public function backShow($slug)
-  {
-    $page = Page::where('slug', $slug)->firstOrFail();
-
-    $types = Type::all();
-
-    $footer = $this->footerRepository->makeFooter();
-    $menus = $this->menusRepository->makeAdminMenus();
-    $first_rubrique = $page->rubriques()->first();
-    $bg_img = [ $first_rubrique->background_img_url, $first_rubrique->background_hd_url ];
-    return view('back.page', compact('menus', 'page', 'footer', 'bg_img','types'));
   }
 
   /**

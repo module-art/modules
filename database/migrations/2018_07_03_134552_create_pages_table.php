@@ -17,10 +17,10 @@ class CreatePagesTable extends Migration
       $table->increments('id');
       $table->timestamps();
       $table->softDeletes();
-      $table->string('title');
-      $table->string('menu_title');
+      $table->string('title', 255);
+      $table->string('menu_title', 255);
       $table->smallInteger('place');
-      $table->string('slug');
+      $table->string('slug', 255);
       $table->boolean('publie')->default(0);
     });
   }

@@ -1,4 +1,4 @@
-<div class="card-header"><h1>{{ $operation == 'create' ? 'Créer' : 'Modifier' }} un type de contenu</h1></div>
+<div class="card-header"><h2>{{ $operation == 'create' ? 'Créer' : 'Modifier' }} un type de contenu</h2></div>
 <br/>
 <div class="card-body"> 
   {!! Form::open(array('route' => $operation == 'create' ? 'type.store' : [ 'type.update', $type->id ], 'method' => $operation == 'create' ? 'POST' : 'PUT')) !!}
@@ -49,9 +49,4 @@
     <label for="descendant">Tri décroissant:</label>
     <input name="descendant" value="1" type="checkbox"{{ $operation == 'edit' && $type->descendant ? 'checked' : '' }}>
   </div>
-  {!! Form::submit($operation == 'create' ? 'Créer' : 'Modifier', ['class' => 'btn btn-info']) !!}
-  <a href="javascript:history.back()" class="btn btn-primary pull-right">
-    <i class="fa fa-redo"></i> Retour
-  </a>
-  {!! Form::close() !!}
 </div>

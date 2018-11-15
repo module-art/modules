@@ -19,7 +19,7 @@ class CreateBlocsTable extends Migration
 			$table->softDeletes();
 			$table->text('contenu')->nullable();
 			$table->smallInteger('place')->nullable();
-			$table->string('type')->nullable();
+			$table->string('type', 100)->nullable();
 			$table->integer('rubrique_id')->unsigned();
 			$table->foreign('rubrique_id')->references('id')->on('rubriques')
 						->onDelete('cascade')

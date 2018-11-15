@@ -15,7 +15,7 @@ class BlocsTableSeeder extends Seeder
 		//DB::table('blocs')->delete();
 
     $now = Carbon::now();
-    $num = 5;
+    $num = 2;
 
     for($i=0; $i<=$num; $i++){
       DB::table('blocs')->insert([

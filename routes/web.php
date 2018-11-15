@@ -27,8 +27,10 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
   Route::post('publicationpage/{id}', 'PageController@switchPublication');
 
   Route::resource('type', 'TypeController', ['except' => ['show']])->middleware('authAsMaintainer');
-  Route::get('insert-type/{type_name}', 'TypeController@showInsertForm')->middleware('authAsMaintainer')->name('type.insertform');
-  Route::post('insert-type/{type_id}', 'TypeController@insertType')->middleware('authAsMaintainer')->name('type.insert');
+  Route::get('insert-type/{type_name}', 'TypeController@showInsertForm')->name('type.insertform');
+  Route::post('insert-type/{type_id}', 'TypeController@insertType')->name('type.insert');
+
+  Route::resource('categorie', 'CategorieController', ['except' => ['create']]);
 
   Route::post('bloc/{id}', 'BlocController@update');
   Route::post('destroybloc/{id}', 'BlocController@destroy');
@@ -47,8 +49,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
   Route::post('redactorimgupload', 'RedactorController@uploadImage');
   Route::get('imagemanager', 'RedactorController@imageManager');
 
-
-  Route::get('{page_title}', 'PageController@backShow')->name('back_page.show');
+  Route::get('{page_title}', 'PageController@show')->name('back_page.show');
   Route::get('home', function () { return redirect()->route('back_page.show', 'accueil'); });
   Route::get('', function () { return redirect()->route('back_page.show', 'accueil'); });
 });

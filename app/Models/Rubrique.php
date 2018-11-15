@@ -21,6 +21,11 @@ class Rubrique extends Model
         return $this->hasMany('App\Models\Bloc');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
+
     public function page()
     {
         return $this->belongsTo('App\Models\Page');
@@ -41,7 +46,17 @@ class Rubrique extends Model
       return $this->hasMany('App\Models\Rubrique','parent_id');
     }
 
-    public function parent_rubrique() {
+    public function parent_rubrique()
+    {
         return $this->belongsTo('App\Models\Rubrique','parent_id');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\Tag');
+    }
+    public function categories()
+    {
+        return $this->belongsToMany('App\Models\Categorie');
     }
 }

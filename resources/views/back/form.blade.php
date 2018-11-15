@@ -11,7 +11,7 @@
   <div class="head d-flex justify-content-center">
     @include('menu')
   </div>
-  <section class='row center-card'>
+  <section class='row center-card align-items-start'>
     <div class="col-12 col-lg-8">
       @if(session()->has('info'))
         <div class="alert alert-success alert-dismissible">{!! session('info') !!}</div>
@@ -29,6 +29,13 @@
         @endif
       </div>
     </div>
+    @if($model == 'type')
+      <div class="col-12 col-lg-4">
+        <div class="card card-default">
+          @include('back.inc.aside_type_card')
+        </div>
+      </div>
+    @endif
   </section>
 
 @endsection
@@ -39,5 +46,8 @@
     <script src="/js/tempus-dominus/moment-with-locales.min.js"></script>
     <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
     <script src="/js/insert_form.js"></script>
+  @endif
+  @if($model == 'type')
+    <script src="/js/categorie.js"></script>
   @endif
 @endsection
