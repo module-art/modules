@@ -29,7 +29,7 @@
         @endif
       </div>
     </div>
-    @if($model == 'type')
+    @if($model == 'type' && $operation == 'edit')
       <div class="col-12 col-lg-4">
         <div class="card card-default">
           @include('back.inc.aside_type_card')
@@ -48,6 +48,7 @@
     <script src="/js/insert_form.js"></script>
   @endif
   @if($model == 'type')
+    <script src="/js/plugins/popover-suggest.js"></script>
     <script src="/js/categorie.js"></script>
   @endif
 @endsection

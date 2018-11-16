@@ -31,6 +31,9 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
   Route::post('insert-type/{type_id}', 'TypeController@insertType')->name('type.insert');
 
   Route::resource('categorie', 'CategorieController', ['except' => ['create']]);
+  Route::post('categorie/{id}/detach', 'CategorieController@detach')->middleware('ajax');
+  Route::post('categorie/{type_id}/attach', 'CategorieController@attach')->middleware('ajax');
+  Route::post('categorie_suggest/{type_id}', 'CategorieController@suggest')->middleware('ajax');
 
   Route::post('bloc/{id}', 'BlocController@update');
   Route::post('destroybloc/{id}', 'BlocController@destroy');

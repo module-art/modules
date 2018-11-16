@@ -20,6 +20,23 @@ class CategorieController extends Controller
       return view('back.partial_categorie', compact('type'));
     }
 
+    public function suggest($type_id, Request $request)
+    {
+      $type = Type::findOrFail($type_id);
+      $cats = Categorie::select('name')->where('name', 'regexp', '^'.$request->chain)->get();
+
+      if($cats->count() > 0){
+        $names = array();
+        foreach($cats as $cat){
+          $names[] = $cat->name;
+        }
+        $names_csv = implode(',', $names);
+        return response($names_csv);
+      }else{
+        return response('pas de resultat');
+      }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -77,7 +94,9 @@ class CategorieController extends Controller
      */
     public function edit($id)
     {
-        //
+      $categorie = Categorie::findOrFail($id);
+
+      return response($categorie->name);
     }
 
     /**
@@ -89,7 +108,31 @@ class CategorieController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $cat = Categorie::findOrFail($id);
+
+      $name = $request->name;
+      $slug = str_slug($name);
+
+      $cat->update([
+        'name' => $name,
+        'slug' => $slug
+      ]);
+
+      return response()->json([
+        'response' => 'La catégorie est modifiée.'
+      ]);
+        
+    }
+
+    public function attach($type_id, Request $request)
+    {
+      $cat = Categorie::where('name', $request->name)->firstOrFail();
+
+      $cat->types()->attach($type_id);
+
+      return response()->json([
+        'response' => 'La catégorie est associée.'
+      ]);
     }
 
     /**
@@ -100,6 +143,25 @@ class CategorieController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $cat = Categorie::findOrFail($id);
+
+      $cat->types()->detach();
+
+      $cat->delete();
+
+      return response()->json([
+        'response' => 'La catégorie est supprimée.'
+      ]);
+    }
+
+    public function detach($id)
+    {
+      $cat = Categorie::findOrFail($id);
+
+      $cat->types()->detach();
+
+      return response()->json([
+        'response' => 'La catégorie est dissociée.'
+      ]);
     }
 }

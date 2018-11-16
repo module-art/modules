@@ -20,10 +20,11 @@
         @include('back.inc.categorie_table')
       </div>
     @endif
-    <div class="form-group">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCategorie">
+    <div class="form-group d-flex justify-content-between">
+      <button type="button" class="btn btn-primary col-5" data-toggle="modal" data-target="#modalCategorie">
         Créer une catégorie
       </button>
+      {!! Form::text('choose_cat', null, ['class' => 'form-control col-5', 'placeholder' => 'Chercher...']) !!}
     </div>
   @else
     <p>Les catégories s'ajoute en éditant un type déjà existant.</p>

@@ -77,14 +77,34 @@ module.exports = __webpack_require__(45);
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
+
   var edit = false;
+  var idType = parseInt($('[name="type_id"]').val());
+
+  $('[name="choose_cat"]').popsuggest({
+    placement: 'left',
+    dataUrl: '/coulisses/categorie_suggest/' + idType,
+    chainLength: 1,
+    rows: 5,
+    addData: {
+      '_token': $('[name="csrf-token"]').attr('content')
+    }
+  }).on("popSelect", function () {
+    attachCategorie(this.value);
+  });
 
   $("#ajout-categorie").click(function () {
-    var idType = parseInt($('[name="type_id"]').val()),
-        url = edit ? '/coulisses/categorie/' + edit : '/coulisses/categorie';
+
+    if (edit) {
+      var method = 'put',
+          url = '/coulisses/categorie/' + edit;
+    } else {
+      var method = 'post',
+          url = '/coulisses/categorie';
+    }
 
     $.ajax({
-      method: 'post',
+      method: method,
       url: url,
       data: {
         _token: $('[name="csrf-token"]').attr('content'),
@@ -112,6 +132,7 @@ $(document).ready(function () {
         var input = 'input[name=' + key + ']';
         $(input).addClass('is-invalid');
       });
+      edit = false;
       alert(errors);
     });
   });
@@ -137,12 +158,54 @@ $(document).ready(function () {
           elem.parents('tr').first().remove();
         }).fail(function (data) {
           console.log(data);
-          alert('Connexion impossible pour supprimer la séance.');
+          alert('Connexion impossible pour supprimer la catégorie.');
         });
       }
     });
   }
   listenToRemove();
+
+  function listenToDetach() {
+    $(".categoried").click(function () {
+      var elem = $(this);
+      categorie_id = $(this).attr('data-id');
+      $.ajax({
+        method: 'post',
+        url: '/coulisses/categorie/' + categorie_id + '/detach',
+        data: {
+          _token: $('[name="csrf-token"]').attr('content')
+        }
+      }).done(function (data) {
+        console.log(data);
+        elem.parents('tr').first().remove();
+      }).fail(function (data) {
+        console.log(data);
+        alert('Connexion impossible pour détacher la catégorie.');
+      });
+    });
+  }
+  listenToDetach();
+
+  function attachCategorie(categorieName) {
+    $.ajax({
+      method: 'post',
+      url: '/coulisses/categorie/' + idType + '/attach',
+      data: {
+        _token: $('[name="csrf-token"]').attr('content'),
+        name: categorieName
+      },
+      dataType: "json"
+    }).done(function (data) {
+      console.log(data);
+      $('#categories-container').load('/coulisses/categorie?type_id=' + idType, function () {
+        listenToEdit();
+        listenToRemove();
+      });
+    }).fail(function (data) {
+      console.log(data);
+      alert('Connexion impossible pour associer la catégorie.');
+    });
+  }
 
   function listenToEdit() {
     $(".categorieo").click(function () {
@@ -150,18 +213,18 @@ $(document).ready(function () {
       categorie_id = $(this).attr('data-id');
       $.ajax({
         method: 'get',
-        url: '/coulisses/categorie/' + categorie_id
+        url: '/coulisses/categorie/' + categorie_id + '/edit'
         //data: {
         //_token: $('[name="csrf-token"]').attr('content'),
         //},
       }).done(function (data) {
         $('#modalCategorie').modal('show');
-        $('[name="name"]').val(data['name']);
+        $('[name="name"]').val(data);
         edit = categorie_id;
         $('#title-ajout').html('Modifier une catégorie');
       }).fail(function (data) {
         console.log(data);
-        alert('Connexion impossible pour éditer la séance.');
+        alert('Connexion impossible pour éditer la catégorie.');
       });
     });
   }
