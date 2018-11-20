@@ -118,6 +118,7 @@ $(document).ready(function () {
       });
       $('#categories-container').load('/coulisses/categorie?type_id=' + idType, function () {
         listenToEdit();
+        listenToDetach();
         listenToRemove();
       });
       $('#modalCategorie').modal('hide');
@@ -196,9 +197,15 @@ $(document).ready(function () {
       },
       dataType: "json"
     }).done(function (data) {
-      console.log(data);
+      $.each(data, function (key, value) {
+        if (key == 'error') {
+          alert(value);
+        }
+        console.log(key + ' - ' + value);
+      });
       $('#categories-container').load('/coulisses/categorie?type_id=' + idType, function () {
         listenToEdit();
+        listenToDetach();
         listenToRemove();
       });
     }).fail(function (data) {

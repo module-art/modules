@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CategorieRequest;
 use App\Models\Categorie;
 use App\Models\Type;
 
@@ -53,7 +54,7 @@ class CategorieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategorieRequest $request)
     {
       /*return response()->json([
         'response' => $request->type_id
@@ -106,7 +107,7 @@ class CategorieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategorieRequest $request, $id)
     {
       $cat = Categorie::findOrFail($id);
 
@@ -127,6 +128,16 @@ class CategorieController extends Controller
     public function attach($type_id, Request $request)
     {
       $cat = Categorie::where('name', $request->name)->firstOrFail();
+
+      $type = Type::findOrFail($type_id);
+
+      $type_cat = $type->categories()->where('name', $request->name)->get();
+
+      if($type_cat->count() > 0){
+        return response()->json([
+          'error' => 'La catégorie est déjà associée.'
+        ]);
+      }
 
       $cat->types()->attach($type_id);
 
