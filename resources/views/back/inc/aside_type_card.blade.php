@@ -11,7 +11,10 @@
       break;
   }
 @endphp
-<div class="card-header"><h2>Catégories {{ $operation == 'insert' ? $type_name : 'du type' }}</h2></div>
+<div class="card-header">
+  <p>Type de contenu : {{ $type->content_type }}</p>
+  <h2>Catégories</h2>
+</div>
 <br/>
 <div class="card-body"> 
   @if($operation != 'create')
@@ -52,6 +55,7 @@
         <div class="form-group">
           {!! Form::label('name', 'Nom', ['class' => 'control-label'], false) !!}
           {!! Form::text('name', null, array('class' => 'form-control') ) !!}
+          <small class="invalid-feedback"></small>
           {!! Form::number('type_id', $type->id, array('class' => 'd-none') ) !!}
         </div>
       </div>

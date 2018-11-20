@@ -195,12 +195,11 @@ class TypeController extends Controller
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
     $type = Type::where('content_type', $type_name)->first();
-    $type_id = $type->id;
     $champs = explode(',', $type->champs);
     $nb_champs = count($champs);
     //dd($champs);
 
-    return view('back.form', compact('type_name', 'type_id', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer'));
+    return view('back.form', compact('type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer'));
   }
 
   public function insertType(Request $request, $type_id)
@@ -219,18 +218,24 @@ class TypeController extends Controller
     $i = 1;
     
     foreach($request->except(array('_token')) as $key => $value){
-      if(preg_match('/date/', $key)){
-        $value = preg_replace('/^(\d{2})\/(\d{2})\/(19|20)(\d{2})$/', '$3$4$2$1', $value);
-      }elseif(preg_match('/heure|horaire/', $key)){
-        $value = preg_replace('/:/', '', $value);
+      //categories
+      if(preg_match('/categorie/', $key)){
+        $typed_rubrique->categories()->attach($value);
+      }else{
+        if(preg_match('/date/', $key)){
+          $value = preg_replace('/^(\d{2})\/(\d{2})\/(19|20)(\d{2})$/', '$3$4$2$1', $value);
+        }elseif(preg_match('/heure|horaire/', $key)){
+          $value = preg_replace('/:/', '', $value);
+        }
+        Bloc::create([
+          'contenu' => $value,
+          'place' => $i,
+          'type' => preg_replace('/_/', ' ', $key),
+          'rubrique_id' => $rubrique_id,
+        ]);
+        $i++;
       }
-      Bloc::create([
-        'contenu' => $value,
-        'place' => $i,
-        'type' => preg_replace('/_/', ' ', $key),
-        'rubrique_id' => $rubrique_id,
-      ]);
-      $i++;
+
     }
 
     return redirect()->route('type.insertform', $type_name)->withInfo('L\'insertion s\'est bien déroulée.');

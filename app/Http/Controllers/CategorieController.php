@@ -135,7 +135,7 @@ class CategorieController extends Controller
 
       if($type_cat->count() > 0){
         return response()->json([
-          'error' => 'La catégorie est déjà associée.'
+          'error' => 'La catégorie ' . $request->name.' est déjà associée au type de contenu : ' . $type->content_type . '.',
         ]);
       }
 

@@ -17,6 +17,6 @@ class Categorie extends Model
     }
     public function rubriques()
     {
-        return $this->belongsToMany('App\Models\Rubrique');
+        return $this->belongsToMany('App\Models\Rubrique', 'rubrique_categorie');
     }
 }

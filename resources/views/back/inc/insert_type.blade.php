@@ -1,7 +1,7 @@
-<div class="card-header"><h2>Insertion {{ $type_name }}</h2></div>
+<div class="card-header"><h2>Insertion {{ $type->content_type }}</h2></div>
 <br/>
 <div class="card-body"> 
-  {!! Form::open(array('route' => ['type.insert', $type_id], 'method' => 'POST')) !!}
+  {!! Form::open(array('route' => ['type.insert', $type->id], 'method' => 'POST')) !!}
   @for($i=0; $i<$nb_champs; $i++)
     @if(preg_match('/date/', $champs[$i]))
       <div class="form-group">

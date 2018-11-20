@@ -35,6 +35,12 @@
           @include('back.inc.aside_type_card')
         </div>
       </div>
+    @elseif($model == 'type' && $operation == 'insert')
+      <div class="col-12 col-lg-4">
+        <div class="card card-default">
+          @include('back.inc.aside_insert_type_card')
+        </div>
+      </div>
     @endif
   </section>
 
@@ -47,7 +53,7 @@
     <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
     <script src="/js/insert_form.js"></script>
   @endif
-  @if($model == 'type')
+  @if($operation == 'edit' && $model == 'type')
     <script src="/js/plugins/popover-suggest.js"></script>
     <script src="/js/categorie.js"></script>
   @endif

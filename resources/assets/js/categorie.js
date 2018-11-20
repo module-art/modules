@@ -14,6 +14,7 @@ $(document).ready(function()
     }
   }).on( "popSelect", function() {
     attachCategorie(this.value);
+    this.value = '';
   });
 
   $("#ajout-categorie").click(function(){
@@ -48,24 +49,27 @@ $(document).ready(function()
       $('#modalCategorie').modal('hide');
       edit = false;
       $('#title-ajout').html('Ajouter une catégorie');
+      $('input').removeClass('is-invalid');
     })
     .fail(function(data) {
-      console.log(data);
+      //console.log(data);
       var errors = '';
       $.each(data.responseJSON['errors'], function (key, value) {
-        console.log(key+' : '+value);
+        //console.log(key+' : '+value);
         errors += value+"\n";
         var input = 'input[name=' + key + ']';
         $(input).addClass('is-invalid');
+        $(input).next().html(value);
       });
       edit = false;
-      alert(errors);
+      //alert(errors);
     });
   });
 
   $(".close").click(function(){
     edit = false;
     $('#title-ajout').html('Ajouter une catégorie');
+    $('input').removeClass('is-invalid');
   });
 
   function listenToRemove(){
@@ -128,16 +132,17 @@ $(document).ready(function()
     })
     .done(function(data) {
       $.each(data, function (key, value) {
-        if(key == 'error'){
-          alert(value);
-        }
         console.log(key+' - '+value);
       });
-      $('#categories-container').load('/coulisses/categorie?type_id='+idType, function(){
-        listenToEdit();
-        listenToDetach();
-        listenToRemove();
-      });
+      if(data['error']){
+        alert(data['error']);
+      }else{
+        $('#categories-container').load('/coulisses/categorie?type_id='+idType, function(){
+          listenToEdit();
+          listenToDetach();
+          listenToRemove();
+        });
+      }
     })
     .fail(function(data) {
       console.log(data);
