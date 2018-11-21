@@ -18,6 +18,14 @@
   #fixed-sidebar{
     position: fixed;
     width: $navbar-width;
+    .sidebarCollapse.btn{
+      position: relative;
+      right: -270px;
+      top: 60px;
+    }
+    .chevron:hover{
+      opacity: 0.7;
+    }
   }
   .sidebar-header{
     text-align: center;

@@ -18,31 +18,27 @@
 
     <div class="main-container">
 
-      <div class='overlay'>
+      <div class="rubrique-container">
 
-        <div class="head d-flex justify-content-center">
-          @include('menu')
-        </div>
+        @include('back.inc.partial_rubrique')
 
-        <div class="rubrique-container">
+      </div><!--rubrique-->
 
-          @include('back.inc.partial_rubrique')
+      <div class="head d-flex justify-content-center">
+        @include('menu')
+      </div>
 
-        </div><!--rubrique-->
+      <div class='after-rubrique-container d-flex justify-content-center'>
+        <div id="blocs-rubrique{{ $rubrique->id }}" class="after-rubrique{{ $rubrique->blocs()->count() > 0 || isset($rubrique->type_contents) || isset($type_content) ? ' not-empty' : ''}}" data-rubrique_id="{!! $rubrique->id !!}" data-rubrique_cols="{!! $rubrique->cols !!}">
 
-        <div class='after-rubrique-container d-flex justify-content-center'>
-          <div id="blocs-rubrique{{ $rubrique->id }}" class="col-12 col-lg-10 col-xl-9 after-rubrique{{ $rubrique->blocs()->count() > 0 || isset($rubrique->type_contents) ? ' not-empty' : ''}}">
+          @include('back.inc.partial_bloc')
 
-            @include('back.inc.partial_bloc')
+          @if($page->slug == 'contact')
+            @include('front.contact')
+          @endif
 
-            @if($page->slug == 'contact')
-              @include('front.contact')
-            @endif
-
-          </div><!--after-rubrique-->
-        </div>
-
-      </div><!--overlay-->
+        </div><!--after-rubrique-->
+      </div>
 
     </div><!--main-container-->
 

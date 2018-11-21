@@ -1,16 +1,5 @@
 <div class='col-12 col-lg-10'>
-  @if(!isset($operation)){{-- case for admin pages --}}
-    @if(Auth::check())
-
-      <button type="button" class="btn btn-info sidebarCollapse">
-        <i class="fas fa-align-left"></i>
-        <span>Menu</span>
-      </button>
-
-    @endif
-  @endif
   <div class="d-md-none d-flex">
-    <a class="navbar-brand ml-0 col-9" href="{{ route( (Auth::check())? 'back_page.show' : 'page.show', 'accueil') }}" id="sm-logo"><img src="/images/baramots_blanc.png" alt="logo"></a>
     <button class="navbar-toggler col-3" type="button" data-toggle="collapse" data-target="#navbars01" aria-controls="navbars03" aria-expanded="false" aria-label="Toggle navigation">
       <!-- <span class="navbar-toggler-icon"></span> -->
       <i class="fas fa-bars"></i>
@@ -19,7 +8,6 @@
   <nav class="navbar navbar-expand-md">
 
     <div class="collapse navbar-collapse mr-auto" id="navbars01">
-      <a class="navbar-brand ml-0 d-none d-md-block" href="{{ route( (Auth::check())? 'back_page.show' : 'page.show', 'accueil') }}" id="logo"><img src="/images/baramots_blanc.png" alt="logo"></a>
       <ul class="navbar-nav justify-content-end">
         @if($menus->count() > 0)
           @foreach($menus as $menu)

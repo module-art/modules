@@ -1,6 +1,11 @@
 <nav id="sidebar">
   <section id="fixed-sidebar">
 
+    <button type="button" class="btn btn-info sidebarCollapse">
+      <i class="fas fa-align-left"></i>
+      <span>Menu</span>
+    </button>
+
     <div class="sidebar-header">
       <h3> Bonjour {{ Auth::user()->name }}</h3>
     </div>
@@ -74,7 +79,7 @@
         {{ Form::close() }}
       </li>
       <li>
-        <div class="sidebarCollapse"><i class="fas fa-chevron-circle-left"></i></div>
+        <div class="sidebarCollapse chevron"><i class="fas fa-chevron-circle-left"></i></div>
       </li>
     </ul>
     

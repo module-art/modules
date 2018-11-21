@@ -40,7 +40,7 @@
 }
 
 // Body
-$body-bg: #180E0D;
+$body-bg: #111333;
 
 // Borders
 $laravel-border-color: darken($body-bg, 10%);
@@ -56,7 +56,7 @@ $green: #63A375;
 $yellow: #FF6B35;//#cbb956
 $red: #DA4167;//#EF476F;//#bf5329
 
-//#EDF7F6, #EBEBEB, #E7ECEF
+//#EDF7F6, #EBEBEB, #E7ECEF,#180E0D
 
 $white: #FDFFFC;
 $sable: lighten(#FFFF82, 10%);
@@ -73,8 +73,10 @@ $font-family-base: sans-serif, arial, monospace;
 $font-size-base: 1rem;
 $line-height-base: 1.5;
 $spacer: 2rem;
+$bannier-height: 15rem;
 $margin-base: 1.5rem;
-$text-color: #fff;//#636b6f;
+$text-color: #180E0D;//#636b6f;
+$text-background: #EBEBEB;
 
 // Navbar
 $navbar-default-bg: #fff;
@@ -92,7 +94,7 @@ $input-color-placeholder: lighten($text-color, 30%);
 $panel-default-heading-bg: #fff;
 
 //cinessone
-$nav-background-color: #000000;//#343A40;
+$nav-background-color: #000;//#343A40;
 
 $border-radius:               0;
 $border-radius-lg:            0;

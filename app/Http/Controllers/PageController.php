@@ -45,7 +45,11 @@ class PageController extends Controller
 
   public function show($slug)
   {
-    $page = Page::where('slug', $slug)->where('publie', 1)->firstOrFail();
+    if(Auth::check()){
+      $page = Page::where('slug', $slug)->firstOrFail();
+    }else{
+      $page = Page::where('slug', $slug)->where('publie', 1)->firstOrFail();
+    }
 
     $footer = $this->footerRepository->makeFooter();
     $menus = $this->menusRepository->makeMenus();

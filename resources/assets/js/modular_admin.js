@@ -173,7 +173,6 @@ $(document).ready(function()
             '</div>'+
             '</form></div></div></div></section>';
 
-          tar.css('padding', '10vh 0 19vh');
           $('.cols-button, .bloc-button').css('display', 'none');
           if($('#replacement')[0] === undefined){
             tar.parent().append(replacement);
@@ -256,7 +255,7 @@ $(document).ready(function()
 
         if(isNewBloc){
           type = tar.parent()[0].className == 'col-12' ? 'large' : 'normal';
-          bloc_id = 'rubrique-' + tar.parents('.after-rubrique-container').first().prev().children('.editrubrique').attr('data-rubrique_id');
+          bloc_id = 'rubrique-' + tar.parents('.after-rubrique').first().attr('data-rubrique_id');
         }
 
         var action = '/coulisses/bloc/' + bloc_id;
@@ -527,11 +526,11 @@ $(document).ready(function()
     $('.add-bloc').click(function(){
       var previousRow = $(this).parents(".row").first(),
           classNames = previousRow.children('[class*="col-md"]').first().attr('class'),
-          cols = classNames === undefined? 'col-md-6 ' : classNames.substring(classNames.lastIndexOf(' ')+1),// col-md-6 by default when no first bloc
+          cols = previousRow.parent().attr('data-rubrique_cols'),
           type = this.getAttribute('data-format'),
           order = $(this).attr('data-order'),
           newBlocLarge = '<div class="col-12"><button class="btn btn-sm btn-outline-danger btn-destroy" ><i class="fas fa-trash-alt"></i></button><div class="editable" data-bloc_id="0"><h2>Nouveau bloc large</h2></div></div>',
-          newBlocNormal = '<div class="col-12 '+ cols +'"><button class="btn btn-sm btn-outline-danger btn-destroy" ><i class="fas fa-trash-alt"></i></button><div class="editable" data-bloc_id="0"><p>Nouveau paragraphe</p></div></div>';
+          newBlocNormal = '<div class="col-12 col-md-'+ 12/cols +'"><button class="btn btn-sm btn-outline-danger btn-destroy" ><i class="fas fa-trash-alt"></i></button><div class="editable" data-bloc_id="0"><p>Nouveau paragraphe</p></div></div>';
 
       if(order == 'asc'){
         if(type == 'large'){
@@ -661,12 +660,13 @@ $(document).ready(function()
     $('.change-col').click(function(){
 
       var previousRow = $(this).parents(".row").first(),
-          classNames = previousRow.children('[class*="col-"]').first().attr('class'),
+          //classNames = previousRow.children('[class*="col-"]').first().attr('class'),
           //cols = classNames.substring(classNames.indexOf(' ')+1),
           nbCols = parseInt( this.getAttribute('data-colonnes') ),
           newCols = "",
           targetChildren = previousRow.children('.col-12').not('.large-bloc'),
-          rubrique_id = previousRow.parents('.after-rubrique-container').prev().children('.editrubrique').first().attr('data-rubrique_id');
+          rubrique_id = previousRow.parent().attr('data-rubrique_id');
+
       rubrique_id = parseInt(rubrique_id);
        
       previousRow.children('.clearfix').remove();
@@ -707,7 +707,7 @@ $(document).ready(function()
 
     $('.ranger').click(function(){
       var container = $(this).parents('.after-rubrique').first(),
-          idRubrique = container.parent().prev().children('.editrubrique').first().attr('data-rubrique_id');
+          idRubrique = container.attr('data-rubrique_id');
       idRubrique = parseInt(idRubrique);
       reloadBlocs(container, idRubrique);
     });
@@ -715,7 +715,7 @@ $(document).ready(function()
     $('.inverser').click(function(){
 
       var container = $(this).parents('.after-rubrique').first(),
-          idRubrique = container.parent().prev().children('.editrubrique').first().attr('data-rubrique_id');
+          idRubrique = container.attr('data-rubrique_id');
 
       $.ajax({
           method: 'post',
@@ -740,7 +740,7 @@ $(document).ready(function()
         $('.add-bloc').off();
 
         var container = $(this).parents('.after-rubrique').first(),
-            idRubrique = container.parent().prev().children('.editrubrique').first().attr('data-rubrique_id');
+            idRubrique = container.attr('data-rubrique_id');
 
         container.load('/coulisses/partial_drag/'+idRubrique, function(response, status, xhr){
           if( status == "error" ){

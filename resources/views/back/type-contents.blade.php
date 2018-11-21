@@ -28,7 +28,7 @@
             </td>
             <td class="type-content">
               <button class="btn btn-sm btn-outline-danger btn-destroy" data-rubrique_id="{{ $result->id }}"><i class="fas fa-trash-alt"></i></button>
-              {{ $result->created_at }}
+              {{ ( new Date($result->created_at) )->format('D j F Y') }}
             </td>
             @foreach ($result->blocs as $y => $bloc)
               @if(preg_match('/date/', $bloc->type))

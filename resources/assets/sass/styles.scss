@@ -44,12 +44,6 @@ a[data-toggle="collapse"] {
 }
 
 .head {
-  .sidebarCollapse{
-    position: fixed;
-    z-index: 500;
-    top: 200px;
-  }
-	
 	#logo, #sm-logo {
     height: $spacer*3;
     img{
@@ -208,15 +202,17 @@ p.lead {
       }
     }
   }
-  .overlay{
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0));
-  }
+  //.overlay{
+    //background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0));
+  //}
  }
 
 div.heading {
   //background-attachment: fixed;
+  margin-top: $margin-base;
+  background-repeat: no-repeat; 
+  background-size: 100%; 
   position: relative;
-  padding: $line-height-base*10vh 0 $line-height-base*16vh ;
 	//font-family: $font-family-sans;
 	font-size: ($font-size-base*1.2);
 	//font-weight:600;
@@ -227,7 +223,7 @@ div.heading {
   text-shadow: 2px 2px 8px $dark-gray;
 
 	/* Set a specific height */
-  min-height: ($line-height-base*12px);
+  min-height: $bannier-height;
   transition: all 0.8s ease;
 
   @include media-breakpoint-down(sm) {
@@ -245,7 +241,7 @@ div.heading {
 
 }
 
-.more {
+/*.more {
   position:relative;
   top: -5*$spacer;
   background-image: url("/images/chevron_bas_w.svg");
@@ -268,7 +264,7 @@ div.heading {
   &:hover{
     background-color: rgba(255, 255, 255, 0.2);
   }
-}
+}*/
 
 footer {
   background-color: $light-black;
@@ -384,10 +380,10 @@ footer {
 }
 
 .after-rubrique{
-  padding-top: $spacer;
+  padding: $spacer;
   color: $text-color;
   &.not-empty{
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: $text-background;
     border-radius: $spacer $spacer 0 0;
   }
   .row{
@@ -395,7 +391,7 @@ footer {
     .bloc-button,.cols-button{
       font-size: initial;
       position: absolute;
-      top: -5/2*$spacer;
+      left: -130px;
       .dropdown-menu{
         right: 0;
         left: inherit;
@@ -404,11 +400,10 @@ footer {
     }
 
     .bloc-button{
-      right: 0px;
     }
 
     .cols-button{
-      right: 130px;
+      top: 45px;
     }
 
     img{
