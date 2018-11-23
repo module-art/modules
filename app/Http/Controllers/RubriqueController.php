@@ -13,27 +13,24 @@ use App\Gestion\ImageGestion;
 use App\Models\Page;
 use App\Models\Rubrique;
 use App\Models\Type;
+use myControl;
 
 class RubriqueController extends Controller
 {
 
-  public function __construct(ControlRepository $controlRepository, FooterRepository $footerRepository, MenusRepository $menusRepository)
+  public function __construct()
   {
     $this->middleware('auth', ['except' => ['getTypeContents']]);
     $this->middleware('authAsAdmin', ['except' => ['getTypeContents', 'showTypeContentPage']]);
     $this->middleware('ajax', ['except' => ['getTypeContents', 'showTypeContentPage']]);
-    $this->controlRepository = $controlRepository;
-    $this->footerRepository = $footerRepository;
-    $this->menusRepository = $menusRepository;
   }
 
   public function getTypeContents(Request $request, $type_name){
 
     $type = Type::where('content_type', $type_name)->firstOrFail();
     $champs = explode(',', $type->champs);
-    $order = $request->desc ? 'desc' : 'asc';
 
-    $results = $this->controlRepository->getSortedTypeRubriques($type, $request->orderby, $order);// results utilisable avec un foreach
+    $results = myControl::getSortedTypeRubriques($type, $request->orderby, $request->desc);// results utilisable avec un foreach
 
     $context = Auth::check() ? 'back' : 'front';
     
@@ -46,8 +43,8 @@ class RubriqueController extends Controller
     $page = Page::where('slug', $type_name)->firstOrFail();
     //return response($page);
 
-    $footer = $this->footerRepository->makeFooter();
-    $menus = $this->menusRepository->makeAdminMenus();
+    $footer = FooterRepository::makeFooter();
+    $menus = MenusRepository::makeAdminMenus();
     $first_rubrique = $page->rubriques()->first();
     $bg_img = [ $first_rubrique->background_img_url, $first_rubrique->background_hd_url ];
 

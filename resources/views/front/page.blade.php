@@ -86,7 +86,7 @@
 @section('scripts')
   @if($page->slug == 'contact')
   @else
-    <script>
+    {{--<script>
 
 $(document).ready(function() {
   //resize videos
@@ -114,6 +114,6 @@ $(document).ready(function() {
       });
     });
 });
-    </script>
+    </script>--}}
   @endif
 @endsection

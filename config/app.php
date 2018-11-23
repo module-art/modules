@@ -163,6 +163,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+
     ],
 
     /*
@@ -215,6 +216,8 @@ return [
         'Html'  => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Date' => Jenssegers\Date\Date::class,
+        //Custom classes
+        'myControl' => App\Repositories\ControlRepository::class,
 
     ],
 

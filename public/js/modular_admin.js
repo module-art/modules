@@ -97,6 +97,7 @@ $(document).ready(function () {
           if (status == "error") {
             console.log(xhr.statusText);
           } else {
+            console.log(type + ' est rechargé.');
             initMceBlocs();
             listenToNumBlocs();
             listenToDestroy();
@@ -209,7 +210,8 @@ $(document).ready(function () {
     });
   });
 
-  getTypeContents();
+  //getTypeContents();
+  initMceBlocs();
   initMceRubriques();
   listenToAddBloc();
   listenToDestroy();
@@ -325,6 +327,7 @@ $(document).ready(function () {
           //contentType: false,
         }).done(function (data) {
           console.log(data['response']);
+          alert('Enregistré !');
           if (isNewBloc) {
             tar.attr('data-bloc_id', data['newId']);
           }

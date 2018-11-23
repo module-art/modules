@@ -41,6 +41,13 @@
   {{--<span class="editdate"></span>
   <span class="editheure"></span>--}}
   <div class="large-bloc type-contents" data-content_type='{{ $rubrique->inclusive_type['content_type'] }}' data-filtre="{{ $rubrique->inclusive_type['default_filtre'] }}" data-desc="{{ $rubrique->inclusive_type['descendant'] }}">
+    @php
+      $type = $rubrique->inclusive_type;
+    @endphp
+    @include('back.type-contents', [
+      'champs' => explode(',', $type->champs),
+      'results' => myControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
+    ])
   </div>
 @elseif(isset($type_content) && $type_content->type_id == 1)
   {{--$type_content is a rubrique--}}

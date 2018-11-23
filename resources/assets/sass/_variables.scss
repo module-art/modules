@@ -65,10 +65,10 @@ $dark-gray:#25313F;
 $light-black:#232729;
 
 // Typography
-$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+//$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 
 $font-family-serif: Georgia, Times, serif;
-$font-family-sans: 'dejavu_sans', Helvetica, Arial, sans-serif;
+$font-family-sans: sans-serif, 'dejavu_sans', Helvetica, Arial;
 $font-family-base: sans-serif, arial, monospace;
 $font-size-base: 1rem;
 $line-height-base: 1.5;
@@ -76,7 +76,7 @@ $spacer: 2rem;
 $bannier-height: 15rem;
 $margin-base: 1.5rem;
 $text-color: #180E0D;//#636b6f;
-$text-background: #EBEBEB;
+$text-background: #fdfef9;
 
 // Navbar
 $navbar-default-bg: #fff;

@@ -50,7 +50,9 @@ class ControlRepository
     return $new_array;
   }
 
-  public function getSortedTypeRubriques($type, $order_by, $order='asc'){
+  static function getSortedTypeRubriques($type, $order_by, $desc = 0){
+
+    $order = $desc ? 'desc' : 'asc';
 
     if($order_by == 'created_at' || $order_by == 'updated_at'){
 

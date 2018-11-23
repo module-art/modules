@@ -35,19 +35,18 @@ class PageController extends Controller
   public function index()
   {
     $operation = 'index';
-    $menus = $this->menusRepository->makeAdminMenus();
-    $footer = $this->footerRepository->makeFooter();
+    $menus = MenusRepository::makeAdminMenus();
     //$pages = page::where('place', 0)->paginate($this->nbrPerPage);
     $pages = page::orderBy('place')->paginate($this->nbrPerPage);
 
-    return view('back.pageIndex', compact('pages', 'menus', 'operation', 'footer'));
+    return view('back.pageIndex', compact('pages', 'menus', 'operation'));
   }
 
   public function show($slug)
   {
     if(Auth::check()){
       $page = Page::where('slug', $slug)->firstOrFail();
-      $menus = $this->menusRepository->makeAdminMenus();
+      $menus = MenusRepository::makeAdminMenus();
     }else{
       $page = Page::where('slug', $slug)->where('publie', 1)->firstOrFail();
       $menus = $this->menusRepository->makeMenus();
@@ -75,9 +74,8 @@ class PageController extends Controller
   public function create(){
     $operation = 'create';
     $menus = $this->menusRepository->makeAdminMenus();
-    $footer = $this->footerRepository->makeFooter();
     $model = 'page';
-    return view('back.form', compact('menus', 'operation', 'footer', 'model'));
+    return view('back.form', compact('menus', 'operation', 'model'));
   }
 
   /**
@@ -122,9 +120,8 @@ class PageController extends Controller
     $operation = 'edit';
     $page = Page::findOrFail($id);
     $menus = $this->menusRepository->makeAdminMenus();
-    $footer = $this->footerRepository->makeFooter();
     $model = 'page';
-    return view('back.form', compact('menus', 'page', 'operation', 'footer', 'model'));
+    return view('back.form', compact('menus', 'page', 'operation', 'model'));
   }
 
   /**

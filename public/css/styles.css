@@ -10522,7 +10522,7 @@ body {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
-  font-family: "dejavu_sans", Helvetica, Arial, sans-serif;
+  font-family: sans-serif, "dejavu_sans", Helvetica, Arial;
   font-size: 1rem;
 }
 
@@ -10773,7 +10773,7 @@ div.heading h1 {
 }*/
 
 footer {
-  background-color: #EBEBEB;
+  background-color: #fdfef9;
   font-size: 1rem;
   color: #180E0D;
   margin-top: 6px;
@@ -10906,7 +10906,7 @@ footer .form-group input {
 }
 
 .after-rubrique.not-empty {
-  background-color: #EBEBEB;
+  background-color: #fdfef9;
 }
 
 .after-rubrique .row {
