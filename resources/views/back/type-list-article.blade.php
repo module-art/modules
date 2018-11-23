@@ -6,33 +6,22 @@
       @php
         $titre = $result->blocs()->where('type','titre')->first();
         $texte = $result->blocs()->where('type','texte')->first();
+        $dossiers_image = $result->blocs()->where('type','galeries')->first();
       @endphp
-      <section class="article">
-        <a href="{{ route('type_content', [$type->content_type, $result->id]) }}">
+      <section class="articles">
+        <p class="text-muted">Publié le {{ ( new Date($result->created_at) )->format('D j F Y') }}</p>
+        <a href="{{ route('type_content', [$type->content_type, $result->id]) }}" class="titre text-dark">
           {!! $titre->contenu !!}
         </a>
-        <p class="text-muted">Publié le {{ ( new Date($result->created_at) )->format('D j F Y') }}</p>
         <div class="editable" data-bloc_id="{!! $texte->id !!}">{!! $texte->contenu !!}</div>
+        <div class="gallerys">
+          {{ $dossiers_image->contenu }}
+          {{--Créer une class pour traiter les dossiers images en créant un sous dossier thumbs s'il est absent et le remplir puis afficher la galerie d'images touch touch ou autre.--}}
+        </div>
       </section>
     @endforeach
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Lien Page</th>
-          <th>date de création</th>
-          @foreach($champs as $champ)
-            @if(preg_match('/\(nb\)/', $champ))
-              @php
-                $field_name = preg_replace('/\(nb\).*$/', '', $champ);
-              @endphp
-              <th>{{ $field_name }}</th>
-            @else
-              <th>{{ $champ }}</th>
-            @endif
-          @endforeach
-        </tr>
-      </thead>
+    {{--<table class="table">
       <tbody>
         @php //dd($results); @endphp
         @foreach ($results as $i => $result)
@@ -77,7 +66,7 @@
           </tr>
         @endforeach
       </tbody>
-    </table>
+    </table>--}}
       
   </body>
 </html>

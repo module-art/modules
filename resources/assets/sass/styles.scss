@@ -97,43 +97,7 @@ a[data-toggle="collapse"] {
 		@include size(183px, 64px);
 		//text-indent: -9999px;
 	}	
-
-	&.scrolled {
-  		height: ($line-height-base*3px);
-  		margin-bottom: 3em;
-  		position:fixed;
-  		background:white;
-  		z-index: 1000;
-  		width: 100%;
-		padding:$line-height-base*1px;
-
-		nav {
-			ul {
-				margin:$line-height-base*1px 0 0 0;
-				@include media-breakpoint-up(sm) {
-					margin:0;
-				}
-				li {
-					display: inline-block;
-          @include media-breakpoint-down(sm) {
-						padding: 0;
-					}
-
-					font-size:($font-size-base*0.85);
-				}
-			}
-		}
-
-		h1 {
-			@include retinize('logo-petit', 'png', 117px, 41px);
-			@include size(117px, 41px);
-		}
-
-		font-size: ($font-size-base*0.5);
-
-	}
 }
-
 
 @include media-breakpoint-up(sm) {
 	#start-content {
@@ -403,4 +367,14 @@ footer {
 
 .mce-edit-focus{
   border: 1px $light-gray solid;
+}
+
+.articles{
+  .titre{
+    display: block;
+    margin-bottom: $line-height-base*1rem;
+  }
+  p{
+    margin: 0;
+  }
 }

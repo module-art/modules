@@ -10607,51 +10607,6 @@ a[data-toggle="collapse"] {
   }
 }
 
-.head.scrolled {
-  height: 4.5px;
-  margin-bottom: 3em;
-  position: fixed;
-  background: white;
-  z-index: 1000;
-  width: 100%;
-  padding: 1.5px;
-  font-size: 0.5rem;
-}
-
-.head.scrolled nav ul {
-  margin: 1.5px 0 0 0;
-}
-
-@media (min-width: 576px) {
-  .head.scrolled nav ul {
-    margin: 0;
-  }
-}
-
-.head.scrolled nav ul li {
-  display: inline-block;
-  font-size: 0.85rem;
-}
-
-@media (max-width: 767.98px) {
-  .head.scrolled nav ul li {
-    padding: 0;
-  }
-}
-
-.head.scrolled h1 {
-  background-image: url("/images/logo-petit.png");
-  width: 117px;
-  height: 41px;
-}
-
-@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
-  .head.scrolled h1 {
-    background-image: url("/images/logo-petit@2x.png");
-    background-size: 117px, 41px;
-  }
-}
-
 @media (min-width: 576px) {
   #start-content {
     padding-top: 80px;
@@ -11008,6 +10963,15 @@ footer .form-group input {
 
 .mce-edit-focus {
   border: 1px #a3a3a3 solid;
+}
+
+.articles .titre {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.articles p {
+  margin: 0;
 }
 
 #sidebar {

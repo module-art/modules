@@ -41,6 +41,11 @@
           </div>
         </div>
       </div>
+    @elseif($champs[$i] == 'galeries')
+      <div class="form-group">
+        {!! Form::label($champs[$i], $champs[$i] . ' :', ['class' => 'control-label']) !!}
+        <textarea name="{{ $champs[$i] }}" class="form-control gallery-redactored">{{ old($champs[$i]) }}</textarea>
+      </div>
     @else
       <div class="form-group">
         {!! Form::label($champs[$i], $champs[$i] . ' :', ['class' => 'control-label']) !!}

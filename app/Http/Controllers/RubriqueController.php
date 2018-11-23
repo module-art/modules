@@ -6,7 +6,6 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\RubriqueRequest;
 use App\Http\Requests\ImageUpdateRequest;
-use App\Repositories\ControlRepository;
 use App\Repositories\FooterRepository;
 use App\Repositories\MenusRepository;
 use App\Gestion\ImageGestion;
@@ -34,7 +33,9 @@ class RubriqueController extends Controller
 
     $context = Auth::check() ? 'back' : 'front';
     
-    return view($context . '.type-contents', compact('results', 'champs', 'type'));
+    //next return for test with any type of content
+    //return view($context . '.type-contents', compact('results', 'champs', 'type'));
+    return view($context . '.type-list-' . $type_name, compact('results', 'champs', 'type'));
   }
 
   public function showTypeContentPage(Request $request, $type_name, $rubrique_id){

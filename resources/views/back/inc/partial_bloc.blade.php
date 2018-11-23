@@ -49,28 +49,10 @@
     ])--}}
     {{--next include redirect to the specific view--}}
     @include('back.type-list-'.$type->content_type, [
-      'champs' => explode(',', $type->champs),
       'results' => myControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
     ])
   </div>
-@elseif(isset($type_content) && $type_content->type_id == 1)
+@elseif(isset($type_content))
+  @include('back.type-content-'.$type_content->type['content_type'], [$type_content])
   {{--$type_content is a rubrique--}}
-  @php
-  $titre = $type_content->blocs()->where('type','titre')->first();
-  $texte = $type_content->blocs()->where('type','texte')->first();
-  @endphp
-  {{--<span class="editdate"></span>
-  <span class="editheure"></span>--}}
-  {{--<span class="editheure"></span>--}}
-  <div class="large-bloc type-content">
-    {{ ( new Date($titre->created_at) )->format('D j F Y') }}
-    <div class="editable" data-bloc_id="{!! $titre->id !!}">{!! $titre->contenu !!}</div>
-    <div class="editable" data-bloc_id="{!! $texte->id !!}">{!! $texte->contenu !!}</div>
-    {{--<div class="input-group editdate" id="datepicker1" data-target-input="nearest" data-bloc_id="{!! $date_fabrication->id !!}">
-      <input type="text" class="form-control datetimepicker-input" data-target="#datepicker1" value="{!! preg_replace('/(19|20)(\d{2})(\d{2})(\d{2})/', '$4/$3/$1$2', $date_fabrication->contenu) !!}" data-toggle="datetimepicker"/>
-    </div>--}}
-    @foreach($type_content->categories as $categorie)
-      {{ $categorie->name }}
-    @endforeach
-  </div>
 @endif

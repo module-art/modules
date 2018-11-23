@@ -48,6 +48,16 @@ var tinyconf = {
 
   tinymce.init(tinyconf_small);
 
+  var tinyconf_gallery = tinyconf;
+  tinyconf_gallery.selector = '.gallery-redactored';
+  tinyconf_gallery.height = 150;
+  tinyconf_gallery.menubar = false;
+  tinyconf_gallery.force_p_newlines = false,
+  tinyconf_gallery.forced_root_block = '', // Needed for 3.x
+  tinyconf_gallery.toolbar1 =  "responsivefilemanager";
+
+  tinymce.init(tinyconf_gallery);
+
   /* ------- Tempus dominus --------- */
 
   $('.date').datetimepicker({  
