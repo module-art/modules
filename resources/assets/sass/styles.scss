@@ -19,10 +19,6 @@ body {
 #global-wrapper {
   width: 100%;
   //min-height: 100%;
-  padding-bottom: $spacer;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 /*
@@ -34,6 +30,12 @@ body {
       margin-left: 0;
   }
 }*/
+[class*="col-"]{
+  img{
+    max-width: 100%;
+    height: auto;
+  }
+}
 
 a[data-toggle="collapse"] {
   position: relative;
@@ -44,37 +46,37 @@ a[data-toggle="collapse"] {
 }
 
 .head {
-	#logo, #sm-logo {
-    height: $spacer*3;
-    img{
-      max-height: 70%;
-      width: auto;
-    }
-		@include media-breakpoint-up(lg) {
-      height: $spacer*5;
-		}
-	}
+	//#logo, #sm-logo {
+    //height: $spacer*3;
+    //img{
+      //max-height: 70%;
+      //width: auto;
+    //}
+		//@include media-breakpoint-up(lg) {
+      //height: $spacer*5;
+		//}
+	//}
 
-	transition:all 1s ease;
+  background-color: $light-black;
 
   .navbar{
     color: $white;
-    font-size: 1.3em;
+    font-size: $font-size-base;
+    padding: unset;
     a{
-      color: $white;
+      transition:all 0.4s ease;
+      color: $light-gray;
+      &:hover{
+        color: $white;
+      }
     }
     .nav-item{
       white-space: nowrap;
       margin: $margin-base/2;
       &.active{
         a{
-          color: $yellow;
+          color: $white;
         }
-      }
-      &:hover{
-      }
-      .nav-link{
-        text-align: end;
       }
     }
     ul{
@@ -82,35 +84,6 @@ a[data-toggle="collapse"] {
       margin-right: $spacer;
     }
   }
-	
-	.navbar-light {
-		
-		background:white;
-		border-color:white;
-		@include media-breakpoint-up(sm) {
-			//position: fixed;
-      //z-index: 1030;
-      //right: 0;
-      //left: 0;
-		}
-
-		.navbar-brand {
-			padding:8px 15px;
-		}
-
-		.nav > li {
-			font-size:$font-size-base*1.1;
-			font-weight: bold;
-			// display: inline-block;
-			//padding-bottom:$line-height-base*1px;
-
-			@include media-breakpoint-up(sm) {
-				// display: inline;
-//				padding-bottom:0;
-
-			}
-		}
-	}
 
 	.navbar-toggler{
     color: $white;
@@ -181,11 +154,11 @@ p.lead {
 }
 
 .main-container{
-  min-height: 100vh;
   &.error{
     padding-top: $line-height-base*25vh;
     background-repeat: no-repeat; 
-    background-size: 100%; 
+    background-position: center; 
+    min-height: 100vh;
     color:#fff;
     text-shadow: 2px 2px 8px $dark-gray;
     font-size: $font-size-base;
@@ -211,10 +184,11 @@ div.heading {
   //background-attachment: fixed;
   margin-top: $margin-base;
   background-repeat: no-repeat; 
-  background-size: 100%; 
+  background-size: 210%; 
+  background-position: center;
   position: relative;
 	//font-family: $font-family-sans;
-	font-size: ($font-size-base*1.2);
+	font-size: ($font-size-base);
 	//font-weight:600;
 	display:block;
 	//line-height:($line-height-base*12rem);
@@ -226,8 +200,17 @@ div.heading {
   min-height: $bannier-height;
   transition: all 0.8s ease;
 
-  @include media-breakpoint-down(sm) {
-    font-size: $font-size-base;
+  @include media-breakpoint-up(md) {
+    font-size: $font-size-base*1.2;
+    background-size: 165%; 
+  }
+
+  @include media-breakpoint-up(lg) {
+    background-size: 120%; 
+  }
+
+  @include media-breakpoint-up(xl) {
+    background-size: 100%; 
   }
 
   h1{
@@ -267,44 +250,20 @@ div.heading {
 }*/
 
 footer {
-  background-color: $light-black;
+  background-color: $text-background;
 	font-size: ($font-size-base);
-  color: $white;
-  text-align: center;
-	margin:($line-height-base*4px) 0 0 0;
-	padding:$line-height-base*1px 0 ($line-height-base*2px) 0;
-
-  h2{
-    font-size: $font-size-base * 2.5;
-    font-weight:600;
-
-    @include media-breakpoint-down(sm) {
-      font-size: $font-size-base * 2;
-    }
-  }
+  color: $text-color;
+  //text-align: center;
+	margin-top:($line-height-base*4px);
+  margin-bottom: $spacer;
+	//padding:$line-height-base*1px 0 ($line-height-base*2px) 0;
 
   .footer-item{
-    margin: $spacer auto $spacer auto;
+    margin-top: $spacer;
   }
 
-  ul{
-    margin: auto;
-  }
-
-  li{
-    opacity: 0.3;
-    width: $line-height-base*3rem;
-    a{
-      font-size: $font-size-base*1.5;
-      border-radius: 50%;
-      border: 1px $white solid;
-      color: $white;
-      padding: $spacer*2/3;
-      cursor: pointer;
-      &:hover{
-        background-color: rgba(255,255,255,0.5);
-      }
-    }
+  .form-group input{
+    font-size: ($font-size-base*2/3);
   }
 }
 
@@ -382,9 +341,9 @@ footer {
 .after-rubrique{
   padding: $spacer;
   color: $text-color;
+  width: 100%;
   &.not-empty{
     background-color: $text-background;
-    border-radius: $spacer $spacer 0 0;
   }
   .row{
     position: relative;
@@ -437,8 +396,9 @@ footer {
 
 .center-card{
   justify-content: center;
-  align-items: center;
-  min-height: 60vh;
+  //align-items: center;
+  //min-height: 80vh;
+  margin-block-start: 5vh;
 }
 
 .mce-edit-focus{

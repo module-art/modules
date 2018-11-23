@@ -24,9 +24,7 @@
 
       </div><!--rubrique-->
 
-      <div class="head d-flex justify-content-center">
-        @include('menu')
-      </div>
+      @include('menu')
 
       <div class='after-rubrique-container d-flex justify-content-center'>
         <div id="blocs-rubrique{{ $rubrique->id }}" class="after-rubrique{{ $rubrique->blocs()->count() > 0 || isset($rubrique->type_contents) || isset($type_content) ? ' not-empty' : ''}}" data-rubrique_id="{!! $rubrique->id !!}" data-rubrique_cols="{!! $rubrique->cols !!}">
@@ -45,6 +43,12 @@
   @endforeach
       
 @endsection
+
+@if(isset($footer))
+  @section('footer')
+    @include('footer')
+  @endsection
+@endif
 
 @section('scripts')
   <script src="/tools/tinymce/tinymce.min.js"></script>

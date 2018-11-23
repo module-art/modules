@@ -7,11 +7,10 @@
 
 @section('contenu')
           
-  <div class="head d-flex justify-content-center">
-    @include('menu')
-  </div>
+  @include('menu')
+
   <div class="row center-card">
-      <div class="col-12 col-md-8 col-lg-6">
+      <div class="col-12">
           <div class="card">
               <div class="card-header">{{ __('Ajout d\'un utilisateur') }}</div>
 

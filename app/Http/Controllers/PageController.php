@@ -47,19 +47,22 @@ class PageController extends Controller
   {
     if(Auth::check()){
       $page = Page::where('slug', $slug)->firstOrFail();
+      $menus = $this->menusRepository->makeAdminMenus();
     }else{
       $page = Page::where('slug', $slug)->where('publie', 1)->firstOrFail();
+      $menus = $this->menusRepository->makeMenus();
     }
 
     $footer = $this->footerRepository->makeFooter();
-    $menus = $this->menusRepository->makeMenus();
     $first_rubrique = $page->rubriques()->first();
     $bg_img = [ $first_rubrique->background_img_url, $first_rubrique->background_hd_url ];
 
     if(Auth::check()){
       $types = Type::all();
+
       return view('back.page', compact('menus', 'page', 'footer', 'bg_img','types'));
     }
+
 
     return view('front.page', compact('menus', 'page', 'footer', 'bg_img'));
   }

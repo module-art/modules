@@ -15,7 +15,7 @@
     <link rel="icon" type="image/jpg" href="/images/favicon.jpg" />
 
   </head>
-  <body class="">
+  <body class="{{ isset($body_class) ? $body_class : '' }}">
 
     @yield('sidebar')
 
@@ -29,9 +29,7 @@
 
       <a class="cd-top">Haut de page</a>
 
-      @if(isset($footer) && $footer)
-        @include('footer')
-      @endif
+      @yield('footer')
     
     </div>
 

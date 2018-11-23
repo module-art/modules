@@ -1,4 +1,5 @@
-<div class='col-12 col-lg-10'>
+
+<div class="head d-flex">
   <div class="d-md-none d-flex">
     <button class="navbar-toggler col-3" type="button" data-toggle="collapse" data-target="#navbars01" aria-controls="navbars03" aria-expanded="false" aria-label="Toggle navigation">
       <!-- <span class="navbar-toggler-icon"></span> -->
@@ -29,3 +30,4 @@
     </div>
   </nav>
 </div>
+

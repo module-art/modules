@@ -1,19 +1,13 @@
 @extends('template')
 
 @section('title')
-  <title>Connexion</title>
+  <title>Connexion - Asso Les Grands Chemins</title>
   <link href="/css/styles.css" rel="stylesheet">
-@endsection
-
-@section('menu')
-  @include('menu')
 @endsection
 
 @section('contenu')
           
-<div class="head d-flex justify-content-center">
-  @include('menu')
-</div>
+@include('menu')
 
 <div class="container">
     <div class="row center-card">

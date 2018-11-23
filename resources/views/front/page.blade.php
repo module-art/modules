@@ -10,10 +10,6 @@
   @foreach($page->rubriques()->orderBy('place')->get() as $y => $rubrique)
       <div class="main-container">
 
-        <div class="head d-flex justify-content-center">
-          @include('menu')
-        </div>
-
         <div class="rubrique-container">
           <div class="heading"
                @if(isset($bg_img) && $bg_img[0] != '')
@@ -26,6 +22,9 @@
                  >
           </div>
         </div><!--rubrique-->
+
+        @include('menu')
+
         <div class='d-flex justify-content-center'>
           <div id="blocs-rubrique{{ $rubrique->id }}" class="after-rubrique{{ $rubrique->blocs()->count() > 0 ? ' not-empty' : ''}}">
             <?php
@@ -77,6 +76,12 @@
     @endforeach
 
 @endsection
+
+@if(isset($footer))
+  @section('footer')
+    @include('footer')
+  @endsection
+@endif
 
 @section('scripts')
   @if($page->slug == 'contact')

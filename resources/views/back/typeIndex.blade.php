@@ -7,11 +7,10 @@
 
 @section('contenu')
           
-<div class="head d-flex justify-content-center">
   @include('menu')
-</div>
+
   <section class='row center-card'>
-    <div class="col-12 col-lg-10">
+    <div class="col-12">
       @if(session()->has('info'))
         <div class="alert alert-success alert-dismissible">{!! session('info') !!}</div>
       @endif

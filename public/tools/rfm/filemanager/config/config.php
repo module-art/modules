@@ -1,24 +1,24 @@
 <?php
 $version = "9.13.0";
 if (session_id() == '') session_start();
-/*
+
 echo '<pre>';
 var_dump($_SESSION);
 echo '</pre>';
-*/
-if(!isset($_SESSION['fmanager']) || !isset($_SESSION['fmanager-ts']) || $_SESSION['fmanager']!=md5($_SESSION['fmanager-ts'].'5XxZyQvLMbZSLaPvAPMhdsEyL2T')){
-	echo "Vous n'êtes pas autorisé à visualiser ce contenu pour le moment ...";
-	exit();
 
+if(!isset($_SESSION['fmanager']) || !isset($_SESSION['fmanager-ts']) || $_SESSION['fmanager']!=md5($_SESSION['fmanager-ts'].'5XxZyQvLMbZSLaPvAPMhdsEyL2T')){
+  echo "Vous n'êtes pas autorisé à visualiser ce contenu pour le moment ...";
+  exit();
 }
+
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
 mb_http_input('UTF-8');
 mb_language('uni');
 mb_regex_encoding('UTF-8');
 ob_start('mb_output_handler');
-date_default_timezone_set('Europe/Rome');
-setlocale(LC_CTYPE, 'en_US'); //correct transliteration
+date_default_timezone_set('Europe/Paris');
+setlocale(LC_CTYPE, 'fr_FR'); //correct transliteration
 
 
 /*------------------

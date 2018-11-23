@@ -8,5 +8,5 @@
   @else
     style="background-image: url('/storage/img/visuel3200.jpg');"
   @endif
-data-rubrique_id="{!! $rubrique->id !!}" data-rubrique_cols="{!! $rubrique->cols !!}">
+data-rubrique_id="{!! $rubrique->id !!}">
 </div>
