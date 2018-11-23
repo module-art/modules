@@ -393,6 +393,9 @@ $(document).ready(function () {
       fontsize_formats: fontSizes,
       paste_as_text: true,
       image_advtab: true,
+      force_br_newlines: true,
+      force_p_newlines: false,
+      forced_root_block: '', // Needed for 3.x
       valid_elements: myValidElements,
       external_filemanager_path: fmPath,
       filemanager_title: fmTitle,
@@ -606,7 +609,7 @@ $(document).ready(function () {
 
     $('.change-type').click(function () {
       var container = $(this).parents('.after-rubrique').first(),
-          idRubrique = container.parent().prev().children('.editrubrique').first().attr('data-rubrique_id');
+          idRubrique = container.attr('data-rubrique_id');
       idRubrique = parseInt(idRubrique);
 
       $.ajax({

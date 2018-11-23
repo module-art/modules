@@ -38,13 +38,17 @@
 </div><!--row-->
 
 @if(isset($rubrique->type_contents))
-  {{--<span class="editdate"></span>
-  <span class="editheure"></span>--}}
   <div class="large-bloc type-contents" data-content_type='{{ $rubrique->inclusive_type['content_type'] }}' data-filtre="{{ $rubrique->inclusive_type['default_filtre'] }}" data-desc="{{ $rubrique->inclusive_type['descendant'] }}">
     @php
       $type = $rubrique->inclusive_type;
     @endphp
-    @include('back.type-contents', [
+    {{--next include tests any type contents in a table--}}
+    {{--@include('back.type-contents', [
+      'champs' => explode(',', $type->champs),
+      'results' => myControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
+    ])--}}
+    {{--next include redirect to the specific view--}}
+    @include('back.type-list-'.$type->content_type, [
       'champs' => explode(',', $type->champs),
       'results' => myControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
     ])

@@ -9,11 +9,11 @@ class Bloc extends Model
 {
 
     protected $table = 'blocs';
-    public $timestamps = true;
+    public $timestamps = false;
 
-    use SoftDeletes;
+    //use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    //protected $dates = ['deleted_at'];
     protected $fillable = array('type', 'contenu' ,'place', 'rubrique_id');
 
     public function rubrique()

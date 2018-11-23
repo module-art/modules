@@ -18,6 +18,7 @@
   #fixed-sidebar{
     position: fixed;
     width: $navbar-width;
+    z-index: 500;
     .sidebarCollapse.btn{
       position: relative;
       right: -270px;

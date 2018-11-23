@@ -4,7 +4,7 @@
   @if(isset($bg_img) && $bg_img[0] != '')
     style="background-image: url('{!! asset( $bg_img[0] ) !!}');"
   @else
-    style="background-image: url('/images/visuel3200.jpg');"
+    style="background-image: url('/images/visuel.jpg');"
   @endif
 data-rubrique_id="{!! $rubrique->id !!}">
   @if(isset($bg_img) && $bg_img[0] != '')
