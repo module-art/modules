@@ -12,14 +12,14 @@
 
         <div class="rubrique-container">
           <div class="heading"
-               @if(isset($bg_img) && $bg_img[0] != '')
-                 style="background-image: url('{!! asset( $bg_img[0] ) !!}');
-                 background-image: -webkit-image-set( url('{!! asset( $bg_img[0] ) !!}') 1x, url('{!! asset( $bg_img[1] ) !!}') 2x );
-                 background-image: image-set( url('{!! asset( $bg_img[0] ) !!}') 1x, url('{!! asset( $bg_img[1] ) !!}') 2x );" 
-                @else
-                  style="background-image: url('/storage/img/visuel3200.jpg');"
-               @endif
-                 >
+            @if(isset($bg_img) && $bg_img[0] != '')
+              style="background-image: url('{!! asset( $bg_img[0] ) !!}');"
+            @else
+              style="background-image: url('/images/visuel.jpg');"
+            @endif>
+            @if(isset($bg_img) && $bg_img[0] != '')
+              {!! $rubrique->contenu !!}
+            @endif
           </div>
         </div><!--rubrique-->
 
@@ -63,7 +63,17 @@
 
               @if(isset($rubrique->type_contents))
                 <div class="large-bloc type-contents" data-content_type='{{ $rubrique->inclusive_type['content_type'] }}' data-filtre="{{ $rubrique->inclusive_type['default_filtre'] }}" data-desc="{{ $rubrique->inclusive_type['descendant'] }}">
+                  @php
+                    $type = $rubrique->inclusive_type;
+                  @endphp
+                  {{--next include redirect to the specific view--}}
+                  @include('front.type-list-'.$type->content_type, [
+                    'results' => myControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
+                  ])
                 </div>
+              @elseif(isset($type_content))
+                @include('front.type-content-'.$type_content->type['content_type'], [$type_content])
+                {{--$type_content is a rubrique--}}
               @endif
 
               @if($page->slug == 'contact')

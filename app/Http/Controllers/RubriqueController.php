@@ -119,8 +119,8 @@ class RubriqueController extends Controller
          return response()->json(['response' => 'L\'image n\'a pas pu être enregistrée.']);
        }else{
 
-          $rubrique->background_img_url = $image_ok[0];
-          $rubrique->background_hd_url = $image_ok[1];
+          $rubrique->background_img_url = $image_ok;
+          //$rubrique->background_hd_url = $image_ok[1];
           $rubrique->save();
           return response()->json(['response' => $image_ok]);
        }

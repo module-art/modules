@@ -14,8 +14,8 @@
           {!! $titre->contenu !!}
         </a>
         <div class="editable" data-bloc_id="{!! $texte->id !!}">{!! $texte->contenu !!}</div>
-        <div class="gallerys">
-          {{ $dossiers_image->contenu }}
+        <div class="gallerys editable" data-bloc_id="{!! $dossiers_image->id !!}">
+          {{ preg_replace('/\[gal\](.*)\[\/gal\]/', '$1', $dossiers_image->contenu) }}
           {{--Créer une class pour traiter les dossiers images en créant un sous dossier thumbs s'il est absent et le remplir puis afficher la galerie d'images touch touch ou autre.--}}
         </div>
       </section>

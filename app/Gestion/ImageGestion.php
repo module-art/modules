@@ -13,9 +13,10 @@ class ImageGestion
       if($image->isValid())
       {
         $app_path = config('images.path');
-        $realname = preg_replace('/[\séèêçîùûôàœ+]+/','-', strtolower($image->getClientOriginalName()));
-        $name = preg_replace('/\..+$/', '', $realname);
-        $name_big = $name . '@2x';
+        //$realname = preg_replace('/[\séèêçîùûôàœ+]+/','-', strtolower($image->getClientOriginalName()));
+        $name = preg_replace('/\..+$/', '', $image->getClientOriginalName());
+        $name = str_slug($name);
+        //$name_big = $name . '@2x';
         //$extension = '.'.strtolower($image->getClientOriginalExtension());
 
         /*non utilisé car pas utile ici, évite d'écraser une image éxistante
@@ -38,16 +39,20 @@ class ImageGestion
         
         // configure with favored image driver (gd by default)
         //Image::configure(array('driver' => 'imagick'));
-        Image::make($image)->resize(3200, null, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save($app_path . $name_big . '.jpg', 60);
-        // resize the image to a width of 1600 and constrain aspect ratio (auto height)
+        
+        //resize for hd images
+        //Image::make($image)->resize(3200, null, function ($constraint) {
+            //$constraint->aspectRatio();
+        //})->save($app_path . $name_big . '.jpg', 60);
+
+        // resize the image to a width of 1200 and constrain aspect ratio (auto height)
         // resizing an uploaded file
-        $ok = Image::make($image)->resize(1600, null, function ($constraint) {
+        $ok = Image::make($image)->resize(1200, null, function ($constraint) {
             $constraint->aspectRatio();
-        })->save($app_path . $name . '.jpg', 60);
+        })->save($app_path . $name . '.jpg', 70);
        
-        return $ok ? [$app_path . $name . '.jpg', $app_path . $name_big . '.jpg'] : false;
+        //return $ok ? [$app_path . $name . '.jpg', $app_path . $name_big . '.jpg'] : false;
+        return $ok ? $app_path . $name . '.jpg' : false;
       }else{
         return false;
       }

@@ -43,7 +43,7 @@ $(document).ready(function()
       wasEdited = false,
       imgWidth = 0,
       maxFileSize = 4096000,
-      minImgWidth = 3200,
+      minImgWidth = 1200,
       idCreatedBloc = 0,
       //duration of the top scrolling animation (in ms)
       scroll_top_duration = 1000,
@@ -158,9 +158,9 @@ $(document).ready(function()
         editor.on('focus', function (e) {
           //console.log(e);
           var tar = $(e.target.bodyElement),
-              imageNode = $('#global-wrapper'),
+              imageNode = $('.editrubrique').first(),
               initBackgroundImage = imageNode.css('background-image'),
-            replacement = '<section id="replacement" class="row justify-content-center mb-4"><div class="col-12 col-md-8 col-lg-6 col-xl-5"><div class="card"><div class="card-body">'+
+            replacement = '<section id="replacement" class="row justify-content-end mb-4"><div class="col-12 col-md-8 col-lg-6 col-xl-5"><div class="card"><div class="card-body">'+
             '<form method="post" enctype="multipart/form-data" class="" id="replacement-form"><div class="form-group">'+
             '<label for="image" class="col-form-label">Changer l\'image de fond</label>'+
             '<div class="input-group mb-2">'+

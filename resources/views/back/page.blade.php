@@ -2,6 +2,7 @@
 
 @section('title')
   <title>{{ $page->title }}</title>
+  {{--<link rel="stylesheet" id="tpjp-settings-css-css" href="/tools/tiled-gallery-carousel-without-jetpack/themepacific_gallery_settings.css" type="text/css" media="all">--}}
   <link href="/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
   <link href="/css/admin.css" rel="stylesheet">
 @endsection
@@ -52,6 +53,7 @@
 
 @section('scripts')
   <script src="/tools/tinymce/tinymce.min.js"></script>
+  {{--<script src="/tools/tiled-gallery-carousel-without-jetpack/gallery-settings.js"></script>--}}
   <script src="/js/tempus-dominus/moment-with-locales.min.js"></script>
   <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
   <script src="/js/modular_admin.js"></script>

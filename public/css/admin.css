@@ -10974,6 +10974,10 @@ footer .form-group input {
   margin: 0;
 }
 
+#replacement input#image {
+  min-height: 3.2rem;
+}
+
 #sidebar {
   font-family: sans-serif, arial, monospace;
   background-color: #2e3d4f;

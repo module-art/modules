@@ -74,4 +74,10 @@ class ControlRepository
     
   }
 
+  static function insertGallery($folder){
+
+    return($folder);
+  
+  }
+
 }
