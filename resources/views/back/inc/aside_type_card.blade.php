@@ -1,38 +1,25 @@
-@php
-  switch($operation){
-    case 'create':
-      $button_text = 'Créer';
-      break;
-    case 'edit':
-      $button_text = 'Modifier';
-      break;
-    case 'insert':
-      $button_text = 'Insérer';
-      break;
-  }
-@endphp
 <div class="card-header">
   <p>Type de contenu : {{ $type->content_type }}</p>
-  <h2>Catégories</h2>
+  <h4>Catégories</h4>
 </div>
 <br/>
 <div class="card-body"> 
-  @if($operation != 'create')
-    @if($type->categories()->count() > 0)
-      <div id="categories-container">
-        @include('back.inc.categorie_table')
-      </div>
-    @endif
-    <div class="form-group d-flex justify-content-between">
-      <button type="button" class="btn btn-primary col-5" data-toggle="modal" data-target="#modalCategorie">
-        Créer une catégorie
-      </button>
-      {!! Form::text('choose_cat', null, ['class' => 'form-control col-5', 'placeholder' => 'Chercher...']) !!}
+
+  @if($type->categories()->count() > 0)
+    <div class="form-group" id="categories-container">
+      @include('back.inc.categorie_table')
     </div>
-  @else
-    <p>Les catégories s'ajoute en éditant un type déjà existant.</p>
   @endif
-  <button class="btn btn-info btn-lg" type="submit"><i class="far fa-save"></i> {{ $button_text }}</button>
+  <div class="form-group">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCategorie">
+      Créer une catégorie
+    </button>
+  </div>
+  <div class="form-group">
+    {!! Form::text('choose_cat', null, ['class' => 'form-control', 'placeholder' => 'Chercher...']) !!}
+  </div>
+
+  <button class="btn btn-info btn-lg" type="submit"><i class="far fa-save"></i> {{ 'Modifier' }}</button>
   <a href="javascript:history.back()" class="btn btn-primary pull-right">
     <i class="fa fa-redo"></i> Retour
   </a>

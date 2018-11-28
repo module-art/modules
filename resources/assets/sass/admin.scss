@@ -115,3 +115,8 @@
 .bootstrap-datetimepicker-widget .table{
   background-color: unset;
 }
+
+#categories-checkbox, #categories-container{
+  max-height: 50vh;
+  overflow: auto;
+}

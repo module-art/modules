@@ -78,6 +78,33 @@ module.exports = __webpack_require__(43);
 
 $(document).ready(function () {
 
+  //galleries
+
+  $('.select-gallery').click(function () {
+
+    $.ajax({
+      url: '/coulisses/get-gallery',
+      method: 'post',
+      data: {
+        _token: $('[name="csrf-token"]').attr('content'),
+        pathToGallery: this.value
+      },
+      dataType: 'json'
+    }).done(function (data) {
+      console.log(data);
+      $.each(data.thumbs, function (key, value) {
+        var imageNode = '<img src="' + value + '" alt="" />';
+        tinymce.activeEditor.execCommand('mceInsertContent', false, imageNode);
+      });
+    }).fail(function (data) {
+      var errors = data.responseJSON.message + '\n';
+      $.each(data.responseJSON.errors, function (key, value) {
+        errors += value + '\n';
+      });
+      alert('La requête n\'a pas abouti.\n' + errors);
+    });
+  });
+
   /// ---------- TYNIMCE ------
   var tinyconf = {
 

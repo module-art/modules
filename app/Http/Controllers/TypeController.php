@@ -10,6 +10,7 @@ use App\Repositories\ControlRepository;
 use App\Models\Type;
 use App\Models\Rubrique;
 use App\Models\Bloc;
+use Storage;
 
 class TypeController extends Controller
 {
@@ -197,9 +198,16 @@ class TypeController extends Controller
     $type = Type::where('content_type', $type_name)->first();
     $champs = explode(',', $type->champs);
     $nb_champs = count($champs);
-    //dd($champs);
+    
+    //get gallery folders
+    $path_gallery = config('images.galeries');
+    $folders = Storage::directories($path_gallery);
+    $galleries = array();
+    foreach($folders as $folder){
+      $galleries[preg_replace('/.+\/(.+)$/', '$1', $folder )] = $folder;
+    }
 
-    return view('back.form', compact('type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer'));
+    return view('back.form', compact('type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries'));
   }
 
   public function insertType(Request $request, $type_id)

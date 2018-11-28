@@ -49,9 +49,10 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
   Route::post('moveblock/{id}', 'RubriqueController@moveBlock');
   Route::post('change-type-content/{id}', 'RubriqueController@changeTypeContents');
 
-  Route::post('redactorimgupload', 'RedactorController@uploadImage');
-  Route::get('imagemanager', 'RedactorController@imageManager');
-
+  //Route::post('redactorimgupload', 'RedactorController@uploadImage');
+  //Route::get('imagemanager', 'RedactorController@imageManager');
+  Route::post('get-gallery', 'RedactorController@getGallery');
+  
   Route::get('{page_title}', 'PageController@show')->name('back_page.show')->middleware('authAsAdmin');
   Route::get('home', function () { return redirect()->route('back_page.show', 'accueil'); });
   Route::get('', function () { return redirect()->route('back_page.show', 'accueil'); });
