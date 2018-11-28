@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use Date;
+use Storage;
+use Image;
 use App\Models\Type;
 use App\Models\Rubrique;
 
@@ -74,10 +76,44 @@ class ControlRepository
     
   }
 
-  static function insertGallery($folder){
+  static function insertGallery($datas){
 
-    return($folder);
-  
+    $modified_data = "";
+    $path = config('images.galeries');
+
+    foreach($datas as $i => $data){
+      if($i > 0){
+        if($i == 2){//cas des deuxièmes parenthèses capturantes
+          if(Storage::exists($path.$data.'/thumbs')){
+            $thumbs = Storage::files($path.$data.'/thumbs');
+            foreach($thumbs as $thumb){
+              $modified_data .= ( Storage::url($thumb) ).'<br>';
+            }
+          }else{
+            $images = Storage::files($path.$data);
+            Storage::makeDirectory($path.$data.'/thumbs');
+            foreach($images as $image_path){
+
+              $name = preg_replace('/.+\/(.+)$/', '$1', $image_path);
+
+              $image = Storage::get($image_path);
+
+              $ok = Image::make($image)->resize(300, null, function ($constraint){
+                $constraint->aspectRatio();
+              })->save('storage/files/galeries/'. $data . '/thumbs/' . $name, 60);
+
+              $modified_data .= $image_path.'<br>';
+            }
+          }
+        }else{
+          $modified_data .= $data;
+        }
+      }
+    }
+
+    return($datas[0]);
+    return($modified_data);
+
   }
 
 }

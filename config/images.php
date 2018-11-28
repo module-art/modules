@@ -1,2 +1,5 @@
 <?php
-return ['path' => 'storage/img/'];
+return [
+  'path' => 'storage/img/',
+  'galeries' => 'public/files/galeries/'
+];
