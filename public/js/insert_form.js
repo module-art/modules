@@ -93,9 +93,9 @@ $(document).ready(function () {
     }).done(function (data) {
       console.log(data);
 
-      tinymce.activeEditor.execCommand('mceInsertContent', false, '<figure class="row justify-content-center">');
+      tinymce.activeEditor.execCommand('mceInsertContent', false, '<figure class="gallery row justify-content-center">');
       $.each(data.thumbs, function (key, value) {
-        var imageNode = '<a href="' + value.replace(/thumbs\//, '') + '" class="fancy col-12 col-sm-6 col-md-4 col-lg-3" data-fancybox="images">' + '<img src="' + value + '" alt="" />' + '</a>';
+        var imageNode = '<a href="' + value.replace(/thumbs\//, '') + '" class="fancy col-12 col-sm-6 col-md-4 col-lg-3" data-fancybox="gallery">' + '<img src="' + value + '" alt="" />' + '</a>';
         tinymce.activeEditor.execCommand('mceInsertContent', false, imageNode);
       });
       tinymce.activeEditor.execCommand('mceInsertContent', false, '</figure>');

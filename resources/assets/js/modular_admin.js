@@ -172,7 +172,7 @@ $(document).ready(function()
             '<input id="texte" type="hidden" name="texte" />'+
             '<input type="hidden" name="_token" value="' + csrfToken + '" />'+
             '<div class="row justify-content-between px-3">'+
-            '<button id="btn-save" class="btn btn-primary" ><i class="fas fa-cog fa-spin fa-lg"></i> Enregistrer</button><button id="btn-cancel" class="btn btn-secondary" >Annuler</button>'+
+            '<button class="btn btn-primary btn-save" ><i class="fas fa-cog fa-spin fa-lg"></i> Enregistrer</button><button id="btn-cancel" class="btn btn-secondary" >Annuler</button>'+
             '</div>'+
             '</form></div></div></div></section>';
 
@@ -183,7 +183,7 @@ $(document).ready(function()
 
           imageManage(imageNode);
 
-          $('#btn-save').click(function(e){
+          $('.btn-save').click(function(e){
 
             $('.fa-cog').css('display', 'inline-block');
             e.preventDefault();
@@ -246,9 +246,9 @@ $(document).ready(function()
       //console.log(e);
       var tar = $(e.target.bodyElement);
 
-      tar.parent().append('<div id="bloc-buttons"><button id="btn-save" class="btn btn-primary pull-right" >Enregistrer</button></div>');
+      tar.parent().append('<div id="bloc-buttons"><button class="btn btn-primary btn-save pull-right" >Enregistrer</button></div>');
 
-      $('#btn-save').click(function(){
+      $('.btn-save').click(function(){
         var newBloc = tar.html(),
           bloc_id = tar.attr('data-bloc_id'),
           isNewBloc = bloc_id == 0 ? true : false;
@@ -433,7 +433,7 @@ $(document).ready(function()
           $number = tar.html();
 
       tar.addClass('d-none');
-      tar.parent().prepend('<input id="nmber" type="text" value="'+ $number +'"/><div id="bloc-buttons"><button id="btn-save" class="btn btn-primary pull-right" >Enregistrer</button></div>');
+      tar.parent().prepend('<input id="nmber" type="text" value="'+ $number +'"/><div id="bloc-buttons"><button class="btn btn-primary btn-save pull-right" >Enregistrer</button></div>');
       var inputNumber = $('#nmber');
       inputNumber.focus();
       inputNumber.blur(function(){
@@ -445,7 +445,7 @@ $(document).ready(function()
         }, 100);
       });
 
-      $('#btn-save').click(function(){
+      $('.btn-save').click(function(){
         numberSender(inputNumber.val(), bloc_id);
       });
     });

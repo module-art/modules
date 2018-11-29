@@ -10979,7 +10979,7 @@ footer .form-group input {
 }
 
 .fancy {
-  display: block;
+  display: inline-block;
 }
 
 #sidebar {
@@ -11116,5 +11116,9 @@ footer .form-group input {
 #categories-container {
   max-height: 50vh;
   overflow: auto;
+}
+
+.btn-save {
+  z-index: 2000;
 }
 

@@ -14,7 +14,7 @@
           <a href="{{ route('type_content', [$type->content_type, $result->id]) }}" class="titre text-dark">
             {!! $titre->contenu !!}
           </a>
-          <div class="editable" data-bloc_id="{!! $texte->id !!}">{!! $texte->contenu !!}</div>
+          <div>{!! $texte->contenu !!}</div>
         </section>
       </div>
     @endforeach

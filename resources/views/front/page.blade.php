@@ -3,6 +3,7 @@
 @section('title')
   <title>{{ $page->title }}</title>
   <link href="/css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="/tools/fancybox/jquery.fancybox.min.css">
 @endsection
 
 @section('contenu')
@@ -96,34 +97,27 @@
 @section('scripts')
   @if($page->slug == 'contact')
   @else
-    {{--<script>
+    <script>
 
 $(document).ready(function() {
   //resize videos
-    var videos = $('.after-rubrique iframe');
-    if(videos.length != 0){
-      videos.each(function(){
-        $(this).removeAttr('style');
-        var wid = $(this).width();
-        $(this).height(Math.round(wid*9/16));
-      })
-    }
-
-    //get types contents
-    var typeContents = $('.type-contents');
-
-    typeContents.each(function(){
-      var type = $(this).attr('data-content_type'),
-          filtre = $(this).attr('data-filtre'),
-          desc = $(this).attr('data-desc');
-
-      $(this).load('/get-type-contents/'+type+'?orderby='+filtre+'&desc='+desc, function(response, status, xhr){
-        if( status == "error" ){
-          console.log(xhr.statusText);
-        }
-      });
+  var videos = $('.after-rubrique iframe');
+  if(videos.length != 0){
+    videos.each(function(){
+      $(this).removeAttr('style');
+      var wid = $(this).width();
+      $(this).height(Math.round(wid*9/16));
+    })
+  }
+  $('.gallery').each(function(){
+    $('.fancy', this).fancybox({
+      transitionEffect: "slide",
+      closeExisting: true,
+      loop: false,
     });
+  });
 });
-    </script>--}}
+    </script>
   @endif
+  <script src="/tools/fancybox/jquery.fancybox.min.js"></script>
 @endsection
