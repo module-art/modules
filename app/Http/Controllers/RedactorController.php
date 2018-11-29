@@ -29,7 +29,7 @@ class RedactorController extends Controller
 
         $ok = Image::make($image)->resize(300, null, function ($constraint){
           $constraint->aspectRatio();
-        })->save('storage/files/galeries/'. $data . '/thumbs/' . $name, 60);
+        })->save(preg_replace('/^public/', 'storage', $path_to_gallery) . '/thumbs/' . $name, 60);//image use the public path
       }
 
     }

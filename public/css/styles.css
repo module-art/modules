@@ -10922,7 +10922,7 @@ footer .form-group input {
 .after-rubrique .type-content .btn-destroy {
   z-index: 100;
   position: absolute;
-  left: -15px;
+  left: -25px;
   top: 8px;
   border-radius: 50%;
   display: none;
@@ -10976,5 +10976,9 @@ footer .form-group input {
 
 #replacement input#image {
   min-height: 3.2rem;
+}
+
+.fancy {
+  display: block;
 }
 

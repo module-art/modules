@@ -663,7 +663,7 @@ $(document).ready(function () {
             url: '/coulisses/destroyrubrique/' + idRubrique,
             data: { _token: csrfToken } //token!!!
           }).done(function (data) {
-            elem.parent().remove();
+            elem.remove();
             console.log(data);
           }).fail(function () {
             alert('Oups! une erreur a empêché la suppression.');

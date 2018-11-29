@@ -628,7 +628,7 @@ $(document).ready(function()
               data: { _token: csrfToken},//token!!!
             })
             .done(function(data) {
-              elem.parent().remove();
+              elem.remove();
               console.log(data);
             })
             .fail(function() {

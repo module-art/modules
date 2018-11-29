@@ -346,7 +346,7 @@ footer {
     margin-bottom: $spacer;
   }
   .type-content{
-    @include destroy_button(-15px, 8px);
+    @include destroy_button(-25px, 8px);
   }
 }
 
@@ -383,4 +383,7 @@ footer {
   input#image{
     min-height: 3.2rem;
   }
+}
+.fancy{
+  display: block;
 }

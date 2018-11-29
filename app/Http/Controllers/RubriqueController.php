@@ -19,7 +19,7 @@ class RubriqueController extends Controller
 
   public function __construct()
   {
-    $this->middleware('auth', ['except' => ['getTypeContents']]);
+    $this->middleware('auth', ['except' => ['getTypeContents', 'showTypeContentPage']]);
     $this->middleware('authAsAdmin', ['except' => ['getTypeContents', 'showTypeContentPage']]);
     $this->middleware('ajax', ['except' => ['getTypeContents', 'showTypeContentPage']]);
   }
@@ -45,9 +45,9 @@ class RubriqueController extends Controller
     //return response($page);
 
     $footer = FooterRepository::makeFooter();
-    $menus = MenusRepository::makeAdminMenus();
+    $menus = Auth::check() ? MenusRepository::makeAdminMenus() : MenusRepository::makeMenus();
     $first_rubrique = $page->rubriques()->first();
-    $bg_img = [ $first_rubrique->background_img_url, $first_rubrique->background_hd_url ];
+    $bg_img = $first_rubrique->background_img_url;
 
     if(Auth::check()){
       $context = 'back';
@@ -168,7 +168,7 @@ class RubriqueController extends Controller
         $bloc->delete();
       }
         
-      $rubrique->delete();
+      $rubrique->forceDelete();
 
       return response('La rubrique '.$id . ' et ses blocs associés viennent d\'être effacés');
     }

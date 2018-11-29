@@ -26,7 +26,7 @@
         @include('menu')
 
         <div class='d-flex justify-content-center'>
-          <div id="blocs-rubrique{{ $rubrique->id }}" class="after-rubrique{{ $rubrique->blocs()->count() > 0 ? ' not-empty' : ''}}">
+          <div id="blocs-rubrique{{ $rubrique->id }}" class="after-rubrique{{ $rubrique->blocs()->count() > 0 || isset($rubrique->type_contents) || isset($type_content) ? ' not-empty' : ''}}">
             <?php
               switch ($rubrique->cols) {
               case 1:
