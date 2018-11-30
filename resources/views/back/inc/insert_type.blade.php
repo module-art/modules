@@ -1,16 +1,13 @@
 <div class="card-header"><h2>Insertion {{ $type->content_type }}</h2></div>
 <br/>
 <div class="card-body"> 
-  <div class="form-row justify-content-between">
-    <div class="form-group col-12 col-md-4">
-      <button class="btn btn-primary btn-sm" type="button" id="add-gallery" data-toggle="collapse" data-target="#gallery-collapse" aria-expanded="false" aria-controls="gallery-collapse"><i class="far fa-images"></i> Ajouter une galerie d'images</button>
+  <div class="form-row">
+    <div class="form-group col-12 col-md-5">
+      <button class="btn btn-primary btn-sm" type="button" id="add-gallery" aria-expanded="false" aria-controls="gallery-collapse"><i class="far fa-images"></i> Ajouter une galerie d'images</button>
     </div>
-    <div class="collapse col-12 col-md-6" id="gallery-collapse">
-      <select multiple class="form-control" name="gallery">
-        @foreach($galleries as $key => $value)
-          <option class="select-gallery" value="{{ $value }}">{{ $key }}</option>
-        @endforeach
-      </select>
+    <div class="collapse col-12 col-md-7" id="gallery-collapse">
+      {{--ajax include galleries on click to show--}}
+      @include('back.inc.galleries')
     </div>
   </div>
   {!! Form::open(array('route' => ['type.insert', $type->id], 'method' => 'POST')) !!}
@@ -53,10 +50,12 @@
           </div>
         </div>
       </div>
-    @elseif($champs[$i] == 'galeries')
+    @elseif(preg_match('/titre/', $champs[$i]))
       <div class="form-group">
+        <div class="input-group">
         {!! Form::label($champs[$i], $champs[$i] . ' :', ['class' => 'control-label']) !!}
-        <textarea name="{{ $champs[$i] }}" class="form-control gallery-redactored">{{ old($champs[$i]) }}</textarea>
+        <textarea name="{{ $champs[$i] }}" class="form-control simple-redactored">{{ old($champs[$i]) }}</textarea>
+        </div>
       </div>
     @else
       <div class="form-group">

@@ -386,4 +386,13 @@ footer {
 }
 .fancy{
   display: inline-block;
+  img{
+    //display: block;
+    //margin: auto;
+    box-shadow: 10px 10px 30px $light-black;
+    width: 100%;
+    &.rond{
+      border-radius: 50%;
+    }
+  }
 }

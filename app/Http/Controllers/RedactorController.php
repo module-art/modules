@@ -14,8 +14,12 @@ class RedactorController extends Controller
 {
 
   public function getGallery(Request $request){
+     
+    /*return response()->json([
+      'response' => $request->gallery,
+    ]);*/
 
-    $path_to_gallery = $request->pathToGallery;
+    $path_to_gallery = $request->gallery;
 
     if(!Storage::exists($path_to_gallery.'/thumbs')){
       $images = Storage::files($path_to_gallery);
@@ -27,9 +31,10 @@ class RedactorController extends Controller
 
         $image = Storage::get($image_path);
 
-        $ok = Image::make($image)->resize(300, null, function ($constraint){
-          $constraint->aspectRatio();
-        })->save(preg_replace('/^public/', 'storage', $path_to_gallery) . '/thumbs/' . $name, 60);//image use the public path
+        //$ok = Image::make($image)->resize(300, null, function ($constraint){
+          //$constraint->aspectRatio();
+        //})->save(preg_replace('/^public/', 'storage', $path_to_gallery) . '/thumbs/' . $name, 60);//image use the public path
+        $ok = Image::make($image)->fit(300)->save(preg_replace('/^public/', 'storage', $path_to_gallery) . '/thumbs/' . $name, 60);//image use the public path
       }
 
     }

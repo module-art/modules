@@ -189,6 +189,19 @@ class TypeController extends Controller
     return redirect()->route('type.index')->withInfo('Le type ' . $type->type . ' est supprimé.');
   }
 
+  private function getGalleriesArray(){
+    
+    //get gallery folders
+    $path_gallery = config('images.galeries');
+    $folders = Storage::directories($path_gallery);
+    $galleries = array();
+    foreach($folders as $folder){
+      $galleries[preg_replace('/.+\/(.+)$/', '$1', $folder )] = $folder;
+    }
+    return $galleries;
+
+  }
+
   public function showInsertForm($type_name)
   {
     $operation = 'insert';
@@ -198,16 +211,18 @@ class TypeController extends Controller
     $type = Type::where('content_type', $type_name)->first();
     $champs = explode(',', $type->champs);
     $nb_champs = count($champs);
-    
-    //get gallery folders
-    $path_gallery = config('images.galeries');
-    $folders = Storage::directories($path_gallery);
-    $galleries = array();
-    foreach($folders as $folder){
-      $galleries[preg_replace('/.+\/(.+)$/', '$1', $folder )] = $folder;
-    }
+
+    $galleries = $this->getGalleriesArray();
 
     return view('back.form', compact('type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries'));
+  }
+
+  public function getGalleries(){
+    
+    $galleries = $this->getGalleriesArray();
+
+    return view('back.inc.galleries', compact('galleries'));
+
   }
 
   public function insertType(Request $request, $type_id)

@@ -36,28 +36,28 @@
           </ul>
         </li>
       @endif
-      @if(Auth()->user()->role == 'maintainer')
+      {{--@if(Auth()->user()->role == 'maintainer')--}}
         <li>
-          <a href="#submenu-type" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Types</a>
+          <a href="#submenu-type" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Types de contenus</a>
           <ul class="collapse list-unstyled" id="submenu-type">
-            @if(isset($types) && $types->count()>0)
-              <li>
-                <a href="#subsubmenu-types" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Inserer</a>
-                <ul class="collapse list-unstyled" id="subsubmenu-types">
-                  @foreach($types as $type)
-                    <li>
-                      {{ link_to_route('type.insertform', $type->content_type, $type->content_type, ['class' => '']) }}
-                    </li>
-                  @endforeach
-                </ul>
-              </li>
-            @endif
             <li>
               {{ link_to_route('type.create', 'Créer', null, ['class' => '']) }}
             </li>
             <li>
               {{ link_to_route('type.index', 'Voir les types de contenu', null, ['class' => '']) }}
             </li>
+          </ul>
+        </li>
+      {{--@endif--}}
+      @if(isset($types) && $types->count()>0)
+        <li>
+          <a href="#subsubmenu-types" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ajouter</a>
+          <ul class="collapse list-unstyled" id="subsubmenu-types">
+            @foreach($types as $type)
+              <li>
+                {{ link_to_route('type.insertform', $type->content_type, $type->content_type, ['class' => '']) }}
+              </li>
+            @endforeach
           </ul>
         </li>
       @endif

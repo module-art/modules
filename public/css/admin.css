@@ -10982,6 +10982,16 @@ footer .form-group input {
   display: inline-block;
 }
 
+.fancy img {
+  -webkit-box-shadow: 10px 10px 30px #232729;
+          box-shadow: 10px 10px 30px #232729;
+  width: 100%;
+}
+
+.fancy img.rond {
+  border-radius: 50%;
+}
+
 #sidebar {
   font-family: sans-serif, arial, monospace;
   background-color: #2e3d4f;
