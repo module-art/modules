@@ -9,13 +9,13 @@
           <div class="form-check">
             <input class="form-check-input" type="radio" name="round_border" value="0" checked>
             <label class="form-check-label" for="exampleRadios1">
-              Carré
+              Carrés
             </label>
           </div>
           <div class="form-check">
             <input class="form-check-input" type="radio" name="round_border" value="1">
             <label class="form-check-label" for="exampleRadios1">
-              Rond
+              Ronds
             </label>
           </div>
           <button type="button" class="btn btn-primary btn-sm" id="insert-gallery">Insérer <i class="fas fa-cog fa-spin fa-lg"></i></button>

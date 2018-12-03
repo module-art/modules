@@ -334,19 +334,23 @@ $get_params = http_build_query($get_params);
 	}
 	</style><![endif]-->
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+	<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>-->
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/plugins.js?v=<?php echo $version; ?>"></script>
 	<script src="js/jPlayer/jquery.jplayer/jquery.jplayer.js"></script>
 	<script src="js/modernizr.custom.js"></script>
 
 	<?php
 	if ($aviary_active){
-	if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) { ?>
-		<script src="https://dme0ih8comzn4.cloudfront.net/imaging/v3/editor.js"></script>
-	<?php }else{ ?>
-		<script src="http://feather.aviary.com/imaging/v3/editor.js"></script>
-	<?php }} ?>
+	//if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) { ?>
+		<!--<script src="https://dme0ih8comzn4.cloudfront.net/imaging/v3/editor.js"></script>-->
+	<?php// }else{ ?>
+		<!--<script src="http://feather.aviary.com/imaging/v3/editor.js"></script>-->
+	<?php// }?>
+    <script src="js/editor.js"></script>
+<?php } ?>
 
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
@@ -398,11 +402,11 @@ $get_params = http_build_query($get_params);
 </head>
 <body>
 <!-- The Templates plugin is included to render the upload/download listings -->
-<script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
+<script src="js/blueimp/tmpl.min.js"></script>
 <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-<script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+<script src="js/blueimp/load-image.all.min.js"></script>
 <!-- The Canvas to Blob plugin is included for image resizing functionality -->
-<script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+<script src="js/blueimp/canvas-to-blob.min.js"></script>
 <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
 <script src="js/jquery.iframe-transport.js"></script>
 <!-- The basic File Upload plugin -->

@@ -7,11 +7,9 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="">
-    <!-- <link rel="icon" href="../../../../favicon.ico"> -->
 
     @yield('title')
 
-    <!-- Bootstrap core CSS -->
     <link rel="icon" type="image/jpg" href="/images/favicon.jpg" />
 
   </head>
