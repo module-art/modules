@@ -1,8 +1,17 @@
 require('./bootstrap');
 
 $(document).ready(function() {
+  
+  //fancybox
+  $('.gallery').each(function(){
+    $('.fancy', this).fancybox({
+      transitionEffect: "slide",
+      closeExisting: true,
+      loop: false,
+    });
+  });
 
-  //$('#global-wrapper').hide().fadeIn(1500);
+  $('#global-wrapper').fadeIn(500);
   
   //insertion des liste par type
   

@@ -105,11 +105,32 @@ $is-hidpi : "(-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio
     position: absolute;
     left: $left;
     top: $top;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     display: none;
   }
   &:hover{
     .btn-destroy{
+      display: block;
+    }
+  }
+}
+
+@mixin edit_button($left, $top){
+  position: relative;
+  .btn-edit{
+    z-index: 100;
+    position: absolute;
+    left: $left;
+    top: $top;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: none;
+  }
+  &:hover{
+    .btn-edit{
       display: block;
     }
   }

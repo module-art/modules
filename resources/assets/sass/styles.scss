@@ -17,6 +17,7 @@ body {
 
 //admin-sidebar
 #global-wrapper {
+  display: none;
   width: 100%;
   //min-height: 100%;
 }
@@ -347,6 +348,7 @@ footer {
   }
   .type-content{
     @include destroy_button(-25px, 8px);
+    @include edit_button(-25px, 45px);
   }
 }
 

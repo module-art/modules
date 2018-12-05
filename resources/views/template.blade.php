@@ -23,11 +23,11 @@
 
         @yield('contenu')
 
+        <a class="cd-top">Haut de page</a>
+
+        @yield('footer')
+
       </section>
-
-      <a class="cd-top">Haut de page</a>
-
-      @yield('footer')
     
     </div>
 

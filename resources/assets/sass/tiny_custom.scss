@@ -1,0 +1,21 @@
+// Variables
+@import "_variables";
+
+body{
+  //background-color: black;
+}
+
+.fancy{
+  display: inline-block;
+  width: 130px;
+  margin: 7px;
+  img{
+    //display: block;
+    //margin: auto;
+    box-shadow: 10px 10px 30px $light-black;
+    width: 100%;
+    &.rond{
+      border-radius: 50%;
+    }
+  }
+}

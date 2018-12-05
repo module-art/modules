@@ -263,4 +263,66 @@ class TypeController extends Controller
 
     return redirect()->route('type.insertform', $type_name)->withInfo('L\'insertion s\'est bien déroulée.');
   }
+
+  public function editInsertForm($type_name, $id)
+  {
+
+    $type_content = Rubrique::findOrFail($id);
+    $categories_ids = array();
+    foreach($type_content->categories as $categorie){
+      $categories_ids[] = $categorie->id;
+    }
+    //dd($type_content->blocs);
+    $operation = 'insert';
+    $model = 'type';
+    $menus = $this->menusRepository->makeAdminMenus();
+    $footer = $this->footerRepository->makeFooter();
+    $type = Type::where('content_type', $type_name)->first();
+    $champs = explode(',', $type->champs);
+    $nb_champs = count($champs);
+
+    $galleries = $this->getGalleriesArray();
+
+    return view('back.form', compact('type_content', 'type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries', 'categories_ids'));
+  }
+
+  public function updateInsertedType(Request $request, $type_id, $id)
+  {
+    //dd($request);
+    $type_content = Rubrique::findOrFail($id);
+    $type = Type::findOrFail($type_id);
+    $type_name = $type->content_type;
+
+    $old_categories_ids = array();
+    $new_categories_ids = array();
+    foreach($type_content->categories as $categorie){
+      $old_categories_ids[] = $categorie->id;
+    }
+
+    foreach($request->except(array('_token')) as $key => $value){
+      if(preg_match('/categorie/', $key)){
+        $new_categories_ids[] = (int)$value;
+      }else{
+        if(preg_match('/date/', $key)){
+          $value = preg_replace('/^(\d{2})\/(\d{2})\/(19|20)(\d{2})$/', '$3$4$2$1', $value);
+        }elseif(preg_match('/heure|horaire/', $key)){
+          $value = preg_replace('/:/', '', $value);
+        }
+        $type_content->blocs()->where('type', $key)->first()->update([
+          'contenu' => $value,
+        ]);
+      }
+    }
+
+    //categories
+    foreach(array_diff($old_categories_ids, $new_categories_ids) as $cat_id){
+      $type_content->categories()->detach($cat_id);
+    }
+    foreach(array_diff($new_categories_ids, $old_categories_ids) as $cat_id){
+      $type_content->categories()->attach($cat_id);
+    }
+
+    return redirect()->route('type.insertUpdate', [$type_name, $id])->withInfo('La modification s\'est bien déroulée.');
+  }
+
 }

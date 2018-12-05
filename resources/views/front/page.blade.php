@@ -109,13 +109,6 @@ $(document).ready(function() {
       $(this).height(Math.round(wid*9/16));
     })
   }
-  $('.gallery').each(function(){
-    $('.fancy', this).fancybox({
-      transitionEffect: "slide",
-      closeExisting: true,
-      loop: false,
-    });
-  });
 });
     </script>
   @endif

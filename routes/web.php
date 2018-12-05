@@ -28,7 +28,9 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
 
   Route::resource('type', 'TypeController', ['except' => ['show']])->middleware('authAsMaintainer');
   Route::get('insert-type/{type_name}', 'TypeController@showInsertForm')->name('type.insertform');
+  Route::get('insert-type/{type_name}/{rubrique_id}', 'TypeController@editInsertForm')->name('type.editInsert');
   Route::post('insert-type/{type_id}', 'TypeController@insertType')->name('type.insert');
+  Route::post('insert-type/{type_id}/{rubrique_id}', 'TypeController@updateInsertedType')->name('type.insertUpdate');
   Route::get('get-galleries', 'TypeController@getGalleries')->middleware('ajax');
 
   Route::resource('categorie', 'CategorieController', ['except' => ['create']]);

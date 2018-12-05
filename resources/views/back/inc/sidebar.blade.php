@@ -3,11 +3,11 @@
 
     <button type="button" class="btn btn-info sidebarCollapse">
       <i class="fas fa-align-left"></i>
-      <span>Menu</span>
+      <span>Admin</span>
     </button>
 
     <div class="sidebar-header">
-      <h3> Bonjour {{ Auth::user()->name }}</h3>
+      <h4>{{ Auth::user()->name }}</h4>
     </div>
 
     <ul class="list-unstyled components">

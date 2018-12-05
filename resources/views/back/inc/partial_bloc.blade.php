@@ -42,15 +42,18 @@
     @php
       $type = $rubrique->inclusive_type;
     @endphp
-    {{--next include tests any type contents in a table--}}
-    {{--@include('back.type-contents', [
-      'champs' => explode(',', $type->champs),
-      'results' => myControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
-    ])--}}
+    @if(View::exists('back.type-list-'.$type->content_type))
     {{--next include redirect to the specific view--}}
     @include('back.type-list-'.$type->content_type, [
       'results' => myControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
     ])
+    @else
+    {{--next include displays any type contents in a table--}}
+    @include('back.type-contents', [
+      'champs' => explode(',', $type->champs),
+      'results' => myControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
+    ])
+    @endif
   </div>
 @elseif(isset($type_content))
   @include('back.type-content-'.$type_content->type['content_type'], [$type_content])

@@ -13690,7 +13690,8 @@ module.exports = Cancel;
 
 __webpack_require__(11);
 __webpack_require__(36);
-module.exports = __webpack_require__(37);
+__webpack_require__(37);
+module.exports = __webpack_require__(38);
 
 
 /***/ }),
@@ -13701,7 +13702,16 @@ __webpack_require__(12);
 
 $(document).ready(function () {
 
-  //$('#global-wrapper').hide().fadeIn(1500);
+  //fancybox
+  $('.gallery').each(function () {
+    $('.fancy', this).fancybox({
+      transitionEffect: "slide",
+      closeExisting: true,
+      loop: false
+    });
+  });
+
+  $('#global-wrapper').fadeIn(500);
 
   //insertion des liste par type
 
@@ -36012,6 +36022,12 @@ module.exports = function spread(callback) {
 
 /***/ }),
 /* 37 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 38 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

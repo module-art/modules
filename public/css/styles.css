@@ -1,34 +1,43 @@
-@font-face {
-  font-family: 'dejavu_sans';
-  src: url(/fonts/DejaVuSansMono-webfont.eot?7c36c7cacf7d63006776d4d189110ec3);
-  src: url(/fonts/DejaVuSansMono-webfont.eot?7c36c7cacf7d63006776d4d189110ec3) format("embedded-opentype"), url(/fonts/DejaVuSansMono-webfont.woff?36630fe049269c89186fdd7b7e24e0ab) format("woff"), url(/fonts/DejaVuSansMono-webfont.ttf?e45efaf06dd267fe5ece5bfe1692f6d0) format("truetype"), url(/fonts/DejaVuSansMono-webfont.svg?b3601c1c0e086ed79fd079d7fd313c4d) format("svg");
-  font-weight: normal;
-  font-style: normal;
+/*@font-face {
+    font-family: 'dejavu_sans';
+    src: url('fonts/DejaVuSansMono-webfont.eot');
+    src: url('fonts/DejaVuSansMono-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/DejaVuSansMono-webfont.woff') format('woff'),
+         url('fonts/DejaVuSansMono-webfont.ttf') format('truetype'),
+         url('fonts/DejaVuSansMono-webfont.svg#dejavu_sans_monobook') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
-
 @font-face {
-  font-family: 'dejavu_sans';
-  src: url(/fonts/DejaVuSansMono-Bold-webfont.eot?efeef1c95e76d0d6717699de17ea0796);
-  src: url(/fonts/DejaVuSansMono-Bold-webfont.eot?efeef1c95e76d0d6717699de17ea0796) format("embedded-opentype"), url(/fonts/DejaVuSansMono-Bold-webfont.woff?0b117e3199d747ba4bd875213627f2c0) format("woff"), url(/fonts/DejaVuSansMono-Bold-webfont.ttf?c0ba273c238ed1a0d9ec39d7eb1400c9) format("truetype"), url(/fonts/DejaVuSansMono-Bold-webfont.svg?41c19951413276fdb72b61be3101e4e2) format("svg");
-  font-weight: bold;
-  font-style: normal;
+    font-family: 'dejavu_sans';
+    src: url('fonts/DejaVuSansMono-Bold-webfont.eot');
+    src: url('fonts/DejaVuSansMono-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/DejaVuSansMono-Bold-webfont.woff') format('woff'),
+         url('fonts/DejaVuSansMono-Bold-webfont.ttf') format('truetype'),
+         url('fonts/DejaVuSansMono-Bold-webfont.svg#dejavu_sans_monobold') format('svg');
+    font-weight: bold;
+    font-style: normal;
 }
-
 @font-face {
-  font-family: 'dejavu_sans';
-  src: url(/fonts/DejaVuSansMono-BoldOblique-webfont.eot?0f0aafe55b6a46778d7bef9548add5a7);
-  src: url(/fonts/DejaVuSansMono-BoldOblique-webfont.eot?0f0aafe55b6a46778d7bef9548add5a7) format("embedded-opentype"), url(/fonts/DejaVuSansMono-BoldOblique-webfont.woff?c1ee49680ef6e43ebe4b271d3354f6b3) format("woff"), url(/fonts/DejaVuSansMono-BoldOblique-webfont.ttf?eb7256cee4afc6856fb320d5983a5599) format("truetype"), url(/fonts/DejaVuSansMono-BoldOblique-webfont.svg?24b0a6cba4c1cc77bfd52e75c89b5340) format("svg");
-  font-weight: bold;
-  font-style: italic;
+    font-family: 'dejavu_sans';
+    src: url('fonts/DejaVuSansMono-BoldOblique-webfont.eot');
+    src: url('fonts/DejaVuSansMono-BoldOblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/DejaVuSansMono-BoldOblique-webfont.woff') format('woff'),
+         url('fonts/DejaVuSansMono-BoldOblique-webfont.ttf') format('truetype'),
+         url('fonts/DejaVuSansMono-BoldOblique-webfont.svg#dejavu_sans_monobold_oblique') format('svg');
+    font-weight: bold;
+    font-style: italic;
 }
-
 @font-face {
-  font-family: 'dejavu_sans';
-  src: url(/fonts/DejaVuSansMono-Oblique-webfont.eot?4d4a0c62ef50e09387b799a72e4c94f6);
-  src: url(/fonts/DejaVuSansMono-Oblique-webfont.eot?4d4a0c62ef50e09387b799a72e4c94f6) format("embedded-opentype"), url(/fonts/DejaVuSansMono-Oblique-webfont.woff?2fc2fc58c93fd2c0613707246621e00c) format("woff"), url(/fonts/DejaVuSansMono-Oblique-webfont.ttf?54d9d6f139a173265b0db95ad52db541) format("truetype"), url(/fonts/DejaVuSansMono-Oblique-webfont.svg?503730392057cddd054bed2053b1fe95) format("svg");
-  font-weight: normal;
-  font-style: italic;
-}
+    font-family: 'dejavu_sans';
+    src: url('fonts/DejaVuSansMono-Oblique-webfont.eot');
+    src: url('fonts/DejaVuSansMono-Oblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/DejaVuSansMono-Oblique-webfont.woff') format('woff'),
+         url('fonts/DejaVuSansMono-Oblique-webfont.ttf') format('truetype'),
+         url('fonts/DejaVuSansMono-Oblique-webfont.svg#dejavu_sans_monooblique') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}*/
 
 /* Usage */
 
@@ -10522,11 +10531,12 @@ body {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
-  font-family: sans-serif, "dejavu_sans", Helvetica, Arial;
+  font-family: sans-serif, Helvetica, Arial;
   font-size: 1rem;
 }
 
 #global-wrapper {
+  display: none;
   width: 100%;
 }
 
@@ -10907,6 +10917,8 @@ footer .form-group input {
   position: absolute;
   left: -15px;
   top: -5px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   display: none;
 }
@@ -10917,6 +10929,7 @@ footer .form-group input {
 
 .after-rubrique .type-content {
   position: relative;
+  position: relative;
 }
 
 .after-rubrique .type-content .btn-destroy {
@@ -10924,11 +10937,28 @@ footer .form-group input {
   position: absolute;
   left: -25px;
   top: 8px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   display: none;
 }
 
 .after-rubrique .type-content:hover .btn-destroy {
+  display: block;
+}
+
+.after-rubrique .type-content .btn-edit {
+  z-index: 100;
+  position: absolute;
+  left: -25px;
+  top: 45px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: none;
+}
+
+.after-rubrique .type-content:hover .btn-edit {
   display: block;
 }
 
@@ -10941,6 +10971,8 @@ footer .form-group input {
   position: absolute;
   left: 15px;
   top: 15px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   display: none;
 }

@@ -10,13 +10,24 @@
       @include('back.inc.galleries')
     </div>
   </div>
-  {!! Form::open(array('route' => ['type.insert', $type->id], 'method' => 'POST')) !!}
+  @php
+    $editing = false;
+    if(isset($type_content)){
+      $editing = true;
+    }
+  @endphp
+  {!! Form::open(array('route' => $editing ? ['type.insertUpdate', $type->id, $type_content->id] : ['type.insert', $type->id], 'method' => 'POST')) !!}
   @for($i=0; $i<$nb_champs; $i++)
+    @php
+      if($editing){
+        $contenu = $type_content->blocs()->where('type', $champs[$i])->first()->contenu;
+      }
+    @endphp
     @if(preg_match('/date/', $champs[$i]))
       <div class="form-group">
         <div class="input-group">
           {!! Form::label($champs[$i], $champs[$i] . ' :', ['class' => 'control-label']) !!}
-          <input id="datetimepicker{{ $i }}" data-target-input="nearest" type="text" name="{{ $champs[$i] }}" class="form-control datetimepicker-input date col-12 col-lg-4 offset-lg-1" data-target="#datetimepicker{{ $i }}" data-toggle="datetimepicker" value="{{ old($champs[$i]) }}"/>
+          <input id="datetimepicker{{ $i }}" data-target-input="nearest" type="text" name="{{ $champs[$i] }}" class="form-control datetimepicker-input date col-12 col-lg-4 offset-lg-1" data-target="#datetimepicker{{ $i }}" data-toggle="datetimepicker" value="{{ $editing ? preg_replace('/(19|20)(\d{2})(\d{2})(\d{2})/', '$4/$3/$1$2', $contenu) : old($champs[$i]) }}"/>
           <div class="input-group-append" data-target="#datetimepicker{{ $i }}" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
           </div>
@@ -26,7 +37,7 @@
       <div class="form-group">
         <div class="input-group">
           {!! Form::label($champs[$i], $champs[$i] . ' :', ['class' => 'control-label']) !!}
-          <input id="datetimepicker{{ $i }}" data-target-input="nearest" type="text" name="{{ $champs[$i] }}" class="form-control datetimepicker-input heure col-12 col-lg-4 offset-lg-1" data-target="#datetimepicker{{ $i }}" data-toggle="datetimepicker" value="{{ old($champs[$i]) }}"/>
+          <input id="datetimepicker{{ $i }}" data-target-input="nearest" type="text" name="{{ $champs[$i] }}" class="form-control datetimepicker-input heure col-12 col-lg-4 offset-lg-1" data-target="#datetimepicker{{ $i }}" data-toggle="datetimepicker" value="{{ $editing ? preg_replace('/(\d{2})(\d{2})/', '$1:$2', $contenu) : old($champs[$i]) }}"/>
           <div class="input-group-append" data-target="#datetimepicker{{ $i }}" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-clock"></i></div>
           </div>
@@ -41,7 +52,7 @@
         <div class="form-row">
           <div class="input-group">
             {!! Form::label($champs[$i], $field_name . ' :', ['class' => 'control-label']) !!}
-            <input type="number" name="{{ $champs[$i] }}" class="form-control col-12 col-lg-4 offset-lg-1" value="{{ old($champs[$i]) }}"/>
+            <input type="number" name="{{ $champs[$i] }}" class="form-control col-12 col-lg-4 offset-lg-1" value="{{ $editing ? $contenu : old($champs[$i]) }}"/>
             @if($unit != '')
               <div class="input-group-append">
                 <div class="input-group-text">{{ $unit }}</div>
@@ -54,14 +65,13 @@
       <div class="form-group">
         <div class="input-group">
         {!! Form::label($champs[$i], $champs[$i] . ' :', ['class' => 'control-label']) !!}
-        <textarea name="{{ $champs[$i] }}" class="form-control simple-redactored">{{ old($champs[$i]) }}</textarea>
+        <textarea name="{{ $champs[$i] }}" class="form-control simple-redactored">{{ $editing ? $contenu : old($champs[$i]) }}</textarea>
         </div>
       </div>
     @else
       <div class="form-group">
         {!! Form::label($champs[$i], $champs[$i] . ' :', ['class' => 'control-label']) !!}
-        {{--{!! Form::text($champs[$i], old($champs[$i]), ['class' => 'form-control redactored']) !!}--}}
-        <textarea name="{{ $champs[$i] }}" class="form-control redactored">{{ old($champs[$i]) }}</textarea>
+        <textarea name="{{ $champs[$i] }}" class="form-control redactored">{{ $editing ? $contenu : old($champs[$i]) }}</textarea>
       </div>
     @endif
   @endfor

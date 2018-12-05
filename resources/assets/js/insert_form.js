@@ -72,6 +72,7 @@ var tinyconf = {
       height: 360,
       menubar: false,
       branding: false,
+      content_css : "/css/tiny_custom.css",
       plugins: [
           'advlist autolink lists link image charmap print preview anchor textcolor',
           'searchreplace visualblocks code fullscreen',
