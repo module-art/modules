@@ -26,7 +26,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
   Route::delete('destroypage/{id}', 'PageController@destroy')->name('page.destroy');
   Route::post('publicationpage/{id}', 'PageController@switchPublication');
 
-  Route::resource('type', 'TypeController', ['except' => ['show']])->middleware('authAsMaintainer');
+  Route::resource('type', 'TypeController', ['except' => ['show']]);//->middleware('authAsMaintainer')
   Route::get('insert-type/{type_name}', 'TypeController@showInsertForm')->name('type.insertform');
   Route::get('insert-type/{type_name}/{rubrique_id}', 'TypeController@editInsertForm')->name('type.editInsert');
   Route::post('insert-type/{type_id}', 'TypeController@insertType')->name('type.insert');

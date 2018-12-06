@@ -560,10 +560,6 @@ $(document).ready(function()
         }else if(type == 'normal'){
           previousRow.append(newBlocNormal);
         }
-        $('body,html').animate({
-          scrollTop: window.innerHeight,
-          }, scroll_top_duration
-        );
       }else if(order == 'desc'){
         if(type == 'large'){
           previousRow.prepend(newBlocLarge);
