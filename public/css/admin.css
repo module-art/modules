@@ -10915,7 +10915,7 @@ footer .form-group input {
 .after-rubrique [class*="col-"] .btn-destroy {
   z-index: 100;
   position: absolute;
-  left: -15px;
+  right: 0px;
   top: -5px;
   width: 35px;
   height: 35px;
@@ -10935,8 +10935,8 @@ footer .form-group input {
 .after-rubrique .type-content .btn-destroy {
   z-index: 100;
   position: absolute;
-  left: -25px;
-  top: 8px;
+  right: 20px;
+  top: 15px;
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -10950,8 +10950,8 @@ footer .form-group input {
 .after-rubrique .type-content .btn-edit {
   z-index: 100;
   position: absolute;
-  left: -25px;
-  top: 45px;
+  right: 60px;
+  top: 15px;
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -10962,24 +10962,9 @@ footer .form-group input {
   display: block;
 }
 
-.rubrique-container {
-  position: relative;
-}
-
-.rubrique-container .btn-destroy {
-  z-index: 100;
-  position: absolute;
-  left: 15px;
-  top: 15px;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  display: none;
-}
-
-.rubrique-container:hover .btn-destroy {
-  display: block;
-}
+/*.rubrique-container{
+  @include destroy_button(15px, 15px);
+}*/
 
 .fa-cog {
   display: none;

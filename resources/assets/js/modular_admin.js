@@ -40,6 +40,7 @@ $(document).ready(function()
   //global vars
   var idPage = $('#id_page').html(),
       imageChange = false,
+      defaultBackgroundImage = '/images/visuel.jpg',
       wasEdited = false,
       imgWidth = 0,
       maxFileSize = 4096000,
@@ -103,7 +104,7 @@ $(document).ready(function()
       );
     })
     .fail(function() {
-      alert('Oups! une erreur a empêché l\'ajout d\'un rubrique.');
+      alert('Oups! une erreur a empêché l\'ajout de rubrique.');
     });
   });
 
@@ -169,6 +170,12 @@ $(document).ready(function()
             '</div>'+
             '<input id="image" class="form-control" type="file" name="image" />'+
             '</div>'+
+            '<div class="form-check mb-2">'+
+            '<input class="form-check-input" type="checkbox" value="1" name="delete_image">'+
+            '<label class="form-check-label" for="delete_image">'+
+            ' Image par défaut'+
+            '</label>'+
+            '</div>'+
             '<input id="texte" type="hidden" name="texte" />'+
             '<input type="hidden" name="_token" value="' + csrfToken + '" />'+
             '<div class="row justify-content-between px-3">'+
@@ -210,6 +217,11 @@ $(document).ready(function()
                 });
                 $('#replacement').remove();
                 $('.cols-button, .bloc-button').css('display', 'block');
+                if(parseInt(data['img_deleted'])){
+                  imageNode.css({
+                    backgroundImage: 'url("'+defaultBackgroundImage+'")'
+                  });
+                }
               }, 100)
             })
             .fail(function(data) {
@@ -306,10 +318,10 @@ $(document).ready(function()
       selector: '.editrubrique',
       inline: true,
       language: lang,
-      //menubar: false,
+      menubar: false,
       branding: false,
       plugins: myPlugins,
-      toolbar: mediumToolbar,
+      toolbar: smallToolbar,
       block_formats: myFormats,
       fontsize_formats: fontSizes,
       paste_as_text: true,

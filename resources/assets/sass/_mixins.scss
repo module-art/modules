@@ -98,12 +98,12 @@ $is-hidpi : "(-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio
   }
 }
 
-@mixin destroy_button($left, $top){
+@mixin destroy_button($right, $top){
   position: relative;
   .btn-destroy{
     z-index: 100;
     position: absolute;
-    left: $left;
+    right: $right;
     top: $top;
     width: 35px;
     height: 35px;
@@ -117,12 +117,12 @@ $is-hidpi : "(-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio
   }
 }
 
-@mixin edit_button($left, $top){
+@mixin edit_button($right, $top){
   position: relative;
   .btn-edit{
     z-index: 100;
     position: absolute;
-    left: $left;
+    right: $right;
     top: $top;
     width: 35px;
     height: 35px;

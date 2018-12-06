@@ -117,6 +117,7 @@ $(document).ready(function () {
   //global vars
   var idPage = $('#id_page').html(),
       imageChange = false,
+      defaultBackgroundImage = '/images/visuel.jpg',
       wasEdited = false,
       imgWidth = 0,
       maxFileSize = 4096000,
@@ -174,7 +175,7 @@ $(document).ready(function () {
         scrollTop: window.innerHeight
       }, scroll_top_duration);
     }).fail(function () {
-      alert('Oups! une erreur a empêché l\'ajout d\'un rubrique.');
+      alert('Oups! une erreur a empêché l\'ajout de rubrique.');
     });
   });
 
@@ -227,7 +228,7 @@ $(document).ready(function () {
       var tar = $(e.target.bodyElement),
           imageNode = $('.editrubrique').first(),
           initBackgroundImage = imageNode.css('background-image'),
-          replacement = '<section id="replacement" class="row justify-content-end mb-4"><div class="col-12 col-md-8 col-lg-6 col-xl-5"><div class="card"><div class="card-body">' + '<form method="post" enctype="multipart/form-data" class="" id="replacement-form"><div class="form-group">' + '<label for="image" class="col-form-label">Changer l\'image de fond</label>' + '<div class="input-group mb-2">' + '<div class="input-group-prepend">' + '<div class="input-group-text"><i class="far fa-file-image"></i></div>' + '</div>' + '<input id="image" class="form-control" type="file" name="image" />' + '</div>' + '<input id="texte" type="hidden" name="texte" />' + '<input type="hidden" name="_token" value="' + csrfToken + '" />' + '<div class="row justify-content-between px-3">' + '<button class="btn btn-primary btn-save" ><i class="fas fa-cog fa-spin fa-lg"></i> Enregistrer</button><button id="btn-cancel" class="btn btn-secondary" >Annuler</button>' + '</div>' + '</form></div></div></div></section>';
+          replacement = '<section id="replacement" class="row justify-content-end mb-4"><div class="col-12 col-md-8 col-lg-6 col-xl-5"><div class="card"><div class="card-body">' + '<form method="post" enctype="multipart/form-data" class="" id="replacement-form"><div class="form-group">' + '<label for="image" class="col-form-label">Changer l\'image de fond</label>' + '<div class="input-group mb-2">' + '<div class="input-group-prepend">' + '<div class="input-group-text"><i class="far fa-file-image"></i></div>' + '</div>' + '<input id="image" class="form-control" type="file" name="image" />' + '</div>' + '<div class="form-check mb-2">' + '<input class="form-check-input" type="checkbox" value="1" name="delete_image">' + '<label class="form-check-label" for="delete_image">' + ' Image par défaut' + '</label>' + '</div>' + '<input id="texte" type="hidden" name="texte" />' + '<input type="hidden" name="_token" value="' + csrfToken + '" />' + '<div class="row justify-content-between px-3">' + '<button class="btn btn-primary btn-save" ><i class="fas fa-cog fa-spin fa-lg"></i> Enregistrer</button><button id="btn-cancel" class="btn btn-secondary" >Annuler</button>' + '</div>' + '</form></div></div></div></section>';
 
       $('.cols-button, .bloc-button').css('display', 'none');
       if ($('#replacement')[0] === undefined) {
@@ -262,6 +263,11 @@ $(document).ready(function () {
             });
             $('#replacement').remove();
             $('.cols-button, .bloc-button').css('display', 'block');
+            if (parseInt(data['img_deleted'])) {
+              imageNode.css({
+                backgroundImage: 'url("' + defaultBackgroundImage + '")'
+              });
+            }
           }, 100);
         }).fail(function (data) {
           $('.fa-cog').css('display', 'none');
@@ -353,10 +359,10 @@ $(document).ready(function () {
       selector: '.editrubrique',
       inline: true,
       language: lang,
-      //menubar: false,
+      menubar: false,
       branding: false,
       plugins: myPlugins,
-      toolbar: mediumToolbar,
+      toolbar: smallToolbar,
       block_formats: myFormats,
       fontsize_formats: fontSizes,
       paste_as_text: true,

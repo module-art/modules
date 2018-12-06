@@ -110,23 +110,35 @@ class RubriqueController extends Controller
     {
       //return response()->json(['response' => $request]);
       $rubrique = Rubrique::findOrFail($id);
-      $rubrique->contenu = $request->texte;//preg_replace('/<\/?(p|h[1-6]|br\/?)>/', '',$request->bloc);
+      $rubrique->contenu = $request->texte;
 
-      if($request->has('image')){
+      //by default image is not deleted
+      $image_destroy = false;
+
+      if(isset($rubrique->background_img_url) && $request->has('delete_image')){
+        $image_destroy = $gestion->destroy($rubrique);
+
+        if(!$image_destroy){
+          return response()->json(['response' => 'L\'image n\'a pas pu être supprimée.']);
+        }
+
+      }elseif($request->has('image')){
         $image_ok = $gestion->resizeAndSave($request->file('image'));
 
-       if(!$image_ok){
-         return response()->json(['response' => 'L\'image n\'a pas pu être enregistrée.']);
-       }else{
+        if(!$image_ok){
+          return response()->json(['response' => 'L\'image n\'a pas pu être enregistrée.']);
+        }else{
 
           $rubrique->background_img_url = $image_ok;
-          //$rubrique->background_hd_url = $image_ok[1];
-          $rubrique->save();
-          return response()->json(['response' => $image_ok]);
+          //$rubrique->save();
+          //return response()->json(['response' => $image_ok]);
        }
       }
       $rubrique->save();
-      return response()->json(['response' => 'La rubrique '. $id .' est modifiée.']);
+      return response()->json([
+        'response' => 'La rubrique '. $id .' est modifiée.',
+        'img_deleted' => $image_destroy ? 1 : 0
+      ]);
     }
 
     public function colsChange(Request $request, $id){
