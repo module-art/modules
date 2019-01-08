@@ -10991,6 +10991,39 @@ footer .form-group input {
   margin: 0;
 }
 
+img.alignnone,
+img.alignleft {
+  display: inline-block;
+}
+
+img.alignright {
+  display: inline;
+  float: right;
+}
+
+img.aligncenter {
+  display: block;
+  margin: auto;
+}
+
+img.size-medium {
+  width: 60%;
+  max-width: 560px;
+  height: auto;
+}
+
+img.size-thumbnail {
+  width: 20%;
+  max-width: 300px;
+  height: auto;
+}
+
+img.size-full {
+  width: 90%;
+  max-width: 700px;
+  height: auto;
+}
+
 #replacement input#image {
   min-height: 3.2rem;
 }

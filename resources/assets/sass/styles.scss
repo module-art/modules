@@ -381,6 +381,36 @@ footer {
   }
 }
 
+img{
+  //classes from wordpress migration
+  &.alignnone,&.alignleft{
+    display: inline-block;
+  }
+  &.alignright{
+    display: inline;
+    float: right;
+  }
+  &.aligncenter{
+    display: block;
+    margin: auto;
+  }
+  &.size-medium{
+    width: 60%;
+    max-width: 560px;
+    height: auto;
+  }
+  &.size-thumbnail{
+    width: 20%;
+    max-width: 300px;
+    height: auto;
+  }
+  &.size-full{
+    width: 90%;
+    max-width: 700px;
+    height: auto;
+  }
+}
+
 #replacement{
   input#image{
     min-height: 3.2rem;

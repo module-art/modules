@@ -1,10 +1,10 @@
 {
     "/js/scripts.js": "/js/scripts.js",
+    "/css/tiny_custom.css": "/css/tiny_custom.css",
     "/css/styles.css": "/css/styles.css",
     "/css/admin.css": "/css/admin.css",
     "/js/modular_admin.js": "/js/modular_admin.js",
     "/js/insert_form.js": "/js/insert_form.js",
     "/js/contact.js": "/js/contact.js",
-    "/js/categorie.js": "/js/categorie.js",
-    "/css/tiny_custom.css": "/css/tiny_custom.css"
+    "/js/categorie.js": "/js/categorie.js"
 }
