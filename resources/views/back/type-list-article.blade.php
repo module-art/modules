@@ -19,6 +19,8 @@
         </section>
       </div>
     @endforeach
+
+    {{ $results->links('vendor.pagination.bootstrap-4') }}
       
   </body>
 </html>

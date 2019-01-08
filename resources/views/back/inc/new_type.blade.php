@@ -46,7 +46,11 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="descendant">Tri décroissant:</label>
+    <label for="descendant">Tri décroissant :</label>
     <input name="descendant" value="1" type="checkbox"{{ $operation == 'edit' && $type->descendant ? 'checked' : '' }}>
+  </div>
+  <div class="form-group">
+    <label for="nb_per_page">Nombre à afficher (0 désactive la pagination):</label>
+    <input name="nb_per_page" class="form-control" value="{{ $operation == 'edit' ? $type->nb_per_page : 0 }}" type="number">
   </div>
 </div>

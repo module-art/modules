@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Date;
 use Storage;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Image;
 use App\Models\Type;
 use App\Models\Rubrique;
@@ -55,10 +56,16 @@ class ControlRepository
   static function getSortedTypeRubriques($type, $order_by, $desc = 0){
 
     $order = $desc ? 'desc' : 'asc';
+    $nb_per_page = $type->nb_per_page;
 
     if($order_by == 'created_at' || $order_by == 'updated_at'){
 
-      $sorted_rubriques = Rubrique::where('type_id', $type->id)->orderBy($order_by, $order)->get();
+      if($nb_per_page == 0){ //pagination is disabled
+        $sorted_rubriques = Rubrique::where('type_id', $type->id)->orderBy($order_by, $order)->get();
+      }else{
+        $sorted_rubriques = Rubrique::where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
+      }
+      return $sorted_rubriques;
 
     }else{
 
@@ -70,10 +77,28 @@ class ControlRepository
         $sorted_rubriques[] = Rubrique::find($bloc->rubrique_id);
       }
 
+      if($nb_per_page == 0){ //pagination is disabled
+        return $sorted_rubriques;
+      }else{
+        //Manually Created Paginator
+        $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+        $current_rubriques = array_slice($sorted_rubriques, $nb_per_page * ($current_page-1), $nb_per_page);
+
+        $paginated_rubriques = new LengthAwarePaginator($current_rubriques, count($sorted_rubriques), $nb_per_page, $current_page);
+
+        $paginated_rubriques->withPath(url()->current());
+        //$paginator->withPath('filtredate')->appends(['date' => $request->date, 'cycle' => $request->cycle]);
+
+        //$paginated_rubriques = $paginator->items();
+
+        //$links = $paginator->links();
+
+        return $paginated_rubriques;
+      }
+
     }
 
-    return $sorted_rubriques;
-    
   }
 
   static function insertGallery($datas){

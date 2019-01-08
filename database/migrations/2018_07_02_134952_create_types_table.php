@@ -20,6 +20,7 @@ class CreateTypesTable extends Migration
             $table->text('champs');
             $table->string('default_filtre', 255);
             $table->boolean('descendant')->default(0);
+            $table->smallInteger('nb_per_page')->default(0);
         });
     }
 

@@ -45,13 +45,13 @@
     @if(View::exists('back.type-list-'.$type->content_type))
     {{--next include redirect to the specific view--}}
     @include('back.type-list-'.$type->content_type, [
-      'results' => myControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
+      'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
     ])
     @else
     {{--next include displays any type contents in a table--}}
     @include('back.type-contents', [
       'champs' => explode(',', $type->champs),
-      'results' => myControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
+      'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
     ])
     @endif
   </div>

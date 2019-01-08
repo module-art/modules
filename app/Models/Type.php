@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Type extends Model
 {
     protected $table = 'types';
-    protected $fillable = array('content_type', 'champs', 'default_filtre', 'descendant');
+    protected $fillable = array('content_type', 'champs', 'default_filtre', 'descendant', 'nb_per_page');
 
 
     public function rubriques()

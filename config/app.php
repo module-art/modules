@@ -217,7 +217,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Date' => Jenssegers\Date\Date::class,
         //Custom classes
-        'myControl' => App\Repositories\ControlRepository::class,
+        'ModuleControl' => App\Repositories\ControlRepository::class,
 
     ],
 

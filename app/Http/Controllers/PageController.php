@@ -62,7 +62,6 @@ class PageController extends Controller
       return view('back.page', compact('menus', 'page', 'footer', 'bg_img','types'));
     }
 
-
     return view('front.page', compact('menus', 'page', 'footer', 'bg_img'));
   }
 
