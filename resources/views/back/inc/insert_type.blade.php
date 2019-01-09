@@ -11,12 +11,19 @@
     </div>
   </div>
   @php
-    $editing = false;
-    if(isset($type_content)){
-      $editing = true;
-    }
+    $editing = isset($type_content) ? true : false;
   @endphp
   {!! Form::open(array('route' => $editing ? ['type.insertUpdate', $type->id, $type_content->id] : ['type.insert', $type->id], 'method' => 'POST')) !!}
+  <div class="form-row">
+    <div class="form-check col-12 col-md-6">
+      <input type="checkbox" name="publie" value="1"{{ $editing && $type_content->publie ? ' checked' : '' }}/>
+      <label for="publie"> Publié</label><br />
+    </div>
+    <div class="form-check col-12 col-md-6">
+      <input type="checkbox" name="archive" value="1"{{ $editing && $type_content->archive ? ' checked' : '' }}/>
+      <label for="archive"> Archivé</label><br />
+    </div>
+  </div>
   @for($i=0; $i<$nb_champs; $i++)
     @php
       if($editing){

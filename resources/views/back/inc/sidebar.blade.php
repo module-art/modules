@@ -60,6 +60,16 @@
             @endforeach
           </ul>
         </li>
+        <li>
+          <a href="#subsubmenu-insertedTypes" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Lister</a>
+          <ul class="collapse list-unstyled" id="subsubmenu-insertedTypes">
+            @foreach($types as $type)
+              <li>
+                {{ link_to_route('type.insertedIndex', $type->content_type, $type->id, ['class' => '']) }}
+              </li>
+            @endforeach
+          </ul>
+        </li>
       @endif
       <li>
         {{ link_to_route('user.index', 'Utilisateurs', null, ['class' => '']) }}

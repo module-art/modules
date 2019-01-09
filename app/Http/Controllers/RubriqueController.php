@@ -12,7 +12,7 @@ use App\Gestion\ImageGestion;
 use App\Models\Page;
 use App\Models\Rubrique;
 use App\Models\Type;
-use myControl;
+use ModuleControl;
 
 class RubriqueController extends Controller
 {
@@ -29,7 +29,7 @@ class RubriqueController extends Controller
     $type = Type::where('content_type', $type_name)->firstOrFail();
     $champs = explode(',', $type->champs);
 
-    $results = myControl::getSortedTypeRubriques($type, $request->orderby, $request->desc);// results utilisable avec un foreach
+    $results = ModuleControl::getSortedTypeRubriques($type, $request->orderby, $request->desc);// results utilisable avec un foreach
 
     $context = Auth::check() ? 'back' : 'front';
     

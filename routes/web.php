@@ -30,6 +30,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
   Route::get('insert-type/{type_name}', 'TypeController@showInsertForm')->name('type.insertform');
   Route::get('insert-type/{type_name}/{rubrique_id}', 'TypeController@editInsertForm')->name('type.editInsert');
   Route::post('insert-type/{type_id}', 'TypeController@insertType')->name('type.insert');
+  Route::get('inserted-type-index/{type_id}', 'TypeController@insertedTypeIndex')->name('type.insertedIndex');
   Route::post('insert-type/{type_id}/{rubrique_id}', 'TypeController@updateInsertedType')->name('type.insertUpdate');
   Route::get('get-galleries', 'TypeController@getGalleries')->middleware('ajax');
 

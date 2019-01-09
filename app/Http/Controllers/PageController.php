@@ -197,7 +197,8 @@ class PageController extends Controller
 
     $frommail = $request->email;
     $subject = $request->subject;
-    $to = 'sylvestre@module-art.fr';
+    //$to = 'sylvestre@module-art.fr';
+    $to = env('MAIL_DEST', 'sylvestre@module-art.fr');
     $is_sent = Mail::send('back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail)
     {
       $message->from($frommail, 'module-art.fr');

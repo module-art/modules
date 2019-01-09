@@ -61,9 +61,9 @@ class ControlRepository
     if($order_by == 'created_at' || $order_by == 'updated_at'){
 
       if($nb_per_page == 0){ //pagination is disabled
-        $sorted_rubriques = Rubrique::where('type_id', $type->id)->orderBy($order_by, $order)->get();
+        $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->get();
       }else{
-        $sorted_rubriques = Rubrique::where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
+        $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
       }
       return $sorted_rubriques;
 
@@ -74,7 +74,10 @@ class ControlRepository
 
       $sorted_rubriques = array();
       foreach($blocs as $bloc){
-        $sorted_rubriques[] = Rubrique::find($bloc->rubrique_id);
+        $rubrique = Rubrique::find($bloc->rubrique_id);
+        if($rubrique->publie){
+          $sorted_rubriques[] = $rubrique;
+        }
       }
 
       if($nb_per_page == 0){ //pagination is disabled

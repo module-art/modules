@@ -24,6 +24,7 @@ class CreateRubriquesTable extends Migration
       $table->string('background_img_url', 400)->nullable();
       $table->string('background_hd_url', 400)->nullable();
       $table->boolean('publie')->default(1);
+      $table->boolean('archive')->default(0);
       $table->integer('type_contents')->unsigned()->nullable();
       $table->foreign('type_contents')->references('id')->on('types')
             ->onDelete('restrict')

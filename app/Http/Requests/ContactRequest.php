@@ -27,7 +27,14 @@ class ContactRequest extends FormRequest
           'nom' => 'required|min:2|max:20',
           'email' => 'required|email',
           'subject' => 'required|max:210',
-          'texte' => 'required'
+          'texte' => ['required','not_regex:/(bit.ly|drive.google)/']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+          'texte.not_regex' => 'Vous n\'êtes pas autorisé à envoyer ce message.'
         ];
     }
 }

@@ -11,6 +11,7 @@ $(function()
 
     $.ajax({
         type: 'POST',
+        headers: {  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')  },
         url: $(form).attr('action'),
         data: formData,
         dataType: 'json'
@@ -18,8 +19,7 @@ $(function()
     .done(function(data) {
       $('.fa-cog').css('display', 'none');
       alert(data['response']);
-      form[0].reset;
-      $('.redactor-in').html('');
+      form[0].reset();
     })
     .fail(function(data) {
       $('.fa-cog').css('display', 'none');

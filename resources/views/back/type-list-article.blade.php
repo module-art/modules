@@ -20,7 +20,10 @@
       </div>
     @endforeach
 
-    {{ $results->links('vendor.pagination.bootstrap-4') }}
+    {{--if pagination is enabled--}}
+    @if($type->nb_per_page > 0)
+      {{ $results->links('vendor.pagination.bootstrap-4') }}
+    @endif
       
   </body>
 </html>

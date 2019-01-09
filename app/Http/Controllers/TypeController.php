@@ -11,6 +11,7 @@ use App\Models\Type;
 use App\Models\Rubrique;
 use App\Models\Bloc;
 use Storage;
+use ModuleControl;
 
 class TypeController extends Controller
 {
@@ -202,6 +203,20 @@ class TypeController extends Controller
 
   }
 
+  public function insertedTypeIndex($type_id)
+  {
+    $operation = 'index';
+    $type = Type::findOrFail($type_id);
+
+    $menus = $this->menusRepository->makeAdminMenus();
+    $footer = $this->footerRepository->makeFooter();
+
+    $champs = explode(',', $type->champs);
+    $results = ModuleControl::getSortedTypeRubriques($type, $type->default_filtre);// results utilisable avec un foreach;
+
+    return view('back.insertedTypeIndex', compact('type', 'results', 'champs', 'menus', 'operation', 'footer'));
+  }
+
   public function showInsertForm($type_name)
   {
     $operation = 'insert';
@@ -293,13 +308,18 @@ class TypeController extends Controller
     $type = Type::findOrFail($type_id);
     $type_name = $type->content_type;
 
+    //publication et archivage
+    $type_content->publie = $request->has('publie') ? 1:0;
+    $type_content->archive = $request->has('archive') ? 1:0;
+    $type_content->save();
+
     $old_categories_ids = array();
     $new_categories_ids = array();
     foreach($type_content->categories as $categorie){
       $old_categories_ids[] = $categorie->id;
     }
 
-    foreach($request->except(array('_token')) as $key => $value){
+    foreach($request->except(array('_token', 'publie', 'archive')) as $key => $value){
       if(preg_match('/categorie/', $key)){
         $new_categories_ids[] = (int)$value;
       }else{

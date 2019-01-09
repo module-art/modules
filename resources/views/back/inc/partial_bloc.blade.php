@@ -43,7 +43,7 @@
       $type = $rubrique->inclusive_type;
     @endphp
     @if(View::exists('back.type-list-'.$type->content_type))
-    {{--next include redirect to the specific view--}}
+    {{--next include redirect to the specific view if extists--}}
     @include('back.type-list-'.$type->content_type, [
       'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
     ])
