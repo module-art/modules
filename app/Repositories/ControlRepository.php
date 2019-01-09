@@ -53,14 +53,16 @@ class ControlRepository
     return $new_array;
   }
 
-  static function getSortedTypeRubriques($type, $order_by, $desc = 0){
+  static function getSortedTypeRubriques($type, $order_by, $desc = 0, $index = false){
 
     $order = $desc ? 'desc' : 'asc';
-    $nb_per_page = $type->nb_per_page;
+    $nb_per_page = $index ? 25 : $type->nb_per_page;
 
     if($order_by == 'created_at' || $order_by == 'updated_at'){
 
-      if($nb_per_page == 0){ //pagination is disabled
+      if($index){ //pour la page index
+        $sorted_rubriques = Rubrique::where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
+      }elseif($nb_per_page == 0){ //pagination is disabled
         $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->get();
       }else{
         $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
@@ -75,12 +77,12 @@ class ControlRepository
       $sorted_rubriques = array();
       foreach($blocs as $bloc){
         $rubrique = Rubrique::find($bloc->rubrique_id);
-        if($rubrique->publie){
+        if($rubrique->publie && !$index){
           $sorted_rubriques[] = $rubrique;
         }
       }
 
-      if($nb_per_page == 0){ //pagination is disabled
+      if($nb_per_page == 0){ //pagination is disabled and not index
         return $sorted_rubriques;
       }else{
         //Manually Created Paginator
