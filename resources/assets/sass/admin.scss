@@ -125,15 +125,13 @@
   z-index: 2000;
 }
 
-//.table-index{
-  //caption{
-    //text-align: center;
-    //caption-side: top;
-  //}
-  //background-color: $white;
-  //border-collapse: collapse;
-  //th, td {
-    //border: 1px solid black;
-    //padding: 5px;
-  //}
-//}
+.table{
+  .published{
+    color: $green;
+    font-size: $font-size-base*1.5;
+  }
+  .unpublished{
+    color: $red;
+    font-size: $font-size-base*1.5;
+  }
+}

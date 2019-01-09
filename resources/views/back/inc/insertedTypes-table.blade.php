@@ -5,8 +5,9 @@
     <table class="table">
       <thead>
         <tr>
-          <th>#</th>
-          <th>date de création</th>
+          <th>date</th>
+          <th>Publié</th>
+          <th>Archivé</th>
           @foreach($champs as $champ)
             @if(preg_match('/\(nb\)/', $champ))
               @php
@@ -26,11 +27,14 @@
         @php //dd($results); @endphp
         @foreach ($results as $i => $result)
           <tr>
-            <td>
-              {{ $result->id }}
-            </td>
             <td class="">
               {{ ( new Date($result->created_at) )->format('j M Y') }}
+            </td>
+            <td>
+              {!! $result->publie ? '<span class="published"><i class="far fa-check-circle"></i></span>' : '<span class="unpublished"><i class="far fa-times-circle"></i></span>' !!}
+            </td>
+            <td>
+              {!! $result->archive ? '<span class="published"><i class="far fa-check-circle"></i></span>' : '<span class="unpublished"><i class="far fa-times-circle"></i></span>' !!}
             </td>
             @foreach ($result->blocs as $y => $bloc)
               @if(preg_match('/date/', $bloc->type))

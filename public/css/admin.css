@@ -11182,3 +11182,13 @@ img.size-full {
   z-index: 2000;
 }
 
+.table .published {
+  color: #63A375;
+  font-size: 1.5rem;
+}
+
+.table .unpublished {
+  color: #DA4167;
+  font-size: 1.5rem;
+}
+
