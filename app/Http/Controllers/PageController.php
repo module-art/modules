@@ -39,7 +39,7 @@ class PageController extends Controller
     //$pages = page::where('place', 0)->paginate($this->nbrPerPage);
     $pages = page::orderBy('place')->paginate($this->nbrPerPage);
 
-    return view('back.pageIndex', compact('pages', 'menus', 'operation'));
+    return view('common.back.pageIndex', compact('pages', 'menus', 'operation'));
   }
 
   public function show($slug)
@@ -59,10 +59,10 @@ class PageController extends Controller
     if(Auth::check()){
       $types = Type::all();
 
-      return view('back.page', compact('menus', 'page', 'footer', 'bg_img','types'));
+      return view(env('APP_THEME', 'module-art').'.back.page', compact('menus', 'page', 'footer', 'bg_img','types'));
     }
 
-    return view('front.page', compact('menus', 'page', 'footer', 'bg_img'));
+    return view(env('APP_THEME', 'module-art').'.front.page', compact('menus', 'page', 'footer', 'bg_img'));
   }
 
   /**
@@ -74,7 +74,7 @@ class PageController extends Controller
     $operation = 'create';
     $menus = $this->menusRepository->makeAdminMenus();
     $model = 'page';
-    return view('back.form', compact('menus', 'operation', 'model'));
+    return view('common.back.form', compact('menus', 'operation', 'model'));
   }
 
   /**
@@ -120,7 +120,7 @@ class PageController extends Controller
     $page = Page::findOrFail($id);
     $menus = $this->menusRepository->makeAdminMenus();
     $model = 'page';
-    return view('back.form', compact('menus', 'page', 'operation', 'model'));
+    return view('common.back.form', compact('menus', 'page', 'operation', 'model'));
   }
 
   /**

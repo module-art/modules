@@ -30,14 +30,14 @@ class BlocController extends Controller
   {
     $rubrique = Rubrique::findOrFail($id_rubrique);
     $types = Type::all();
-    return view('back.partial_bloc', compact('id_rubrique', 'rubrique', 'types'));
+    return view(env('APP_THEME', 'module-art').'.back.inc.partial_bloc', compact('id_rubrique', 'rubrique', 'types'));
   }
 
   public function partialShowDrag($id_rubrique)
   {
     $rubrique = Rubrique::findOrFail($id_rubrique);
     $types = Type::all();
-    return view('back.partial_drag', compact('id_rubrique', 'rubrique', 'types'));
+    return view(env('APP_THEME', 'module-art').'.back.partial_drag', compact('id_rubrique', 'rubrique', 'types'));
   }
 
     /**

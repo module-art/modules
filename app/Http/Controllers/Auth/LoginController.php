@@ -63,6 +63,6 @@ class LoginController extends Controller
     $menus = $this->menusRepository->makeMenus();
     $footer = $this->footerRepository->makeFooter();
 
-    return view('auth.login', compact('menus', 'footer'));
+    return view('common.auth.login', compact('menus', 'footer'));
   }
 }

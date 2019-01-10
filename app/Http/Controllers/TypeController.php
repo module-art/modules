@@ -36,7 +36,7 @@ class TypeController extends Controller
     $footer = $this->footerRepository->makeFooter();
     $types = Type::paginate($this->nbrPerPage);
 
-    return view('back.typeIndex', compact('types', 'menus', 'operation', 'footer'));
+    return view('common.back.typeIndex', compact('types', 'menus', 'operation', 'footer'));
   }
 
   /**
@@ -50,7 +50,7 @@ class TypeController extends Controller
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
     $model = 'type';
-    return view('back.form', compact('menus', 'operation', 'footer', 'model'));
+    return view('common.back.form', compact('menus', 'operation', 'footer', 'model'));
   }
 
   /**
@@ -91,7 +91,7 @@ class TypeController extends Controller
     $footer = $this->footerRepository->makeFooter();
     $model = 'type';
     $champs = explode(',', $type->champs);
-    return view('back.form', compact('type', 'menus', 'operation', 'footer', 'model','champs'));
+    return view('common.back.form', compact('type', 'menus', 'operation', 'footer', 'model','champs'));
   }
 
   /**
@@ -214,7 +214,7 @@ class TypeController extends Controller
     $champs = explode(',', $type->champs);
     $results = ModuleControl::getSortedTypeRubriques($type, $type->default_filtre);// results utilisable avec un foreach;
 
-    return view('back.insertedTypeIndex', compact('type', 'results', 'champs', 'menus', 'operation', 'footer'));
+    return view('common.back.insertedTypeIndex', compact('type', 'results', 'champs', 'menus', 'operation', 'footer'));
   }
 
   public function showInsertForm($type_name)
@@ -229,14 +229,14 @@ class TypeController extends Controller
 
     $galleries = $this->getGalleriesArray();
 
-    return view('back.form', compact('type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries'));
+    return view('common.back.form', compact('type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries'));
   }
 
   public function getGalleries(){
     
     $galleries = $this->getGalleriesArray();
 
-    return view('back.inc.galleries', compact('galleries'));
+    return view('common.back.inc.galleries', compact('galleries'));
 
   }
 
@@ -298,7 +298,7 @@ class TypeController extends Controller
 
     $galleries = $this->getGalleriesArray();
 
-    return view('back.form', compact('type_content', 'type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries', 'categories_ids'));
+    return view('common.back.form', compact('type_content', 'type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries', 'categories_ids'));
   }
 
   public function updateInsertedType(Request $request, $type_id, $id)

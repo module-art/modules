@@ -34,8 +34,8 @@ class RubriqueController extends Controller
     $context = Auth::check() ? 'back' : 'front';
     
     //next return for test with any type of content
-    //return view($context . '.type-contents', compact('results', 'champs', 'type'));
-    return view($context . '.type-list-' . $type_name, compact('results', 'champs', 'type'));
+    //return view(env('APP_THEME', 'module-art') . '.' . $context . '.type-contents', compact('results', 'champs', 'type'));
+    return view(env('APP_THEME', 'module-art') . '.' . $context . '.type-list-' . $type_name, compact('results', 'champs', 'type'));
   }
 
   public function showTypeContentPage(Request $request, $type_name, $rubrique_id){
@@ -61,7 +61,7 @@ class RubriqueController extends Controller
     //return response($type_content->children()->first()->blocs);
     
     // !! La page avec l'adresse /{type} doit exister en base
-    return view($context . '.page', compact('type_content', 'menus', 'page', 'footer', 'bg_img','types'));
+    return view(env('APP_THEME', 'module-art') . '.' . $context . '.page', compact('type_content', 'menus', 'page', 'footer', 'bg_img','types'));
   }
 
     /**
@@ -96,7 +96,7 @@ class RubriqueController extends Controller
     {
       $rubrique = Rubrique::findOrFail($id_rubrique);
 
-      return view('back.partial_rubrique', compact('rubrique'));
+      return view(env('APP_THEME', 'module-art').'.back.partial_rubrique', compact('rubrique'));
     }
 
     /**

@@ -40,7 +40,7 @@ class UserController extends Controller
         $users = $this->userRepository->getPaginate($this->nbrPerPage);
         $links = $users->render();
 
-        return view('user.index', compact('users', 'links', 'menus', 'operation', 'footer'));
+        return view('common.user.index', compact('users', 'links', 'menus', 'operation', 'footer'));
     }
 
     /**
@@ -56,7 +56,7 @@ class UserController extends Controller
         $menus = $this->menusRepository->makeAdminMenus();
         $footer = $this->footerRepository->makeFooter();
 
-        return view('auth.register', compact( 'title_tag', 'menus', 'operation', 'footer'));
+        return view('common.auth.register', compact( 'title_tag', 'menus', 'operation', 'footer'));
     }
 
     public function store(UserUpdateRequest $request) {
@@ -86,7 +86,7 @@ class UserController extends Controller
         $user = $this->userRepository->getById($id);
         $title_tag = 'Compte de ' . $user->name;
 
-        return view('user.edit',  compact('title_tag', 'user', 'menus', 'operation', 'footer'));
+        return view('common.user.edit',  compact('title_tag', 'user', 'menus', 'operation', 'footer'));
     }
 
     /**

@@ -11,11 +11,13 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/scripts.js', 'public/js')
-   .js('resources/assets/js/modular_admin.js', 'public/js')
-   .js('resources/assets/js/contact.js', 'public/js')
-   .js('resources/assets/js/insert_form.js', 'public/js')
-   .js('resources/assets/js/categorie.js', 'public/js')
-   .sass('resources/assets/sass/tiny_custom.scss', 'public/css')
-   .sass('resources/assets/sass/styles.scss', 'public/css')
-   .sass('resources/assets/sass/admin.scss', 'public/css');
+var current_theme = 'grands_chemins';
+
+mix.js('resources/assets/'+current_theme+'/js/scripts.js', 'public/js')
+   .js('resources/assets/'+current_theme+'/js/admin.js', 'public/js')
+   .js('resources/assets/'+current_theme+'/js/contact.js', 'public/js')
+   .js('resources/assets/'+current_theme+'/js/insert_form.js', 'public/js')
+   .js('resources/assets/'+current_theme+'/js/categorie.js', 'public/js')
+   .sass('resources/assets/'+current_theme+'/sass/tiny_custom.scss', 'public/css')
+   .sass('resources/assets/'+current_theme+'/sass/styles.scss', 'public/css')
+   .sass('resources/assets/'+current_theme+'/sass/admin.scss', 'public/css');

@@ -16,14 +16,17 @@ class UserRepository
 
   public function isLastAdmin($id)
   {
-    if($this->user->where('role', '=', 'admin')->count() == 1 && $this->user->find($id)->role == 'admin'){
+    $role = $this->user->find($id)->role;
+    $reste = $this->user->where('role', 'regexp', 'admin|maintainer')->count();
+
+    if($this->user->where('role', 'regexp', 'admin|maintainer')->count() == 1 && ( $role == 'admin' || $role == 'maintainer')){
       return true;
     }else return false;
   }
 
   public function roleChange($id, $role)
   {
-    if($this->user->find($id)->role != $role){
+    if($this->user->find($id)->role != $role && $role == 'user'){
       return true;
     }else return false;
   }
