@@ -13702,28 +13702,7 @@ __webpack_require__(12);
 
 $(document).ready(function () {
 
-  //fancybox
-  $('.gallery').each(function () {
-    $('.fancy', this).fancybox({
-      transitionEffect: "slide",
-      closeExisting: true,
-      loop: false
-    });
-  });
-
-  $('#global-wrapper').fadeIn(500);
-
-  //insertion des liste par type
-
-  /*var typeContents = $('.type-contents');
-   typeContents.each(function(){
-    var type = $(this).attr('data-content_type');
-     $(this).load('/get-type-contents/'+type+'?orderby=titre&order=asc', function(response, status, xhr){
-      if( status == "error" ){
-        console.log(xhr.statusText);
-      }
-    });
-  });*/
+  //$('#global-wrapper').hide().fadeIn(1500);
 
   /* Bouton retour en haut */
   // browser window scroll (in pixels) after which the "back to top" link is shown
@@ -13734,20 +13713,40 @@ $(document).ready(function () {
 
   //duration of the top scrolling animation (in ms)
   scroll_top_duration = 1000,
+      transitionDuration = 400,
 
   //grab the "back to top" link
-  $back_to_top = $('.cd-top'),
-      $rubrique = $('.heading.first').first(),
-      $paddingTop = parseInt($rubrique.css('padding-top')),
-      $paddingBottom = parseInt($rubrique.css('padding-bottom'));
+  $smLogo = '50px',
+      $logo = $('#logo'),
+      $back_to_top = $('.cd-top');
+
+  $('#navbars01').on('show.bs.collapse', function () {
+    $logo.css('height', $smLogo);
+  });
+
+  $('#navbars01').on('hide.bs.collapse', function () {
+    $logo.css('height', '');
+  });
 
   //Smooth scroll
   $(document).on('click', 'a[href^="#"]', function (event) {
     event.preventDefault();
 
-    $('html, body').animate({
-      scrollTop: $($.attr(this, 'href')).offset().top
-    }, scroll_top_duration);
+    var tar = $($.attr(this, 'href'));
+
+    $logo.css({
+      height: $smLogo
+    });
+
+    setTimeout(function () {
+
+      var topTarget = tar.offset().top;
+      //console.log(topTarget);
+
+      $('html, body').animate({
+        scrollTop: topTarget
+      }, scroll_top_duration);
+    }, transitionDuration);
   });
 
   //hide or show the "back to top" link
@@ -13759,18 +13758,16 @@ $(document).ready(function () {
     } else if ($(this).scrollTop() < offset_opacity) {
       $back_to_top.removeClass('cd-fade-out');
     }
-    /* reduction du header en scrollant
-     if($(this).scrollTop() > 10){
-      $rubrique.css({
-        paddingTop: $paddingTop-200,
-        paddingBottom: $paddingBottom-150
+
+    if ($(this).scrollTop() > 10) {
+      $logo.css({
+        height: $smLogo
       });
-    }else if($(this).scrollTop() < 2){
-      $rubrique.css({
-        paddingTop: $paddingTop,
-        paddingBottom: $paddingBottom
+    } else if ($(this).scrollTop() < 2) {
+      $logo.css({
+        height: ''
       });
-    }*/
+    }
   });
 
   //smooth scroll to top

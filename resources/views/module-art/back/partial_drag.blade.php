@@ -18,7 +18,7 @@
     ?>
     <div class="row" id="drag-mode" data-id="{{ $id_rubrique }}" >
 
-      @include('back.menu_rubrique')
+      @include('common.back.inc.menu_rubrique')
 
       @foreach($rubrique->blocs()->orderBy('place', $order)->get() as $y => $bloc)
         @if($bloc->type == 'large')

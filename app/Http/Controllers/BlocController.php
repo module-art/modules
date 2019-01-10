@@ -37,7 +37,7 @@ class BlocController extends Controller
   {
     $rubrique = Rubrique::findOrFail($id_rubrique);
     $types = Type::all();
-    return view(env('APP_THEME', 'module-art').'.back.partial_drag', compact('id_rubrique', 'rubrique', 'types'));
+    return view('common.back.partial_drag', compact('id_rubrique', 'rubrique', 'types'));
   }
 
     /**

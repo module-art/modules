@@ -9,8 +9,6 @@ $(function()
 
     var formData = $(form).serialize();
 
-    console.log(formData);
-
     $.ajax({
         type: 'POST',
         headers: {  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')  },
@@ -26,8 +24,7 @@ $(function()
     .fail(function(data) {
       $('.fa-cog').css('display', 'none');
       //console.log(data);
-      //var errors = data.responseJSON.message + '\n';
-      var errors = '';
+      var errors = data.responseJSON.message + '\n';
       $.each(data.responseJSON.errors, function (key, value) {
         errors += value + '\n';
       });

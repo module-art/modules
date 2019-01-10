@@ -10,8 +10,7 @@
 
     @yield('title')
 
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="icon" type="image/jpg" href="/images/favicon.jpg" />
+    <link rel="icon" type="image/jpg" href="/images/module-art/favicon.jpg" />
 
   </head>
   <body class="">
@@ -33,7 +32,7 @@
       <a class="cd-top">Haut de page</a>
 
       @if(isset($footer))
-        @include('footer')
+        @include('module-art.footer')
       @endif
     
     </div>

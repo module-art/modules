@@ -433,7 +433,7 @@ footer {
   
   background-position: center center;
 	background-repeat: no-repeat;
-  background-image: url('/images/chevron-circle-up-light.svg');
+  background-image: url('/images/module-art/chevron-circle-up-light.svg');
 	@include size(47px, 46px);
   @include opacity(0);
   @include transition(all .3s);

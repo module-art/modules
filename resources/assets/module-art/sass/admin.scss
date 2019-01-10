@@ -1,0 +1,137 @@
+@import 'styles';
+
+#sidebar {
+  font-family: $font-family-base;
+  background-color: lighten($dark-gray, 5%);
+  color: $white;
+  min-width: $navbar-width;
+  max-width: $navbar-width;
+  min-height: 100vh;
+  transition: all 0.3s;
+  margin-left: -$navbar-width;
+  a{
+    color: $white;
+  }
+  &.active{
+    margin-left: 0px;
+  }
+  #fixed-sidebar{
+    position: fixed;
+    width: $navbar-width;
+    z-index: 500;
+    .sidebarCollapse.btn{
+      position: relative;
+      right: -270px;
+      top: 60px;
+    }
+    .chevron:hover{
+      opacity: 0.7;
+    }
+  }
+  .sidebar-header{
+    text-align: center;
+    padding: 20px;
+    background: $dark-gray;
+    border-bottom: 1px solid $blue;
+  }
+  ul{
+    &.components {
+      padding: 20px 0;
+    }
+    h4{
+      text-align: center;
+      padding: 10px;
+    }
+    li a{
+      color: $white;
+      padding: 10px;
+      font-size: 1.1em;
+      display: block;
+      cursor: pointer;
+      &:hover{
+        color: $dark-gray;
+        background: $light-gray;
+      }
+    }
+    /*li.active > a, a[aria-expanded="true"] {
+      color: $white;
+      background: #6d7fcc;}*/
+    ul{
+      a {
+        font-size: 0.9em !important;
+        padding-left: 30px !important;
+        background-color: lighten($dark-gray, 15%);
+      }
+      ul a{
+        background: lighten($dark-gray, 5%);
+      }
+    }
+    .sidebarCollapse{
+      text-align: right;
+      font-size: 1.8em;
+      margin-right: 15px;
+      cursor: pointer;
+    }
+  }
+}
+
+#drag-mode{
+  .dropy{
+    img{
+      max-width: 100%;
+      height: auto;
+    }
+    iframe{
+      max-width: 100%;
+    }
+  }
+
+  .dropy{
+    transform: scale(0.8,0.8);
+    height: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    .upper{
+      position: absolute;
+      z-index: 2000;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .large-bloc .dropy{
+    height: 60px;
+  }
+
+  .dropzone{
+    flex: none;
+  }
+
+  .indropzone{
+    border: 1px $light-gray solid;
+  }
+}
+
+.bootstrap-datetimepicker-widget .table{
+  background-color: unset;
+}
+
+#categories-checkbox, #categories-container{
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.btn-save{
+  z-index: 2000;
+}
+
+.table{
+  .published{
+    color: $green;
+    font-size: $font-size-base*1.5;
+  }
+  .unpublished{
+    color: $red;
+    font-size: $font-size-base*1.5;
+  }
+}

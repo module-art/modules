@@ -12,7 +12,7 @@ data-rubrique_id="{!! $rubrique->id !!}">
   </div>
 </div>
 
-@include('svg_chevron_xml')
+@include('module-art.svg_chevron_xml')
 
 <div class="dark-left"></div>
 <div class="dark-right"></div>

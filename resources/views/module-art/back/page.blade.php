@@ -1,4 +1,4 @@
-@extends('template')
+@extends('module-art.template')
 
 @section('title')
   <title>{{ $page->title }}</title>
@@ -14,14 +14,17 @@
       }
     </style>
   @endif
+  <link href="/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/tools/fancybox/jquery.fancybox.min.css">
 @endsection
 
 @section('sidebar')
-  @include('back.inc.sidebar')
+  @include('common.back.inc.sidebar')
 @endsection
 
 @section('menu')
-  @include('menu')
+  @include('module-art.menu')
 @endsection
 
 @section('contenu')
@@ -33,13 +36,13 @@
       <div class="main-container">
         <div class="rubrique-container">
 
-          @include('back.inc.partial_rubrique')
+          @include('module-art.back.inc.partial_rubrique')
 
         </div><!--rubrique-->
 
-        <div class="container after-rubrique">
+        <div class="container after-rubrique" data-rubrique_id="{!! $rubrique->id !!}" data-rubrique_cols="{!! $rubrique->cols !!}">
 
-          @include('back.inc.partial_bloc')
+          @include('module-art.back.inc.partial_bloc')
 
           @if($page->slug == 'accueil' && $y == 1)
             <div class="row justify-content-center" >
@@ -52,20 +55,23 @@
             </div>
           @endif
         </div><!--container-->
-      </div>
+      </div><!--main-container-->
 
     @endforeach
 
     @if($page->slug == 'contact')
 
-      @include('front.contact')
+      @include('module-art.front.contact')
 
     @endif
       
 @endsection
 
 @section('scripts')
-  <script src="/js/tinymce/tinymce.min.js"></script>
-  <script src="/js/modular_admin.js"></script>
+  <script src="/tools/tinymce/tinymce.min.js"></script>
+  <script src="/js/tempus-dominus/moment-with-locales.min.js"></script>
+  <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
+  <script src="/js/admin.js"></script>
   <script src="/js/contact.js"></script>
+  <script src="/tools/fancybox/jquery.fancybox.min.js"></script>
 @endsection

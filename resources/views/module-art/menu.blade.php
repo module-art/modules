@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <a class="" href="{{ route( (Auth::check() && Auth::user()->role == 'admin')? 'back_page.show' : 'page.show', 'accueil') }}" id="logo"><img src="/images/logo.svg" alt="logo"></a>
+    <a class="" href="{{ route( (Auth::check() && Auth::user()->role == 'admin')? 'back_page.show' : 'page.show', 'accueil') }}" id="logo"><img src="/images/module-art/logo.svg" alt="logo"></a>
 </div>
 
 @if(!isset($operation)){{-- case for admin pages --}}

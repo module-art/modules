@@ -1,4 +1,4 @@
-@extends('template')
+@extends('module-art.template')
 
 @section('title')
   <title>{{ $page->title }}</title>
@@ -14,10 +14,11 @@
       }
     </style>
   @endif
+  <link rel="stylesheet" href="/css/styles.css">
 @endsection
 
 @section('menu')
-  @include('menu')
+  @include('module-art.menu')
 @endsection
 
 @section('contenu')
@@ -34,7 +35,7 @@
               </div>
             </div>
 
-            @include('svg_chevron_xml')
+            @include('module-art.svg_chevron_xml')
 
             <div class="dark-left"></div>
             <div class="dark-right"></div>
@@ -90,7 +91,7 @@
 
   @if($page->slug == 'contact')
 
-    @include('front.contact')
+    @include('module-art.front.contact')
 
   @endif
 

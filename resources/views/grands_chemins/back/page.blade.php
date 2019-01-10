@@ -55,7 +55,7 @@
   <script src="/tools/tinymce/tinymce.min.js"></script>
   <script src="/js/tempus-dominus/moment-with-locales.min.js"></script>
   <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
-  <script src="/js/modular_admin.js"></script>
+  <script src="/js/admin.js"></script>
   <script src="/js/contact.js"></script>
   <script src="/tools/fancybox/jquery.fancybox.min.js"></script>
 @endsection
