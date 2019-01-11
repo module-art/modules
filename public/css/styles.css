@@ -10678,8 +10678,8 @@ a[data-toggle="collapse"] {
 
 .head #logo {
   margin: 2rem;
-  -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
   height: 12rem;
 }
 
@@ -10839,7 +10839,13 @@ p.lead {
   }
 }
 
+.overlay {
+  background: -webkit-gradient(linear, right top, left bottom, from(rgba(0, 0, 0, 0.8)), color-stop(50%, rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.8)));
+  background: linear-gradient(to left bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.8));
+}
+
 div.heading {
+  padding: 18vh 0 27vh;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -10854,12 +10860,6 @@ div.heading {
   min-height: 18px;
   -webkit-transition: all 0.8s ease;
   transition: all 0.8s ease;
-}
-
-div.heading .overlay {
-  padding: 18vh 0 27vh;
-  background: -webkit-gradient(linear, right top, left bottom, from(rgba(0, 0, 0, 0.8)), color-stop(50%, rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.8)));
-  background: linear-gradient(to left bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.8));
 }
 
 div.heading h1 {

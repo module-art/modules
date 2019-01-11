@@ -6,9 +6,11 @@
   <link href="/css/admin.css" rel="stylesheet">
 @endsection
 
-@section('contenu')
-          
+@section('menu')
   @include(env('APP_THEME', 'module-art').'.menu')
+@endsection
+
+@section('contenu')
 
   <section class='row center-card'>
     <div class="col-12 col-lg-8">

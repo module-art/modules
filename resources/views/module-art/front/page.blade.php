@@ -26,12 +26,12 @@
   @foreach($page->rubriques()->orderBy('place')->get() as $y => $rubrique)
       <div class="main-container">
           <div class="rubrique-container">
-            <div class="heading" 
-                 style="background-image: url('{!! asset( $rubrique->background_img_url ) !!}');
-                 background-image: -webkit-image-set( url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x );
-                 background-image: image-set( url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x );">
-              <div class="overlay">
-                 {!! $rubrique->contenu !!}
+            <div class="overlay">
+              <div class="heading" 
+                   style="background-image: url('{!! asset( $rubrique->background_img_url ) !!}');
+                   background-image: -webkit-image-set( url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x );
+                   background-image: image-set( url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x );">
+                   {!! $rubrique->contenu !!}
               </div>
             </div>
 

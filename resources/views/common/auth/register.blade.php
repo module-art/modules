@@ -5,9 +5,11 @@
   <link href="/css/styles.css" rel="stylesheet">
 @endsection
 
-@section('contenu')
-          
+@section('menu')
   @include(env('APP_THEME', 'module-art').'.menu')
+@endsection
+
+@section('contenu')
 
   <div class="row center-card">
       <div class="col-12">

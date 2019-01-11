@@ -11,7 +11,7 @@ $(document).ready(function() {
     offset_opacity = 1200,
     //duration of the top scrolling animation (in ms)
     scroll_top_duration = 1000,
-    transitionDuration = 400,
+    transitionDuration = 300,
     //grab the "back to top" link
     $smLogo = '50px',
     $logo = $('#logo'),

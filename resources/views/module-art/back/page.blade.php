@@ -69,7 +69,7 @@
 
 @if(isset($footer))
   @section('footer')
-    @include('module.footer')
+    @include('module-art.footer')
   @endsection
 @endif
 
