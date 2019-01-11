@@ -47,9 +47,9 @@
           @if($page->slug == 'accueil' && $y == 1)
             <div class="row justify-content-center" >
               <div id='video-container' class='col-12 col-lg-10 col-xl-8'>
-                <video poster="/movies/sky-logo.jpg" id="bgvid" autoplay muted loop>
-                  <source src="/movies/sky-logo.webm" type="video/webm">
-                    <source src="/movies/sky-logo.mp4" type="video/mp4">
+                <video poster="/images/module-art/movies/sky-logo.jpg" id="bgvid" autoplay muted loop>
+                  <source src="/images/module-art/movies/sky-logo.webm" type="video/webm">
+                    <source src="/images/module-art/movies/sky-logo.mp4" type="video/mp4">
                 </video>
               </div>
             </div>
@@ -66,6 +66,12 @@
     @endif
       
 @endsection
+
+@if(isset($footer))
+  @section('footer')
+    @include('module.footer')
+  @endsection
+@endif
 
 @section('scripts')
   <script src="/tools/tinymce/tinymce.min.js"></script>

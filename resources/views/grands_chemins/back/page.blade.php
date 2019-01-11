@@ -11,38 +11,33 @@
   @include('common.back.inc.sidebar')
 @endsection
 
+@section('menu')
+  @php
+    $rubrique = $page->rubriques()->first();
+  @endphp
+  @include('grands_chemins.menu')
+@endsection
+
 @section('contenu')
 
   <p id="id_page" class="d-none">{{ $page->id }}</p>
 
-  @foreach($page->rubriques()->orderBy('place')->get() as $y => $rubrique)
+  @php
+    $rubrique = $page->rubriques()->first();
+  @endphp
 
-    <div class="main-container">
+  <div class='after-rubrique-container d-flex justify-content-center'>
+    <div id="blocs-rubrique{{ $rubrique->id }}" class="after-rubrique{{ $rubrique->blocs()->count() > 0 || isset($rubrique->type_contents) || isset($type_content) ? ' not-empty' : ''}}" data-rubrique_id="{!! $rubrique->id !!}" data-rubrique_cols="{!! $rubrique->cols !!}">
 
-      <div class="rubrique-container">
+      @include('grands_chemins.back.inc.partial_bloc')
 
-        @include('grands_chemins.back.inc.partial_rubrique')
+      @if($page->slug == 'contact')
+        @include('grands_chemins.front.contact')
+      @endif
 
-      </div><!--rubrique-->
+    </div><!--after-rubrique-->
+  </div>
 
-      @include('grands_chemins.menu')
-
-      <div class='after-rubrique-container d-flex justify-content-center'>
-        <div id="blocs-rubrique{{ $rubrique->id }}" class="after-rubrique{{ $rubrique->blocs()->count() > 0 || isset($rubrique->type_contents) || isset($type_content) ? ' not-empty' : ''}}" data-rubrique_id="{!! $rubrique->id !!}" data-rubrique_cols="{!! $rubrique->cols !!}">
-
-          @include('grands_chemins.back.inc.partial_bloc')
-
-          @if($page->slug == 'contact')
-            @include('grands_chemins.front.contact')
-          @endif
-
-        </div><!--after-rubrique-->
-      </div>
-
-    </div><!--main-container-->
-
-  @endforeach
-      
 @endsection
 
 @if(isset($footer))

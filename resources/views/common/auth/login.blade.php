@@ -5,10 +5,12 @@
   <link href="/css/styles.css" rel="stylesheet">
 @endsection
 
+@section('menu')
+  @include(env('APP_THEME', 'module-art').'.menu')
+@endsection
+
 @section('contenu')
           
-@include(env('APP_THEME', 'module-art').'.menu')
-
 <div class="container">
     <div class="row center-card">
         <div class="col-md-8">

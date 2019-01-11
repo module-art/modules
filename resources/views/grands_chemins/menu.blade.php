@@ -1,3 +1,18 @@
+@if(Auth::check())
+  @include('grands_chemins.back.inc.partial_rubrique')
+@else
+  <div class="heading" 
+    @if(isset($bg_img) && $bg_img[0] != '')
+      style="background-image: url('{!! asset( $bg_img[0] ) !!}');"
+    @else
+      style="background-image: url('/images/visuel.jpg');"
+    @endif
+  >
+    @if(isset($bg_img) && $bg_img[0] != '')
+      {!! isset($rubrique) ? $rubrique->contenu : '' !!}
+    @endif
+  </div>
+@endif
 
 <div class="head d-flex">
   <div class="d-md-none d-flex">

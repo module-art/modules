@@ -31,9 +31,7 @@
 
       <a class="cd-top">Haut de page</a>
 
-      @if(isset($footer))
-        @include('module-art.footer')
-      @endif
+      @yield('footer')
     
     </div>
 

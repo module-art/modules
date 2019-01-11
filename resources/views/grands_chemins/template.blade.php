@@ -21,7 +21,15 @@
 
       <section id="global-wrapper">
 
-        @yield('contenu')
+        <div class="rubrique-container">
+          @yield('menu')
+        </div>
+
+        <div class="main-container">
+
+          @yield('contenu')
+
+        </div><!--main-container-->
 
         <a class="cd-top">Haut de page</a>
 

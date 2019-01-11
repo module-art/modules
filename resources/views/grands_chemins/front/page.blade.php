@@ -6,93 +6,81 @@
   <link rel="stylesheet" href="/tools/fancybox/jquery.fancybox.min.css">
 @endsection
 
+@section('menu')
+  @include('grands_chemins.menu')
+@endsection
+
 @section('contenu')
 
-  @foreach($page->rubriques()->orderBy('place')->get() as $y => $rubrique)
-      <div class="main-container">
+  @php
+    $rubrique = $page->rubriques()->first();
+  @endphp
 
-        <div class="rubrique-container">
-          <div class="heading"
-            @if(isset($bg_img) && $bg_img[0] != '')
-              style="background-image: url('{!! asset( $bg_img[0] ) !!}');"
+  <div class='d-flex justify-content-center'>
+    <div id="blocs-rubrique{{ $rubrique->id }}" class="after-rubrique{{ $rubrique->blocs()->count() > 0 || isset($rubrique->type_contents) || isset($type_content) ? ' not-empty' : ''}}">
+      <?php
+        switch ($rubrique->cols) {
+        case 1:
+          $cols = '';
+          break;
+        case 2:
+          $cols = ' col-md-6';
+          break;
+        case 3:
+          $cols = ' col-md-6 col-lg-4';
+          break;
+        }
+        $order = $rubrique->ascendant ? 'asc' : 'desc'; 
+      ?>
+        <div class="row">
+
+          @foreach($rubrique->blocs()->orderBy('place', $order)->get() as $bloc)
+            @if($bloc->type == 'large')
+              <div class="col-12">
+                <div>
+                  {!! $bloc->contenu !!}
+                </div>
+              </div>
             @else
-              style="background-image: url('/images/visuel.jpg');"
-            @endif>
-            @if(isset($bg_img) && $bg_img[0] != '')
-              {!! $rubrique->contenu !!}
+              <div class="col-12{{ $cols }}">
+                <div>
+                  {!! $bloc->contenu !!}
+                </div>
+              </div>
+            @endif
+          @endforeach
+
+        </div><!--row-->
+
+        @if(isset($rubrique->type_contents))
+          <div class="large-bloc type-contents" data-content_type='{{ $rubrique->inclusive_type['content_type'] }}' data-filtre="{{ $rubrique->inclusive_type['default_filtre'] }}" data-desc="{{ $rubrique->inclusive_type['descendant'] }}">
+            @php
+              $type = $rubrique->inclusive_type;
+            @endphp
+            @if(View::exists('grands_chemins.front.type-list-'.$type->content_type))
+              {{--next include redirect to the specific view--}}
+              @include('grands_chemins.front.type-list-'.$type->content_type, [
+              'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
+            ])
+            @else
+              {{--next include displays any type contents in a table--}}
+              @include('common.front.type-contents', [
+                'champs' => explode(',', $type->champs),
+                'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
+              ])
             @endif
           </div>
-        </div><!--rubrique-->
+        @elseif(isset($type_content))
+          @include('grands_chemins.front.type-content-'.$type_content->type['content_type'], [$type_content])
+          {{--$type_content is a rubrique--}}
+        @endif
 
-        @include('grands_chemins.menu')
+        @if($page->slug == 'contact')
+          @include('grands_chemins.front.contact')
+        @endif
 
-        <div class='d-flex justify-content-center'>
-          <div id="blocs-rubrique{{ $rubrique->id }}" class="after-rubrique{{ $rubrique->blocs()->count() > 0 || isset($rubrique->type_contents) || isset($type_content) ? ' not-empty' : ''}}">
-            <?php
-              switch ($rubrique->cols) {
-              case 1:
-                $cols = '';
-                break;
-              case 2:
-                $cols = ' col-md-6';
-                break;
-              case 3:
-                $cols = ' col-md-6 col-lg-4';
-                break;
-              }
-              $order = $rubrique->ascendant ? 'asc' : 'desc'; 
-            ?>
-              <div class="row">
-
-                @foreach($rubrique->blocs()->orderBy('place', $order)->get() as $bloc)
-                  @if($bloc->type == 'large')
-                    <div class="col-12">
-                      <div>
-                        {!! $bloc->contenu !!}
-                      </div>
-                    </div>
-                  @else
-                    <div class="col-12{{ $cols }}">
-                      <div>
-                        {!! $bloc->contenu !!}
-                      </div>
-                    </div>
-                  @endif
-                @endforeach
-
-              </div><!--row-->
-
-              @if(isset($rubrique->type_contents))
-                <div class="large-bloc type-contents" data-content_type='{{ $rubrique->inclusive_type['content_type'] }}' data-filtre="{{ $rubrique->inclusive_type['default_filtre'] }}" data-desc="{{ $rubrique->inclusive_type['descendant'] }}">
-                  @php
-                    $type = $rubrique->inclusive_type;
-                  @endphp
-                  @if(View::exists('grands_chemins.front.type-list-'.$type->content_type))
-                    {{--next include redirect to the specific view--}}
-                    @include('grands_chemins.front.type-list-'.$type->content_type, [
-                    'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
-                  ])
-                  @else
-                    {{--next include displays any type contents in a table--}}
-                    @include('common.front.type-contents', [
-                      'champs' => explode(',', $type->champs),
-                      'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
-                    ])
-                  @endif
-                </div>
-              @elseif(isset($type_content))
-                @include('grands_chemins.front.type-content-'.$type_content->type['content_type'], [$type_content])
-                {{--$type_content is a rubrique--}}
-              @endif
-
-              @if($page->slug == 'contact')
-                @include('grands_chemins.front.contact')
-              @endif
-
-          </div><!--after-rubrique-->
-        </div>
-      </div><!--main-container-->
-    @endforeach
+    </div><!--after-rubrique-->
+  </div>
 
 @endsection
 

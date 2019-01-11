@@ -2,17 +2,6 @@
     <a class="" href="{{ route( (Auth::check() && Auth::user()->role == 'admin')? 'back_page.show' : 'page.show', 'accueil') }}" id="logo"><img src="/images/module-art/logo.svg" alt="logo"></a>
 </div>
 
-@if(!isset($operation)){{-- case for admin pages --}}
-  @if(Auth::check() && Auth::user()->role == 'admin')
-
-    <button type="button" class="btn btn-info sidebarCollapse">
-      <i class="fas fa-align-left"></i>
-      <span>Menu</span>
-    </button>
-
-  @endif
-@endif
-
 @if($menus->count() > 0)
   <nav class="navbar navbar-expand-md justify-content-center">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars01" aria-controls="navbars03" aria-expanded="false" aria-label="Toggle navigation">

@@ -7,7 +7,7 @@
 
   @if($type->categories()->count() > 0)
     <div class="form-group" id="categories-container">
-      @include('back.inc.categorie_table')
+      @include('common.back.inc.categorie_table')
     </div>
   @endif
   <div class="form-group">
