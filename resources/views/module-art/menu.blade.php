@@ -4,7 +4,7 @@
 
 @if($menus->count() > 0)
   <nav class="navbar navbar-expand-md justify-content-center">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars01" aria-controls="navbars03" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars01" aria-controls="navbars01" aria-expanded="false" aria-label="Toggle navigation">
       <!-- <span class="navbar-toggler-icon"></span> -->
       <i class="fas fa-bars"></i>
     </button>
