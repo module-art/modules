@@ -23,90 +23,11 @@ a{
   }
 }
 
-//admin-sidebar
 #global-wrapper {
   width: 100%;
   .error{
     min-height: 100vh;
   }
-}
-
-#sidebar {
-  background-color: lighten($dark-gray, 5%);
-  color: $white;
-  min-width: $navbar-width;
-  max-width: $navbar-width;
-  min-height: 100vh;
-  transition: all 0.3s;
-  margin-left: -$navbar-width;
-  a{
-    color: $white;
-  }
-  &.active{
-    margin-left: 0px;
-  }
-  #fixed-sidebar{
-    position: fixed;
-    width: $navbar-width;
-  }
-  .sidebar-header{
-    text-align: center;
-    padding: 20px;
-    background: $dark-gray;
-    border-bottom: 1px solid $blue;
-  }
-  ul{
-    &.components {
-      padding: 20px 0;
-    }
-    h4{
-      text-align: center;
-      padding: 10px;
-    }
-    li a{
-      color: $white;
-      padding: 10px;
-      font-size: 1.1em;
-      display: block;
-      cursor: pointer;
-      &:hover{
-        color: $dark-gray;
-        background: $light-gray;
-      }
-    }
-    /*li.active > a, a[aria-expanded="true"] {
-      color: $white;
-      background: #6d7fcc;}*/
-    ul a {
-      font-size: 0.9em !important;
-      padding-left: 30px !important;
-      background-color: lighten($dark-gray, 15%);
-    }
-    .sidebarCollapse{
-      text-align: right;
-      font-size: 1.8em;
-      margin-right: 15px;
-      cursor: pointer;
-    }
-  }
-}
-
-/*
-@include media-breakpoint-up(sm) {
-  #sidebar {
-      margin-left: -$navbar-width;
-  }
-  #sidebar.active {
-      margin-left: 0;
-  }
-}*/
-
-a[data-toggle="collapse"] {
-  position: relative;
-}
-
-.dropdown-item{
-  cursor: pointer;
 }
 
 .head {
@@ -266,17 +187,12 @@ p.lead {
 	}
 }
 
-.overlay{
-  //padding: $line-height-base*12vh 0 $line-height-base*18vh ;
-  background: linear-gradient(to left bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.8));
-}
-
 div.heading {
   padding: $line-height-base*12vh 0 $line-height-base*18vh ;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   position: relative;
 	// font-family: $font-family-serif;
 	font-size: ($font-size-base*1.2);
@@ -294,12 +210,37 @@ div.heading {
     letter-spacing: 8px;
     font-size: $font-size-base * 4;
     font-weight:600;
+  }
 
-    @include media-breakpoint-down(sm) {
-      font-size: $font-size-base * 2.5;
+  .overlay{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to left bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.8));
+  }
+
+  @include media-breakpoint-down(lg) {
+    padding: $line-height-base*10vh 0 $line-height-base*15vh ;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding: $line-height-base*8vh 0 $line-height-base*13vh ;
+    h1{
+    font-size: $font-size-base * 3;
     }
+  }
 
-    @include media-breakpoint-down(xs) {
+  @include media-breakpoint-down(sm) {
+    padding: $line-height-base*7vh 0 $line-height-base*11vh ;
+    h1{
+    font-size: $font-size-base * 2.5;
+    }
+  }
+
+  @include media-breakpoint-down(xs) {
+    padding: $line-height-base*5vh 0 $line-height-base*8vh ;
+    h1{
       font-size: $font-size-base * 2;
       letter-spacing: normal;
     }
@@ -363,10 +304,19 @@ div.heading {
        fill:$orange;
     }
   }
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     width: 60px;
     height: 60px;
     bottom: 15%;
+  }
+  @include media-breakpoint-down(sm) {
+    width: 50px;
+    height: 50px;
+    bottom: 10%;
+  }
+  @include media-breakpoint-down(xs) {
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -547,7 +497,7 @@ footer {
     position: absolute;
     bottom: -14%;
     height: 28%;
-    width: 55%;
+    width: 60%;
     background-color: $body-bg;
   }
   .dark-left{
@@ -562,6 +512,14 @@ footer {
 
 .fa-cog{
   display: none;
+}
+#video-container{
+  padding-top: 1.5rem;
+  #bgvid {
+    width: 100%; 
+    height: auto;
+    border-radius: 49%;
+  }
 }
 
 #contact{

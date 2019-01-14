@@ -2,18 +2,6 @@
 
 @section('title')
   <title>{{ $page->title }}</title>
-  @if($page->slug == 'accueil')
-    <style>
-      #video-container{
-        padding-top: 1.5rem;
-      }
-      #bgvid {
-        width: 100%; 
-        height: auto;
-        border-radius: 49%;
-      }
-    </style>
-  @endif
   <link rel="stylesheet" href="/css/styles.css">
 @endsection
 
@@ -26,14 +14,11 @@
   @foreach($page->rubriques()->orderBy('place')->get() as $y => $rubrique)
       <div class="main-container">
           <div class="rubrique-container">
-            <div class="overlay">
-              <div class="heading" 
-                   style="background-image: url('{!! asset( $rubrique->background_img_url ) !!}');
-                   background-image: -webkit-image-set( url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x );
-                   background-image: image-set( url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x );">
+              <div class="heading" style="background-image: url('{!! asset( $rubrique->background_img_url ) !!}');">
+                   {{-- -webkit-image-set: url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x ;--}}
+                   {{-- image-set: url('{!! asset( $rubrique->background_img_url ) !!}') 1x, url('{!! asset( $rubrique->background_hd_url ) !!}') 2x ;--}}
                    {!! $rubrique->contenu !!}
               </div>
-            </div>
 
             @include('module-art.svg_chevron_xml')
 
@@ -75,7 +60,7 @@
             @endforeach
 
           </div><!--row-->
-          @if($page->slug == 'accueil' && $y == 1)
+          @if($page->slug == 'modelisation' && $y == 0)
             <div class="row justify-content-center" >
               <div id='video-container' class='col-12 col-lg-10 col-xl-8'>
                 <video poster="/images/module-art/movies/sky-logo.jpg" id="bgvid" autoplay muted loop>

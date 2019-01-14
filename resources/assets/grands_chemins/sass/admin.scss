@@ -73,6 +73,14 @@
       cursor: pointer;
     }
   }
+
+  a[data-toggle="collapse"] {
+    position: relative;
+  }
+
+  .dropdown-item{
+    cursor: pointer;
+  }
 }
 
 #drag-mode{

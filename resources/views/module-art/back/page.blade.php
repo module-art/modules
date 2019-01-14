@@ -2,18 +2,6 @@
 
 @section('title')
   <title>{{ $page->title }}</title>
-  @if($page->slug == 'accueil')
-    <style>
-#video-container{
-  padding-top: 1.5rem;
-}
-      #bgvid {
-        width: 100%; 
-        height: auto;
-        border-radius: 49%;
-      }
-    </style>
-  @endif
   <link href="/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/admin.css">
   <link rel="stylesheet" href="/tools/fancybox/jquery.fancybox.min.css">
@@ -44,7 +32,7 @@
 
           @include('module-art.back.inc.partial_bloc')
 
-          @if($page->slug == 'accueil' && $y == 1)
+          @if($page->slug == 'modelisation' && $y == 0)
             <div class="row justify-content-center" >
               <div id='video-container' class='col-12 col-lg-10 col-xl-8'>
                 <video poster="/images/module-art/movies/sky-logo.jpg" id="bgvid" autoplay muted loop>
