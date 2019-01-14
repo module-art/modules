@@ -6,10 +6,12 @@
   <link rel="stylesheet" href="/tools/fancybox/jquery.fancybox.min.css">
 @endsection
 
+@section('menu')
+  @include(env('APP_THEME', 'module-art').'.menu')
+@endsection
+
 @section('contenu')
           
-  @include(env('APP_THEME', 'module-art').'.menu')
-
   <section class='row center-card'>
     <div class="col-12">
       @if(session()->has('info'))

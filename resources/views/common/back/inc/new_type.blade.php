@@ -53,4 +53,11 @@
     <label for="nb_per_page">Nombre à afficher (0 désactive la pagination):</label>
     <input name="nb_per_page" class="form-control" value="{{ $operation == 'edit' ? $type->nb_per_page : 0 }}" type="number">
   </div>
+  @if($operation == 'create')
+    {!! Form::submit('Créer', ['class' => 'btn btn-info']) !!}
+    <a href="javascript:history.back()" class="btn btn-primary pull-right">
+      <i class="fa fa-redo"></i> Retour
+    </a>
+    {!! Form::close() !!}
+  @endif
 </div>
