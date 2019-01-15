@@ -1,5 +1,5 @@
 <?php
 return [
-  'path' => 'storage/img/',
-  'galeries' => 'public/files/galeries/'
+  'path' => 'storage/'.env('APP_THEME', 'module-art').'/img/',
+  'galeries' => 'public/'.env('APP_THEME', 'module-art').'/files/galeries/'
 ];

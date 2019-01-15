@@ -1,7 +1,8 @@
 /node_modules
-/storage/app/public
+/storage/app/public/grands-chemins
 /public/storage
 /public/uploads
+/public/tools
 /storage/*.key
 /vendor
 /.idea
