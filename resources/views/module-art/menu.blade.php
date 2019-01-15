@@ -22,8 +22,6 @@
               <a href="{{ route(Auth::check() && Auth::user()->role == 'admin'? 'back_page.show' : 'page.show', $menu->slug) }}">
                 <svg xmlns="http://www.w3.org/2000/svg">
                   <rect class="shape{{ isset($page->slug) && $page->slug == $menu->slug ? ' active' : '' }}" height="60" width="110"/>
-                  {{--<text x="15%" y="60%">--}}
-                  {{--</text>--}}
                 </svg>
                 <span class="text">{{ $menu->menu_title }}</span>
               </a>

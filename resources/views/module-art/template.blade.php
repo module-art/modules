@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Module-art conception de sites internet et applications web">
-    <meta name="keywords" content="site internet, web design, graphisme, modélisation 3d, référencement, photographies, hébergement">
+    <meta name="description" content="Module-art conception de sites internet et applications web à Figeac">
+    <meta name="keywords" content="Figeac, lot, 46, site internet, web design, graphisme, modélisation 3d, référencement, photographies, hébergement">
     <meta name="author" content="Module-art, Sylvestre Lambey">
 
     @yield('title')
