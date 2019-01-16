@@ -11,6 +11,8 @@
     @yield('title')
 
     <link rel="icon" type="image/jpg" href="/images/module-art/favicon.jpg" />
+    <link rel="stylesheet" href="/css/fontawesome/all.min.css">
+    <link rel="stylesheet" href="/tools/swiper/swiper.min.css">
 
   </head>
   <body class="">
@@ -35,7 +37,7 @@
     
     </div>
 
-    <script src="/js/fontawesome-all.min.js"></script>
+    <script src="/tools/swiper/swiper.min.js"></script>
     <script src="/js/scripts.js"></script>
 
     @yield('scripts')

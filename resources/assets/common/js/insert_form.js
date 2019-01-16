@@ -9,6 +9,7 @@ $(document).ready(function(){
       $galleriesSelect.collapse('hide');
     }else{
       $galleriesSelect.load('/coulisses/get-galleries', function(response, status, xhr){
+        $('.fa-cog').css('display', 'none');
         if( status == "error" ){
           alert(xhr.statusText);
         }else{

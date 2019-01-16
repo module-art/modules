@@ -4,7 +4,6 @@
   <title>{{ $page->title }}</title>
   <link href="/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/admin.css">
-  <link rel="stylesheet" href="/tools/fancybox/jquery.fancybox.min.css">
 @endsection
 
 @section('sidebar')
@@ -67,5 +66,4 @@
   <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
   <script src="/js/admin.js"></script>
   <script src="/js/contact.js"></script>
-  <script src="/tools/fancybox/jquery.fancybox.min.js"></script>
 @endsection

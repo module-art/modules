@@ -77,5 +77,30 @@ $(document).ready(function() {
 	  }, scroll_top_duration
 	);
 	});
+  
+  //swiper carrousel
+  if($('.swiper-container').length > 0){
+    var swiper = new Swiper('.swiper-container', {
+      effect: 'coverflow',
+      //grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      speed: 800,
+      coverflowEffect: {
+        rotate: 60,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        //slideShadows : true,
+      },
+      //pagination: {
+        //el: '.swiper-pagination',
+      //},
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  }
 
 });   

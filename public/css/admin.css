@@ -10725,6 +10725,51 @@ footer li .circle-border:hover {
   height: auto;
 }
 
+.swiper-container {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-container .swiper-slide {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 800px;
+  height: 500px;
+}
+
+@media (max-width: 991.98px) {
+  .swiper-container .swiper-slide {
+    width: 600px;
+    height: 400px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .swiper-container .swiper-slide {
+    width: 500px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .swiper-container .swiper-slide {
+    width: 300px;
+    height: 200px;
+  }
+}
+
+.center-card {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: top;
+      -ms-flex-align: top;
+          align-items: top;
+  min-height: 60vh;
+}
+
 .after-rubrique [class*="col-"] {
   position: relative;
 }
@@ -10896,16 +10941,6 @@ footer li .circle-border:hover {
 
 .bootstrap-datetimepicker-widget .table {
   background-color: unset;
-}
-
-.center-card {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: top;
-      -ms-flex-align: top;
-          align-items: top;
-  min-height: 60vh;
 }
 
 .mce-edit-focus {
