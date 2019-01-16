@@ -1,5 +1,32 @@
 @import 'styles';
 
+.after-rubrique{
+  [class*="col-"]{
+    @include destroy_button(-25px, -5px);
+  }
+  .row{
+    position: relative;
+    .bloc-button,.cols-button{
+      font-size: initial;
+      position: absolute;
+      top: -5*$spacer;
+      .dropdown-menu{
+        right: 0;
+        left: inherit;
+        text-shadow: none;
+      }
+    }
+
+    .bloc-button{
+      right: 0px;
+    }
+
+    .cols-button{
+      right: 130px;
+    }
+  }
+}
+
 #sidebar {
   font-family: $font-family-base;
   background-color: lighten($dark-gray, 5%);
@@ -116,6 +143,16 @@
   background-color: unset;
 }
 
+.center-card{
+  justify-content: center;
+  align-items: top;
+  min-height: 60vh;
+}
+
+.mce-edit-focus{
+  border: 1px $light-gray solid;
+}
+
 #categories-checkbox, #categories-container{
   max-height: 50vh;
   overflow: auto;
@@ -136,8 +173,5 @@
   }
   .type-content{
     @include destroy_button(-30px, 9px);
-    img{
-      max-width: 250px;
-    }
   }
 }

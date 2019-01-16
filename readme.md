@@ -14,6 +14,11 @@
 download database
 cp .env.example .env
 set your .env values
+
+set the file manager public/tools/rfm/filemanager/config/config.php
+choose the theme variable
+
+
 composer install
 php artisan key:generate
 

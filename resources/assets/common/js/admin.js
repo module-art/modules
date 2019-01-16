@@ -790,7 +790,12 @@ $(document).ready(function()
         console.log(xhr.statusText);
       }else{
         console.log('Blocs de la rubrique ' + idRubrique + ' actualisés.');
-        getTypeContents();
+        //use that
+        //getTypeContents();
+        //or that
+        initMceBlocs();
+        listenToNumBlocs();
+        //not both
         colsManager();
         listenToDestroy();
         listenToAddBloc();

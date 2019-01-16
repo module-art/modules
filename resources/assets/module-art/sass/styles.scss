@@ -445,28 +445,16 @@ footer {
 }
 
 .after-rubrique{
+  [class*="col-"]{
+    transition: all 0.8s ease;
+    margin-bottom: $spacer;
+  }
+  [id*="blocs-rubrique"]{
+    padding-top: $spacer;
+  }
   color: $text-color;
   .row{
     position: relative;
-    .bloc-button,.cols-button{
-      font-size: initial;
-      position: absolute;
-      top: -5*$spacer;
-      .dropdown-menu{
-        right: 0;
-        left: inherit;
-        text-shadow: none;
-      }
-    }
-
-    .bloc-button{
-      right: 0px;
-    }
-
-    .cols-button{
-      right: 130px;
-    }
-
     img{
       max-width: 100%;
       height: auto;
@@ -474,17 +462,6 @@ footer {
     iframe{
       width: 100%;
     }
-  }
-}
-
-.after-rubrique{
-  [class*="col-"]{
-    transition: all 0.8s ease;
-    @include destroy_button(-25px, -5px);
-    margin-bottom: $spacer;
-  }
-  [id*="blocs-rubrique"]{
-    padding-top: $spacer;
   }
 }
 
@@ -531,49 +508,16 @@ footer {
   }
 }
 
-.dropy{
+.table{
+  img{
+    max-width: 250px;
+    height: auto;
+  }
+}
+
+.large-bloc.type-content{
   img{
     max-width: 100%;
     height: auto;
   }
-  iframe{
-    max-width: 100%;
-  }
-}
-
-#drag-mode{
-  .dropy{
-    transform: scale(0.8,0.8);
-    height: 250px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    .upper{
-      position: absolute;
-      z-index: 2000;
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .large-bloc .dropy{
-    height: 60px;
-  }
-
-  .dropzone{
-    flex: none;
-  }
-
-  .indropzone{
-    border: 1px $light-gray solid;
-  }
-}
-
-.center-card{
-  justify-content: center;
-  align-items: center;
-  min-height: 60vh;
-}
-
-.mce-edit-focus{
-  border: 1px $light-gray solid;
 }

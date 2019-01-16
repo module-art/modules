@@ -10631,30 +10631,18 @@ footer li .circle-border:hover {
   color: #fff;
 }
 
+.after-rubrique [class*="col-"] {
+  -webkit-transition: all 0.8s ease;
+  transition: all 0.8s ease;
+  margin-bottom: 2rem;
+}
+
+.after-rubrique [id*="blocs-rubrique"] {
+  padding-top: 2rem;
+}
+
 .after-rubrique .row {
   position: relative;
-}
-
-.after-rubrique .row .bloc-button,
-.after-rubrique .row .cols-button {
-  font-size: initial;
-  position: absolute;
-  top: -10rem;
-}
-
-.after-rubrique .row .bloc-button .dropdown-menu,
-.after-rubrique .row .cols-button .dropdown-menu {
-  right: 0;
-  left: inherit;
-  text-shadow: none;
-}
-
-.after-rubrique .row .bloc-button {
-  right: 0px;
-}
-
-.after-rubrique .row .cols-button {
-  right: 130px;
 }
 
 .after-rubrique .row img {
@@ -10664,30 +10652,6 @@ footer li .circle-border:hover {
 
 .after-rubrique .row iframe {
   width: 100%;
-}
-
-.after-rubrique [class*="col-"] {
-  -webkit-transition: all 0.8s ease;
-  transition: all 0.8s ease;
-  position: relative;
-  margin-bottom: 2rem;
-}
-
-.after-rubrique [class*="col-"] .btn-destroy {
-  z-index: 100;
-  position: absolute;
-  left: -25px;
-  top: -5px;
-  border-radius: 50%;
-  display: none;
-}
-
-.after-rubrique [class*="col-"]:hover .btn-destroy {
-  display: block;
-}
-
-.after-rubrique [id*="blocs-rubrique"] {
-  padding-top: 2rem;
 }
 
 .rubrique-container {
@@ -10751,55 +10715,13 @@ footer li .circle-border:hover {
   display: none;
 }
 
-.dropy img {
-  max-width: 100%;
+.table img {
+  max-width: 250px;
   height: auto;
 }
 
-.dropy iframe {
+.large-bloc.type-content img {
   max-width: 100%;
-}
-
-#drag-mode .dropy {
-  -webkit-transform: scale(0.8, 0.8);
-          transform: scale(0.8, 0.8);
-  height: 250px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-#drag-mode .dropy .upper {
-  position: absolute;
-  z-index: 2000;
-  width: 100%;
-  height: 100%;
-}
-
-#drag-mode .large-bloc .dropy {
-  height: 60px;
-}
-
-#drag-mode .dropzone {
-  -webkit-box-flex: 0;
-      -ms-flex: none;
-          flex: none;
-}
-
-#drag-mode .indropzone {
-  border: 1px #a3a3a3 solid;
-}
-
-.center-card {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  min-height: 60vh;
-}
-
-.mce-edit-focus {
-  border: 1px #a3a3a3 solid;
+  height: auto;
 }
 

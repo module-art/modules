@@ -60,6 +60,9 @@
             @endforeach
 
           </div><!--row-->
+
+          @include('common.type-contents-conditions', ['context' => 'front'])
+
           @if($page->slug == 'modelisation' && $y == 0)
             <div class="row justify-content-center" >
               <div id='video-container' class='col-12 col-lg-10 col-xl-8'>

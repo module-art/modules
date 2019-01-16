@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use View;
 use Illuminate\Http\Request;
 use App\Http\Requests\RubriqueRequest;
 use App\Http\Requests\ImageUpdateRequest;
@@ -35,7 +36,11 @@ class RubriqueController extends Controller
     
     //next return for test with any type of content
     //return view(env('APP_THEME', 'module-art') . '.' . $context . '.type-contents', compact('results', 'champs', 'type'));
-    return view(env('APP_THEME', 'module-art') . '.' . $context . '.type-list-' . $type_name, compact('results', 'champs', 'type'));
+    if(View::exists(env('APP_THEME', 'module-art') . '.' . $context . '.type-list-' . $type_name)){
+      return view(env('APP_THEME', 'module-art') . '.' . $context . '.type-list-' . $type_name, compact('results', 'champs', 'type'));
+    }else{
+      return view('common.back.type-contents', compact('results', 'champs', 'type'));
+    }
   }
 
   public function showTypeContentPage(Request $request, $type_name, $rubrique_id){
