@@ -51,11 +51,15 @@
     {{--next include displays any type contents in a table--}}
     @include('common.back.type-contents', [
       'champs' => explode(',', $type->champs),
-      'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
+      'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant, true)
     ])
     @endif
   </div>
 @elseif(isset($type_content))
-  @include('module-art.back.type-content-'.$type_content->type['content_type'], [$type_content])
   {{--$type_content is a rubrique--}}
+  @if(View::exists('module-art.back.type-content-'.$type_content->type['content_type']))
+    @include('module-art.back.type-content-'.$type_content->type['content_type'], [$type_content])
+  @else
+    @include('common.back.type-content', [$type_content])
+  @endif
 @endif

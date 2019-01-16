@@ -134,4 +134,10 @@
     color: $red;
     font-size: $font-size-base*1.5;
   }
+  .type-content{
+    @include destroy_button(-30px, 9px);
+    img{
+      max-width: 250px;
+    }
+  }
 }

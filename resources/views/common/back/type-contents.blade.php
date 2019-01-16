@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <body>
-
-    <table class="table-index">
+    <table class="table">
       <thead>
         <tr>
           <th>Lien Page</th>
@@ -19,15 +15,15 @@
           @endforeach
         </tr>
       </thead>
-      <tbody>
+      <tbody class="type-content">
         @php //dd($results); @endphp
         @foreach ($results as $i => $result)
           <tr>
             <td>
+              <button class="btn btn-sm btn-outline-danger btn-destroy" data-rubrique_id="{{ $result->id }}"><i class="fas fa-trash-alt"></i></button>
               <a href="{{ route('type_content', [$type->content_type, $result->id]) }}">link</a>
             </td>
-            <td class="type-content">
-              <button class="btn btn-sm btn-outline-danger btn-destroy" data-rubrique_id="{{ $result->id }}"><i class="fas fa-trash-alt"></i></button>
+            <td>
               {{ ( new Date($result->created_at) )->format('D j F Y') }}
             </td>
             @foreach ($result->blocs as $y => $bloc)
@@ -64,6 +60,3 @@
         @endforeach
       </tbody>
     </table>
-      
-  </body>
-</html>

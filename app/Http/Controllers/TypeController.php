@@ -249,13 +249,15 @@ class TypeController extends Controller
     $rubrique_inputs = [
       'contenu' => $type_name,
       'type_id' => $type_id,
+      'publie' => $request->has('publie') ? 1 : 0,
+      'archive' => $request->has('archive') ? 1 : 0
     ];
 
     $typed_rubrique = Rubrique::create($rubrique_inputs);
     $rubrique_id = $typed_rubrique->id;
     $i = 1;
     
-    foreach($request->except(array('_token')) as $key => $value){
+    foreach($request->except(array('_token', 'publie', 'archive')) as $key => $value){
       //categories
       if(preg_match('/categorie/', $key)){
         $typed_rubrique->categories()->attach($value);

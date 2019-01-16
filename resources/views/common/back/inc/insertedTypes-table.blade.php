@@ -64,7 +64,7 @@
           @endif
         @endforeach
         <td>
-          <a class="btn btn-sm btn-success" href="{{ route('type_content', [$type->content_type, $result->id]) }}"><i class="far fa-eye"></i><span class="sr-only">voir</span></a>
+          <a class="btn btn-sm btn-success" href="{{ route('type_content', [str_slug($type->content_type), $result->id]) }}"><i class="far fa-eye"></i><span class="sr-only">voir</span></a>
         </td>
         <td>
           <a class="btn btn-sm btn-primary" href="{{ route('type.editInsert', [$type->content_type, $result->id]) }}"><i class="fas fa-edit"></i></a>

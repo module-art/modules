@@ -182,10 +182,10 @@ class PageController extends Controller
     }
 
     //si on veut modifier le slug à l'update
-    //$inputs = array_merge($request->all(), [
-      //'slug' => str_slug($request->menu_title),
-    //]);
-    $inputs = $request->all();
+    $inputs = array_merge($request->all(), [
+      'slug' => str_slug($request->menu_title),
+    ]);
+    //$inputs = $request->all();
 
     $page->update($inputs);
 

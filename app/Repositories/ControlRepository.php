@@ -56,7 +56,7 @@ class ControlRepository
   static function getSortedTypeRubriques($type, $order_by, $desc = 0, $index = false){
 
     $order = $desc ? 'desc' : 'asc';
-    $nb_per_page = $index ? 25 : $type->nb_per_page;
+    $nb_per_page = $index ? 15 : $type->nb_per_page;
 
     if($order_by == 'created_at' || $order_by == 'updated_at'){
 

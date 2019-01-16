@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <a class="" href="{{ route( (Auth::check() && Auth::user()->role == 'admin')? 'back_page.show' : 'page.show', 'accueil') }}" id="logo"><img src="/images/module-art/logo.svg" alt="logo"></a>
+    <a class="" href="{{ route( Auth::check() ? 'back_page.show' : 'page.show', 'accueil') }}" id="logo"><img src="/images/module-art/logo.svg" alt="Module-art"></a>
 </div>
 
 @if($menus->count() > 0)
@@ -19,7 +19,7 @@
             @endif
 
             <div class="svg-wrapper d-flex justify-content-center">
-              <a href="{{ route(Auth::check() && Auth::user()->role == 'admin'? 'back_page.show' : 'page.show', $menu->slug) }}">
+              <a href="{{ route(Auth::check() ? 'back_page.show' : 'page.show', $menu->slug) }}">
                 <svg xmlns="http://www.w3.org/2000/svg">
                   <rect class="shape{{ isset($page->slug) && $page->slug == $menu->slug ? ' active' : '' }}" height="60" width="110"/>
                 </svg>
