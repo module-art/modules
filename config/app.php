@@ -7,11 +7,14 @@ return [
             'APP_KEY',
             'DB_PASSWORD',
             'MAIL_PASSWORD',
+            'REDIS_PASSWORD',
         ],
 
         '_SERVER' => [
             'APP_KEY',
             'DB_PASSWORD',
+            'MAIL_PASSWORD',
+            'REDIS_PASSWORD',
         ],
 
         '_POST' => [
