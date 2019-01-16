@@ -1,6 +1,23 @@
 <?php
 
 return [
+    //hide passwords in debug pages
+    'debug_blacklist' => [
+        '_ENV' => [
+            'APP_KEY',
+            'DB_PASSWORD',
+            'MAIL_PASSWORD',
+        ],
+
+        '_SERVER' => [
+            'APP_KEY',
+            'DB_PASSWORD',
+        ],
+
+        '_POST' => [
+            'password',
+        ],
+      ],
 
     /*
     |--------------------------------------------------------------------------
