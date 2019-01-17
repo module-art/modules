@@ -39,6 +39,7 @@
 
     <script src="/tools/swiper/swiper.min.js"></script>
     <script src="/js/scripts.js"></script>
+    {{--<script src="/tools/parallax/parallax.min.js"></script>--}}
 
     @yield('scripts')
 

@@ -60,7 +60,7 @@ $(document).ready(function()
         ],
       fullToolbar = 'pictos insertfile undo redo | styleselect | bold italic subscript superscript exposant removeformat | alignleft aligncenter alignright alignjustify | bullist numlist nonbreaking | link unlink media responsivefilemanager insertimage insertfile | table hr | forecolor backcolor emoticons | paste code | iconesliens | fontawesome',
       mediumToolbar = 'bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify  | bullist numlist | link unlink | media responsivefilemanager',
-      smallToolbar = 'code | styleselect fontsizeselect | bold italic underline | forecolor backcolor | link unlink | media responsivefilemanager',
+      smallToolbar = 'code | fontsizeselect | bold italic underline | bullist numlist | forecolor backcolor | link unlink | media responsivefilemanager',
       myFormats = 'Header 1=h1;Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5;Paragraph=p',
       fontSizes = '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
       myValidElements = '+*[*]',

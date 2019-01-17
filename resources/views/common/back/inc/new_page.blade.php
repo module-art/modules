@@ -43,9 +43,11 @@
       </div>
     </div>
   @endif
-  {!! Form::submit($operation == 'create' ? 'Créer' : 'Modifier', ['class' => 'btn btn-info']) !!}
-  <a href="javascript:history.back()" class="btn btn-primary pull-right">
-    <i class="fa fa-redo"></i> Retour
-  </a>
+  <div class="row justify-content-between px-3">
+    {!! Form::submit($operation == 'create' ? 'Créer' : 'Modifier', ['class' => 'btn btn-info']) !!}
+    <a href="javascript:history.back()" class="btn btn-primary">
+      <i class="fa fa-redo"></i> Retour
+    </a>
+  </div>
   {!! Form::close() !!}
 </div>

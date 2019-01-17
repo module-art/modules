@@ -64,9 +64,7 @@
           </table>
           {!! $pages->links() !!}
           <div class="row justify-content-between px-3">
-            @if(Auth::check())
-              {!! link_to_route('page.create', 'Ajouter une page', [], ['class' => 'btn btn-info']) !!}
-            @endif
+            {!! link_to_route('page.create', 'Ajouter une page', [], ['class' => 'btn btn-info']) !!}
             <a href="javascript:history.back()" class="btn btn-primary">
               <i class="fas fa-redo"></i> Retour
             </a>
