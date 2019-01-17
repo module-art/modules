@@ -30,7 +30,8 @@
                 <th>Titre</th>
                 <th>Titre court</th>
                 <th>Place au menu</th>
-                <th></th>{{--publication--}}
+                <th>Publiée</th>
+                <th></th>{{--voir--}}
                 <th></th>{{--modifier--}}
                 <th></th>{{--supprimer--}}
               </tr>
@@ -42,17 +43,20 @@
                   <td class="text-primary"><strong>{!! $page->menu_title !!}</strong></td>
                   <td class="text-primary">{!! $page->place ? $page->place : 'Hors menu' !!}</td>
                   <td>
-                    @auth
-                      <a href="{{ route('page.edit', $page->id) }}" class="btn btn-warning" title="Modifier" ><i class="far fa-edit"></i><span class="sr-only"> Modifier</span></a>
-                    @endauth
+                    {!! $page->publie ? '<span class="published"><i class="far fa-check-circle"></i></span>' : '<span class="unpublished"><i class="far fa-times-circle"></i></span>' !!}
                   </td>
                   <td>
-                    @auth
-                      {!! Form::open(['method' => 'DELETE', 'route' => ['page.destroy', $page->id]]) !!}
-                      {{-- Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return confirm(\'Vraiment supprimer cet utilisateur ?\')']) --}}
-                      <button type="submit" class="btn btn-danger" onclick="return confirm('Vraiment supprimer cette page et tous les contenus associés ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
-                      {!! Form::close() !!}
-                    @endauth
+                    <a class="btn btn-sm btn-success" href="{{ route('back_page.show', [$page->slug]) }}"><i class="far fa-eye"></i><span class="sr-only">voir</span></a>
+
+                  </td>
+                  <td>
+                    <a href="{{ route('page.edit', $page->id) }}" class="btn btn-sm btn-warning" title="Modifier" ><i class="far fa-edit"></i><span class="sr-only"> Modifier</span></a>
+                  </td>
+                  <td>
+                    {!! Form::open(['method' => 'DELETE', 'route' => ['page.destroy', $page->id]]) !!}
+                    {{-- Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return confirm(\'Vraiment supprimer cet utilisateur ?\')']) --}}
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Vraiment supprimer cette page et tous les contenus associés ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
+                    {!! Form::close() !!}
                   </td>
                 </tr>
               @endforeach
