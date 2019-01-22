@@ -19,10 +19,12 @@
     {!! Form::text('choose_cat', null, ['class' => 'form-control', 'placeholder' => 'Chercher...']) !!}
   </div>
 
-  <button class="btn btn-info btn-lg" type="submit"><i class="far fa-save"></i> {{ 'Modifier' }}</button>
-  <a href="javascript:history.back()" class="btn btn-primary pull-right">
-    <i class="fa fa-redo"></i> Retour
-  </a>
+  <div class="d-flex justify-content-between">
+    <button class="btn btn-info" type="submit"><i class="far fa-save"></i> {{ 'Modifier' }}</button>
+    <a href="javascript:history.back()" class="btn btn-primary">
+      <i class="fa fa-redo"></i> Retour
+    </a>
+  </div>
   {!! Form::close() !!}
 </div>
 
