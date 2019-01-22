@@ -1,4 +1,4 @@
-@extends(env('APP_THEME', 'module-art').'.template')
+@extends('themes.'.env('APP_THEME', 'module-art').'.template')
 
 @section('contenu')
   <div class="heading error" 

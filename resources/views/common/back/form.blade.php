@@ -1,4 +1,4 @@
-@extends(env('APP_THEME', 'module-art').'.template')
+@extends('themes.'.env('APP_THEME', 'module-art').'.template')
 
 @section('title')
   <title>{{ $operation == 'create' ? 'Ajouter' : 'Modifier' }} {{ $model }}</title>
@@ -7,7 +7,7 @@
 @endsection
 
 @section('menu')
-  @include(env('APP_THEME', 'module-art').'.menu')
+  @include('themes.'.env('APP_THEME', 'module-art').'.menu')
 @endsection
 
 @section('contenu')
