@@ -35,9 +35,9 @@ class RubriqueController extends Controller
     $context = Auth::check() ? 'back' : 'front';
     
     //next return for test with any type of content
-    //return view(env('APP_THEME', 'module-art') . '.' . $context . '.type-contents', compact('results', 'champs', 'type'));
-    if(View::exists(env('APP_THEME', 'module-art') . '.' . $context . '.type-list-' . $type_name)){
-      return view(env('APP_THEME', 'module-art') . '.' . $context . '.type-list-' . $type_name, compact('results', 'champs', 'type'));
+    //return view('themes.'.env('APP_THEME', 'module-art') . '.' . $context . '.type-contents', compact('results', 'champs', 'type'));
+    if(View::exists('themes.'.env('APP_THEME', 'module-art') . '.' . $context . '.type-list-' . $type_name)){
+      return view('themes.'.env('APP_THEME', 'module-art') . '.' . $context . '.type-list-' . $type_name, compact('results', 'champs', 'type'));
     }else{
       return view('common.back.type-contents', compact('results', 'champs', 'type'));
     }
@@ -66,7 +66,7 @@ class RubriqueController extends Controller
     //return response($type_content->children()->first()->blocs);
     
     // !! La page avec l'adresse /{type} doit exister en base
-    return view(env('APP_THEME', 'module-art') . '.' . $context . '.page', compact('type_content', 'menus', 'page', 'footer', 'bg_img','types'));
+    return view('themes.'.env('APP_THEME', 'module-art') . '.' . $context . '.page', compact('type_content', 'menus', 'page', 'footer', 'bg_img','types'));
   }
 
     /**
@@ -101,7 +101,7 @@ class RubriqueController extends Controller
     {
       $rubrique = Rubrique::findOrFail($id_rubrique);
 
-      return view(env('APP_THEME', 'module-art').'.back.partial_rubrique', compact('rubrique'));
+      return view('themes.'.env('APP_THEME', 'module-art').'.back.partial_rubrique', compact('rubrique'));
     }
 
     /**

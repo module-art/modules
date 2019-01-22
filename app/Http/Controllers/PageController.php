@@ -59,10 +59,10 @@ class PageController extends Controller
     if(Auth::check()){
       $types = Type::all();
 
-      return view(env('APP_THEME', 'module-art').'.back.page', compact('menus', 'page', 'footer', 'bg_img','types'));
+      return view('themes.'.env('APP_THEME', 'module-art').'.back.page', compact('menus', 'page', 'footer', 'bg_img','types'));
     }
 
-    return view(env('APP_THEME', 'module-art').'.front.page', compact('menus', 'page', 'footer', 'bg_img'));
+    return view('themes.'.env('APP_THEME', 'module-art').'.front.page', compact('menus', 'page', 'footer', 'bg_img'));
   }
 
   /**
