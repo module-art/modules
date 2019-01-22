@@ -77,4 +77,4 @@
   </tbody>
 </table>
 
-{{ $results->links(env('APP_THEME', 'module-art').'.vendor.pagination.bootstrap-4') }}
+{{ $results->links('themes.'.env('APP_THEME', 'module-art').'.vendor.pagination.bootstrap-4') }}
