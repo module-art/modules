@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+  var current_theme = 'grands_chemins' ;
+
   //galleries
   
   var $galleriesSelect = $('#gallery-collapse');
@@ -73,7 +75,7 @@ var tinyconf = {
       height: 360,
       menubar: false,
       branding: false,
-      content_css : "/css/tiny_custom.css",
+      content_css : "/themes/"+ current_theme +"/css/tiny_custom.css",
       plugins: [
           'advlist autolink lists link image charmap print preview anchor textcolor',
           'searchreplace visualblocks code fullscreen',

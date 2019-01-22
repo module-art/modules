@@ -1,1 +1,114 @@
-!function(n){var e={};function t(r){if(e[r])return e[r].exports;var o=e[r]={i:r,l:!1,exports:{}};return n[r].call(o.exports,o,o.exports,t),o.l=!0,o.exports}t.m=n,t.c=e,t.d=function(n,e,r){t.o(n,e)||Object.defineProperty(n,e,{configurable:!1,enumerable:!0,get:r})},t.n=function(n){var e=n&&n.__esModule?function(){return n.default}:function(){return n};return t.d(e,"a",e),e},t.o=function(n,e){return Object.prototype.hasOwnProperty.call(n,e)},t.p="/",t(t.s=40)}({40:function(n,e,t){n.exports=t(41)},41:function(n,e){$(function(){var n=$("#form-contact");$(n).submit(function(e){e.preventDefault(),$(".fa-cog").css("display","inline-block");var t=$(n).serialize();$.ajax({type:"POST",headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")},url:$(n).attr("action"),data:t,dataType:"json"}).done(function(e){$(".fa-cog").css("display","none"),alert(e.response),n[0].reset()}).fail(function(n){$(".fa-cog").css("display","none");var e=n.responseJSON.message+"\n";$.each(n.responseJSON.errors,function(n,t){e+=t+"\n"}),alert(e)})})})}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 41);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 41:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(42);
+
+
+/***/ }),
+
+/***/ 42:
+/***/ (function(module, exports) {
+
+$(function () {
+  var form = $('#form-contact');
+
+  $(form).submit(function (event) {
+    event.preventDefault();
+
+    $('.fa-cog').css('display', 'inline-block');
+
+    var formData = $(form).serialize();
+
+    $.ajax({
+      type: 'POST',
+      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+      url: $(form).attr('action'),
+      data: formData,
+      dataType: 'json'
+    }).done(function (data) {
+      $('.fa-cog').css('display', 'none');
+      alert(data['response']);
+      form[0].reset();
+    }).fail(function (data) {
+      $('.fa-cog').css('display', 'none');
+      //console.log(data);
+      var errors = data.responseJSON.message + '\n';
+      $.each(data.responseJSON.errors, function (key, value) {
+        errors += value + '\n';
+      });
+      alert(errors);
+      //history.back();
+    });
+  });
+});
+
+/***/ })
+
+/******/ });
