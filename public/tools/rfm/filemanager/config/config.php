@@ -452,7 +452,7 @@ return array_merge(
 	array(
 		'ext'=> array_merge(
 			$config['ext_img'],
-			$config['ext_file']
+			$config['ext_file'],
 			$config['ext_misc'],
 			//$config['ext_video'],
 			$config['ext_music']
