@@ -1,4 +1,4 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"><h1> + Modules</h1></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
@@ -11,20 +11,24 @@
 
 ## Installation
 
-download database
-cp .env.example .env
-set your .env values
-
-set the file manager public/tools/rfm/filemanager/config/config.php
-choose the theme variable
-
-
-composer install
-php artisan key:generate
-
-sudo chmod 777 -R /home/contact/sites/modules/storage/logs
-sudo chmod 777 -R /home/contact/sites/modules/storage/framework/sessions
-sudo chmod 777 -R /home/contact/sites/modules/storage/framework/views
+<p>download database</p>
+<p>cp .env.example .env</p>
+<p>set your .env values</p>
+<br>
+<p>clone your theme in resource/views/themes/</p>
+<p>copy storage theme folder</p>
+<br>
+<p>set the file manager public/tools/rfm/filemanager/config/config.php</p>
+<p>choose the theme variable</p>
+<br>
+<p>composer install</p>
+<p>php artisan key:generate</p>
+<p>php artisan storage:link</p>
+<br>
+<p>from root account :</p>
+<p>sudo chmod 777 -R /home/contact/sites/modules/storage/logs</p>
+<p>sudo chmod 777 -R /home/contact/sites/modules/storage/framework/sessions</p>
+<p>sudo chmod 777 -R /home/contact/sites/modules/storage/framework/views</p>
 
 ## License
 
