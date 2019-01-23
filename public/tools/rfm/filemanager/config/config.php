@@ -1,5 +1,7 @@
 <?php
 $version = "9.13.0";
+$theme = 'grands_chemins';
+
 if (session_id() == '') session_start();
 /*
 echo '<pre>';
@@ -92,7 +94,7 @@ $config = array(
 	| with start and final /
 	|
 	*/
-	'upload_dir' => '/storage/files/',
+	'upload_dir' => '/storage/'.$theme.'/files/',
 	/*
 	|--------------------------------------------------------------------------
 	| relative path from filemanager folder to upload folder
@@ -101,7 +103,7 @@ $config = array(
 	| with final /
 	|
 	*/
-	'current_path' => '../../../storage/files/',//../../../storage/wysiwyg_files/',
+	'current_path' => '../../../storage/'.$theme.'/files/',//../../../storage/wysiwyg_files/',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -180,7 +182,7 @@ $config = array(
 	| in Megabytes
 	|
 	*/
-	'MaxSizeTotal' => false,
+	'MaxSizeTotal' => 1000,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -190,7 +192,7 @@ $config = array(
 	| in Megabytes
 	|
 	*/
-	'MaxSizeUpload' => 10000,
+	'MaxSizeUpload' => 50,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -251,8 +253,8 @@ $config = array(
 	// set maximum pixel width and/or maximum pixel height for all images
 	// If you set a maximum width or height, oversized images are converted to those limits. Images smaller than the limit(s) are unaffected
 	// if you don't need a limit set both to 0
-	'image_max_width'                         => 0,
-	'image_max_height'                        => 0,
+	'image_max_width'                         => 1200,
+	'image_max_height'                        => 1200,
 	'image_max_mode'                          => 'auto',
 	/*
 	#  $option:  0 / exact = defined size;
@@ -324,8 +326,8 @@ $config = array(
 	'duplicate_files'                         => true,
 	'copy_cut_files'                          => true, // for copy/cut files
 	'copy_cut_dirs'                           => true, // for copy/cut directories
-	'chmod_files'                             => true, // change file permissions
-	'chmod_dirs'                              => true, // change folder permissions
+	'chmod_files'                             => false, // change file permissions
+	'chmod_dirs'                              => false, // change folder permissions
 	'preview_text_files'                      => false, // eg.: txt, log etc.
 	'edit_text_files'                         => false, // eg.: txt, log etc.
 	'create_text_files'                       => false, // only create files with exts. defined in $editable_text_file_exts
@@ -338,7 +340,7 @@ $config = array(
 	// you can create these type of files if $create_text_files is true (only text based files)
 	// if you want you can add html,css etc.
 	// but for security reasons it's NOT RECOMMENDED!
-	'editable_text_file_exts'                 => array( 'txt', 'log', 'xml', 'html', 'css', 'htm', 'js' ),
+	'editable_text_file_exts'                 => array( 'txt', 'log', 'xml', 'js' ),
 	
 	// Preview with Google Documents
 	'googledoc_enabled'                       => false,
@@ -358,15 +360,15 @@ $config = array(
 	'ext_img'                                 => array( 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'svg' ), //Images
 	'ext_file'                                => array( 'doc', 'docx', 'rtf', 'pdf', 'xls', 'xlsx', 'txt', 'csv', 'html',  'xml', 'ppt', 'pptx', 'odt', 'ots', 'ott', 'odb', 'odg', 'otp', 'otg', 'odf', 'ods', 'odp'),//'xhtml', 'psd', 'sql', 'log', 'fla', 'ade', 'adp', 'mdb', 'accdb', 'css', 'ai', 'kmz','dwg', 'dxf', 'hpgl', 'plt', 'spl', 'step', 'stp', 'iges', 'igs', 'sat', 'cgm' //Files
 	//'ext_video'                               => array( 'mov', 'mpeg', 'm4v', 'mp4', 'avi', 'mpg', 'wma', "flv", "webm" ), //Video
-	//'ext_music'                               => array( 'mp3', 'mpga', 'm4a', 'ac3', 'aiff', 'mid', 'ogg', 'wav' ), //Audio
-	//'ext_misc'                                => array( 'zip', 'rar', 'gz', 'tar', 'iso', 'dmg' ), //Archives
+	'ext_music'                               => array( 'mp3', 'mpga', 'm4a', 'ac3', 'aiff', 'mid', 'ogg', 'wav' ), //Audio
+	'ext_misc'                                => array( 'zip', 'rar', 'gz', 'tar', 'iso', 'dmg' ), //Archives
 
 	/******************
 	* AVIARY config
 	*******************/
 	'aviary_active'                           => true,
 	'aviary_apiKey'                           => "2444282ef4344e3dacdedc7a78f8877d",
-	'aviary_language'                         => "en",
+	'aviary_language'                         => "fr",
 	'aviary_theme'                            => "light",
 	'aviary_tools'                            => "all",
 	'aviary_maxSize'                          => "1400",
@@ -451,9 +453,9 @@ return array_merge(
 		'ext'=> array_merge(
 			$config['ext_img'],
 			$config['ext_file']
-			//$config['ext_misc'],
+			$config['ext_misc'],
 			//$config['ext_video'],
-			//$config['ext_music']
+			$config['ext_music']
 		),
 		// For a list of options see: https://developers.aviary.com/docs/web/setup-guide#constructor-config
 		'aviary_defaults_config' => array(
