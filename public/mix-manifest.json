@@ -1,7 +1,8 @@
 {
-    "/themes/module-art/js/scripts.js": "/themes/module-art/js/scripts.js",
-    "/themes/module-art/css/styles.css": "/themes/module-art/css/styles.css",
+    "/themes/grands_chemins/js/scripts.js": "/themes/grands_chemins/js/scripts.js",
+    "/themes/grands_chemins/css/styles.css": "/themes/grands_chemins/css/styles.css",
     "/css/admin.css": "/css/admin.css",
+    "/themes/grands_chemins/css/tiny_custom.css": "/themes/grands_chemins/css/tiny_custom.css",
     "/js/insert_form.js": "/js/insert_form.js",
     "/js/contact.js": "/js/contact.js",
     "/js/categorie.js": "/js/categorie.js",

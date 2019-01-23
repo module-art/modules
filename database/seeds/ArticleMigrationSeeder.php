@@ -42,7 +42,7 @@ class ArticleMigrationSeeder extends Seeder
     }
 
     //$post = $posts->first();
-    $post = DB::table('wp_posts')->where('id', '1180')->first();
+    $post = DB::table('wp_posts')->where('id', '1241')->first();
     //foreach($posts as $post){
       $rubrique_id = DB::table('rubriques')->insertGetId([
         'created_at' => $post->post_date,
@@ -60,7 +60,11 @@ class ArticleMigrationSeeder extends Seeder
 
       $texte = preg_replace('/http:\/\/localhost\/sylvope\/wordpress\/wp-content/', '', $post->post_content);
 
-      $texte = preg_replace_callback('/\[gallery\sids="([0-9,]+)"\stype="([a-z]+)".*\]/U', 'parseGallery', $texte);
+      //$texte = preg_replace('/<img\sclass=".+"/U', '<img ', $texte);
+
+      if(preg_match('/\[gallery/', $texte)){
+        $texte = preg_replace_callback('/\[gallery\sids="([0-9,]+)"\stype="([a-z]+)".*\]/U', 'parseGallery', $texte);
+      }
 
       DB::table('blocs')->insert([
         'contenu' => $texte,
