@@ -15,8 +15,8 @@ class CreateBlocsTable extends Migration
   {
     Schema::create('blocs', function (Blueprint $table) {
       $table->increments('id');
-      $table->timestamps();
-			$table->softDeletes();
+      //$table->timestamps();
+			//$table->softDeletes();
 			$table->text('contenu')->nullable();
 			$table->smallInteger('place')->nullable();
 			$table->string('type', 100)->nullable();

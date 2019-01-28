@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Type extends Model
 {
     protected $table = 'types';
+    public $timestamps = true;
+
     protected $fillable = array('content_type', 'champs', 'default_filtre', 'descendant', 'nb_per_page');
 
 

@@ -12,8 +12,8 @@ class Page extends Model
     public $timestamps = true;
 
     use SoftDeletes;
-
     protected $dates = ['deleted_at'];
+
     protected $fillable = array('title', 'menu_title', 'place', 'slug', 'publie');
 
     public function user()

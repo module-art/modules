@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+//use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Bloc extends Model
 {
@@ -12,8 +12,8 @@ class Bloc extends Model
     public $timestamps = false;
 
     //use SoftDeletes;
-
     //protected $dates = ['deleted_at'];
+    
     protected $fillable = array('type', 'contenu' ,'place', 'rubrique_id');
 
     public function rubrique()

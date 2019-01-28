@@ -9,6 +9,7 @@ class Categorie extends Model
     protected $table = 'categories';
 
     public $timestamps = false;
+
     protected $fillable = array('name', 'slug');
 
     public function types()

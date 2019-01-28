@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+//use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Rubrique extends Model
 {
@@ -11,9 +11,9 @@ class Rubrique extends Model
     protected $table = 'rubriques';
     public $timestamps = true;
 
-    use SoftDeletes;
+    //use SoftDeletes;
+    //protected $dates = ['deleted_at'];
 
-    protected $dates = ['deleted_at'];
     protected $fillable = array('contenu', 'place', 'cols', 'ascendant', 'background_img_url', 'publie', 'archive', 'type_contents', 'type_id', 'page_id');
 
     public function blocs()
