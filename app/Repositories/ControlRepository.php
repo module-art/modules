@@ -146,4 +146,15 @@ class ControlRepository
 
   }
 
+  static function getDiapoAccueil(){
+
+    $images = array();
+    $diapos_path = config('images.diapos');
+    foreach(Storage::files($diapos_path) as $image){
+      $images[] = preg_replace('/^public/', '/storage', $image);
+    }
+
+    return $images;
+  }
+
 }

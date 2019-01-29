@@ -290,7 +290,7 @@ $(document).ready(function()
         })
         .done(function(data) {
           console.log(data['response']);
-          alert('Enregistré !');
+          tar.css('border', 'none');
           if(isNewBloc){
             tar.attr('data-bloc_id', data['newId']);
           }
@@ -308,6 +308,11 @@ $(document).ready(function()
       setTimeout(function(){
         $('#bloc-buttons').remove();
       }, 100)
+    });
+
+    editor.on('Change', function (e) {
+      var tar = $(e.target.bodyElement);
+      tar.css('border', '1px red solid');
     });
   }
 
