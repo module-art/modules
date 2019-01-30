@@ -180,6 +180,15 @@ $(document).ready(function () {
       }, 200);
     });
   }
+
+  $('.slick-wrapper').slick({
+    lazyLoad: 'ondemand',
+    //dots: true,
+    infinite: true,
+    speed: 300,
+    slidesToShow: 1
+    //adaptiveHeight: true
+  });
 });
 
 /***/ }),
