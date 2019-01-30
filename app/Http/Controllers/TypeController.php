@@ -61,7 +61,9 @@ class TypeController extends Controller
    */
   public function store(TypeRequest $request)
   {
-    $inputs = $request->all();
+    $champs = preg_replace('/\s/', '_', $request->champs);
+    $inputs = array_merge($request->except('champs'), ['champs' => $champs]);
+    //dd($inputs);
     Type::create($inputs);
     return redirect()->route('type.index')->withInfo('Le type ' . $request->content_type . ' est crée.');
   }
@@ -320,14 +322,15 @@ class TypeController extends Controller
     foreach($type_content->categories as $categorie){
       $old_categories_ids[] = $categorie->id;
     }
+    //dd($request);
 
     foreach($request->except(array('_token', 'publie', 'archive')) as $key => $value){
       if(preg_match('/categorie/', $key)){
         $new_categories_ids[] = (int)$value;
       }else{
-        if(preg_match('/date/', $key)){
+        if(preg_match('/date/i', $key)){
           $value = preg_replace('/^(\d{2})\/(\d{2})\/(19|20)(\d{2})$/', '$3$4$2$1', $value);
-        }elseif(preg_match('/heure|horaire/', $key)){
+        }elseif(preg_match('/heure|horaire/i', $key)){
           $value = preg_replace('/:/', '', $value);
         }
         $type_content->blocs()->where('type', $key)->first()->update([

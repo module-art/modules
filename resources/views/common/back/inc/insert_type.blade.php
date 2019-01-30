@@ -30,20 +30,20 @@
         $contenu = $type_content->blocs()->where('type', $champs[$i])->first()->contenu;
       }
     @endphp
-    @if(preg_match('/date/', $champs[$i]))
+    @if(preg_match('/date/i', $champs[$i]))
       <div class="form-group">
         <div class="input-group">
-          {!! Form::label($champs[$i], $champs[$i] . ' :', ['class' => 'control-label']) !!}
+          {!! Form::label($champs[$i], str_replace('_', ' ', $champs[$i]) . ' :', ['class' => 'control-label']) !!}
           <input id="datetimepicker{{ $i }}" data-target-input="nearest" type="text" name="{{ $champs[$i] }}" class="form-control datetimepicker-input date col-12 col-lg-4 offset-lg-1" data-target="#datetimepicker{{ $i }}" data-toggle="datetimepicker" value="{{ $editing ? preg_replace('/(19|20)(\d{2})(\d{2})(\d{2})/', '$4/$3/$1$2', $contenu) : old($champs[$i]) }}"/>
           <div class="input-group-append" data-target="#datetimepicker{{ $i }}" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
           </div>
         </div>
       </div>
-    @elseif(preg_match('/heure|horaire/', $champs[$i]))
+    @elseif(preg_match('/heure|horaire/i', $champs[$i]))
       <div class="form-group">
         <div class="input-group">
-          {!! Form::label($champs[$i], $champs[$i] . ' :', ['class' => 'control-label']) !!}
+          {!! Form::label($champs[$i], str_replace('_', ' ', $champs[$i]) . ' :', ['class' => 'control-label']) !!}
           <input id="datetimepicker{{ $i }}" data-target-input="nearest" type="text" name="{{ $champs[$i] }}" class="form-control datetimepicker-input heure col-12 col-lg-4 offset-lg-1" data-target="#datetimepicker{{ $i }}" data-toggle="datetimepicker" value="{{ $editing ? preg_replace('/(\d{2})(\d{2})/', '$1:$2', $contenu) : old($champs[$i]) }}"/>
           <div class="input-group-append" data-target="#datetimepicker{{ $i }}" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-clock"></i></div>
@@ -58,7 +58,7 @@
       <div class="form-group">
         <div class="form-row">
           <div class="input-group">
-            {!! Form::label($champs[$i], $field_name . ' :', ['class' => 'control-label']) !!}
+            {!! Form::label($champs[$i], str_replace('_', ' ', $field_name) . ' :', ['class' => 'control-label']) !!}
             <input type="number" name="{{ $champs[$i] }}" class="form-control col-12 col-lg-4 offset-lg-1" value="{{ $editing ? $contenu : old($champs[$i]) }}"/>
             @if($unit != '')
               <div class="input-group-append">
@@ -68,16 +68,16 @@
           </div>
         </div>
       </div>
-    @elseif(preg_match('/titre/', $champs[$i]))
+    @elseif(preg_match('/titre/i', $champs[$i]))
       <div class="form-group">
         <div class="input-group">
-        {!! Form::label($champs[$i], $champs[$i] . ' :', ['class' => 'control-label']) !!}
+        {!! Form::label($champs[$i], str_replace('_', ' ', $champs[$i]) . ' :', ['class' => 'control-label']) !!}
         <textarea name="{{ $champs[$i] }}" class="form-control simple-redactored">{{ $editing ? $contenu : old($champs[$i]) }}</textarea>
         </div>
       </div>
     @else
       <div class="form-group">
-        {!! Form::label($champs[$i], $champs[$i] . ' :', ['class' => 'control-label']) !!}
+        {!! Form::label($champs[$i], str_replace('_', ' ', $champs[$i]) . ' :', ['class' => 'control-label']) !!}
         <textarea name="{{ $champs[$i] }}" class="form-control redactored">{{ $editing ? $contenu : old($champs[$i]) }}</textarea>
       </div>
     @endif
