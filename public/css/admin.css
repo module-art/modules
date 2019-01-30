@@ -6,29 +6,37 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'cuprum';
-  src: url(/fonts/Cuprum-Bold-webfont.eot?267b51f6715e346626796cc58454471c);
-  src: url(/fonts/Cuprum-Bold-webfont.eot?267b51f6715e346626796cc58454471c) format("embedded-opentype"), url(/fonts/Cuprum-Bold-webfont.woff?995e7dd7895c05f225158c6d5d5328a7) format("woff"), url(/fonts/Cuprum-Bold-webfont.ttf?10afcba4d58d3f9f6d54ba291379e6b1) format("truetype"), url(/fonts/Cuprum-Bold-webfont.svg?7b7066f2e647926ea28aeddbcf37e164) format("svg");
-  font-weight: bold;
-  font-style: normal;
-}
+/*@font-face {
+    font-family: 'cuprum';
+    src: url('fonts/cuprum/Cuprum-Bold-webfont.eot');
+    src: url('fonts/cuprum/Cuprum-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/cuprum/Cuprum-Bold-webfont.woff') format('woff'),
+         url('fonts/cuprum/Cuprum-Bold-webfont.ttf') format('truetype'),
+         url('fonts/cuprum/Cuprum-Bold-webfont.svg#cuprumbold') format('svg');
+    font-weight: bold;
+    font-style: normal;
 
-@font-face {
-  font-family: 'cuprum';
-  src: url(/fonts/Cuprum-Italic-webfont.eot?d58b7fb4f75de6cae622b6be12fb550b);
-  src: url(/fonts/Cuprum-Italic-webfont.eot?d58b7fb4f75de6cae622b6be12fb550b) format("embedded-opentype"), url(/fonts/Cuprum-Italic-webfont.woff?0191e1db3321354968742a409239713e) format("woff"), url(/fonts/Cuprum-Italic-webfont.ttf?5a19935d9f1f846b2e430e283ab84bd6) format("truetype"), url(/fonts/Cuprum-Italic-webfont.svg?9aa812bc6523573046be283818ebd75d) format("svg");
-  font-weight: normal;
-  font-style: italic;
 }
-
 @font-face {
-  font-family: 'cuprum';
-  src: url(/fonts/Cuprum-BoldItalic-webfont.eot?4181731b193b47e6b239ff1106774289);
-  src: url(/fonts/Cuprum-BoldItalic-webfont.eot?4181731b193b47e6b239ff1106774289) format("embedded-opentype"), url(/fonts/Cuprum-BoldItalic-webfont.woff?844f16d5a3990249a175aa1af4115b50) format("woff"), url(/fonts/Cuprum-BoldItalic-webfont.ttf?c38684ddbb38ee252ac8dfbcdf1914f2) format("truetype"), url(/fonts/Cuprum-BoldItalic-webfont.svg?c15fda6e2c99c753726a40fde15e48fb) format("svg");
-  font-weight: bold;
-  font-style: italic;
+    font-family: 'cuprum';
+    src: url('fonts/cuprum/Cuprum-Italic-webfont.eot');
+    src: url('fonts/cuprum/Cuprum-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/cuprum/Cuprum-Italic-webfont.woff') format('woff'),
+         url('fonts/cuprum/Cuprum-Italic-webfont.ttf') format('truetype'),
+         url('fonts/cuprum/Cuprum-Italic-webfont.svg#cuprumitalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
 }
+@font-face {
+    font-family: 'cuprum';
+    src: url('fonts/cuprum/Cuprum-BoldItalic-webfont.eot');
+    src: url('fonts/cuprum/Cuprum-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/cuprum/Cuprum-BoldItalic-webfont.woff') format('woff'),
+         url('fonts/cuprum/Cuprum-BoldItalic-webfont.ttf') format('truetype'),
+         url('fonts/cuprum/Cuprum-BoldItalic-webfont.svg#cuprumbold_italic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+}*/
 
 @font-face {
   font-family: 'quantico';
@@ -38,29 +46,36 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'quantico';
-  src: url(/fonts/Quantico-Bold-webfont.eot?7a04a86250ad1585b85f11e68dba5179);
-  src: url(/fonts/Quantico-Bold-webfont.eot?7a04a86250ad1585b85f11e68dba5179) format("embedded-opentype"), url(/fonts/Quantico-Bold-webfont.woff?45c594f880282eb1d6a644834413ab28) format("woff"), url(/fonts/Quantico-Bold-webfont.ttf?4744e47b3f9ecfa433719d2ec62144fb) format("truetype"), url(/fonts/Quantico-Bold-webfont.svg?b99cabdaafea1a84be70e86eabbf867d) format("svg");
-  font-weight: bold;
-  font-style: normal;
+/*@font-face {
+    font-family: 'quantico';
+    src: url('fonts/quantico/Quantico-Bold-webfont.eot');
+    src: url('fonts/quantico/Quantico-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/quantico/Quantico-Bold-webfont.woff') format('woff'),
+         url('fonts/quantico/Quantico-Bold-webfont.ttf') format('truetype'),
+         url('fonts/quantico/Quantico-Bold-webfont.svg#quanticobold') format('svg');
+    font-weight: bold;
+    font-style: normal;
 }
-
 @font-face {
-  font-family: 'quantico';
-  src: url(/fonts/Quantico-Italic-webfont.eot?cac768e274dde8b994fdc5eb767e1dae);
-  src: url(/fonts/Quantico-Italic-webfont.eot?cac768e274dde8b994fdc5eb767e1dae) format("embedded-opentype"), url(/fonts/Quantico-Italic-webfont.woff?427553ffd1ad981681ee4a4e083bb756) format("woff"), url(/fonts/Quantico-Italic-webfont.ttf?29ede1d17ede0c705c6784457cb1a7fb) format("truetype"), url(/fonts/Quantico-Italic-webfont.svg?944d5dd5dd08596c66796db273418064) format("svg");
-  font-weight: normal;
-  font-style: italic;
+    font-family: 'quantico';
+    src: url('fonts/quantico/Quantico-Italic-webfont.eot');
+    src: url('fonts/quantico/Quantico-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/quantico/Quantico-Italic-webfont.woff') format('woff'),
+         url('fonts/quantico/Quantico-Italic-webfont.ttf') format('truetype'),
+         url('fonts/quantico/Quantico-Italic-webfont.svg#quanticoitalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
 }
-
 @font-face {
-  font-family: 'quantico';
-  src: url(/fonts/Quantico-BoldItalic-webfont.eot?239f3a95be7cd131eea412fac58df9c5);
-  src: url(/fonts/Quantico-BoldItalic-webfont.eot?239f3a95be7cd131eea412fac58df9c5) format("embedded-opentype"), url(/fonts/Quantico-BoldItalic-webfont.woff?ab95e2d68ef6999c4c7d7191be9d0bee) format("woff"), url(/fonts/Quantico-BoldItalic-webfont.ttf?d1a097fa0b96fd149afbd5b842e49710) format("truetype"), url(/fonts/Quantico-BoldItalic-webfont.svg?fa0356df27e9310adb840a2afb1e711e) format("svg");
-  font-weight: bold;
-  font-style: italic;
-}
+    font-family: 'quantico';
+    src: url('fonts/quantico/Quantico-BoldItalic-webfont.eot');
+    src: url('fonts/quantico/Quantico-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/quantico/Quantico-BoldItalic-webfont.woff') format('woff'),
+         url('fonts/quantico/Quantico-BoldItalic-webfont.ttf') format('truetype'),
+         url('fonts/quantico/Quantico-BoldItalic-webfont.svg#quanticobold_italic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+}*/
 
 /* Usage */
 

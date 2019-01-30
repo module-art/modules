@@ -1,1 +1,40 @@
-.fancy{display:inline-block;width:130px;margin:7px}.fancy img{-webkit-box-shadow:10px 10px 30px #232729;box-shadow:10px 10px 30px #232729;width:100%}.fancy img.rond{border-radius:50%}
+/* Usage */
+
+/* 
+@include keyframes(slide-down) {
+  0% { opacity: 1; }
+  90% { opacity: 0; }
+}
+
+.element {
+  width: 100px;
+  height: 100px;
+  background: black;
+  @include animation('slide-down 5s 3');
+}
+*/
+
+@font-face {
+  font-family: 'calligraffiti';
+  src: url(/fonts/Calligraffiti-webfont.eot?96ee688f554911a42df55f3cf3c2ba13);
+  src: url(/fonts/Calligraffiti-webfont.eot?96ee688f554911a42df55f3cf3c2ba13) format("embedded-opentype"), url(/fonts/Calligraffiti-webfont.woff?52290171033df1b3783af841c37b6e38) format("woff"), url(/fonts/Calligraffiti-webfont.ttf?ca060bc59c99b6b07893080d686c89ef) format("truetype"), url(/fonts/Calligraffiti-webfont.svg?20c201a17539fd201a1ea166e451bc4b) format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.fancy {
+  display: inline-block;
+  width: 130px;
+  margin: 7px;
+}
+
+.fancy img {
+  -webkit-box-shadow: 10px 10px 30px #25313F;
+          box-shadow: 10px 10px 30px #25313F;
+  width: 100%;
+}
+
+.fancy img.rond {
+  border-radius: 50%;
+}
+

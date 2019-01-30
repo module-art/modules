@@ -18,7 +18,7 @@ class CategorieController extends Controller
     {
       $type = Type::findOrFail($request->type_id);
 
-      return view('back.partial_categorie', compact('type'));
+      return view('common.back.inc.categorie_table', compact('type'));
     }
 
     public function suggest($type_id, Request $request)
