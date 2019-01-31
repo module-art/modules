@@ -2,7 +2,7 @@
   @php
     $type = $rubrique->inclusive_type;
   @endphp
-  <div class="large-bloc type-contents row" data-content_type='{{ $type['content_type'] }}' data-filtre="{{ $type['default_filtre'] }}" data-desc="{{ $type['descendant'] }}">
+  <div class="large-bloc type-contents row equal" data-content_type='{{ $type['content_type'] }}' data-filtre="{{ $type['default_filtre'] }}" data-desc="{{ $type['descendant'] }}">
     @if(View::exists('themes.'.env('APP_THEME', 'module-art') . '.' . $context . '.type-list-'.$type->content_type))
       {{--next include redirect to the specific view if exists--}}
       @include('themes.'.env('APP_THEME', 'module-art') . '.' . $context . '.type-list-'.$type->content_type, [

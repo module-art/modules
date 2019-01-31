@@ -7,11 +7,11 @@
       @foreach($champs as $champ)
         @if(preg_match('/\(nb\)/', $champ))
           @php
-            $field_name = preg_replace('/\(nb\).*$/', '', $champ);
+            $field_name = preg_replace('/\(nb\)/', '', $champ);
           @endphp
-          <th>{{ $field_name }}</th>
+          <th>{{ preg_replace('/_/', ' ', $field_name) }}</th>
         @else
-          <th>{{ $champ }}</th>
+          <th>{{ preg_replace('/_/', ' ', $champ) }}</th>
         @endif
       @endforeach
       <th></th>
@@ -33,17 +33,13 @@
           {!! $result->archive ? '<span class="published"><i class="far fa-check-circle"></i></span>' : '<span class="unpublished"><i class="far fa-times-circle"></i></span>' !!}
         </td>
         @foreach ($result->blocs as $y => $bloc)
-          @if(preg_match('/date/', $bloc->type))
+          @if(preg_match('/date/i', $bloc->type))
             <td>
-              <div class="input-group" id="datetimepicker{{ $i.$y }}" data-target-input="nearest">
-                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker{{ $i.$y }}" value="{!! preg_replace('/(19|20)(\d{2})(\d{2})(\d{2})/', '$4/$3/$1$2', $bloc->contenu) !!}" data-toggle="datetimepicker"/>
-              </div>
+              {!! date_format(date_create($bloc->contenu), 'd/m/Y') !!}
             </td>
-          @elseif(preg_match('/heure|horaire/', $bloc->type))
+          @elseif(preg_match('/heure|horaire/i', $bloc->type))
             <td>
-              <div class="input-group" id="datetimepicker{{ $i.$y }}" data-target-input="nearest">
-                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker{{ $i.$y }}" value="{!! preg_replace('/(\d{2})(\d{2})/', '$1:$2', $bloc->contenu) !!}" data-toggle="datetimepicker"/>
-              </div>
+              {!! date_format(date_create($bloc->contenu), 'H:i') !!}
             </td>
           @elseif(preg_match('/\(nb\)/', $bloc->type))
             @php
@@ -52,7 +48,7 @@
             <td>
               <span>{!! $bloc->contenu !!}</span><span> {!! $unit !!}</span>
             </td>
-          @elseif(preg_match('/titre/', $bloc->type))
+          @elseif(preg_match('/titre/i', $bloc->type))
             <td>
               <div>{!! strip_tags($bloc->contenu) !!}</div>
             </td>
@@ -69,7 +65,7 @@
         <td>
           <a class="btn btn-sm btn-primary" href="{{ route('type.editInsert', [$type->content_type, $result->id]) }}"><i class="fas fa-edit"></i></a>
         </td>
-        <td class="type-content">
+        <td class="type-index">
           <button class="btn btn-sm btn-danger btn-destroy" data-rubrique_id="{{ $result->id }}"><i class="fas fa-trash-alt"></i></button>
         </td>
       </tr>

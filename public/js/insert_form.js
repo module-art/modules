@@ -98,7 +98,7 @@ $(document).ready(function () {
       var $galleryData = new FormData($('#gallery_form')[0]),
           $isRound = parseInt($galleryData.get('round_border'));
 
-      //alert($isRound);
+      //alert($galleryData.get('round_border'));
 
       if ($galleryData.get('gallery') === null) {
         alert('Il faut sélectionner un dossier !');
@@ -115,9 +115,9 @@ $(document).ready(function () {
           $('.fa-cog').css('display', 'none');
           console.log(data);
 
-          tinymce.activeEditor.execCommand('mceInsertContent', false, '<figure class="gallery row justify-content-center">');
+          tinymce.activeEditor.execCommand('mceInsertContent', false, '[gallery]' + $galleryData.get('gallery') + '[gallery]<figure class="gallery row justify-content-center">');
           $.each(data.thumbs, function (key, value) {
-            var imageNode = '<a href="' + value.replace(/thumbs\//, '') + '" class="fancy col-12 col-sm-6 col-md-4 col-lg-3" data-fancybox="gallery">' + '<img' + ($isRound ? ' class="rond"' : '') + ' src="' + value + '" alt="" />' + '</a>';
+            var imageNode = '<a href="' + value.replace(/thumbs\//, '') + '" class="fancy col-6 col-sm-4 col-md-3 col-lg-2" data-fancybox="gallery">' + '<img' + ($isRound ? ' class="rond"' : '') + ' src="' + value + '" alt="" />' + '</a>';
             tinymce.activeEditor.execCommand('mceInsertContent', false, imageNode);
           });
           tinymce.activeEditor.execCommand('mceInsertContent', false, '</figure>');

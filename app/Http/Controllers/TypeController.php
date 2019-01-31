@@ -50,7 +50,8 @@ class TypeController extends Controller
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
     $model = 'type';
-    return view('common.back.form', compact('menus', 'operation', 'footer', 'model'));
+    $types = Type::all();
+    return view('common.back.form', compact('menus', 'operation', 'footer', 'model', 'types'));
   }
 
   /**
@@ -88,12 +89,13 @@ class TypeController extends Controller
   public function edit($id)
   {
     $type = Type::findOrFail($id);
+    $types = Type::all();
     $operation = 'edit';
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
     $model = 'type';
     $champs = explode(',', $type->champs);
-    return view('common.back.form', compact('type', 'menus', 'operation', 'footer', 'model','champs'));
+    return view('common.back.form', compact('type', 'menus', 'operation', 'footer', 'model','champs', 'types'));
   }
 
   /**
@@ -107,6 +109,7 @@ class TypeController extends Controller
   {
     $type = Type::findOrFail($id);
     $inputs = $request->all();
+    //dd($inputs);
 
     //modification des champs dans les blocs
     if($type->champs != $request->champs){
@@ -231,6 +234,11 @@ class TypeController extends Controller
 
     $galleries = $this->getGalleriesArray();
 
+    if($type->child_of > 0){
+      $parent_type = Type::findOrFail($type->child_of);
+      return view('common.back.form', compact('type', 'parent_type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries'));
+    }
+
     return view('common.back.form', compact('type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries'));
   }
 
@@ -244,7 +252,7 @@ class TypeController extends Controller
 
   public function insertType(Request $request, $type_id)
   {
-    //dd($request);
+    //dd($request->all());
     $type = Type::findOrFail($type_id);
     $type_name = $type->content_type;
 
@@ -252,27 +260,29 @@ class TypeController extends Controller
       'contenu' => $type_name,
       'type_id' => $type_id,
       'publie' => $request->has('publie') ? 1 : 0,
-      'archive' => $request->has('archive') ? 1 : 0
+      'archive' => $request->has('archive') ? 1 : 0,
+      'parent_id' => $request->parent_id
     ];
 
     $typed_rubrique = Rubrique::create($rubrique_inputs);
     $rubrique_id = $typed_rubrique->id;
     $i = 1;
     
-    foreach($request->except(array('_token', 'publie', 'archive')) as $key => $value){
+    foreach($request->except(array('_token', 'publie', 'archive', 'parent_id')) as $key => $value){
       //categories
       if(preg_match('/categorie/', $key)){
         $typed_rubrique->categories()->attach($value);
       }else{
-        if(preg_match('/date/', $key)){
-          $value = preg_replace('/^(\d{2})\/(\d{2})\/(19|20)(\d{2})$/', '$3$4$2$1', $value);
-        }elseif(preg_match('/heure|horaire/', $key)){
-          $value = preg_replace('/:/', '', $value);
+        if(preg_match('/date/i', $key)){
+          $value = preg_replace('/^(\d{2})\/(\d{2})\/(19|20)(\d{2})$/', '$3$4-$2-$1', $value);
+          dd($value);
+        //}elseif(preg_match('/heure|horaire/i', $key)){
+          //$value = preg_replace('/:/', '', $value);
         }
         Bloc::create([
           'contenu' => $value,
           'place' => $i,
-          'type' => preg_replace('/_/', ' ', $key),
+          'type' => $key,
           'rubrique_id' => $rubrique_id,
         ]);
         $i++;
@@ -302,6 +312,11 @@ class TypeController extends Controller
 
     $galleries = $this->getGalleriesArray();
 
+    if($type->child_of > 0){
+      $parent_type = Type::findOrFail($type->child_of);
+      return view('common.back.form', compact('type_content', 'type', 'parent_type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries', 'categories_ids'));
+    }
+
     return view('common.back.form', compact('type_content', 'type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries', 'categories_ids'));
   }
 
@@ -315,6 +330,7 @@ class TypeController extends Controller
     //publication et archivage
     $type_content->publie = $request->has('publie') ? 1:0;
     $type_content->archive = $request->has('archive') ? 1:0;
+    $type_content->parent_id = $request->parent_id;
     $type_content->save();
 
     $old_categories_ids = array();
@@ -324,7 +340,7 @@ class TypeController extends Controller
     }
     //dd($request);
 
-    foreach($request->except(array('_token', 'publie', 'archive')) as $key => $value){
+    foreach($request->except(array('_token', 'publie', 'archive', 'parent_id')) as $key => $value){
       if(preg_match('/categorie/', $key)){
         $new_categories_ids[] = (int)$value;
       }else{

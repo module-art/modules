@@ -53,6 +53,32 @@
     <label for="nb_per_page">Nombre à afficher (0 désactive la pagination):</label>
     <input name="nb_per_page" class="form-control" value="{{ $operation == 'edit' ? $type->nb_per_page : 0 }}" type="number">
   </div>
+
+  <div class="form-row">
+    <div class="col-2 col-form-label">
+      {{ Form::label('child_of', 'Appartient à :' ) }}
+    </div>
+    <div class="col-10 form-group">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="child_of" value=0 {{ ($operation == 'edit' && $type->child_of == null) ? 'checked' : '' }}/>
+        <label class="form-check-label"> Aucun</label>
+      </div>
+      @foreach($types as $parent_type)
+        @if($operation == 'edit' && $parent_type->content_type != $type->content_type)
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="child_of" value="{{ $parent_type->id }}"{{ ($operation == 'edit' && $parent_type->id == $type->child_of) ? 'checked' : '' }}/>
+            <label class="form-check-label"> {{ $parent_type->content_type }}</label>
+          </div>
+        @elseif($operation == 'create')
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="child_of" value="{{ $parent_type->id }}"{{ ($operation == 'edit' && $parent_type->id == $type->child_of) ? 'checked' : '' }}/>
+            <label class="form-check-label"> {{ $parent_type->content_type }}</label>
+          </div>
+        @endif
+      @endforeach
+    </div>
+  </div>
+
   @if($operation == 'create')
     {!! Form::submit('Créer', ['class' => 'btn btn-info']) !!}
     <a href="javascript:history.back()" class="btn btn-primary pull-right">

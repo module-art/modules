@@ -10094,6 +10094,11 @@ a[data-toggle="collapse"] {
   position: relative;
 }
 
+.equal .equals {
+  width: 100%;
+  height: 100%;
+}
+
 .dropdown-item {
   cursor: pointer;
 }
@@ -10116,7 +10121,8 @@ a[data-toggle="collapse"] {
 }
 
 .head a:hover h1 {
-  font-size: 3.75rem;
+  -webkit-transform: skewX(15deg);
+          transform: skewX(15deg);
 }
 
 .head .navbar {
@@ -10304,8 +10310,8 @@ a[data-toggle="collapse"] {
 }
 
 .fields-content a {
-  -webkit-transition: color 0.5s;
-  transition: color 0.5s;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 .fields-content a:hover {
@@ -10313,8 +10319,22 @@ a[data-toggle="collapse"] {
   color: #cbb956;
 }
 
-.slick-wrapper img {
+.fields-content .card-footer {
+  background-color: unset;
+}
+
+.slick-wrapper-logement {
+  -webkit-box-shadow: 10px 10px 30px #232729;
+          box-shadow: 10px 10px 30px #232729;
+}
+
+.slick-wrapper-logement img {
   width: 100%;
+  height: 100%;
+}
+
+.slick-container {
+  margin-bottom: 2rem;
 }
 
 .main-container.error {
@@ -10544,6 +10564,16 @@ footer .form-group input {
 
 .after-rubrique .row iframe {
   width: 100%;
+}
+
+.logement {
+  padding-top: 2rem;
+  background-color: #fdf6d1;
+  border-radius: 2rem;
+}
+
+.logement .fancy-label {
+  text-align: center;
 }
 
 .fas.fa-cog {

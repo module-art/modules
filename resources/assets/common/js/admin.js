@@ -648,7 +648,25 @@ $(document).ready(function()
               alert('Oups! une erreur a empêché la suppression.');
             });
 
+        }else if(elem.hasClass('type-index')){
+
+          var idRubrique = $(this).attr('data-rubrique_id');
+
+          $.ajax({
+              method: 'post',
+              url: '/coulisses/destroyrubrique/'+ idRubrique,
+              data: { _token: csrfToken},//token!!!
+          })
+          .done(function(data) {
+            elem.parents('tr').remove();
+            console.log(data);
+          })
+          .fail(function() {
+            alert('Oups! une erreur a empêché la suppression.');
+          });
+
         }else{
+          
           var idBloc = $(this).next().attr('data-bloc_id');
 
           if(idBloc != 0){

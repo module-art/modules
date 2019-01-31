@@ -84,7 +84,7 @@ $(document).ready(function () {
     $('.fancy', this).fancybox({
       transitionEffect: "slide",
       closeExisting: true,
-      loop: false
+      loop: true
     });
   });
 
@@ -187,6 +187,19 @@ $(document).ready(function () {
     infinite: true,
     speed: 300,
     slidesToShow: 1
+    //prevArrow: '<button type="button" class=""><i class="fas fa-chevron-left"></i>Previous</button>',
+    //adaptiveHeight: true
+  });
+
+  $('.slick-wrapper-logement').slick({
+    lazyLoad: 'ondemand',
+    //dots: true,
+    infinite: true,
+    //arrows: false,
+    speed: 1000,
+    slidesToShow: 1,
+    autoplay: true,
+    autoplaySpeed: 6000
     //adaptiveHeight: true
   });
 });
