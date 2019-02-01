@@ -55,14 +55,13 @@ class PageController extends Controller
     $footer = $this->footerRepository->makeFooter();
     $first_rubrique = $page->rubriques()->first();
     $bg_img = [ $first_rubrique->background_img_url, $first_rubrique->background_hd_url ];
+    $types = Type::all();
 
     if(Auth::check()){
-      $types = Type::all();
-
       return view('themes.'.env('APP_THEME', 'module-art').'.back.page', compact('menus', 'page', 'footer', 'bg_img','types'));
     }
 
-    return view('themes.'.env('APP_THEME', 'module-art').'.front.page', compact('menus', 'page', 'footer', 'bg_img'));
+    return view('themes.'.env('APP_THEME', 'module-art').'.front.page', compact('menus', 'page', 'footer', 'bg_img','types'));
   }
 
   /**
@@ -197,9 +196,8 @@ class PageController extends Controller
 
     $frommail = $request->email;
     $subject = $request->subject;
-    //$to = 'sylvestre@module-art.fr';
     $to = env('MAIL_DEST', 'sylvestre@module-art.fr');
-    $is_sent = Mail::send('back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail)
+    $is_sent = Mail::send('themes.gitedhote46.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail)
     {
       $message->from($frommail, 'module-art.fr');
       $message->to($to)->subject('Message du site : '.$subject);

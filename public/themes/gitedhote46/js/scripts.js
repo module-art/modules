@@ -202,6 +202,31 @@ $(document).ready(function () {
     autoplaySpeed: 6000
     //adaptiveHeight: true
   });
+
+  if (parseInt($('#id_page').html()) == 5) {
+    $('#datepicker1').datetimepicker({
+      locale: 'fr',
+      format: 'L',
+      minDate: moment(),
+      widgetPositioning: {
+        horizontal: 'right'
+      }
+    });
+    $('#datepicker2').datetimepicker({
+      locale: 'fr',
+      format: 'L',
+      widgetPositioning: {
+        horizontal: 'right'
+      },
+      useCurrent: false
+    });
+    $("#datepicker1").on("change.datetimepicker", function (e) {
+      $('#datepicker2').datetimepicker('minDate', e.date);
+    });
+    $("#datepicker2").on("change.datetimepicker", function (e) {
+      $('#datepicker1').datetimepicker('maxDate', e.date);
+    });
+  }
 });
 
 /***/ }),

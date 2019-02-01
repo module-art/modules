@@ -62,6 +62,15 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
   Route::get('', function () { return redirect()->route('back_page.show', 'accueil'); });
 });
 
+
+//special routes for themes, removable if not usefull
+Route::group(array('namespace' => 'Themes\\'.env('APP_THEME', 'module-art')), function () {
+  
+  //gite theme routes
+  Route::post('reservation', 'ThemeController@storeReservation')->name('reservation.store');
+
+});
+
 Route::post('mail', 'PageController@mailFromContact')->name('page.mail');
 Route::get('get-type-contents/{type}', 'RubriqueController@getTypeContents');
 Route::get('{type}/{id_rubrique}', 'RubriqueController@showTypeContentPage')->name('type_content');

@@ -59,7 +59,8 @@
               </div>
             </div>
           </div>
-        </div></div>
+        </div>
+      </div>
     @elseif(preg_match('/heure|horaire/i', $champs[$i]))
       <div class="form-group">
         <div class="form-row">

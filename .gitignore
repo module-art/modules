@@ -4,6 +4,8 @@
 /public/uploads
 /public/tools
 /resources/views/themes
+/app/Http/Controllers/Themes
+/app/Http/Requests/Themes
 /storage/*.key
 /vendor
 /.idea
