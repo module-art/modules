@@ -119,13 +119,13 @@ $(document).ready(function () {
       $paddingBottom = parseInt($rubrique.css('padding-bottom'));
 
   //Smooth scroll
-  $(document).on('click', 'a[href^="#"]', function (event) {
-    event.preventDefault();
+  //$(document).on('click', 'a[href^="#"]', function (event) {
+  //event.preventDefault();
 
-    $('html, body').animate({
-      scrollTop: $($.attr(this, 'href')).offset().top
-    }, scroll_top_duration);
-  });
+  //$('html, body').animate({
+  //scrollTop: $($.attr(this, 'href')).offset().top
+  //}, scroll_top_duration);
+  //});
 
   //hide or show the "back to top" link
   $(window).scroll(function () {
@@ -203,6 +203,7 @@ $(document).ready(function () {
     //adaptiveHeight: true
   });
 
+  /*--- page réservation ---*/
   if (parseInt($('#id_page').html()) == 5) {
     $('#datepicker1').datetimepicker({
       locale: 'fr',
@@ -226,6 +227,88 @@ $(document).ready(function () {
     $("#datepicker2").on("change.datetimepicker", function (e) {
       $('#datepicker1').datetimepicker('maxDate', e.date);
     });
+  }
+
+  /*--- page calendrier ---*/
+  if (parseInt($('#id_page').html()) == 6) {
+
+    var $now = '',
+        jsonAllDates = {};
+    $("#datepicker3").on("change.datetimepicker", function (e) {
+      $now = e.date;
+      //with month
+      //getDates($now.format("YYYY-MM-01"));
+      getDates();
+    });
+
+    setTimeout(function () {
+      $('.picker-switch').removeAttr('data-action');
+      $(".next").on("click", function (e) {
+        //$now = $now.clone().add(1, 'month');
+        console.log(jsonAllDates);
+        markDays(jsonAllDates);
+      });
+      $(".prev").on("click", function (e) {
+        //$now = $now.clone().subtract(1, 'month');
+        markDays(jsonAllDates);
+      });
+    }, 100);
+    $('#datepicker3').datetimepicker({
+      locale: 'fr',
+      format: 'L',
+      inline: true
+      //sideBySide: true
+    });
+  }
+
+  function getDates() {
+    jQuery.ajax({
+      method: 'post',
+      url: '/getdates',
+      data: {
+        _token: $('[name="csrf-token"]').attr('content'),
+        logement_id: 'all'
+      },
+      dataType: 'json'
+    }).done(function (data) {
+      //console.log(data);
+      jsonAllDates = data;
+      markDays(jsonAllDates);
+    }).fail(function (data) {
+      var errors = data.responseJSON.message + '\n';
+      $.each(data.responseJSON.errors, function (key, value) {
+        errors += value + '\n';
+      });
+      alert('Echec de chargement des dates.\n' + errors);
+    });
+  }
+
+  function markDays(data) {
+    var dataLength = data.length,
+        datesLength = 0,
+        dates;
+    setTimeout(function () {
+      $('.day').append('<div class="pastille-container"></div>');
+      for (var i = 0; i < dataLength; i++) {
+        //for logements
+        //console.log(data[i].logement_id);
+        var color = data[i].color;
+        dates = data[i].dates;
+        datesLength = dates.length;
+        for (var y = 0; y < datesLength; y++) {
+          //for reservations
+          var interDates = moment(dates[y].arrive);
+          //console.log(dates[y].arrive);
+          //console.log(dates[y].depart);
+          $('td[data-day="' + interDates.format("DD/MM/YYYY") + '"] .pastille-container').append('<div class="pastille-logement" style="background-color: ' + color + '"></div>');
+          while (interDates.isBefore(dates[y].depart)) {
+            interDates = interDates.clone().add(1, 'day');
+            //console.log(interDates.format("DD/MM/YYYY"));
+            $('td[data-day="' + interDates.format("DD/MM/YYYY") + '"] .pastille-container').append('<div class="pastille-logement" style="background-color: ' + color + '"></div>');
+          }
+        } //for reservations
+      } //for logements
+    }, 150);
   }
 });
 

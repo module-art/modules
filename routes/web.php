@@ -68,7 +68,7 @@ Route::group(array('namespace' => 'Themes\\'.env('APP_THEME', 'module-art')), fu
   
   //gite theme routes
   Route::post('reservation', 'ThemeController@storeReservation')->name('reservation.store');
-
+  Route::post('getdates', 'ThemeController@getDates')->middleware('ajax');
 });
 
 Route::post('mail', 'PageController@mailFromContact')->name('page.mail');

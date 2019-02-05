@@ -344,7 +344,7 @@ class TypeController extends Controller
         $new_categories_ids[] = (int)$value;
       }else{
         if(preg_match('/date/i', $key)){
-          $value = preg_replace('/^(\d{2})\/(\d{2})\/(19|20)(\d{2})$/', '$3$4$2$1', $value);
+          $value = preg_replace('/^(\d{2})\/(\d{2})\/(19|20)(\d{2})$/', '$3$4-$2-$1', $value);
         }elseif(preg_match('/heure|horaire/i', $key)){
           $value = preg_replace('/:/', '', $value);
         }

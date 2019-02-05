@@ -197,13 +197,15 @@ class PageController extends Controller
     $frommail = $request->email;
     $subject = $request->subject;
     $to = env('MAIL_DEST', 'sylvestre@module-art.fr');
-    $is_sent = Mail::send('themes.gitedhote46.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail)
+    Mail::send('themes.gitedhote46.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail)
     {
       $message->from($frommail, 'module-art.fr');
       $message->to($to)->subject('Message du site : '.$subject);
     });
+
+    $back_message = count(Mail::failures()) == 0 ? 'Le message est bien envoyé.' : 'Echec de l\'envoi du message, merci de nous contacter autrement.';
  
-    return response()->json(['response' => 'Le message est bien envoyé.']);
+    return response()->json(['response' => $back_message]);
   }
 
   /**

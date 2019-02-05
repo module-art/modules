@@ -10103,6 +10103,12 @@ a[data-toggle="collapse"] {
   cursor: pointer;
 }
 
+.card {
+  margin: 2rem 2rem 0 2rem;
+  -webkit-box-shadow: 10px 10px 30px #232729;
+          box-shadow: 10px 10px 30px #232729;
+}
+
 .head {
   margin-top: 2rem;
   font-family: calligraffiti, Georgia, Times, serif;
@@ -10175,8 +10181,6 @@ a[data-toggle="collapse"] {
   margin-bottom: 2rem;
   width: 100%;
   height: 80vh;
-  -webkit-box-shadow: 15px 15px 25px #25313F;
-          box-shadow: 15px 15px 25px #25313F;
 }
 
 .diapo-accueil .slideshow {
@@ -10304,8 +10308,6 @@ a[data-toggle="collapse"] {
   background-color: #FDFFFC;
   padding: 2rem;
   border-radius: 8px;
-  -webkit-box-shadow: 15px 15px 25px #25313F;
-          box-shadow: 15px 15px 25px #25313F;
   text-align: center;
 }
 
@@ -10568,7 +10570,6 @@ footer .form-group input {
 
 .logement {
   padding-top: 2rem;
-  background-color: #fdf6d1;
   border-radius: 2rem;
 }
 
@@ -10607,6 +10608,63 @@ figure .fancy img {
 }
 
 figure .fancy img.rond {
+  border-radius: 50%;
+}
+
+#calendrier .table {
+  border-collapse: unset;
+  border-spacing: 10px;
+}
+
+#calendrier .table thead th {
+  vertical-align: middle;
+  border-bottom: unset;
+  background-color: #f3eed7;
+}
+
+#calendrier #datepicker3 {
+  text-align: center;
+}
+
+#calendrier #datepicker3 .bootstrap-datetimepicker-widget {
+  height: inherit;
+}
+
+#calendrier #datepicker3 .bootstrap-datetimepicker-widget ul,
+#calendrier #datepicker3 .bootstrap-datetimepicker-widget li,
+#calendrier #datepicker3 .bootstrap-datetimepicker-widget div,
+#calendrier #datepicker3 .bootstrap-datetimepicker-widget table {
+  height: inherit;
+}
+
+#calendrier #datepicker3 .bootstrap-datetimepicker-widget .day {
+  background-color: #f3eed7;
+  cursor: pointer;
+}
+
+#calendrier #datepicker3 .bootstrap-datetimepicker-widget .day .pastille-container {
+  text-align: left;
+}
+
+#calendrier #datepicker3 .bootstrap-datetimepicker-widget .day .pastille-logement {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-right: 3px;
+}
+
+@media (max-width: 767.98px) {
+  #calendrier #datepicker3 .bootstrap-datetimepicker-widget .day .pastille-logement {
+    width: 7px;
+    height: 7px;
+  }
+}
+
+#calendrier .pastille-footer {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
 }
 
