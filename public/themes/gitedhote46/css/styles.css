@@ -10103,10 +10103,11 @@ a[data-toggle="collapse"] {
   cursor: pointer;
 }
 
-.card {
-  margin: 2rem 2rem 0 2rem;
-  -webkit-box-shadow: 10px 10px 30px #232729;
-          box-shadow: 10px 10px 30px #232729;
+@media (min-width: 768px) {
+  .card {
+    -webkit-box-shadow: 10px 10px 30px #232729;
+            box-shadow: 10px 10px 30px #232729;
+  }
 }
 
 .head {
@@ -10183,6 +10184,26 @@ a[data-toggle="collapse"] {
   height: 80vh;
 }
 
+.diapo-accueil h2 {
+  font-size: 3.25rem;
+}
+
+@media (max-width: 991.98px) {
+  .diapo-accueil h2 {
+    font-size: 2.5rem;
+  }
+}
+
+.diapo-accueil h3 {
+  font-size: 2.5rem;
+}
+
+@media (max-width: 991.98px) {
+  .diapo-accueil h3 {
+    font-size: 2rem;
+  }
+}
+
 .diapo-accueil .slideshow {
   position: relative;
   z-index: 0;
@@ -10205,7 +10226,6 @@ a[data-toggle="collapse"] {
 }
 
 .diapo-accueil .slideshow .shadow-overlay .hat {
-  height: 40%;
   border-top: thick double rgba(255, 255, 255, 0.5);
   border-bottom: thick double rgba(255, 255, 255, 0.5);
   padding-top: 2rem;
@@ -10609,6 +10629,28 @@ figure .fancy img {
 
 figure .fancy img.rond {
   border-radius: 50%;
+}
+
+#reservation-form .bootstrap-datetimepicker-widget {
+  width: 100%;
+}
+
+#reservation-form .day.disabled {
+  background-color: #efc9c9;
+}
+
+#reservation-form .day.cross {
+  background-color: #efc98f;
+}
+
+#reservation-form .card {
+  margin: 2rem 2rem 0 2rem;
+}
+
+@media (min-width: 768px) {
+  #calendrier .card {
+    margin: 2rem 2rem 0 2rem;
+  }
 }
 
 #calendrier .table {

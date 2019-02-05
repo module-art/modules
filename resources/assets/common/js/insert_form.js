@@ -115,7 +115,7 @@ var tinyconf = {
 
   var tinyconf_small = tinyconf;
   tinyconf_small.menubar = false;
-  tinyconf_small.block_formats = 'Header 1=h1;Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5';
+  tinyconf_small.block_formats = 'Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5';
   tinyconf_small.selector = '.simple-redactored';
   tinyconf_small.height = 100;
   //tinyconf_small.toolbar1 =  "formatselect | bold italic | link unlink | subscript superscript | paste code";
