@@ -36,12 +36,32 @@
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -59,32 +79,26 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "/";
 /******/
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 5:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(6);
-
-
-/***/ }),
-
-/***/ 6:
+/***/ "./resources/assets/common/js/admin.js":
+/*!*********************************************!*\
+  !*** ./resources/assets/common/js/admin.js ***!
+  \*********************************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
   $('.sidebarCollapse').on('click', function () {
     $('#sidebar').toggleClass('active');
-  });
-
-  //insertion des liste par type
+  }); //insertion des liste par type
 
   function getTypeContents() {
-
     var typeContents = $('.type-contents');
 
     if (typeContents.length > 0) {
@@ -92,7 +106,6 @@ $(document).ready(function () {
         var type = $(this).attr('data-content_type'),
             filtre = $(this).attr('data-filtre'),
             desc = $(this).attr('data-desc');
-
         $(this).load('/get-type-contents/' + type + '?orderby=' + filtre + '&desc=' + desc, function (response, status, xhr) {
           if (status == "error") {
             console.log(xhr.statusText);
@@ -112,9 +125,9 @@ $(document).ready(function () {
       initMceBlocs();
       listenToDestroy();
     }
-  }
+  } //global vars
 
-  //global vars
+
   var idPage = $('#id_page').html(),
       imageChange = false,
       defaultBackgroundImage = '/images/visuel.jpg',
@@ -123,11 +136,9 @@ $(document).ready(function () {
       maxFileSize = 4096000,
       minImgWidth = 1200,
       idCreatedBloc = 0,
-
-  //duration of the top scrolling animation (in ms)
+      //duration of the top scrolling animation (in ms)
   scroll_top_duration = 1000,
       csrfToken = $('meta[name="csrf-token"]').attr('content'); //get csrf-field in head
-
   //tinyMCE vars
 
   var lang = 'fr_FR',
@@ -143,34 +154,34 @@ $(document).ready(function () {
       fmSortBy = "date",
       fmDesc = true,
       fmKey = "fsUn8A5u9e6UypkZ",
-      myExternalPlugins = { "filemanager": "/tools/rfm/filemanager/plugin.min.js" },
+      myExternalPlugins = {
+    "filemanager": "/tools/rfm/filemanager/plugin.min.js"
+  },
       myExtendedValidElements = "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],$elements";
-
   $('#add-rubrique').click(function () {
     var globalContainer = document.getElementById('global-wrapper');
-
     $.ajax({
       method: 'post',
       url: '/coulisses/newrubrique/' + idPage,
-      data: { _token: csrfToken } //token!!!
+      data: {
+        _token: csrfToken
+      } //token!!!
+
     }).done(function (data) {
-      console.log(data['response']);
-      //location.assign($('#current_page').attr('href'));
+      console.log(data['response']); //location.assign($('#current_page').attr('href'));
+
       var newRubrique = document.createElement('div'),
           newAfter = document.createElement('div');
-
       newRubrique.className = 'rubrique-container';
       newAfter.className = 'container after-rubrique';
-
       globalContainer.appendChild(newRubrique);
       globalContainer.appendChild(newAfter);
-
       $(newRubrique).load('/coulisses/partial/coulisses/rubrique/' + data['newId'], function () {
         console.log(data['newId'] + ' rubrique actualisée.');
         initMceRubriques();
       });
-      reloadBlocs($(newAfter), data['newId']);
-      //window.scrollBy(0, window.innerHeight);
+      reloadBlocs($(newAfter), data['newId']); //window.scrollBy(0, window.innerHeight);
+
       $('body,html').animate({
         scrollTop: window.innerHeight
       }, scroll_top_duration);
@@ -178,14 +189,15 @@ $(document).ready(function () {
       alert('Oups! une erreur a empêché l\'ajout de rubrique.');
     });
   });
-
   $('#destroy-page').click(function () {
     if (confirm('Tous les contenus de cette page seront supprimés. Êtes vous vraiment sûr?')) {
-
       $.ajax({
         method: 'delete',
         url: '/coulisses/destroypage/' + idPage,
-        data: { _token: csrfToken } //token!!!
+        data: {
+          _token: csrfToken
+        } //token!!!
+
       }).done(function (data) {
         alert(data);
         location.assign('/coulisses/accueil');
@@ -194,14 +206,15 @@ $(document).ready(function () {
       });
     }
   });
-
   $('#publication').click(function () {
     var elem = this;
-
     $.ajax({
       method: 'post',
       url: '/coulisses/publicationpage/' + idPage,
-      data: { _token: csrfToken } //token!!!
+      data: {
+        _token: csrfToken
+      } //token!!!
+
     }).done(function (data) {
       console.log(data);
       var current = elem.innerText == 'Masquer' ? 'Publier' : 'Masquer';
@@ -209,18 +222,18 @@ $(document).ready(function () {
     }).fail(function () {
       alert('Oups! une erreur a empêché la publication.');
     });
-  });
+  }); //getTypeContents();
 
-  //getTypeContents();
   initMceBlocs();
   initMceRubriques();
   listenToAddBloc();
   listenToDestroy();
   colsManager();
+
   window.onload = function () {
     resizeVideos();
-  };
-  /// ---------- TYNIMCE ------
+  }; /// ---------- TYNIMCE ------
+
 
   function rubriqueCallback(editor) {
     editor.on('focus', function (e) {
@@ -229,23 +242,19 @@ $(document).ready(function () {
           imageNode = $('.editrubrique').first(),
           initBackgroundImage = imageNode.css('background-image'),
           replacement = '<section id="replacement" class="row justify-content-end mb-4"><div class="col-12 col-md-8 col-lg-6 col-xl-5"><div class="card"><div class="card-body">' + '<form method="post" enctype="multipart/form-data" class="" id="replacement-form"><div class="form-group">' + '<label for="image" class="col-form-label">Changer l\'image de fond</label>' + '<div class="input-group mb-2">' + '<div class="input-group-prepend">' + '<div class="input-group-text"><i class="far fa-file-image"></i></div>' + '</div>' + '<input id="image" class="form-control" type="file" name="image" />' + '</div>' + '<div class="form-check mb-2">' + '<input class="form-check-input" type="checkbox" value="1" name="delete_image">' + '<label class="form-check-label" for="delete_image">' + ' Image par défaut' + '</label>' + '</div>' + '<input id="texte" type="hidden" name="texte" />' + '<input type="hidden" name="_token" value="' + csrfToken + '" />' + '<div class="row justify-content-between px-3">' + '<button class="btn btn-primary btn-save" ><i class="fas fa-cog fa-spin fa-lg"></i> Enregistrer</button><button id="btn-cancel" class="btn btn-secondary" >Annuler</button>' + '</div>' + '</form></div></div></div></section>';
-
       $('.cols-button, .bloc-button').css('display', 'none');
+
       if ($('#replacement')[0] === undefined) {
         tar.parent().append(replacement);
       }
 
       imageManage(imageNode);
-
       $('.btn-save').click(function (e) {
-
         $('.fa-cog').css('display', 'inline-block');
         e.preventDefault();
         $('#texte').val(tar.html());
-
         var action = "/coulisses/rubrique/" + tar.attr('data-rubrique_id'),
             formData = new FormData($('#replacement-form')[0]);
-
         $.ajax({
           url: action,
           method: 'post',
@@ -263,6 +272,7 @@ $(document).ready(function () {
             });
             $('#replacement').remove();
             $('.cols-button, .bloc-button').css('display', 'block');
+
             if (parseInt(data['img_deleted'])) {
               imageNode.css({
                 backgroundImage: 'url("' + defaultBackgroundImage + '")'
@@ -277,10 +287,8 @@ $(document).ready(function () {
           });
           alert('La requête n\'a pas abouti.\n' + errors);
         });
-
         resizeVideos();
       });
-
       $('#btn-cancel').click(function (e) {
         e.preventDefault();
         setTimeout(function () {
@@ -301,15 +309,12 @@ $(document).ready(function () {
     editor.on('focus', function (e) {
       //console.log(e);
       var tar = $(e.target.bodyElement);
-
       tar.parent().append('<div id="bloc-buttons"><button class="btn btn-primary btn-save pull-right" >Enregistrer</button></div>');
-
       $('.btn-save').click(function () {
         var newBloc = tar.html(),
             bloc_id = tar.attr('data-bloc_id'),
             isNewBloc = bloc_id == 0 ? true : false;
         type = '';
-
         if (newBloc === undefined) return; //exit to avoid TypeError
 
         if (isNewBloc) {
@@ -318,7 +323,6 @@ $(document).ready(function () {
         }
 
         var action = '/coulisses/bloc/' + bloc_id;
-
         $.ajax({
           url: action,
           method: 'post',
@@ -327,20 +331,20 @@ $(document).ready(function () {
             texte: newBloc,
             format: type
           },
-          dataType: 'json'
-          //async: false,
+          dataType: 'json' //async: false,
           //processData: false,
           //contentType: false,
+
         }).done(function (data) {
           console.log(data['response']);
           tar.css('border', 'none');
+
           if (isNewBloc) {
             tar.attr('data-bloc_id', data['newId']);
           }
         }).fail(function () {
           alert('La requête n\'a pas abouti. Êtes-vous bien connecté comme admin?');
         });
-
         resizeVideos();
       });
     }); //close focus event
@@ -350,7 +354,6 @@ $(document).ready(function () {
         $('#bloc-buttons').remove();
       }, 100);
     });
-
     editor.on('Change', function (e) {
       var tar = $(e.target.bodyElement);
       tar.css('border', '1px red solid');
@@ -359,7 +362,6 @@ $(document).ready(function () {
 
   function initMceRubriques() {
     $('.editrubrique').off();
-
     tinymce.init({
       selector: '.editrubrique',
       inline: true,
@@ -391,7 +393,6 @@ $(document).ready(function () {
   function initMceBlocs() {
     $('.editable').off();
     $('.edititre').off();
-
     tinymce.init({
       selector: '.editable',
       inline: true,
@@ -421,7 +422,6 @@ $(document).ready(function () {
         blocCallback(editor);
       }
     });
-
     tinymce.init({
       selector: '.edititre',
       inline: true,
@@ -451,19 +451,16 @@ $(document).ready(function () {
   }
 
   function listenToNumBlocs() {
-
     /* ------- Tempus dominus --------- */
-
     var dateInputs = $('.editdate');
     var heureInputs = $('.editheure');
 
     if (dateInputs.length > 0) {
       dateInputs.datetimepicker({
         locale: 'fr',
-        format: 'L'
-        //debug: true
-      });
+        format: 'L' //debug: true
 
+      });
       dateInputs.on('change.datetimepicker', function (event) {
         //format moment.js object to string date
         //alert(event.date);
@@ -474,10 +471,9 @@ $(document).ready(function () {
     if (heureInputs.length > 0) {
       heureInputs.datetimepicker({
         locale: 'fr',
-        format: 'LT'
-        //debug: true
-      });
+        format: 'LT' //debug: true
 
+      });
       heureInputs.on('change.datetimepicker', function (event) {
         //format moment.js object to string date
         //alert(moment(event.date).format("HHmm"));
@@ -489,7 +485,6 @@ $(document).ready(function () {
       var tar = $(this),
           bloc_id = tar.attr('data-bloc_id'),
           $number = tar.html();
-
       tar.addClass('d-none');
       tar.parent().prepend('<input id="nmber" type="text" value="' + $number + '"/><div id="bloc-buttons"><button class="btn btn-primary btn-save pull-right" >Enregistrer</button></div>');
       var inputNumber = $('#nmber');
@@ -502,7 +497,6 @@ $(document).ready(function () {
           tar.removeClass('d-none');
         }, 100);
       });
-
       $('.btn-save').click(function () {
         numberSender(inputNumber.val(), bloc_id);
       });
@@ -510,9 +504,7 @@ $(document).ready(function () {
   }
 
   function numberSender($num, bloc_id) {
-
     var action = '/coulisses/bloc/' + bloc_id;
-
     $.ajax({
       url: action,
       method: 'post',
@@ -533,14 +525,10 @@ $(document).ready(function () {
     var allowedTypes = ['jpg', 'jpeg', 'png'],
         fileInput = document.querySelector('#image'),
         form = document.querySelector('#replacement-form');
-
     fileInput.addEventListener('change', function () {
-
       //gestion de l'image miniature
-
       var imgType,
           files = this.files;
-
       imgType = files[0].name.split('.');
       imgType = imgType[imgType.length - 1].toLowerCase();
 
@@ -549,20 +537,16 @@ $(document).ready(function () {
         //change background image
         var reader = new FileReader(),
             imgElement;
-
         reader.readAsDataURL(files[0]);
-
         reader.addEventListener('load', function () {
-
           imgElement = document.createElement('img');
           imgElement.src = this.result;
-
           setTimeout(function () {
             imgWidth = imgElement.naturalWidth; //return 0 when no waiting
+
             if (imgWidth >= minImgWidth) {
               imageChange = true;
-              rubriqueNode.css('background-image', 'url("' + imgElement.src + '")');
-              //alert( rubriqueNode.css('background-image') );
+              rubriqueNode.css('background-image', 'url("' + imgElement.src + '")'); //alert( rubriqueNode.css('background-image') );
             } else {
               alert('Pour avoir un bon rendu sur tout type d\'écran, la largeur de l\'image doit être supérieure à ' + minImgWidth + 'px. Cette image fait ' + imgWidth + 'px.');
               files = [];
@@ -576,6 +560,7 @@ $(document).ready(function () {
         } else if (files[0].size >= maxFileSize) {
           alert('Image de taille supérieure à ' + maxFileSize / 1000 + 'ko. Il faut la réduire avec un logiciel adapté.');
         }
+
         files = [];
         form.reset();
       }
@@ -583,10 +568,8 @@ $(document).ready(function () {
   }
 
   function listenToAddBloc() {
-
     $('.add-bloc').off();
     $('.change-type').off();
-
     $('.add-bloc').click(function () {
       var previousRow = $(this).parents(".row").first(),
           classNames = previousRow.children('[class*="col-md"]').first().attr('class'),
@@ -609,17 +592,15 @@ $(document).ready(function () {
           previousRow.prepend(newBlocNormal);
         }
       }
-      $('.after-rubrique').addClass('not-empty');
 
+      $('.after-rubrique').addClass('not-empty');
       initMceBlocs();
       listenToDestroy();
     });
-
     $('.change-type').click(function () {
       var container = $(this).parents('.after-rubrique').first(),
           idRubrique = container.attr('data-rubrique_id');
       idRubrique = parseInt(idRubrique);
-
       $.ajax({
         method: 'post',
         url: '/coulisses/change-type-content/' + idRubrique,
@@ -640,21 +621,22 @@ $(document).ready(function () {
   }
 
   function listenToDestroy() {
-
     $('.btn-destroy').off(); //remove listeners before putting back it
-    $('.btn-destroy').click(function () {
 
+    $('.btn-destroy').click(function () {
       if (confirm('Êtes vous sûr?')) {
         var elem = $(this).parent();
 
         if ($(this).next().hasClass('editrubrique')) {
           if (confirm('Tous les blocs associés à cette rubrique seront effacés. Êtes vous vraiment sûr?')) {
             var idRubrique = $(this).next().attr('data-rubrique_id');
-
             $.ajax({
               method: 'post',
               url: '/coulisses/destroyrubrique/' + idRubrique,
-              data: { _token: csrfToken } //token!!!
+              data: {
+                _token: csrfToken
+              } //token!!!
+
             }).done(function (data) {
               elem.next().remove();
               elem.remove();
@@ -665,11 +647,13 @@ $(document).ready(function () {
           }
         } else if (elem.hasClass('type-content')) {
           var idRubrique = $(this).attr('data-rubrique_id');
-
           $.ajax({
             method: 'post',
             url: '/coulisses/destroyrubrique/' + idRubrique,
-            data: { _token: csrfToken } //token!!!
+            data: {
+              _token: csrfToken
+            } //token!!!
+
           }).done(function (data) {
             elem.remove();
             console.log(data);
@@ -677,13 +661,14 @@ $(document).ready(function () {
             alert('Oups! une erreur a empêché la suppression.');
           });
         } else if (elem.hasClass('type-index')) {
-
           var idRubrique = $(this).attr('data-rubrique_id');
-
           $.ajax({
             method: 'post',
             url: '/coulisses/destroyrubrique/' + idRubrique,
-            data: { _token: csrfToken } //token!!!
+            data: {
+              _token: csrfToken
+            } //token!!!
+
           }).done(function (data) {
             elem.parents('tr').remove();
             console.log(data);
@@ -691,14 +676,16 @@ $(document).ready(function () {
             alert('Oups! une erreur a empêché la suppression.');
           });
         } else {
-
           var idBloc = $(this).next().attr('data-bloc_id');
 
           if (idBloc != 0) {
             $.ajax({
               method: 'post',
               url: '/coulisses/destroybloc/' + idBloc,
-              data: { _token: csrfToken } //token!!!
+              data: {
+                _token: csrfToken
+              } //token!!!
+
             }).done(function (data) {
               elem.remove();
               console.log(data);
@@ -709,6 +696,7 @@ $(document).ready(function () {
             elem.remove();
           }
         }
+
         $('.add-bloc').off();
         listenToAddBloc();
       }
@@ -719,20 +707,15 @@ $(document).ready(function () {
     $('.change-col').off();
     $('.ranger').off();
     $('.inverser').off();
-
     $('.change-col').click(function () {
-
       var previousRow = $(this).parents(".row").first(),
-
-      //classNames = previousRow.children('[class*="col-"]').first().attr('class'),
+          //classNames = previousRow.children('[class*="col-"]').first().attr('class'),
       //cols = classNames.substring(classNames.indexOf(' ')+1),
       nbCols = parseInt(this.getAttribute('data-colonnes')),
           newCols = "",
           targetChildren = previousRow.children('.col-12').not('.large-bloc'),
           rubrique_id = previousRow.parent().attr('data-rubrique_id');
-
       rubrique_id = parseInt(rubrique_id);
-
       previousRow.children('.clearfix').remove();
       targetChildren.attr('class', 'col-12');
 
@@ -740,21 +723,27 @@ $(document).ready(function () {
         case 1:
           newCols = '';
           break;
+
         case 2:
           newCols = 'col-md-6';
           targetChildren.addClass(newCols);
           break;
+
         case 3:
           newCols = 'col-md-6 col-lg-4';
           targetChildren.addClass(newCols);
           break;
-      }
-      //alert(newCols);
+      } //alert(newCols);
+
 
       $.ajax({
         method: 'post',
         url: '/coulisses/cols/' + rubrique_id,
-        data: { cols: nbCols, _token: csrfToken }, //token!!!
+        data: {
+          cols: nbCols,
+          _token: csrfToken
+        },
+        //token!!!
         dataType: 'json'
       }).done(function (data) {
         console.log(data['response']);
@@ -766,23 +755,22 @@ $(document).ready(function () {
         alert('Oups! une erreur a empêché la modification');
       });
     });
-
     $('.ranger').click(function () {
       var container = $(this).parents('.after-rubrique').first(),
           idRubrique = container.attr('data-rubrique_id');
       idRubrique = parseInt(idRubrique);
       reloadBlocs(container, idRubrique);
     });
-
     $('.inverser').click(function () {
-
       var container = $(this).parents('.after-rubrique').first(),
           idRubrique = container.attr('data-rubrique_id');
-
       $.ajax({
         method: 'post',
         url: '/coulisses/ascdesc/' + idRubrique,
-        data: { _token: csrfToken } //token!!!
+        data: {
+          _token: csrfToken
+        } //token!!!
+
       }).done(function (data) {
         console.log(data);
         parseInt(idRubrique);
@@ -791,17 +779,14 @@ $(document).ready(function () {
         alert('Oups! une erreur a empêché l\'inversion.');
       });
     });
-
     $('.deplacer').click(function () {
-
       $('.editable').off(); //remove listeners on others blocs
+
       $('.editrubrique').off();
       $('.btn-destroy').off();
       $('.add-bloc').off();
-
       var container = $(this).parents('.after-rubrique').first(),
           idRubrique = container.attr('data-rubrique_id');
-
       container.load('/coulisses/partial_drag/' + idRubrique, function (response, status, xhr) {
         if (status == "error") {
           console.log(xhr.statusText);
@@ -815,6 +800,7 @@ $(document).ready(function () {
 
   function resizeVideos() {
     var videos = $('.editable iframe');
+
     if (videos.length != 0) {
       videos.first().parent().css('width', '100%');
       videos.each(function () {
@@ -831,13 +817,13 @@ $(document).ready(function () {
       if (status == "error") {
         console.log(xhr.statusText);
       } else {
-        console.log('Blocs de la rubrique ' + idRubrique + ' actualisés.');
-        //use that
+        console.log('Blocs de la rubrique ' + idRubrique + ' actualisés.'); //use that
         //getTypeContents();
         //or that
+
         initMceBlocs();
-        listenToNumBlocs();
-        //not both
+        listenToNumBlocs(); //not both
+
         colsManager();
         listenToDestroy();
         listenToAddBloc();
@@ -847,9 +833,7 @@ $(document).ready(function () {
   }
 
   function dragdrop() {
-
     //partie 1- réorganisation, drag&drop.
-
     function insertAfter(newElement, afterElement) {
       var parent = afterElement.parentNode;
 
@@ -863,6 +847,7 @@ $(document).ready(function () {
     function cleanDropZone() {
       var dropzones = $('.dropzone'),
           dropzonesLen = dropzones.length;
+
       if (dropzonesLen > 0) {
         dropzones.css('width', '2px');
         setTimeout(function () {
@@ -885,6 +870,7 @@ $(document).ready(function () {
       elements[i].addEventListener('dragstart', function (event) {
         numdrag = parseInt(this.dataset.position);
         event.dataTransfer.setData('text/plain', '4Rt89dhMx'); //obligatoire pour firefox
+
         dragged = event.target;
         event.target.style.opacity = "0.5";
       }, false);
@@ -893,13 +879,10 @@ $(document).ready(function () {
     function dragEnters() {
       Jelements.off();
       Jelements.on('dragenter', function (event) {
-
         cleanDropZone();
         event.stopPropagation();
-
         finalPlace = parseInt(this.dataset.place);
         numover = parseInt(this.dataset.position);
-
         dropzone = document.createElement('div');
         dropzone.className = dragged.parentNode.className + ' dropzone';
         dropzone.innerHTML = '<div class="indropzone" style = "height: ' + dragged.clientHeight + 'px" ></div>';
@@ -912,27 +895,25 @@ $(document).ready(function () {
           //alert(numdrag+'=> cas 2 '+numover);
           insertAfter(dropzone, this.parentElement);
         }
-        $(this).off();
 
+        $(this).off();
         dropzone.addEventListener("transitionend", function (event) {
           dropZone(dropzone);
         }, false);
-
         setTimeout(function () {
           dropzone.style = null;
         }, 5);
       });
     }
+
     dragEnters();
 
     function dropZone(dropzone) {
-
       dropzone.addEventListener("dragover", function (event) {
         //alert('dragover');
         // prevent default to allow drop
         event.preventDefault();
       }, false);
-
       dropzone.addEventListener('drop', function (event) {
         event.preventDefault();
 
@@ -941,20 +922,16 @@ $(document).ready(function () {
           var transitNode = dragged.parentNode.cloneNode(true),
               initPlace = parseInt(dragged.dataset.place),
               container = $(this).parents('.after-rubrique').first();
-
           rubrique.replaceChild(transitNode, dragged.parentNode);
-
           setTimeout(function () {
             rubrique.replaceChild(dragged.parentNode, event.target.parentNode);
             transitNode.style.width = '2px';
           }, 5);
-
           setTimeout(function () {
             rubrique.removeChild(transitNode);
             cleanDropZone();
             dragged.style.opacity = "1";
-            dragEnters();
-            //alert(initPlace + ' -> ' + finalPlace + '  ' + rubrique_id);
+            dragEnters(); //alert(initPlace + ' -> ' + finalPlace + '  ' + rubrique_id);
 
             $.ajax({
               method: 'post',
@@ -966,8 +943,8 @@ $(document).ready(function () {
               },
               dataType: 'json'
             }).done(function (data) {
-              console.log(data['response']);
-              //location.reload();
+              console.log(data['response']); //location.reload();
+
               reloadBlocs(container, rubrique_id);
             }).fail(function (data) {
               console.log(data);
@@ -986,7 +963,6 @@ $(document).ready(function () {
       dragged.style.opacity = "1";
       dragEnters();
     }, false);
-
     document.addEventListener("dragover", function (event) {
       if (event.clientY < 100) {
         window.scrollBy(0, -10);
@@ -995,7 +971,20 @@ $(document).ready(function () {
       }
     }, false);
   } //end drag&drop function
+
 });
+
+/***/ }),
+
+/***/ 1:
+/*!***************************************************!*\
+  !*** multi ./resources/assets/common/js/admin.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /home/sylvestre/www/modules/modules-chemins/resources/assets/common/js/admin.js */"./resources/assets/common/js/admin.js");
+
 
 /***/ })
 

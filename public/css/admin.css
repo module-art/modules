@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'cuprum';
+  font-family: "cuprum";
   src: url(/fonts/Cuprum-Regular-webfont.eot?f63f41c6b4686eb96b99a0356e9feab7);
   src: url(/fonts/Cuprum-Regular-webfont.eot?f63f41c6b4686eb96b99a0356e9feab7) format("embedded-opentype"), url(/fonts/Cuprum-Regular-webfont.woff?8b055f01b73ad5dc771b2428fdecc34e) format("woff"), url(/fonts/Cuprum-Regular-webfont.ttf?23013f8c3bf5119ab1433b93d0d3ce03) format("truetype"), url(/fonts/Cuprum-Regular-webfont.svg?bdeae6fbe3174f09de582b271ca5e2c9) format("svg");
   font-weight: normal;
@@ -39,7 +39,7 @@
 }*/
 
 @font-face {
-  font-family: 'quantico';
+  font-family: "quantico";
   src: url(/fonts/Quantico-Regular-webfont.eot?2be623cab2e6f9315651a299ee196242);
   src: url(/fonts/Quantico-Regular-webfont.eot?2be623cab2e6f9315651a299ee196242) format("embedded-opentype"), url(/fonts/Quantico-Regular-webfont.woff?0583fdde25c011611c5445d79f1b8275) format("woff"), url(/fonts/Quantico-Regular-webfont.ttf?908d7f02d11e5574d29bdcb07f9d8408) format("truetype"), url(/fonts/Quantico-Regular-webfont.svg?fbf82ccab6b378f678a49bcb911dde15) format("svg");
   font-weight: normal;
@@ -93,11 +93,11 @@
 }
 */
 
-.after-rubrique [class*="col-"] {
+.after-rubrique [class*=col-] {
   position: relative;
 }
 
-.after-rubrique [class*="col-"] .btn-destroy {
+.after-rubrique [class*=col-] .btn-destroy {
   z-index: 100;
   position: absolute;
   right: 0px;
@@ -108,7 +108,7 @@
   display: none;
 }
 
-.after-rubrique [class*="col-"]:hover .btn-destroy {
+.after-rubrique [class*=col-]:hover .btn-destroy {
   display: block;
 }
 
@@ -149,7 +149,6 @@
   min-width: 250px;
   max-width: 250px;
   min-height: 100vh;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   margin-left: -250px;
 }
@@ -187,8 +186,8 @@
 
 #sidebar ul {
   /*li.active > a, a[aria-expanded="true"] {
-      color: $white;
-      background: #6d7fcc;}*/
+    color: $white;
+    background: #6d7fcc;}*/
 }
 
 #sidebar ul.components {
@@ -230,7 +229,7 @@
   cursor: pointer;
 }
 
-#sidebar a[data-toggle="collapse"] {
+#sidebar a[data-toggle=collapse] {
   position: relative;
 }
 
@@ -267,9 +266,7 @@
 }
 
 #drag-mode .dropzone {
-  -webkit-box-flex: 0;
-      -ms-flex: none;
-          flex: none;
+  flex: none;
 }
 
 #drag-mode .indropzone {
