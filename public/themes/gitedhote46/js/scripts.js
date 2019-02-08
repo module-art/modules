@@ -400,10 +400,10 @@ $(document).ready(function () {
           map1 = new L.Map.Gis('map', {
             mapId: '1',
             callback: typeof callback_map1 === "function" ? callback_map1 : false,
-            center: [44.557326, 2.023915],
-            zoom: 9,
-            maxZoom: 18,
-            scrollWheelZoom: false,
+            center: [44.577326, 2.024025],
+            zoom: 12,
+            maxZoom: 19,
+            scrollWheelZoom: true,
             zoomControl: true,
             fullscreenControl: false,
             scaleControl: false,
@@ -446,18 +446,18 @@ $(document).ready(function () {
           url = url[url.length - 1];
           var markerIcon = L.icon({
             iconUrl: '/themes/gitedhote46/images/marker.png',
-            shadowUrl: '/themes/gitedhote46/images/shadow.png',
-            iconSize: [26, 26],
+            //shadowUrl: '/themes/gitedhote46/images/shadow.png',
+            iconSize: [50, 45],
             // size of the icon
-            shadowSize: [36, 13],
-            // size of the shadow
-            iconAnchor: [13, 26],
-            // point of the icon which will correspond to marker's location
-            shadowAnchor: [0, 13],
-            // the same for the shadow
-            popupAnchor: [0, -26] // point from which the popup should open relative to the iconAnchor
+            //shadowSize:   [36, 13], // size of the shadow
+            iconAnchor: [13, 26] // point of the icon which will correspond to marker's location
+            //shadowAnchor: [0, 13],  // the same for the shadow
+            //popupAnchor:  [0, -26] // point from which the popup should open relative to the iconAnchor
 
-          }); //alert(url);
+          });
+          L.marker([44.557326, 2.023915], {
+            icon: markerIcon
+          }).addTo(map1);
         });
       });
     };

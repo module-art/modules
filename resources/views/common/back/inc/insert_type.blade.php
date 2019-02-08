@@ -35,7 +35,7 @@
         @foreach($parent_type->rubriques as $parent)
           <div class="form-check">
             <input class="form-check-input" type="radio" name="parent_id" value="{{ $parent->id }}"{{ ($editing && $parent->id == $type_content->parent_id) ? 'checked' : '' }}/>
-            <label class="form-check-label"> {{ strip_tags( $parent->blocs()->where('place', '1')->first()->contenu ) }}</label>
+            <label class="form-check-label"> {!! strip_tags( $parent->blocs()->where('place', '1')->first()->contenu ) !!}</label>
           </div>
         @endforeach
       </div>

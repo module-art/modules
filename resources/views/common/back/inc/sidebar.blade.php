@@ -79,6 +79,9 @@
           <i class="fas fa-user-circle"></i> Compte
         </a>
       </li>
+      {{--<li>
+        <a href="/tools/rfm/filemanager/dialog.php?type=0" class="btn iframe-btn" type="button">Gestionnaire de Fichiers</a>
+      </li>--}}
       <li>
         <a href="{{ route('logout') }}"
            onclick="event.preventDefault();
