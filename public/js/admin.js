@@ -249,7 +249,7 @@ $(document).ready(function () {
       }
 
       imageManage(imageNode);
-      $('.btn-save').click(function (e) {
+      $('.btn-save').on('mousedown', function (e) {
         $('.fa-cog').css('display', 'inline-block');
         e.preventDefault();
         $('#texte').val(tar.html());

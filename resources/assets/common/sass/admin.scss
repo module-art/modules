@@ -12,7 +12,7 @@
     .bloc-button,.cols-button{
       font-size: initial;
       position: absolute;
-      top: -5*$spacer;
+      top: -3*$spacer;
       .dropdown-menu{
         right: 0;
         left: inherit;
@@ -42,6 +42,7 @@
   min-height: 100vh;
   transition: all 0.3s;
   margin-left: -$navbar-width;
+  z-index: 1000;
   a{
     color: $white;
   }

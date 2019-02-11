@@ -105,7 +105,13 @@
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-  //fancybox
+  $('a[data-toggle="dropdown"]').click(function () {
+    $(this).next('.dropdown-menu').slideToggle(300);
+  });
+  $('a[data-toggle="dropdown"]').focusout(function () {
+    $(this).next('.dropdown-menu').slideUp(300);
+  }); //fancybox
+
   $('.gallery').each(function () {
     $('.fancy', this).fancybox({
       transitionEffect: "slide",
@@ -125,44 +131,19 @@ $(document).ready(function () {
     });
   });*/
 
-  /* Bouton retour en haut */
-  // browser window scroll (in pixels) after which the "back to top" link is shown
-
-  var offset = 300,
-      //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
-  offset_opacity = 1200,
-      //duration of the top scrolling animation (in ms)
-  scroll_top_duration = 1000,
-      //grab the "back to top" link
-  $back_to_top = $('.cd-top'),
-      $rubrique = $('.heading.first').first(),
-      $paddingTop = parseInt($rubrique.css('padding-top')),
-      $paddingBottom = parseInt($rubrique.css('padding-bottom')); //Smooth scroll
-  //$(document).on('click', 'a[href^="#"]', function (event) {
-  //event.preventDefault();
-  //$('html, body').animate({
-  //scrollTop: $($.attr(this, 'href')).offset().top
-  //}, scroll_top_duration);
-  //});
-  //hide or show the "back to top" link
-
-  $(window).scroll(function () {
-    //console.log($(this).scrollTop());
-    $(this).scrollTop() > offset ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
-
-    if ($(this).scrollTop() > offset_opacity) {
-      $back_to_top.addClass('cd-fade-out');
-    } else if ($(this).scrollTop() < offset_opacity) {
-      $back_to_top.removeClass('cd-fade-out');
-    }
-  }); //smooth scroll to top
-
-  $back_to_top.on('click', function (event) {
-    event.preventDefault();
-    $('body,html').animate({
-      scrollTop: 0
-    }, scroll_top_duration);
-  });
+  /*if(parseInt( $('#id_page').html() ) == 1){
+    var offset = 300,
+        $logo = $('#logo');
+    //hide or show logo 
+    $logo.css('opacity', 0);
+    $(window).scroll(function(){
+      if( $(this).scrollTop() > offset ) { 
+        $logo.css('opacity', 1);
+      }else if( $(this).scrollTop() < offset ){
+        $logo.css('opacity', 0);
+      }
+    });
+  }*/
 
   if ($('.diapo-accueil').length > 0) {
     setBgImage();

@@ -120,7 +120,7 @@
 .after-rubrique .row .cols-button {
   font-size: initial;
   position: absolute;
-  top: -10rem;
+  top: -6rem;
 }
 
 .after-rubrique .row .bloc-button .dropdown-menu,
@@ -151,6 +151,7 @@
   min-height: 100vh;
   transition: all 0.3s;
   margin-left: -250px;
+  z-index: 1000;
 }
 
 #sidebar a {

@@ -36,7 +36,7 @@
           </ul>
         </li>
       @endif
-      {{--@if(Auth()->user()->role == 'maintainer')--}}
+      @if(Auth()->user()->role == 'maintainer')
         <li>
           <a href="#submenu-type" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Types de contenus</a>
           <ul class="collapse list-unstyled" id="submenu-type">
@@ -48,7 +48,7 @@
             </li>
           </ul>
         </li>
-      {{--@endif--}}
+      @endif
       @if(isset($types) && $types->count()>0)
         <li>
           <a href="#subsubmenu-types" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ajouter</a>

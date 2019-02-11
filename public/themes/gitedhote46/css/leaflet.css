@@ -16,7 +16,7 @@
 
 #map {
   height: 510px;
-  box-shadow: 10px 10px 30px #232729;
+  box-shadow: 10px 10px 30px rgba(205, 205, 205, 0.6);
 }
 
 /* required styles */

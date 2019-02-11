@@ -10556,13 +10556,40 @@ a[data-toggle=collapse] {
 
 @media (min-width: 768px) {
   .card {
-    box-shadow: 10px 10px 30px #232729;
+    box-shadow: 10px 10px 30px rgba(205, 205, 205, 0.6);
   }
 }
 
 .head {
+  width: 100%;
   margin: 1rem 0 1rem 0;
   font-family: calligraffiti, Georgia, Times, serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.head #logo {
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.head #logo img {
+  width: 150px;
+  margin-left: 2rem;
+}
+
+@media (max-width: 991.98px) {
+  .head #logo img {
+    width: 100px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .head #logo img {
+    width: 60px;
+  }
 }
 
 .head a {
@@ -10581,13 +10608,20 @@ a[data-toggle=collapse] {
           transform: skewX(15deg);
 }
 
+.head #nav-container {
+  position: absolute;
+  right: 25px;
+  left: 25px;
+  background-color: rgba(205, 205, 205, 0.6);
+}
+
 .head .navbar {
   font-size: 1.54rem;
   padding: unset;
 }
 
 .head .navbar .navbar-nav {
-  justify-content: center;
+  justify-content: end;
 }
 
 @media (max-width: 767.98px) {
@@ -10611,6 +10645,10 @@ a[data-toggle=collapse] {
   color: #bf5329;
 }
 
+.head .navbar .nav-item .dropdown-menu {
+  background-color: rgba(205, 205, 205, 0.6);
+}
+
 .head .navbar ul {
   width: 100%;
   margin-right: 2rem;
@@ -10631,7 +10669,7 @@ a[data-toggle=collapse] {
   position: relative;
   margin-bottom: 2rem;
   width: 100%;
-  height: 80vh;
+  height: 98vh;
 }
 
 .diapo-accueil h2 {
@@ -10797,7 +10835,7 @@ a[data-toggle=collapse] {
 }
 
 .slick-wrapper-logement {
-  box-shadow: 10px 10px 30px #232729;
+  box-shadow: 10px 10px 30px rgba(205, 205, 205, 0.6);
 }
 
 .slick-wrapper-logement img {
@@ -10957,6 +10995,7 @@ footer .form-group input {
 }
 
 .after-rubrique {
+  margin-top: 4rem;
   padding: 2rem;
   color: #180E0D;
   width: 100%;
@@ -10999,8 +11038,8 @@ footer .form-group input {
 
 .center-card {
   justify-content: center;
-  -webkit-margin-before: 5vh;
-          margin-block-start: 5vh;
+  -webkit-margin-before: 15vh;
+          margin-block-start: 15vh;
 }
 
 #replacement input#image {
@@ -11016,7 +11055,7 @@ figure .fancy {
 }
 
 figure .fancy img {
-  box-shadow: 10px 10px 30px #232729;
+  box-shadow: 10px 10px 30px rgba(205, 205, 205, 0.6);
   width: 100%;
 }
 
