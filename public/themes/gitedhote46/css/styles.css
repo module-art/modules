@@ -10767,9 +10767,8 @@ a[data-toggle=collapse] {
 }
 
 .diapo-accueil .slideshow > li .cover-background img {
-  position: relative;
-  bottom: 20%;
   width: 100%;
+  display: none;
 }
 
 .diapo-accueil .slideshow > li .animation-top-right {

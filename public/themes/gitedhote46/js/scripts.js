@@ -167,6 +167,7 @@ $(document).ready(function () {
   }
 
   function setBgImage() {
+    //$('.cover-background img').css('display', 'none');
     $('.li-active').on('animationiteration', function () {
       $(this).off();
       $(this).removeClass('li-active');
