@@ -10570,9 +10570,16 @@ a[data-toggle=collapse] {
   z-index: 10;
 }
 
+@media (max-width: 767.98px) {
+  .head {
+    position: static;
+    z-index: 200;
+  }
+}
+
 .head #logo {
   transition: opacity 0.4s ease;
-  z-index: 1;
+  z-index: 2;
 }
 
 .head #logo img {
@@ -10612,7 +10619,14 @@ a[data-toggle=collapse] {
   position: absolute;
   right: 25px;
   left: 25px;
+  z-index: 1;
   background-color: rgba(205, 205, 205, 0.6);
+}
+
+@media (max-width: 767.98px) {
+  .head #nav-container {
+    background-color: rgba(225, 225, 225, 0.8);
+  }
 }
 
 .head .navbar {
@@ -10682,6 +10696,12 @@ a[data-toggle=collapse] {
   }
 }
 
+@media (max-width: 575.98px) {
+  .diapo-accueil h2 {
+    font-size: 2rem;
+  }
+}
+
 .diapo-accueil h3 {
   font-size: 2.5rem;
 }
@@ -10689,6 +10709,12 @@ a[data-toggle=collapse] {
 @media (max-width: 991.98px) {
   .diapo-accueil h3 {
     font-size: 2rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .diapo-accueil h3 {
+    font-size: 1.25rem;
   }
 }
 
@@ -10879,11 +10905,17 @@ a[data-toggle=collapse] {
 }
 
 footer {
-  background-color: #fdfef9;
+  background-color: rgba(205, 205, 205, 0.6);
   font-size: 1.1rem;
   color: #180E0D;
   margin-top: 6px;
   margin-bottom: 2rem;
+}
+
+@media (max-width: 767.98px) {
+  footer {
+    background-color: rgba(225, 225, 225, 0.8);
+  }
 }
 
 footer .footer-item {
