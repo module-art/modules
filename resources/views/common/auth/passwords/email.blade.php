@@ -1,4 +1,4 @@
-@extends('themes.'.env('APP_THEME', 'module-art').'.template')
+@extends('themes.'.config('app.theme').'.template')
 
 @section('content')
 <div class="container">
