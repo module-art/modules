@@ -10556,7 +10556,7 @@ a[data-toggle=collapse] {
 
 @media (min-width: 768px) {
   .card {
-    box-shadow: 10px 10px 30px rgba(205, 205, 205, 0.6);
+    box-shadow: 10px 10px 30px #25313F;
   }
 }
 
@@ -10579,7 +10579,7 @@ a[data-toggle=collapse] {
 
 .head #logo {
   transition: opacity 0.4s ease;
-  z-index: 2;
+  z-index: 1051;
 }
 
 .head #logo img {
@@ -10619,13 +10619,13 @@ a[data-toggle=collapse] {
   position: absolute;
   right: 25px;
   left: 25px;
-  z-index: 1;
-  background-color: rgba(205, 205, 205, 0.6);
+  z-index: 1050;
+  background-color: rgba(225, 225, 225, 0.7);
 }
 
 @media (max-width: 767.98px) {
   .head #nav-container {
-    background-color: rgba(225, 225, 225, 0.8);
+    background-color: rgba(235, 235, 235, 0.8);
   }
 }
 
@@ -10656,11 +10656,11 @@ a[data-toggle=collapse] {
 }
 
 .head .navbar .nav-item .nav-link:hover {
-  color: #bf5329;
+  background-color: #f8f9fa;
 }
 
 .head .navbar .nav-item .dropdown-menu {
-  background-color: rgba(205, 205, 205, 0.6);
+  background-color: rgba(225, 225, 225, 0.7);
 }
 
 .head .navbar ul {
@@ -10681,7 +10681,6 @@ a[data-toggle=collapse] {
 
 .diapo-accueil {
   position: relative;
-  margin-bottom: 2rem;
   width: 100%;
   height: 98vh;
 }
@@ -10866,7 +10865,7 @@ a[data-toggle=collapse] {
 }
 
 .slick-wrapper-logement {
-  box-shadow: 10px 10px 30px rgba(205, 205, 205, 0.6);
+  box-shadow: 10px 10px 30px #25313F;
 }
 
 .slick-wrapper-logement img {
@@ -10876,6 +10875,10 @@ a[data-toggle=collapse] {
 
 .slick-container {
   margin-bottom: 2rem;
+}
+
+.main-container {
+  margin-top: 4rem;
 }
 
 .main-container.error {
@@ -10905,7 +10908,7 @@ a[data-toggle=collapse] {
 }
 
 footer {
-  background-color: rgba(205, 205, 205, 0.6);
+  background-color: rgba(225, 225, 225, 0.7);
   font-size: 1.1rem;
   color: #180E0D;
   margin-top: 6px;
@@ -10914,7 +10917,7 @@ footer {
 
 @media (max-width: 767.98px) {
   footer {
-    background-color: rgba(225, 225, 225, 0.8);
+    background-color: rgba(235, 235, 235, 0.8);
   }
 }
 
@@ -10965,7 +10968,6 @@ footer .form-group input {
 }
 
 .after-rubrique {
-  margin-top: 4rem;
   padding: 2rem;
   color: #180E0D;
   width: 100%;
@@ -11025,7 +11027,7 @@ figure .fancy {
 }
 
 figure .fancy img {
-  box-shadow: 10px 10px 30px rgba(205, 205, 205, 0.6);
+  box-shadow: 10px 10px 30px #25313F;
   width: 100%;
 }
 
