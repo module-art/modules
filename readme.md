@@ -24,6 +24,10 @@
 <p>composer install</p>
 <p>php artisan key:generate</p>
 <p>php artisan storage:link</p>
+<p>in app/Http/Requests/Themes/</p>
+<p>ln -s resources/views/themes/(theme_name)/Http/Request (theme_name)</p>
+<p>in app/Http/Controllers/Themes/</p>
+<p>ln -s resources/views/themes/(theme_name)/Http/Controllers (theme_name)</p>
 <br>
 <p>from root account :</p>
 <p>sudo chmod 777 -R /home/contact/sites/modules/storage/logs</p>
