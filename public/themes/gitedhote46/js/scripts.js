@@ -208,6 +208,11 @@ $(document).ready(function () {
 
   if (parseInt($('#id_page').html()) == 5) {
     var jsonAllDates = {};
+
+    if ($('input[name=parent_id]:checked').length > 0) {
+      getDates($('input[name=parent_id]:checked').val());
+    }
+
     $('input[name="parent_id"]').click(function () {
       //alert($(this).val());
       getDates($(this).val()); //$('.day').removeClass('cross disabled');

@@ -7,6 +7,10 @@ DirectoryIndex index.php
 
     RewriteEngine On
 
+
+    RewriteCond %{SERVER_NAME} =module-art.fr
+    RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+
     RewriteCond %{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$
     RewriteRule ^(.*) - [E=BASE:%1]
 

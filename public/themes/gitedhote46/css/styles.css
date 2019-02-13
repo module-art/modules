@@ -11047,10 +11047,6 @@ figure .fancy img.rond {
   background-color: #efc98f;
 }
 
-#reservation-form .card {
-  margin: 2rem 2rem 0 2rem;
-}
-
 @media (min-width: 768px) {
   #calendrier .card {
     margin: 2rem 2rem 0 2rem;
