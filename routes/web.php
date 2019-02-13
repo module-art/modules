@@ -64,7 +64,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
 
 
 //special routes for themes, removable if not usefull
-Route::group(array('namespace' => 'Themes\\'.env('APP_THEME', 'module-art')), function () {
+Route::group(array('namespace' => 'Themes\\'.config('app.theme')), function () {
   
   //gite theme routes
   Route::post('reservation', 'ThemeController@storeReservation')->name('reservation.store');

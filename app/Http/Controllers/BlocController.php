@@ -30,7 +30,7 @@ class BlocController extends Controller
   {
     $rubrique = Rubrique::findOrFail($id_rubrique);
     $types = Type::all();
-    return view('themes.'.env('APP_THEME', 'module-art').'.back.inc.partial_bloc', compact('id_rubrique', 'rubrique', 'types'));
+    return view('themes.'.config('app.theme').'.back.inc.partial_bloc', compact('id_rubrique', 'rubrique', 'types'));
   }
 
   public function partialShowDrag($id_rubrique)

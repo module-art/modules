@@ -1,4 +1,4 @@
-@extends('themes.'.env('APP_THEME', 'module-art').'.template')
+@extends('themes.'.config('app.theme').'.template')
 
 @section('title')
   <title>Index {{ $type->content_type }}</title>
@@ -7,7 +7,7 @@
 @endsection
 
 @section('menu')
-  @include('themes.'.env('APP_THEME', 'module-art').'.menu')
+  @include('themes.'.config('app.theme').'.menu')
 @endsection
 
 @section('contenu')
