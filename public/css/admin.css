@@ -121,6 +121,7 @@
   font-size: initial;
   position: absolute;
   top: -6rem;
+  z-index: 5000;
 }
 
 .after-rubrique .row .bloc-button .dropdown-menu,

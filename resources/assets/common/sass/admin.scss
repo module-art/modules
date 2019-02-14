@@ -13,6 +13,7 @@
       font-size: initial;
       position: absolute;
       top: -3*$spacer;
+      z-index: 5000;
       .dropdown-menu{
         right: 0;
         left: inherit;
