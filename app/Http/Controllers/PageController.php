@@ -196,7 +196,7 @@ class PageController extends Controller
 
     $frommail = $request->email;
     $subject = $request->subject;
-    $to = env('MAIL_DEST', 'sylvestre@module-art.fr');
+    $to = config('mail.dest');
     Mail::send('themes.gitedhote46.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail)
     {
       $message->from($frommail, 'module-art.fr');

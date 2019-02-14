@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Date;
 use Storage;
+use Auth;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Image;
 use App\Models\Type;
@@ -57,15 +58,22 @@ class ControlRepository
 
     $order = $desc ? 'desc' : 'asc';
     $nb_per_page = $index ? 15 : $type->nb_per_page;
+    $auth = Auth::check();
 
     if($order_by == 'created_at' || $order_by == 'updated_at'){
 
-      if($index){ //pour la page index
-        $sorted_rubriques = Rubrique::where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
-      }elseif($nb_per_page == 0){ //pagination is disabled
-        $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->get();
+      if($auth){
+        if($nb_per_page == 0){ //pagination is disabled
+          $sorted_rubriques = Rubrique::where('type_id', $type->id)->orderBy($order_by, $order)->get();
+        }else{
+          $sorted_rubriques = Rubrique::where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
+        }
       }else{
-        $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
+        if($nb_per_page == 0){ //pagination is disabled
+          $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->get();
+        }else{
+          $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
+        }
       }
       return $sorted_rubriques;
 
@@ -75,10 +83,17 @@ class ControlRepository
       $blocs = $type->blocs()->where('type', $order_by)->orderBy('contenu', $order)->get();
 
       $sorted_rubriques = array();
-      foreach($blocs as $bloc){
-        $rubrique = Rubrique::find($bloc->rubrique_id);
-        if($rubrique->publie && !$index){
+      if($auth){
+        foreach($blocs as $bloc){
+          $rubrique = Rubrique::find($bloc->rubrique_id);
           $sorted_rubriques[] = $rubrique;
+        }
+      }else{
+        foreach($blocs as $bloc){
+          $rubrique = Rubrique::find($bloc->rubrique_id);
+          if($rubrique->publie){
+            $sorted_rubriques[] = $rubrique;
+          }
         }
       }
 
