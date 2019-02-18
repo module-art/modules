@@ -13,7 +13,7 @@
 @section('contenu')
           
   <section class='row center-card'>
-    <div class="col-12">
+    <div class="">
       @if(session()->has('info'))
         <div class="alert alert-success alert-dismissible">{!! session('info') !!}</div>
       @endif
