@@ -1,5 +1,7 @@
 $(document).ready(function()
 {
+  var current_theme = 'saliha';
+
   $('.sidebarCollapse').on('click', function () {
     $('#sidebar').toggleClass('active');
   });
@@ -40,7 +42,7 @@ $(document).ready(function()
   //global vars
   var idPage = $('#id_page').html(),
       imageChange = false,
-      defaultBackgroundImage = '/images/visuel.jpg',
+      defaultBackgroundImage = 'public/themes/'+current_theme+'/images/visuel_default.jpg',
       wasEdited = false,
       imgWidth = 0,
       maxFileSize = 4096000,
@@ -150,17 +152,16 @@ $(document).ready(function()
   listenToAddBloc();
   listenToDestroy();
   colsManager();
-  window.onload = function(){
-    resizeVideos();
-  }
+  resizeVideos();
+
   /// ---------- TYNIMCE ------
 
   function rubriqueCallback(editor) {
         editor.on('focus', function (e) {
           //console.log(e);
           var tar = $(e.target.bodyElement),
-              imageNode = $('.editrubrique').first(),
-              initBackgroundImage = imageNode.css('background-image'),
+              imageNode = tar.hasClass('.imagenode') ? tar : tar.parents('.imagenode').first(),
+              initBackgroundImage = imageNode.attr('data-image-src'),
             replacement = '<section id="replacement" class="row justify-content-end mb-4"><div class="col-12 col-md-8 col-lg-6 col-xl-5"><div class="card"><div class="card-body">'+
             '<form method="post" enctype="multipart/form-data" class="" id="replacement-form"><div class="form-group">'+
             '<label for="image" class="col-form-label">Changer l\'image de fond</label>'+
@@ -190,7 +191,7 @@ $(document).ready(function()
 
           imageManage(imageNode);
 
-          $('.btn-save').on('mousedown', function(e){
+          $('.btn-save').on('click', function(e){
 
             $('.fa-cog').css('display', 'inline-block');
             e.preventDefault();
@@ -236,7 +237,7 @@ $(document).ready(function()
             resizeVideos();
           });
           
-          $('#btn-cancel').click(function(e){
+          $('#btn-cancel').on('click', function(e){
             e.preventDefault();
             setTimeout(function(){
               tar.css({
@@ -260,7 +261,7 @@ $(document).ready(function()
 
       tar.parent().append('<div id="bloc-buttons"><button class="btn btn-primary btn-save pull-right" >Enregistrer</button></div>');
 
-      $('.btn-save').click(function(){
+      $('.btn-save').on('mousedown', function(){
         var newBloc = tar.html(),
           bloc_id = tar.attr('data-bloc_id'),
           isNewBloc = bloc_id == 0 ? true : false;

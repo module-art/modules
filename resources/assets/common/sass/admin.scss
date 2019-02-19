@@ -3,6 +3,10 @@
 
 @import '_mixins';
 
+.rubrique-container{
+  @include destroy_button(95%, -5px);
+}
+
 .after-rubrique{
   [class*="col-"]{
     @include destroy_button(0px, -5px);

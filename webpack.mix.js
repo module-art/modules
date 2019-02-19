@@ -11,7 +11,7 @@ let mix = require('laravel-mix');
  |
  */
 
-var current_theme = process.env.APP_THEME ;
+var current_theme = process.env.APP_THEME;
 
 mix.js('resources/views/themes/'+current_theme+'/assets/js/scripts.js', 'public/themes/'+current_theme+'/js')
    //.js('resources/assets/common/js/app.js', 'public/js')
