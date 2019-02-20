@@ -72,7 +72,7 @@ $(document).ready(function()
       fmDesc = true,
       fmKey = "fsUn8A5u9e6UypkZ",
       myExternalPlugins = { "filemanager" : "/tools/rfm/filemanager/plugin.min.js"},
-      myExtendedValidElements = "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],$elements";
+      myExtendedValidElements = "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|style|onmouseover|onmouseout|name],$elements";
 
   $('#add-rubrique').click(function(){
     var globalContainer = document.getElementById('global-wrapper');
@@ -324,7 +324,7 @@ $(document).ready(function()
       selector: '.editrubrique',
       inline: true,
       language: lang,
-      menubar: false,
+      //menubar: false,
       branding: false,
       plugins: myPlugins,
       toolbar: smallToolbar,

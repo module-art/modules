@@ -105,7 +105,36 @@
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-  $('#global-wrapper').fadeIn(1500);
+  function showScreenSize() {
+    var viewport = '',
+        windowWidthViewer = document.createElement('div');
+    windowWidthViewer.style.color = 'white';
+    windowWidthViewer.style.position = 'absolute';
+    windowWidthViewer.style.right = 0;
+    windowWidthViewer.innerText = window.innerWidth;
+    $('body').prepend($(windowWidthViewer));
+
+    window.onresize = function () {
+      if (window.innerWidth < 576) {
+        viewport = 'xs';
+      } else if (window.innerWidth >= 576 && window.innerWidth < 768) {
+        viewport = 'sm';
+      } else if (window.innerWidth >= 768 && window.innerWidth < 992) {
+        viewport = 'md';
+      } else if (window.innerWidth >= 992 && window.innerWidth < 1200) {
+        viewport = 'lg';
+      } else if (window.innerWidth >= 1200) {
+        viewport = 'xl';
+      } else {
+        viewport = '???';
+      }
+
+      windowWidthViewer.innerText = viewport;
+    };
+  } //showScreenSize();
+
+
+  $('#global-wrapper').fadeIn(900);
   /* Bouton retour en haut */
   // browser window scroll (in pixels) after which the "back to top" link is shown
 
@@ -116,30 +145,7 @@ $(document).ready(function () {
   scroll_top_duration = 1000,
       transitionDuration = 300,
       //grab the "back to top" link
-  $smLogo = '50px',
-      $logo = $('#logo'),
-      $back_to_top = $('.cd-top');
-  $('#navbars01').on('show.bs.collapse', function () {
-    $logo.css('height', $smLogo);
-  });
-  $('#navbars01').on('hide.bs.collapse', function () {
-    $logo.css('height', '');
-  }); //Smooth scroll
-
-  $(document).on('click', '.more', function (event) {
-    event.preventDefault();
-    var tar = $($.attr(this, 'href'));
-    $logo.css({
-      height: $smLogo
-    });
-    setTimeout(function () {
-      var topTarget = tar.offset().top; //console.log(topTarget);
-
-      $('html, body').animate({
-        scrollTop: topTarget
-      }, scroll_top_duration);
-    }, transitionDuration);
-  }); //hide or show the "back to top" link
+  $back_to_top = $('.cd-top'); //hide or show the "back to top" link
 
   $(window).scroll(function () {
     //console.log($(this).scrollTop());
