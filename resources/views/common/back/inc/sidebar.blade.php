@@ -27,7 +27,7 @@
             <li>
               <a id="publication">{{ $page->publie? "Masquer" : "Publier" }}</a>
             </li>
-            @if(config('theme.type') == 'multi_rubrique')
+            @if(config('theme.multi_rubrique') == true)
             <li>
               <a id="add-rubrique">Ajouter une rubrique</a>
             </li>

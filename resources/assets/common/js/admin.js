@@ -1,6 +1,6 @@
 $(document).ready(function()
 {
-  var current_theme = 'saliha';
+  var current_theme = 'gitedhote46';
 
   $('.sidebarCollapse').on('click', function () {
     $('#sidebar').toggleClass('active');
