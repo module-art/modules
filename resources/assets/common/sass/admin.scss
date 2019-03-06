@@ -59,10 +59,11 @@
     position: fixed;
     width: $navbar-width;
     z-index: 500;
+    top: -30px;
     .sidebarCollapse.btn{
       position: relative;
       right: -270px;
-      top: 60px;
+      top: 90px;
     }
     .chevron:hover{
       opacity: 0.7;
@@ -72,7 +73,6 @@
     text-align: center;
     padding: 20px;
     background: $dark-gray;
-    border-bottom: 1px solid $blue;
   }
   ul{
     &.components {
@@ -82,15 +82,18 @@
       text-align: center;
       padding: 10px;
     }
-    li a{
-      color: $white;
-      padding: 10px;
-      font-size: 1.1em;
-      display: block;
-      cursor: pointer;
-      &:hover{
-        color: $dark-gray;
-        background: $light-gray;
+    li{
+      font-size: $font-size-base;
+      a{
+        color: $white;
+        padding: 10px;
+        font-size: 1.1em;
+        display: block;
+        cursor: pointer;
+        &:hover{
+          color: $dark-gray;
+          background: $light-gray;
+        }
       }
     }
     /*li.active > a, a[aria-expanded="true"] {
