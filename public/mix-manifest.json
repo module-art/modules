@@ -1,10 +1,4 @@
 {
     "/js/admin.js": "/js/admin.js",
-    "/js/categorie.js": "/js/categorie.js",
-    "/js/contact.js": "/js/contact.js",
-    "/js/insert_form.js": "/js/insert_form.js",
-    "/themes/saliha/js/scripts.js": "/themes/saliha/js/scripts.js",
-    "/themes/saliha/css/styles.css": "/themes/saliha/css/styles.css",
-    "/themes/saliha/css/tiny_custom.css": "/themes/saliha/css/tiny_custom.css",
-    "/css/admin.css": "/css/admin.css"
+    "/themes/saliha/js/scripts.js": "/themes/saliha/js/scripts.js"
 }

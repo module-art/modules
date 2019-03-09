@@ -259,7 +259,7 @@ $(document).ready(function()
       //console.log(e);
       var tar = $(e.target.bodyElement);
 
-      tar.parent().append('<div id="bloc-buttons"><button class="btn btn-primary btn-save pull-right" >Enregistrer</button></div>');
+      tar.parent().append('<div id="bloc-buttons" class="d-flex justify-content-end"><button class="btn btn-primary btn-save">Enregistrer</button></div>');
 
       $('.btn-save').on('mousedown', function(){
         var newBloc = tar.html(),
