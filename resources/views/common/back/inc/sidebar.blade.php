@@ -1,7 +1,7 @@
 <nav id="sidebar">
   <section id="fixed-sidebar">
 
-    <button type="button" class="btn btn-info sidebarCollapse">
+    <button type="button" class="btn btn-secondary sidebarCollapse">
       <i class="fas fa-align-left"></i>
       <span>Admin</span>
     </button>

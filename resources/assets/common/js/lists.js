@@ -2,7 +2,7 @@ $(document).ready(function()
 {
   var csrfToken = $('meta[name="csrf-token"]').attr('content');//get csrf-field in head
 
-  $('[data-toggle*="publication"]').click(function(){
+  $('td[data-toggle="publication"]').click(function(){
     var idPage = $(this).attr('data-page_id'),
         nodeStatus = $(this).children().first();
 
