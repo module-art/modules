@@ -188,7 +188,8 @@ class PageController extends Controller
 
     $page->update($inputs);
 
-    return redirect()->route('back_page.show', $page->slug);
+    //return redirect()->route('back_page.show', $page->slug);
+    return redirect()->route('page.index');
   }
 
   public function mailFromContact(ContactRequest $request)

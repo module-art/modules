@@ -26,10 +26,10 @@
         </div>
         <div class="card-body">
 
-  @include('common.back.inc.insertedTypes-table', [
-    'champs' => explode(',', $type->champs),
-    'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant, true)
-  ])
+          @include('common.back.inc.insertedTypes-table', [
+            'champs' => explode(',', $type->champs),
+            'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant, true)
+          ])
           <div class="row justify-content-between px-3">
             {{--@if(Auth::user()->role == 'admin')--}}
               {{ link_to_route('type.insertform', 'Ajouter '.$type->content_type, $type->content_type, ['class' => 'btn btn-info']) }}
@@ -50,6 +50,6 @@
   <script src="/js/tempus-dominus/moment-with-locales.min.js"></script>
   <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
   <script src="/js/admin.js"></script>
-  <script src="/js/contact.js"></script>
+  <script src="/js/lists.js"></script>
   <script src="/tools/fancybox/jquery.fancybox.min.js"></script>
 @endsection

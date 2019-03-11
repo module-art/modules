@@ -365,4 +365,41 @@ class TypeController extends Controller
     return redirect()->route('type.insertUpdate', [$type_name, $id])->withInfo('La modification s\'est bien déroulée.');
   }
 
+  public function switchPublication($id)
+  {
+    $content = Rubrique::findOrFail($id);
+    $state = $content->publie;
+
+    if($state){
+      $state = 0;
+      $verbe = " n'est plus ";
+    }else{
+      $state = 1;
+      $verbe = " est ";
+    }
+    
+    $content->publie = $state;
+    $content->save();
+
+    return response('Le contenu '. $content->contenu . $verbe . 'publié.');
+  }
+
+  public function switchArchivage($id)
+  {
+    $content = Rubrique::findOrFail($id);
+    $state = $content->archive;
+
+    if($state){
+      $state = 0;
+      $verbe = " n'est plus ";
+    }else{
+      $state = 1;
+      $verbe = " est ";
+    }
+    
+    $content->archive = $state;
+    $content->save();
+
+    return response('Le contenu '. $content->contenu . $verbe . 'archivé.');
+  }
 }

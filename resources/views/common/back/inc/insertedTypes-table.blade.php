@@ -26,10 +26,10 @@
         <td class="">
           {{ ( new Date($result->created_at) )->format('j M Y') }}
         </td>
-        <td>
+        <td data-toggle="content-publication" data-content_id="{{ $result->id }}">
           {!! $result->publie ? '<span class="published"><i class="far fa-check-circle"></i></span>' : '<span class="unpublished"><i class="far fa-times-circle"></i></span>' !!}
         </td>
-        <td>
+        <td data-toggle="content-archivage" data-content_id="{{ $result->id }}">
           {!! $result->archive ? '<span class="published"><i class="far fa-check-circle"></i></span>' : '<span class="unpublished"><i class="far fa-times-circle"></i></span>' !!}
         </td>
         @foreach ($result->blocs as $y => $bloc)

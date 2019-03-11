@@ -24,4 +24,50 @@ $(document).ready(function()
     });
 
   });
+
+  $('td[data-toggle="content-publication"]').click(function(){
+    var idContent = $(this).attr('data-content_id'),
+        nodeStatus = $(this).children().first();
+
+    $.ajax({
+        method: 'post',
+        url: '/coulisses/publicationcontent/'+ idContent,
+        data: { _token: csrfToken},//token!!!
+    })
+    .done(function(data) {
+      console.log(data);
+      if(nodeStatus.is('.published')){
+        nodeStatus.removeClass('published').addClass('unpublished').html('<i class="far fa-times-circle"></i>');
+      }else{
+        nodeStatus.removeClass('unpublished').addClass('published').html('<i class="far fa-check-circle"></i>');
+      }
+    })
+    .fail(function() {
+      alert('Oups! une erreur a empêché la modification.');
+    });
+
+  });
+
+  $('td[data-toggle="content-archivage"]').click(function(){
+    var idContent = $(this).attr('data-content_id'),
+        nodeStatus = $(this).children().first();
+
+    $.ajax({
+        method: 'post',
+        url: '/coulisses/archivecontent/'+ idContent,
+        data: { _token: csrfToken},//token!!!
+    })
+    .done(function(data) {
+      console.log(data);
+      if(nodeStatus.is('.published')){
+        nodeStatus.removeClass('published').addClass('unpublished').html('<i class="far fa-times-circle"></i>');
+      }else{
+        nodeStatus.removeClass('unpublished').addClass('published').html('<i class="far fa-check-circle"></i>');
+      }
+    })
+    .fail(function() {
+      alert('Oups! une erreur a empêché la modification.');
+    });
+
+  });
 });
