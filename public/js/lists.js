@@ -81,107 +81,55 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/views/themes/saliha/assets/js/scripts.js":
-/*!************************************************************!*\
-  !*** ./resources/views/themes/saliha/assets/js/scripts.js ***!
-  \************************************************************/
+/***/ "./resources/assets/common/js/lists.js":
+/*!*********************************************!*\
+  !*** ./resources/assets/common/js/lists.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-  function showScreenSize() {
-    var viewport = '',
-        windowWidthViewer = document.createElement('div');
-    windowWidthViewer.style.color = 'white';
-    windowWidthViewer.style.position = 'absolute';
-    windowWidthViewer.style.right = 0;
-    windowWidthViewer.innerText = window.innerWidth;
-    $('body').prepend($(windowWidthViewer));
+  var csrfToken = $('meta[name="csrf-token"]').attr('content'); //get csrf-field in head
 
-    window.onresize = function () {
-      if (window.innerWidth < 576) {
-        viewport = 'xs';
-      } else if (window.innerWidth >= 576 && window.innerWidth < 768) {
-        viewport = 'sm';
-      } else if (window.innerWidth >= 768 && window.innerWidth < 992) {
-        viewport = 'md';
-      } else if (window.innerWidth >= 992 && window.innerWidth < 1200) {
-        viewport = 'lg';
-      } else if (window.innerWidth >= 1200) {
-        viewport = 'xl';
+  $('[data-toggle*="publication"]').click(function () {
+    var idPage = $(this).attr('data-page_id'),
+        nodeStatus = $(this).children().first();
+    $.ajax({
+      method: 'post',
+      url: '/coulisses/publicationpage/' + idPage,
+      data: {
+        _token: csrfToken
+      } //token!!!
+
+    }).done(function (data) {
+      console.log(data);
+
+      if (nodeStatus.is('.published')) {
+        nodeStatus.removeClass('published').addClass('unpublished').html('<i class="far fa-times-circle"></i>');
       } else {
-        viewport = '???';
+        nodeStatus.removeClass('unpublished').addClass('published').html('<i class="far fa-check-circle"></i>');
       }
-
-      windowWidthViewer.innerText = viewport;
-    };
-  } //showScreenSize();
-
-
-  $('#global-wrapper').fadeIn(900);
-  /* Bouton retour en haut */
-  // browser window scroll (in pixels) after which the "back to top" link is shown
-
-  var offset = 300,
-      //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
-  offset_opacity = 1200,
-      //duration of the top scrolling animation (in ms)
-  scroll_top_duration = 1000,
-      transitionDuration = 300,
-      //grab the "back to top" link
-  $back_to_top = $('.cd-top'); //hide or show the "back to top" link
-
-  $(window).scroll(function () {
-    //console.log($(this).scrollTop());
-    $(this).scrollTop() > offset ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
-
-    if ($(this).scrollTop() > offset_opacity) {
-      $back_to_top.addClass('cd-fade-out');
-    } else if ($(this).scrollTop() < offset_opacity) {
-      $back_to_top.removeClass('cd-fade-out');
-    }
-  }); //smooth scroll to top
-
-  $back_to_top.on('click', function (event) {
-    event.preventDefault();
-    $('body,html').animate({
-      scrollTop: 0
-    }, scroll_top_duration);
-  }); //parallax.js
-
-  $('.rubrique-container').parallax({
-    speed: 0.5,
-    iosFix: true
+    }).fail(function () {
+      alert('Oups! une erreur a empêché la modification.');
+    });
   });
 });
 
 /***/ }),
 
-/***/ "./resources/views/themes/saliha/assets/sass/styles.scss":
-/*!***************************************************************!*\
-  !*** ./resources/views/themes/saliha/assets/sass/styles.scss ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 0:
-/*!**************************************************************************************************************************!*\
-  !*** multi ./resources/views/themes/saliha/assets/js/scripts.js ./resources/views/themes/saliha/assets/sass/styles.scss ***!
-  \**************************************************************************************************************************/
+/***/ 1:
+/*!***************************************************!*\
+  !*** multi ./resources/assets/common/js/lists.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/sylvestre/www/modules/modules-chemins/resources/views/themes/saliha/assets/js/scripts.js */"./resources/views/themes/saliha/assets/js/scripts.js");
-module.exports = __webpack_require__(/*! /home/sylvestre/www/modules/modules-chemins/resources/views/themes/saliha/assets/sass/styles.scss */"./resources/views/themes/saliha/assets/sass/styles.scss");
+module.exports = __webpack_require__(/*! /home/sylvestre/www/modules/modules-chemins/resources/assets/common/js/lists.js */"./resources/assets/common/js/lists.js");
 
 
 /***/ })

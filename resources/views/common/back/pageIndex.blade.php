@@ -42,7 +42,7 @@
                   <td class="text-primary"><strong>{!! $page->title !!}</strong></td>
                   <td class="text-primary"><strong>{!! $page->menu_title !!}</strong></td>
                   <td class="text-primary">{!! $page->place ? $page->place : 'Hors menu' !!}</td>
-                  <td>
+                  <td data-toggle="publication" data-page_id="{{ $page->id }}">
                     {!! $page->publie ? '<span class="published"><i class="far fa-check-circle"></i></span>' : '<span class="unpublished"><i class="far fa-times-circle"></i></span>' !!}
                   </td>
                   <td>
@@ -73,4 +73,8 @@
       </div>
     </div>
   </section>
+@endsection
+
+@section('scripts')
+  <script src="/js/lists.js"></script>
 @endsection

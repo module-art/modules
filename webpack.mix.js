@@ -16,6 +16,7 @@ var current_theme = process.env.APP_THEME;
 mix.js('resources/views/themes/'+current_theme+'/assets/js/scripts.js', 'public/themes/'+current_theme+'/js')
    //.js('resources/assets/common/js/app.js', 'public/js')
    //.js('resources/assets/common/js/admin.js', 'public/js')
+   .js('resources/assets/common/js/lists.js', 'public/js')
    //.js('resources/assets/common/js/contact.js', 'public/js')
    //.js('resources/assets/common/js/insert_form.js', 'public/js')
    //.js('resources/assets/common/js/categorie.js', 'public/js')
