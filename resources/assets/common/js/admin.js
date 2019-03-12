@@ -6,7 +6,7 @@ $(document).ready(function()
     $('#sidebar').toggleClass('active');
   });
 
-  //insertion des liste par type
+  //insertion des listes par type
   
   function getTypeContents(){
 
@@ -51,28 +51,6 @@ $(document).ready(function()
       //duration of the top scrolling animation (in ms)
       scroll_top_duration = 1000,
       csrfToken = $('meta[name="csrf-token"]').attr('content');//get csrf-field in head
-
-  //tinyMCE vars
-  
-  var lang = 'fr_FR',
-      myPlugins = [
-            'advlist autolink lists link image charmap print preview anchor textcolor',
-            'searchreplace visualblocks code fullscreen',
-            'insertdatetime media table contextmenu paste code help wordcount responsivefilemanager'
-        ],
-      fullToolbar = 'pictos insertfile undo redo | fontsizeselect | styleselect | bold italic subscript superscript exposant removeformat | alignleft aligncenter alignright alignjustify | bullist numlist nonbreaking | link unlink media responsivefilemanager insertimage insertfile | table hr | forecolor backcolor emoticons | paste code | iconesliens | fontawesome',
-      mediumToolbar = 'bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify  | bullist numlist | link unlink | media responsivefilemanager',
-      smallToolbar = 'code | bold italic underline | bullist numlist | forecolor backcolor | link unlink | media responsivefilemanager',
-      myFormats = 'Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5;Paragraph=p',
-      fontSizes = '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
-      myValidElements = '+*[*]',
-      fmPath = "/tools/rfm/filemanager/",
-      fmTitle = "Gestionnaire de fichiers",
-      fmSortBy = "date",
-      fmDesc = true,
-      fmKey = "fsUn8A5u9e6UypkZ",
-      myExternalPlugins = { "filemanager" : "/tools/rfm/filemanager/plugin.min.js"},
-      myExtendedValidElements = "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|style|onmouseover|onmouseout|name],$elements";
 
   $('#add-rubrique').click(function(){
     var globalContainer = document.getElementById('global-wrapper');
@@ -155,6 +133,28 @@ $(document).ready(function()
   resizeVideos();
 
   /// ---------- TYNIMCE ------
+
+  //tinyMCE vars
+  
+  var lang = 'fr_FR',
+      myPlugins = [
+            'advlist autolink lists link image charmap print preview anchor textcolor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table contextmenu paste code help wordcount responsivefilemanager'
+        ],
+      fullToolbar = 'pictos insertfile undo redo | fontsizeselect | styleselect | bold italic subscript superscript exposant removeformat | alignleft aligncenter alignright alignjustify | bullist numlist nonbreaking | link unlink media responsivefilemanager insertimage insertfile | table hr | forecolor backcolor emoticons | paste code | iconesliens | fontawesome',
+      mediumToolbar = 'bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify  | bullist numlist | link unlink | media responsivefilemanager',
+      smallToolbar = 'code | bold italic underline | bullist numlist | forecolor backcolor | link unlink | media responsivefilemanager',
+      myFormats = 'Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5;Paragraph=p',
+      fontSizes = '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+      myValidElements = '+*[*]',
+      fmPath = "/tools/rfm/filemanager/",
+      fmTitle = "Gestionnaire de fichiers",
+      fmSortBy = "date",
+      fmDesc = true,
+      fmKey = "fsUn8A5u9e6UypkZ",
+      myExternalPlugins = { "filemanager" : "/tools/rfm/filemanager/plugin.min.js"},
+      myExtendedValidElements = "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|style|onmouseover|onmouseout|name],$elements";
 
   function rubriqueCallback(editor) {
         editor.on('focus', function (e) {
@@ -552,7 +552,7 @@ $(document).ready(function()
     $('.change-type').off();
 
     $('.add-bloc').click(function(){
-      var previousRow = $(this).parents(".row").first(),
+      var previousRow = $(this).parents(".markerRow").first(),
           classNames = previousRow.children('[class*="col-md"]').first().attr('class'),
           cols = previousRow.parent().attr('data-rubrique_cols'),
           type = this.getAttribute('data-format'),
@@ -701,7 +701,7 @@ $(document).ready(function()
 
     $('.change-col').click(function(){
 
-      var previousRow = $(this).parents(".row").first(),
+      var previousRow = $(this).parents(".markerRow").first(),
           //classNames = previousRow.children('[class*="col-"]').first().attr('class'),
           //cols = classNames.substring(classNames.indexOf(' ')+1),
           nbCols = parseInt( this.getAttribute('data-colonnes') ),
