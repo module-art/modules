@@ -198,7 +198,7 @@ class PageController extends Controller
     $frommail = $request->email;
     $subject = $request->subject;
     $to = config('mail.dest');
-    Mail::send('themes.gitedhote46.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail)
+    Mail::send('themes.'.config('app.theme').'.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail)
     {
       $message->from($frommail, 'module-art.fr');
       $message->to($to)->subject('Message du site : '.$subject);
