@@ -1,6 +1,6 @@
 $(document).ready(function()
 {
-  var current_theme = 'gitedhote46';
+  var current_theme = 'module-art';
 
   $('.sidebarCollapse').on('click', function () {
     $('#sidebar').toggleClass('active');
@@ -124,14 +124,6 @@ $(document).ready(function()
     });
   });
 
-  //getTypeContents();
-  initMceBlocs();
-  initMceRubriques();
-  listenToAddBloc();
-  listenToDestroy();
-  colsManager();
-  resizeVideos();
-
   /// ---------- TYNIMCE ------
 
   //tinyMCE vars
@@ -155,6 +147,14 @@ $(document).ready(function()
       fmKey = "fsUn8A5u9e6UypkZ",
       myExternalPlugins = { "filemanager" : "/tools/rfm/filemanager/plugin.min.js"},
       myExtendedValidElements = "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|style|onmouseover|onmouseout|name],$elements";
+
+  //getTypeContents();
+  initMceBlocs();
+  initMceRubriques();
+  listenToAddBloc();
+  listenToDestroy();
+  colsManager();
+  resizeVideos();
 
   function rubriqueCallback(editor) {
         editor.on('focus', function (e) {
