@@ -596,7 +596,8 @@ $(document).ready(function()
       })
       .done(function(data) {
         console.log(data['response']);
-        reloadBlocs(container, idRubrique);
+        //reloadBlocs(container, idRubrique);
+        document.location.reload(true);
       })
       .fail(function(data) {
         console.log(data);
@@ -706,7 +707,7 @@ $(document).ready(function()
           //cols = classNames.substring(classNames.indexOf(' ')+1),
           nbCols = parseInt( this.getAttribute('data-colonnes') ),
           newCols = "",
-          targetChildren = previousRow.children('.col-12').not('.large-bloc'),
+          targetChildren = previousRow.find('.col-12').not('.large-bloc'),
           rubrique_id = previousRow.parent().attr('data-rubrique_id');
 
       rubrique_id = parseInt(rubrique_id);
