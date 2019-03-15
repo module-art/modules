@@ -59,9 +59,8 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
   //Route::get('imagemanager', 'RedactorController@imageManager');
   Route::post('get-gallery', 'RedactorController@getGallery');
   
+  Route::get('', 'PageController@goHome')->name('page.home');
   Route::get('{page_title}', 'PageController@show')->name('back_page.show')->middleware('authAsAdmin');
-  Route::get('home', function () { return redirect()->route('back_page.show', 'accueil'); });
-  Route::get('', function () { return redirect()->route('back_page.show', 'accueil'); });
 });
 
 
@@ -77,12 +76,12 @@ Route::post('mail', 'PageController@mailFromContact')->name('page.mail');
 Route::get('get-type-contents/{type}', 'RubriqueController@getTypeContents');
 Route::get('{type}/{id_rubrique}', 'RubriqueController@showTypeContentPage')->name('type_content');
 
-Route::get('/{page_title}', 'PageController@show')->name('page.show');
-
 /*
 Route::get('testdrop', function (){
     return view('back.testdrop');
 });
  */
-Route::get('/home', function () { return redirect()->route('page.show', 'accueil'); });
-Route::get('/', function () { return redirect()->route('page.show', 'accueil'); });
+Route::get('/', 'PageController@goHome')->name('page.home');
+Route::get('/home', function () { return redirect()->route('page.home'); });
+
+Route::get('/{page_title}', 'PageController@show')->name('page.show');

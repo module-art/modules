@@ -21,4 +21,7 @@
   </div>
   {!! Form::close() !!}
 </div>
+<div class="card-footer d-flex justify-content-end">
+  <a class="btn btn-primary btn-sm" href="{{ route('page.home') }}"><i class="fa fa-redo"></i> retour à l'accueil</a>
+</div>
 

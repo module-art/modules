@@ -28,6 +28,11 @@
         @elseif($model == 'type')
           @include('common.back.inc.new_type')
         @endif
+        @if($model == 'page' || $operation == 'create')
+          <div class="card-footer d-flex justify-content-end">
+            <a class="btn btn-primary btn-sm" href="{{ route('page.home') }}"><i class="fa fa-redo"></i> retour à l'accueil</a>
+          </div>
+        @endif
       </div>
     </div>
     @if($model == 'type' && $operation == 'edit')

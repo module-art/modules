@@ -14,6 +14,12 @@
   </div>
   @if($operation == 'edit')
     <div class="form-group">
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" value="1" name="is_home" {{ $operation == 'edit' && $page->is_home ? 'checked readonly' : '' }}>
+        <label class="form-check-label" for="is_home"> Page d'accueil</label>
+      </div>
+    </div>
+    <div class="form-group">
       {!! Form::label('place', 'Place dans le menu :', ['class' => 'control-label']) !!}<br>
       @foreach($menus as $y => $menu)
         <div class="form-check form-check-inline">

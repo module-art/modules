@@ -14,7 +14,7 @@ class Page extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
-    protected $fillable = array('title', 'menu_title', 'place', 'slug', 'publie');
+    protected $fillable = array('title', 'menu_title', 'place', 'slug', 'is_home', 'publie');
 
     public function user()
     {

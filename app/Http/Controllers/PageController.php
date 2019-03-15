@@ -23,7 +23,7 @@ class PageController extends Controller
   {
     $this->footerRepository = $footerRepository;
     $this->menusRepository = $menusRepository;
-    $this->middleware('authAsAdmin', ['except' => ['show', 'mailFromContact']]);
+    $this->middleware('authAsAdmin', ['except' => ['show', 'goHome', 'mailFromContact']]);
     $this->middleware('ajax', ['only' => ['switchPublication']]);
     $this->nbrPerPage = $controlRepository->nbrPerPage;
   }
@@ -64,6 +64,17 @@ class PageController extends Controller
     return view('themes.'.config('app.theme').'.front.page', compact('menus', 'page', 'footer', 'bg_img','types'));
   }
 
+  public function goHome()
+  {
+    $page = Page::where('is_home', 1)->firstOrFail();
+
+    if(Auth::check()){
+      return redirect()->route('back_page.show', $page->slug);
+    }else{
+      return redirect()->route('page.show', $page->slug);
+    }
+  }
+
   /**
    * Show the form for creating a new resource.
    *
@@ -94,6 +105,12 @@ class PageController extends Controller
     ]);
 
     $page = Page::create($inputs);
+
+    /*if($request->has('is_home')){
+      $old_home_page = Page::where('is_home', 1)->firstOrFail();
+      $old_home_page->is_home = 0;
+      $old_home_page->save();
+    }*/
 
     $default_attr = array(
       'contenu' => '<h1>' . $request->menu_title . '</h1>',
@@ -131,12 +148,22 @@ class PageController extends Controller
    */
   public function update(PageRequest $request, $id){
 
+    //dd($request->all());
     $page = Page::findOrFail($id);
+
+    if(!$page->is_home && $request->has('is_home')){
+      $old_home_page = Page::where('is_home', 1)->firstOrFail();
+      $old_home_page->is_home = 0;
+      $page->is_home = 1;
+      $old_home_page->save();
+      $page->save();
+    }elseif($page->is_home && !$request->has('is_home')){
+      return back()->withError('Vous devez avoir une page d\'accueil ! ');
+    }
 
     $from_menu = (boolean)$page->place;
     $to_menu = (boolean)$request->place;
 
-    //dd($request);
     //return response('from : ' . $from_menu . ' , to : ' . $to_menu);
 
     if($from_menu && $to_menu){
@@ -181,10 +208,10 @@ class PageController extends Controller
     }
 
     //si on veut modifier le slug à l'update
-    $inputs = array_merge($request->all(), [
+    $inputs = array_merge($request->except(['is_home']), [
       'slug' => str_slug($request->menu_title),
     ]);
-    //$inputs = $request->all();
+    //$inputs = $request->except(['is_home']);
 
     $page->update($inputs);
 
@@ -218,6 +245,10 @@ class PageController extends Controller
   public function destroy(Request $request, $id)
   {
     $page = Page::findOrFail($id);
+    
+    if($page->is_home){
+      return back()->withError('Vous ne pouvez pas supprimer la page d\'accueil ! ');
+    }
 
     $places_to_move = Page::where('place', '>', $page->place)->get();
 

@@ -69,7 +69,10 @@
               <i class="fas fa-redo"></i> Retour
             </a>
           </div>
-        </div>
+          <div class="card-footer d-flex justify-content-end mt-2">
+            <a class="btn btn-primary btn-sm" href="{{ route('page.home') }}"><i class="fa fa-redo"></i> retour à l'accueil</a>
+          </div>
+        </div>{{--card-body--}}
       </div>
     </div>
   </section>

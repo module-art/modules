@@ -21,6 +21,7 @@ class CreatePagesTable extends Migration
       $table->string('menu_title', 255);
       $table->smallInteger('place');
       $table->string('slug', 255);
+      $table->boolean('is_home')->default(0);
       $table->boolean('publie')->default(0);
     });
   }
