@@ -54,7 +54,8 @@ class PageController extends Controller
 
     $footer = $this->footerRepository->makeFooter();
     $first_rubrique = $page->rubriques()->first();
-    $bg_img = [ $first_rubrique->background_img_url, $first_rubrique->background_hd_url ];
+    //$bg_img = [ $first_rubrique->background_img_url, $first_rubrique->background_hd_url ];
+    $bg_img = $first_rubrique->background_img_url;
     $types = Type::all();
 
     if(Auth::check()){
