@@ -70,6 +70,9 @@ Route::group(array('namespace' => 'Themes\\'.config('app.theme')), function () {
   //gite theme routes
   Route::post('reservation', 'ThemeController@storeReservation')->name('reservation.store');
   Route::post('getdates', 'ThemeController@getDates')->middleware('ajax');
+
+  //baramots theme routes
+  Route::post('exquis', 'BaramotsController@exquis');
 });
 
 Route::post('mail', 'PageController@mailFromContact')->name('page.mail');
