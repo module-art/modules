@@ -160,7 +160,7 @@ $(document).ready(function()
         editor.on('focus', function (e) {
           //console.log(e);
           var tar = $(e.target.bodyElement),
-              imageNode = tar.hasClass('.imagenode') ? tar : tar.parents('.imagenode').first(),
+              imageNode = tar.hasClass('imagenode') ? tar : tar.parents('.imagenode').first(),
               initBackgroundImage = imageNode.attr('data-image-src'),
             replacement = '<section id="replacement" class="row justify-content-end mb-4"><div class="col-12 col-md-8 col-lg-6 col-xl-5"><div class="card"><div class="card-body">'+
             '<form method="post" enctype="multipart/form-data" class="" id="replacement-form"><div class="form-group">'+
@@ -239,13 +239,12 @@ $(document).ready(function()
           
           $('#btn-cancel').on('click', function(e){
             e.preventDefault();
+    
             setTimeout(function(){
               tar.css({
                 padding: '',
               });
-              imageNode.css({
-                backgroundImage: initBackgroundImage
-              });
+              imageNode.css('background-image', 'url("' + initBackgroundImage + '")');
               $('#replacement').remove();
               $('.cols-button, .bloc-button').css('display', 'block');
             }, 100)
