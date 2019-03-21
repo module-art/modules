@@ -75,6 +75,9 @@ Route::group(array('namespace' => 'Themes\\'.config('app.theme')), function () {
   Route::post('exquis', 'BaramotsController@exquis');
 });
 
+Route::get('rgpd-notice', function () {
+  return response('ok', 200)->cookie('no_rgpd', 'ok', 43200);
+});
 Route::post('mail', 'PageController@mailFromContact')->name('page.mail');
 Route::get('get-type-contents/{type}', 'RubriqueController@getTypeContents');
 Route::get('{type}/{id_rubrique}', 'RubriqueController@showTypeContentPage')->name('type_content');
