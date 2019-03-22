@@ -21,7 +21,8 @@ mix
    //.js('resources/assets/common/js/contact.js', 'public/js')
    //.js('resources/assets/common/js/insert_form.js', 'public/js')
    //.js('resources/assets/common/js/categorie.js', 'public/js')
-   .sass('resources/views/themes/'+current_theme+'/assets/sass/styles.scss', 'public/themes/'+current_theme+'/css')
+   //.sass('resources/views/themes/'+current_theme+'/assets/sass/styles.scss', 'public/themes/'+current_theme+'/css')
+   .sass('Themes/'+current_theme+'/assets/sass/styles.scss', 'public/themes/'+current_theme+'/css')
    //.sass('resources/views/themes/'+current_theme+'/assets/sass/tiny_custom.scss', 'public/themes/'+current_theme+'/css')
    .sass('resources/assets/common/sass/admin.scss', 'public/css')
 ;
