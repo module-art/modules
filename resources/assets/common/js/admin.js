@@ -244,7 +244,7 @@ $(document).ready(function()
               tar.css({
                 padding: '',
               });
-              imageNode.css('background-image', 'url("' + initBackgroundImage + '")');
+              if(imageChange) imageNode.css('background-image', 'url("' + initBackgroundImage + '")');
               $('#replacement').remove();
               $('.cols-button, .bloc-button').css('display', 'block');
             }, 100)
