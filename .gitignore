@@ -3,10 +3,7 @@
 /public/storage
 /public/uploads
 /public/tools
-/Themes
-/resources/views/themes
-/app/Http/Controllers/Themes
-/app/Http/Requests/Themes
+**/[Tt]hemes
 /storage/*.key
 /vendor
 /.idea

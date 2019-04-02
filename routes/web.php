@@ -63,18 +63,6 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
   Route::get('{page_title}', 'PageController@show')->name('back_page.show')->middleware('authAsAdmin');
 });
 
-
-//special routes for themes, removable if not usefull
-Route::group(array('namespace' => 'Themes\\'.config('app.theme')), function () {
-  
-  //gite theme routes
-  Route::post('reservation', 'ThemeController@storeReservation')->name('reservation.store');
-  Route::post('getdates', 'ThemeController@getDates')->middleware('ajax');
-
-  //baramots theme routes
-  Route::post('exquis', 'BaramotsController@exquis');
-});
-
 Route::get('rgpd-notice', function () {
   return response('ok', 200)->cookie('no_rgpd', 'ok', 43200);
 });

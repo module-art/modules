@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+        $this->mapThemesRoutes();
     }
 
     /**
@@ -69,5 +69,20 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Define the "api" themes routes.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapThemesRoutes()
+    {
+        Route::middleware('web')
+             ->namespace($this->namespace.'\Themes\\'.config('app.theme'))
+             //->namespace('Themes\\'.config('app.theme').'\Http\Controllers')
+             ->group(base_path('Themes/'.config('app.theme').'/routes/web.php'));
     }
 }
