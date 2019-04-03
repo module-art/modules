@@ -1,7 +1,5 @@
 $(document).ready(function()
 {
-  var current_theme = 'gitedhote46';
-
   $('.sidebarCollapse').on('click', function () {
     $('#sidebar').toggleClass('active');
   });
@@ -42,7 +40,7 @@ $(document).ready(function()
   //global vars
   var idPage = $('#id_page').html(),
       imageChange = false,
-      defaultBackgroundImage = 'public/themes/'+current_theme+'/images/visuel_default.jpg',
+      defaultBackgroundImage = '/storage/'+current_theme+'/files/images/default_background.jpg',//current_theme is defined with php in back.page view file
       wasEdited = false,
       imgWidth = 0,
       maxFileSize = 4096000,
@@ -189,7 +187,7 @@ $(document).ready(function()
             tar.parent().append(replacement);
           }
 
-          imageManage(imageNode);
+          imageManage(imageNode, initBackgroundImage);
 
           $('.btn-save').on('click', function(e){
 
@@ -490,7 +488,7 @@ $(document).ready(function()
     });
   }
 
-  function imageManage(rubriqueNode){
+  function imageManage(rubriqueNode, initBackgroundImage){
     var allowedTypes = ['jpg', 'jpeg', 'png'],
         fileInput = document.querySelector('#image'),
         form = document.querySelector('#replacement-form');
@@ -543,6 +541,16 @@ $(document).ready(function()
         form.reset();
       }
     }, false);
+
+    $('input[name=delete_image]').change(function(){
+      if($(this).prop('checked')){
+        imageChange = true;
+        rubriqueNode.css('background-image', 'url("'+ defaultBackgroundImage +'")');
+      }else{
+        imageChange = false;
+        rubriqueNode.css('background-image', 'url("'+ initBackgroundImage +'")');
+      }
+    });
   }
 
   function listenToAddBloc(){

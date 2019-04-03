@@ -1,1 +1,997 @@
-!function(e){var t={};function a(n){if(t[n])return t[n].exports;var o=t[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,a),o.l=!0,o.exports}a.m=e,a.c=t,a.d=function(e,t,n){a.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},a.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.t=function(e,t){if(1&t&&(e=a(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(a.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)a.d(n,o,function(t){return e[t]}.bind(null,o));return n},a.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return a.d(t,"a",t),t},a.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},a.p="/",a(a.s=2)}([,,function(e,t,a){e.exports=a(3)},function(e,t){$(document).ready(function(){$(".sidebarCollapse").on("click",function(){$("#sidebar").toggleClass("active")});var e=$("#id_page").html(),t=!1,a="public/themes/gitedhote46/images/visuel_default.jpg",n=0,o=4096e3,r=1200,i=$('meta[name="csrf-token"]').attr("content");$("#add-rubrique").click(function(){var t=document.getElementById("global-wrapper");$.ajax({method:"post",url:"/coulisses/newrubrique/"+e,data:{_token:i}}).done(function(e){console.log(e.response);var a=document.createElement("div"),n=document.createElement("div");a.className="rubrique-container",n.className="container after-rubrique",t.appendChild(a),t.appendChild(n),$(a).load("/coulisses/partial/coulisses/rubrique/"+e.newId,function(){console.log(e.newId+" rubrique actualisée."),k()}),I($(n),e.newId),$("body,html").animate({scrollTop:window.innerHeight},1e3)}).fail(function(){alert("Oups! une erreur a empêché l'ajout de rubrique.")})}),$("#destroy-page").click(function(){confirm("Tous les contenus de cette page seront supprimés. Êtes vous vraiment sûr?")&&$.ajax({method:"delete",url:"/coulisses/destroypage/"+e,data:{_token:i}}).done(function(e){alert(e),location.assign("/coulisses/accueil")}).fail(function(){alert("Oups! une erreur a empêché la suppression.")})}),$("#publication").click(function(){var t=this;$.ajax({method:"post",url:"/coulisses/publicationpage/"+e,data:{_token:i}}).done(function(e){console.log(e);var a="Masquer"==t.innerText?"Publier":"Masquer";t.innerText=a}).fail(function(){alert("Oups! une erreur a empêché la publication.")})});var s="fr_FR",l=["advlist autolink lists link image charmap print preview anchor textcolor","searchreplace visualblocks code fullscreen","insertdatetime media table contextmenu paste code help wordcount responsivefilemanager"],c="code | bold italic underline | bullist numlist | forecolor backcolor | link unlink | media responsivefilemanager",d="Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5;Paragraph=p",u="8pt 10pt 12pt 14pt 18pt 24pt 36pt",f="+*[*]",p="/tools/rfm/filemanager/",m="Gestionnaire de fichiers",b="date",g=!0,v="fsUn8A5u9e6UypkZ",h={filemanager:"/tools/rfm/filemanager/plugin.min.js"},_="i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|style|onmouseover|onmouseout|name],$elements";function y(e){e.on("focus",function(e){var s,l,c,d,u=$(e.target.bodyElement),f=u.hasClass("imagenode")?u:u.parents(".imagenode").first(),p=f.attr("data-image-src"),m='<section id="replacement" class="row justify-content-end mb-4"><div class="col-12 col-md-8 col-lg-6 col-xl-5"><div class="card"><div class="card-body"><form method="post" enctype="multipart/form-data" class="" id="replacement-form"><div class="form-group"><label for="image" class="col-form-label">Changer l\'image de fond</label><div class="input-group mb-2"><div class="input-group-prepend"><div class="input-group-text"><i class="far fa-file-image"></i></div></div><input id="image" class="form-control" type="file" name="image" /></div><div class="form-check mb-2"><input class="form-check-input" type="checkbox" value="1" name="delete_image"><label class="form-check-label" for="delete_image"> Image par défaut</label></div><input id="texte" type="hidden" name="texte" /><input type="hidden" name="_token" value="'+i+'" /><div class="row justify-content-between px-3"><button class="btn btn-primary btn-save" ><i class="fas fa-cog fa-spin fa-lg"></i> Enregistrer</button><button id="btn-cancel" class="btn btn-secondary" >Annuler</button></div></form></div></div></div></section>';$(".cols-button, .bloc-button").css("display","none"),void 0===$("#replacement")[0]&&u.parent().append(m),s=f,l=["jpg","jpeg","png"],c=document.querySelector("#image"),d=document.querySelector("#replacement-form"),c.addEventListener("change",function(){var e,a=this.files;if(e=(e=a[0].name.split("."))[e.length-1].toLowerCase(),-1!=l.indexOf(e)&&a[0].size<o){var i,c=new FileReader;c.readAsDataURL(a[0]),c.addEventListener("load",function(){(i=document.createElement("img")).src=this.result,setTimeout(function(){(n=i.naturalWidth)>=r?(t=!0,s.css("background-image",'url("'+i.src+'")')):(alert("Pour avoir un bon rendu sur tout type d'écran, la largeur de l'image doit être supérieure à "+r+"px. Cette image fait "+n+"px."),a=[],d.reset())},300)},!1)}else-1==l.indexOf(e)?alert("Image non valide, il faut un format jpg ou png."):a[0].size>=o&&alert("Image de taille supérieure à "+o/1e3+"ko. Il faut la réduire avec un logiciel adapté."),a=[],d.reset()},!1),$(".btn-save").on("click",function(e){$(".fa-cog").css("display","inline-block"),e.preventDefault(),$("#texte").val(u.html());var t="/coulisses/rubrique/"+u.attr("data-rubrique_id"),n=new FormData($("#replacement-form")[0]);$.ajax({url:t,method:"post",data:n,dataType:"json",processData:!1,contentType:!1}).done(function(e){$(".fa-cog").css("display","none"),console.log(e.response),setTimeout(function(){u.css({padding:""}),$("#replacement").remove(),$(".cols-button, .bloc-button").css("display","block"),parseInt(e.img_deleted)&&f.css({backgroundImage:'url("'+a+'")'})},100)}).fail(function(e){$(".fa-cog").css("display","none");var t=e.responseJSON.message+"\n";$.each(e.responseJSON.errors,function(e,a){t+=a+"\n"}),alert("La requête n'a pas abouti.\n"+t)}),O()}),$("#btn-cancel").on("click",function(e){e.preventDefault(),setTimeout(function(){u.css({padding:""}),t&&f.css("background-image",'url("'+p+'")'),$("#replacement").remove(),$(".cols-button, .bloc-button").css("display","block")},100)})})}function x(e){e.on("focus",function(e){var t=$(e.target.bodyElement);t.parent().append('<div id="bloc-buttons" class="d-flex justify-content-end"><button class="btn btn-primary btn-save">Enregistrer</button></div>'),$(".btn-save").on("mousedown",function(){var e=t.html(),a=t.attr("data-bloc_id"),n=0==a;if(type="",void 0!==e){n&&(type="col-12"==t.parent()[0].className?"large":"normal",a="rubrique-"+t.parents(".after-rubrique").first().attr("data-rubrique_id"));var o="/coulisses/bloc/"+a;$.ajax({url:o,method:"post",data:{_token:i,texte:e,format:type},dataType:"json"}).done(function(e){console.log(e.response),t.css("border","none"),n&&t.attr("data-bloc_id",e.newId)}).fail(function(){alert("La requête n'a pas abouti. Êtes-vous bien connecté comme admin?")}),O()}})}),e.on("blur",function(e){setTimeout(function(){$("#bloc-buttons").remove()},100)}),e.on("Change",function(e){$(e.target.bodyElement).css("border","1px red solid")})}function k(){$(".editrubrique").off(),tinymce.init({selector:".editrubrique",inline:!0,language:s,branding:!1,plugins:l,toolbar:c,block_formats:d,fontsize_formats:u,paste_as_text:!0,image_advtab:!0,valid_elements:f,external_filemanager_path:p,filemanager_title:m,filemanager_sort_by:b,filemanager_descending:g,filemanager_access_key:v,relative_urls:!1,media_live_embeds:!0,external_plugins:h,extended_valid_elements:_,init_instance_callback:function(e){y(e)}})}function q(){$(".editable").off(),$(".edititre").off(),tinymce.init({selector:".editable",inline:!0,language:s,branding:!1,plugins:l,toolbar:c,block_formats:d,fontsize_formats:u,paste_as_text:!0,image_advtab:!0,valid_elements:f,external_filemanager_path:p,filemanager_title:m,filemanager_sort_by:b,filemanager_descending:g,filemanager_access_key:v,relative_urls:!1,media_live_embeds:!0,external_plugins:h,extended_valid_elements:_,init_instance_callback:function(e){x(e)}}),tinymce.init({selector:".edititre",inline:!0,language:s,menubar:!1,branding:!1,plugins:l,toolbar:c,block_formats:d,fontsize_formats:u,paste_as_text:!0,image_advtab:!0,valid_elements:f,external_filemanager_path:p,filemanager_title:m,filemanager_sort_by:b,filemanager_descending:g,filemanager_access_key:v,relative_urls:!1,media_live_embeds:!0,external_plugins:h,extended_valid_elements:_,init_instance_callback:function(e){x(e)}})}function j(){var e=$(".editdate"),t=$(".editheure");e.length>0&&(e.datetimepicker({locale:"fr",format:"L"}),e.on("change.datetimepicker",function(e){w(moment(e.date).format("YYYYMMDD"),$(this).attr("data-bloc_id"))})),t.length>0&&(t.datetimepicker({locale:"fr",format:"LT"}),t.on("change.datetimepicker",function(e){w(moment(e.date).format("HHmm"),$(this).attr("data-bloc_id"))})),$(".editnumber").click(function(){var e=$(this),t=e.attr("data-bloc_id"),a=e.html();e.addClass("d-none"),e.parent().prepend('<input id="nmber" type="text" value="'+a+'"/><div id="bloc-buttons"><button class="btn btn-primary btn-save pull-right" >Enregistrer</button></div>');var n=$("#nmber");n.focus(),n.blur(function(){e.html($(this).val()),setTimeout(function(){n.remove(),$("#bloc-buttons").remove(),e.removeClass("d-none")},100)}),$(".btn-save").click(function(){w(n.val(),t)})})}function w(e,t){var a="/coulisses/bloc/"+t;$.ajax({url:a,method:"post",data:{_token:i,texte:e,format:"date"},dataType:"json"}).done(function(e){console.log(e.response)}).fail(function(){alert("La requête n'a pas abouti. Êtes-vous bien connecté comme admin?")})}function T(){$(".add-bloc").off(),$(".change-type").off(),$(".add-bloc").click(function(){var e=$(this).parents(".markerRow").first(),t=(e.children('[class*="col-md"]').first().attr("class"),e.parent().attr("data-rubrique_cols")),a=this.getAttribute("data-format"),n=$(this).attr("data-order"),o='<div class="col-12"><button class="btn btn-sm btn-outline-danger btn-destroy" ><i class="fas fa-trash-alt"></i></button><div class="editable" data-bloc_id="0"><h2>Nouveau bloc large</h2></div></div>',r='<div class="col-12 col-md-'+12/t+'"><button class="btn btn-sm btn-outline-danger btn-destroy" ><i class="fas fa-trash-alt"></i></button><div class="editable" data-bloc_id="0"><p>Nouveau paragraphe</p></div></div>';"asc"==n?"large"==a?e.append(o):"normal"==a&&e.append(r):"desc"==n&&("large"==a?e.prepend(o):"normal"==a&&e.prepend(r)),$(".after-rubrique").addClass("not-empty"),q(),C()}),$(".change-type").click(function(){var e=$(this).parents(".after-rubrique").first().attr("data-rubrique_id");e=parseInt(e),$.ajax({method:"post",url:"/coulisses/change-type-content/"+e,data:{dbAction:$(this).attr("data-dbAction"),contentType:$(this).attr("data-contentType"),_token:i},dataType:"json"}).done(function(e){console.log(e.response),document.location.reload(!0)}).fail(function(e){console.log(e),alert("Oups! une erreur a empêché la modification")})})}function C(){$(".btn-destroy").off(),$(".btn-destroy").click(function(){if(confirm("Êtes vous sûr?")){var e=$(this).parent();if($(this).next().hasClass("editrubrique")){if(confirm("Tous les blocs associés à cette rubrique seront effacés. Êtes vous vraiment sûr?")){var t=$(this).next().attr("data-rubrique_id");$.ajax({method:"post",url:"/coulisses/destroyrubrique/"+t,data:{_token:i}}).done(function(t){e.next().remove(),e.remove(),console.log(t)}).fail(function(){alert("Oups! une erreur a empêché la suppression.")})}}else if(e.hasClass("type-content")){t=$(this).attr("data-rubrique_id");$.ajax({method:"post",url:"/coulisses/destroyrubrique/"+t,data:{_token:i}}).done(function(t){e.remove(),console.log(t)}).fail(function(){alert("Oups! une erreur a empêché la suppression.")})}else if(e.hasClass("type-index")){t=$(this).attr("data-rubrique_id");$.ajax({method:"post",url:"/coulisses/destroyrubrique/"+t,data:{_token:i}}).done(function(t){e.parents("tr").remove(),console.log(t)}).fail(function(){alert("Oups! une erreur a empêché la suppression.")})}else{var a=$(this).next().attr("data-bloc_id");0!=a?$.ajax({method:"post",url:"/coulisses/destroybloc/"+a,data:{_token:i}}).done(function(t){e.remove(),console.log(t)}).fail(function(){alert("Oups! une erreur a empêché la suppression.")}):e.remove()}$(".add-bloc").off(),T()}})}function E(){$(".change-col").off(),$(".ranger").off(),$(".inverser").off(),$(".change-col").click(function(){var e=$(this).parents(".markerRow").first(),t=parseInt(this.getAttribute("data-colonnes")),a="",n=e.find(".col-12").not(".large-bloc"),o=e.parent().attr("data-rubrique_id");switch(o=parseInt(o),e.children(".clearfix").remove(),n.attr("class","col-12"),t){case 1:a="";break;case 2:a="col-md-6",n.addClass(a);break;case 3:a="col-md-6 col-lg-4",n.addClass(a)}$.ajax({method:"post",url:"/coulisses/cols/"+o,data:{cols:t,_token:i},dataType:"json"}).done(function(e){console.log(e.response),E(),setTimeout(function(){O()},900)}).fail(function(e){alert("Oups! une erreur a empêché la modification")})}),$(".ranger").click(function(){var e=$(this).parents(".after-rubrique").first(),t=e.attr("data-rubrique_id");I(e,t=parseInt(t))}),$(".inverser").click(function(){var e=$(this).parents(".after-rubrique").first(),t=e.attr("data-rubrique_id");$.ajax({method:"post",url:"/coulisses/ascdesc/"+t,data:{_token:i}}).done(function(a){console.log(a),parseInt(t),I(e,t)}).fail(function(){alert("Oups! une erreur a empêché l'inversion.")})}),$(".deplacer").click(function(){$(".editable").off(),$(".editrubrique").off(),$(".btn-destroy").off(),$(".add-bloc").off();var e=$(this).parents(".after-rubrique").first(),t=e.attr("data-rubrique_id");e.load("/coulisses/partial_drag/"+t,function(e,t,a){"error"==t?console.log(a.statusText):(E(),function(){function e(){var e=$(".dropzone"),t=e.length;t>0&&(e.css("width","2px"),setTimeout(function(){e.remove()},700))}for(var t,a,n,o,r=document.getElementById("drag-mode"),i=r.dataset.id,s=$(".dropy"),l=document.getElementsByClassName("dropy"),c=l.length,d=0;d<c;d++)l[d].addEventListener("dragstart",function(e){a=parseInt(this.dataset.position),e.dataTransfer.setData("text/plain","4Rt89dhMx"),t=e.target,e.target.style.opacity="0.5"},!1);function u(){s.off(),s.on("dragenter",function(s){var l,c,d;e(),s.stopPropagation(),o=parseInt(this.dataset.place),n=parseInt(this.dataset.position),dropzone=document.createElement("div"),dropzone.className=t.parentNode.className+" dropzone",dropzone.innerHTML='<div class="indropzone" style = "height: '+t.clientHeight+'px" ></div>',dropzone.style.width="2px",a>n?r.insertBefore(dropzone,this.parentElement):a<n&&(l=dropzone,c=this.parentElement,(d=c.parentNode).lastChild===c?d.appendChild(l):d.insertBefore(l,c.nextSibling)),$(this).off(),dropzone.addEventListener("transitionend",function(a){!function(a){a.addEventListener("dragover",function(e){e.preventDefault()},!1),a.addEventListener("drop",function(a){if(a.preventDefault(),"4Rt89dhMx"==a.dataTransfer.getData("text/plain")){var n=t.parentNode.cloneNode(!0),s=parseInt(t.dataset.place),l=$(this).parents(".after-rubrique").first();r.replaceChild(n,t.parentNode),setTimeout(function(){r.replaceChild(t.parentNode,a.target.parentNode),n.style.width="2px"},5),setTimeout(function(){r.removeChild(n),e(),t.style.opacity="1",u(),$.ajax({method:"post",url:"/coulisses/moveblock/"+i,data:{init_place:s,final_place:o,_token:$('[name="csrf-token"]').attr("content")},dataType:"json"}).done(function(e){console.log(e.response),I(l,i)}).fail(function(e){console.log(e),alert("Oups! une erreur a empêché la modification")})},705)}},!1)}(dropzone)},!1),setTimeout(function(){dropzone.style=null},5)})}u(),document.addEventListener("dragend",function(){e(),t.style.opacity="1",u()},!1),document.addEventListener("dragover",function(e){e.clientY<100?window.scrollBy(0,-10):e.clientY>window.innerHeight-100&&window.scrollBy(0,10)},!1)}())})})}function O(){var e=$(".editable iframe");0!=e.length&&(e.first().parent().css("width","100%"),e.each(function(){$(this).removeAttr("style");var e=$(this).width();$(this).width(Math.round(e)),$(this).height(Math.round(9*e/16))}))}function I(e,t){e.load("/coulisses/partial_bloc/"+t,function(e,a,n){"error"==a?console.log(n.statusText):(console.log("Blocs de la rubrique "+t+" actualisés."),q(),j(),E(),C(),T(),O())})}q(),k(),T(),C(),E(),O()})}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/assets/js/admin.js":
+/*!**************************************!*\
+  !*** ./resources/assets/js/admin.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $('.sidebarCollapse').on('click', function () {
+    $('#sidebar').toggleClass('active');
+  }); //insertion des listes par type
+
+  function getTypeContents() {
+    var typeContents = $('.type-contents');
+
+    if (typeContents.length > 0) {
+      typeContents.each(function () {
+        var type = $(this).attr('data-content_type'),
+            filtre = $(this).attr('data-filtre'),
+            desc = $(this).attr('data-desc');
+        $(this).load('/get-type-contents/' + type + '?orderby=' + filtre + '&desc=' + desc, function (response, status, xhr) {
+          if (status == "error") {
+            console.log(xhr.statusText);
+          } else {
+            console.log(type + ' est rechargé.');
+            initMceBlocs();
+            listenToNumBlocs();
+            listenToDestroy();
+          }
+        });
+      });
+    } else if ($('.type-content').length > 0) {
+      initMceBlocs();
+      listenToNumBlocs();
+      listenToDestroy();
+    } else {
+      initMceBlocs();
+      listenToDestroy();
+    }
+  } //global vars
+
+
+  var idPage = $('#id_page').html(),
+      imageChange = false,
+      defaultBackgroundImage = '/storage/' + current_theme + '/files/images/default_background.jpg',
+      //current_theme is defined with php in back.page view file
+  wasEdited = false,
+      imgWidth = 0,
+      maxFileSize = 4096000,
+      minImgWidth = 1200,
+      idCreatedBloc = 0,
+      //duration of the top scrolling animation (in ms)
+  scroll_top_duration = 1000,
+      csrfToken = $('meta[name="csrf-token"]').attr('content'); //get csrf-field in head
+
+  $('#add-rubrique').click(function () {
+    var globalContainer = document.getElementById('global-wrapper');
+    $.ajax({
+      method: 'post',
+      url: '/coulisses/newrubrique/' + idPage,
+      data: {
+        _token: csrfToken
+      } //token!!!
+
+    }).done(function (data) {
+      console.log(data['response']); //location.assign($('#current_page').attr('href'));
+
+      var newRubrique = document.createElement('div'),
+          newAfter = document.createElement('div');
+      newRubrique.className = 'rubrique-container';
+      newAfter.className = 'container after-rubrique';
+      globalContainer.appendChild(newRubrique);
+      globalContainer.appendChild(newAfter);
+      $(newRubrique).load('/coulisses/partial/coulisses/rubrique/' + data['newId'], function () {
+        console.log(data['newId'] + ' rubrique actualisée.');
+        initMceRubriques();
+      });
+      reloadBlocs($(newAfter), data['newId']); //window.scrollBy(0, window.innerHeight);
+
+      $('body,html').animate({
+        scrollTop: window.innerHeight
+      }, scroll_top_duration);
+    }).fail(function () {
+      alert('Oups! une erreur a empêché l\'ajout de rubrique.');
+    });
+  });
+  $('#destroy-page').click(function () {
+    if (confirm('Tous les contenus de cette page seront supprimés. Êtes vous vraiment sûr?')) {
+      $.ajax({
+        method: 'delete',
+        url: '/coulisses/destroypage/' + idPage,
+        data: {
+          _token: csrfToken
+        } //token!!!
+
+      }).done(function (data) {
+        alert(data);
+        location.assign('/coulisses/accueil');
+      }).fail(function () {
+        alert('Oups! une erreur a empêché la suppression.');
+      });
+    }
+  });
+  $('#publication').click(function () {
+    var elem = this;
+    $.ajax({
+      method: 'post',
+      url: '/coulisses/publicationpage/' + idPage,
+      data: {
+        _token: csrfToken
+      } //token!!!
+
+    }).done(function (data) {
+      console.log(data);
+      var current = elem.innerText == 'Masquer' ? 'Publier' : 'Masquer';
+      elem.innerText = current;
+    }).fail(function () {
+      alert('Oups! une erreur a empêché la publication.');
+    });
+  }); /// ---------- TYNIMCE ------
+  //tinyMCE vars
+
+  var lang = 'fr_FR',
+      myPlugins = ['advlist autolink lists link image charmap print preview anchor textcolor', 'searchreplace visualblocks code fullscreen', 'insertdatetime media table contextmenu paste code help wordcount responsivefilemanager'],
+      fullToolbar = 'pictos insertfile undo redo | fontsizeselect | styleselect | bold italic subscript superscript exposant removeformat | alignleft aligncenter alignright alignjustify | bullist numlist nonbreaking | link unlink media responsivefilemanager insertimage insertfile | table hr | forecolor backcolor emoticons | paste code | iconesliens | fontawesome',
+      mediumToolbar = 'bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify  | bullist numlist | link unlink | media responsivefilemanager',
+      smallToolbar = 'code | bold italic underline | bullist numlist | forecolor backcolor | link unlink | media responsivefilemanager',
+      myFormats = 'Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5;Paragraph=p',
+      fontSizes = '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+      myValidElements = '+*[*]',
+      fmPath = "/tools/rfm/filemanager/",
+      fmTitle = "Gestionnaire de fichiers",
+      fmSortBy = "date",
+      fmDesc = true,
+      fmKey = "fsUn8A5u9e6UypkZ",
+      myExternalPlugins = {
+    "filemanager": "/tools/rfm/filemanager/plugin.min.js"
+  },
+      myExtendedValidElements = "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|style|onmouseover|onmouseout|name],$elements"; //getTypeContents();
+
+  initMceBlocs();
+  initMceRubriques();
+  listenToAddBloc();
+  listenToDestroy();
+  colsManager();
+  resizeVideos();
+
+  function rubriqueCallback(editor) {
+    editor.on('focus', function (e) {
+      //console.log(e);
+      var tar = $(e.target.bodyElement),
+          imageNode = tar.hasClass('imagenode') ? tar : tar.parents('.imagenode').first(),
+          initBackgroundImage = imageNode.attr('data-image-src'),
+          replacement = '<section id="replacement" class="row justify-content-end mb-4"><div class="col-12 col-md-8 col-lg-6 col-xl-5"><div class="card"><div class="card-body">' + '<form method="post" enctype="multipart/form-data" class="" id="replacement-form"><div class="form-group">' + '<label for="image" class="col-form-label">Changer l\'image de fond</label>' + '<div class="input-group mb-2">' + '<div class="input-group-prepend">' + '<div class="input-group-text"><i class="far fa-file-image"></i></div>' + '</div>' + '<input id="image" class="form-control" type="file" name="image" />' + '</div>' + '<div class="form-check mb-2">' + '<input class="form-check-input" type="checkbox" value="1" name="delete_image">' + '<label class="form-check-label" for="delete_image">' + ' Image par défaut' + '</label>' + '</div>' + '<input id="texte" type="hidden" name="texte" />' + '<input type="hidden" name="_token" value="' + csrfToken + '" />' + '<div class="row justify-content-between px-3">' + '<button class="btn btn-primary btn-save" ><i class="fas fa-cog fa-spin fa-lg"></i> Enregistrer</button><button id="btn-cancel" class="btn btn-secondary" >Annuler</button>' + '</div>' + '</form></div></div></div></section>';
+      $('.cols-button, .bloc-button').css('display', 'none');
+
+      if ($('#replacement')[0] === undefined) {
+        tar.parent().append(replacement);
+      }
+
+      imageManage(imageNode, initBackgroundImage);
+      $('.btn-save').on('click', function (e) {
+        $('.fa-cog').css('display', 'inline-block');
+        e.preventDefault();
+        $('#texte').val(tar.html());
+        var action = "/coulisses/rubrique/" + tar.attr('data-rubrique_id'),
+            formData = new FormData($('#replacement-form')[0]);
+        $.ajax({
+          url: action,
+          method: 'post',
+          data: formData,
+          dataType: 'json',
+          //async: false,
+          processData: false,
+          contentType: false
+        }).done(function (data) {
+          $('.fa-cog').css('display', 'none');
+          console.log(data['response']);
+          setTimeout(function () {
+            tar.css({
+              padding: ''
+            });
+            $('#replacement').remove();
+            $('.cols-button, .bloc-button').css('display', 'block');
+
+            if (parseInt(data['img_deleted'])) {
+              imageNode.css({
+                backgroundImage: 'url("' + defaultBackgroundImage + '")'
+              });
+            }
+          }, 100);
+        }).fail(function (data) {
+          $('.fa-cog').css('display', 'none');
+          var errors = data.responseJSON.message + '\n';
+          $.each(data.responseJSON.errors, function (key, value) {
+            errors += value + '\n';
+          });
+          alert('La requête n\'a pas abouti.\n' + errors);
+        });
+        resizeVideos();
+      });
+      $('#btn-cancel').on('click', function (e) {
+        e.preventDefault();
+        setTimeout(function () {
+          tar.css({
+            padding: ''
+          });
+          if (imageChange) imageNode.css('background-image', 'url("' + initBackgroundImage + '")');
+          $('#replacement').remove();
+          $('.cols-button, .bloc-button').css('display', 'block');
+        }, 100);
+      });
+    }); //close focus event
+  }
+
+  function blocCallback(editor) {
+    editor.on('focus', function (e) {
+      //console.log(e);
+      var tar = $(e.target.bodyElement);
+      tar.parent().append('<div id="bloc-buttons" class="d-flex justify-content-end"><button class="btn btn-primary btn-save">Enregistrer</button></div>');
+      $('.btn-save').on('mousedown', function () {
+        var newBloc = tar.html(),
+            bloc_id = tar.attr('data-bloc_id'),
+            isNewBloc = bloc_id == 0 ? true : false;
+        type = '';
+        if (newBloc === undefined) return; //exit to avoid TypeError
+
+        if (isNewBloc) {
+          type = tar.parent()[0].className == 'col-12' ? 'large' : 'normal';
+          bloc_id = 'rubrique-' + tar.parents('.after-rubrique').first().attr('data-rubrique_id');
+        }
+
+        var action = '/coulisses/bloc/' + bloc_id;
+        $.ajax({
+          url: action,
+          method: 'post',
+          data: {
+            _token: csrfToken,
+            texte: newBloc,
+            format: type
+          },
+          dataType: 'json' //async: false,
+          //processData: false,
+          //contentType: false,
+
+        }).done(function (data) {
+          console.log(data['response']);
+          tar.css('border', 'none');
+
+          if (isNewBloc) {
+            tar.attr('data-bloc_id', data['newId']);
+          }
+        }).fail(function () {
+          alert('La requête n\'a pas abouti. Êtes-vous bien connecté comme admin?');
+        });
+        resizeVideos();
+      });
+    }); //close focus event
+
+    editor.on('blur', function (e) {
+      setTimeout(function () {
+        $('#bloc-buttons').remove();
+      }, 100);
+    });
+    editor.on('Change', function (e) {
+      var tar = $(e.target.bodyElement);
+      tar.css('border', '1px red solid');
+    });
+  }
+
+  function initMceRubriques() {
+    $('.editrubrique').off();
+    tinymce.init({
+      selector: '.editrubrique',
+      inline: true,
+      language: lang,
+      //menubar: false,
+      branding: false,
+      plugins: myPlugins,
+      toolbar: smallToolbar,
+      block_formats: myFormats,
+      fontsize_formats: fontSizes,
+      paste_as_text: true,
+      image_advtab: true,
+      valid_elements: myValidElements,
+      external_filemanager_path: fmPath,
+      filemanager_title: fmTitle,
+      filemanager_sort_by: fmSortBy,
+      filemanager_descending: fmDesc,
+      filemanager_access_key: fmKey,
+      relative_urls: false,
+      media_live_embeds: true,
+      external_plugins: myExternalPlugins,
+      extended_valid_elements: myExtendedValidElements,
+      init_instance_callback: function init_instance_callback(editor) {
+        rubriqueCallback(editor);
+      }
+    });
+  }
+
+  function initMceBlocs() {
+    $('.editable').off();
+    $('.edititre').off();
+    tinymce.init({
+      selector: '.editable',
+      inline: true,
+      language: lang,
+      //menubar: false,
+      branding: false,
+      plugins: myPlugins,
+      toolbar: smallToolbar,
+      block_formats: myFormats,
+      fontsize_formats: fontSizes,
+      paste_as_text: true,
+      image_advtab: true,
+      //force_br_newlines : true,
+      //force_p_newlines : false,
+      //forced_root_block : '', // Needed for 3.x
+      valid_elements: myValidElements,
+      external_filemanager_path: fmPath,
+      filemanager_title: fmTitle,
+      filemanager_sort_by: fmSortBy,
+      filemanager_descending: fmDesc,
+      filemanager_access_key: fmKey,
+      relative_urls: false,
+      media_live_embeds: true,
+      external_plugins: myExternalPlugins,
+      extended_valid_elements: myExtendedValidElements,
+      init_instance_callback: function init_instance_callback(editor) {
+        blocCallback(editor);
+      }
+    });
+    tinymce.init({
+      selector: '.edititre',
+      inline: true,
+      language: lang,
+      menubar: false,
+      branding: false,
+      plugins: myPlugins,
+      toolbar: smallToolbar,
+      block_formats: myFormats,
+      fontsize_formats: fontSizes,
+      paste_as_text: true,
+      image_advtab: true,
+      valid_elements: myValidElements,
+      external_filemanager_path: fmPath,
+      filemanager_title: fmTitle,
+      filemanager_sort_by: fmSortBy,
+      filemanager_descending: fmDesc,
+      filemanager_access_key: fmKey,
+      relative_urls: false,
+      media_live_embeds: true,
+      external_plugins: myExternalPlugins,
+      extended_valid_elements: myExtendedValidElements,
+      init_instance_callback: function init_instance_callback(editor) {
+        blocCallback(editor);
+      }
+    });
+  }
+
+  function listenToNumBlocs() {
+    /* ------- Tempus dominus --------- */
+    var dateInputs = $('.editdate');
+    var heureInputs = $('.editheure');
+
+    if (dateInputs.length > 0) {
+      dateInputs.datetimepicker({
+        locale: 'fr',
+        format: 'L' //debug: true
+
+      });
+      dateInputs.on('change.datetimepicker', function (event) {
+        //format moment.js object to string date
+        //alert(event.date);
+        numberSender(moment(event.date).format("YYYYMMDD"), $(this).attr('data-bloc_id'));
+      });
+    }
+
+    if (heureInputs.length > 0) {
+      heureInputs.datetimepicker({
+        locale: 'fr',
+        format: 'LT' //debug: true
+
+      });
+      heureInputs.on('change.datetimepicker', function (event) {
+        //format moment.js object to string date
+        //alert(moment(event.date).format("HHmm"));
+        numberSender(moment(event.date).format("HHmm"), $(this).attr('data-bloc_id'));
+      });
+    }
+
+    $('.editnumber').click(function () {
+      var tar = $(this),
+          bloc_id = tar.attr('data-bloc_id'),
+          $number = tar.html();
+      tar.addClass('d-none');
+      tar.parent().prepend('<input id="nmber" type="text" value="' + $number + '"/><div id="bloc-buttons"><button class="btn btn-primary btn-save pull-right" >Enregistrer</button></div>');
+      var inputNumber = $('#nmber');
+      inputNumber.focus();
+      inputNumber.blur(function () {
+        tar.html($(this).val());
+        setTimeout(function () {
+          inputNumber.remove();
+          $('#bloc-buttons').remove();
+          tar.removeClass('d-none');
+        }, 100);
+      });
+      $('.btn-save').click(function () {
+        numberSender(inputNumber.val(), bloc_id);
+      });
+    });
+  }
+
+  function numberSender($num, bloc_id) {
+    var action = '/coulisses/bloc/' + bloc_id;
+    $.ajax({
+      url: action,
+      method: 'post',
+      data: {
+        _token: csrfToken,
+        texte: $num,
+        format: 'date'
+      },
+      dataType: 'json'
+    }).done(function (data) {
+      console.log(data['response']);
+    }).fail(function () {
+      alert('La requête n\'a pas abouti. Êtes-vous bien connecté comme admin?');
+    });
+  }
+
+  function imageManage(rubriqueNode, initBackgroundImage) {
+    var allowedTypes = ['jpg', 'jpeg', 'png'],
+        fileInput = document.querySelector('#image'),
+        form = document.querySelector('#replacement-form');
+    fileInput.addEventListener('change', function () {
+      //gestion de l'image miniature
+      var imgType,
+          files = this.files;
+      imgType = files[0].name.split('.');
+      imgType = imgType[imgType.length - 1].toLowerCase();
+
+      if (allowedTypes.indexOf(imgType) != -1 && files[0].size < maxFileSize) {
+        //createThumbnail(files[0], preview);
+        //change background image
+        var reader = new FileReader(),
+            imgElement;
+        reader.readAsDataURL(files[0]);
+        reader.addEventListener('load', function () {
+          imgElement = document.createElement('img');
+          imgElement.src = this.result;
+          setTimeout(function () {
+            imgWidth = imgElement.naturalWidth; //return 0 when no waiting
+
+            if (imgWidth >= minImgWidth) {
+              imageChange = true;
+              rubriqueNode.css('background-image', 'url("' + imgElement.src + '")'); //alert( rubriqueNode.css('background-image') );
+            } else {
+              alert('Pour avoir un bon rendu sur tout type d\'écran, la largeur de l\'image doit être supérieure à ' + minImgWidth + 'px. Cette image fait ' + imgWidth + 'px.');
+              files = [];
+              form.reset();
+            }
+          }, 300);
+        }, false);
+      } else {
+        if (allowedTypes.indexOf(imgType) == -1) {
+          alert("Image non valide, il faut un format jpg ou png.");
+        } else if (files[0].size >= maxFileSize) {
+          alert('Image de taille supérieure à ' + maxFileSize / 1000 + 'ko. Il faut la réduire avec un logiciel adapté.');
+        }
+
+        files = [];
+        form.reset();
+      }
+    }, false);
+    $('input[name=delete_image]').change(function () {
+      if ($(this).prop('checked')) {
+        imageChange = true;
+        rubriqueNode.css('background-image', 'url("' + defaultBackgroundImage + '")');
+      } else {
+        imageChange = false;
+        rubriqueNode.css('background-image', 'url("' + initBackgroundImage + '")');
+      }
+    });
+  }
+
+  function listenToAddBloc() {
+    $('.add-bloc').off();
+    $('.change-type').off();
+    $('.add-bloc').click(function () {
+      var previousRow = $(this).parents(".markerRow").first(),
+          classNames = previousRow.children('[class*="col-md"]').first().attr('class'),
+          cols = previousRow.parent().attr('data-rubrique_cols'),
+          type = this.getAttribute('data-format'),
+          order = $(this).attr('data-order'),
+          newBlocLarge = '<div class="col-12"><button class="btn btn-sm btn-outline-danger btn-destroy" ><i class="fas fa-trash-alt"></i></button><div class="editable" data-bloc_id="0"><h2>Nouveau bloc large</h2></div></div>',
+          newBlocNormal = '<div class="col-12 col-md-' + 12 / cols + '"><button class="btn btn-sm btn-outline-danger btn-destroy" ><i class="fas fa-trash-alt"></i></button><div class="editable" data-bloc_id="0"><p>Nouveau paragraphe</p></div></div>';
+
+      if (order == 'asc') {
+        if (type == 'large') {
+          previousRow.append(newBlocLarge);
+        } else if (type == 'normal') {
+          previousRow.append(newBlocNormal);
+        }
+      } else if (order == 'desc') {
+        if (type == 'large') {
+          previousRow.prepend(newBlocLarge);
+        } else if (type == 'normal') {
+          previousRow.prepend(newBlocNormal);
+        }
+      }
+
+      $('.after-rubrique').addClass('not-empty');
+      initMceBlocs();
+      listenToDestroy();
+    });
+    $('.change-type').click(function () {
+      var container = $(this).parents('.after-rubrique').first(),
+          idRubrique = container.attr('data-rubrique_id');
+      idRubrique = parseInt(idRubrique);
+      $.ajax({
+        method: 'post',
+        url: '/coulisses/change-type-content/' + idRubrique,
+        data: {
+          dbAction: $(this).attr('data-dbAction'),
+          contentType: $(this).attr('data-contentType'),
+          _token: csrfToken
+        },
+        dataType: 'json'
+      }).done(function (data) {
+        console.log(data['response']); //reloadBlocs(container, idRubrique);
+
+        document.location.reload(true);
+      }).fail(function (data) {
+        console.log(data);
+        alert('Oups! une erreur a empêché la modification');
+      });
+    });
+  }
+
+  function listenToDestroy() {
+    $('.btn-destroy').off(); //remove listeners before putting back it
+
+    $('.btn-destroy').click(function () {
+      if (confirm('Êtes vous sûr?')) {
+        var elem = $(this).parent();
+
+        if ($(this).next().hasClass('editrubrique')) {
+          if (confirm('Tous les blocs associés à cette rubrique seront effacés. Êtes vous vraiment sûr?')) {
+            var idRubrique = $(this).next().attr('data-rubrique_id');
+            $.ajax({
+              method: 'post',
+              url: '/coulisses/destroyrubrique/' + idRubrique,
+              data: {
+                _token: csrfToken
+              } //token!!!
+
+            }).done(function (data) {
+              elem.next().remove();
+              elem.remove();
+              console.log(data);
+            }).fail(function () {
+              alert('Oups! une erreur a empêché la suppression.');
+            });
+          }
+        } else if (elem.hasClass('type-content')) {
+          var idRubrique = $(this).attr('data-rubrique_id');
+          $.ajax({
+            method: 'post',
+            url: '/coulisses/destroyrubrique/' + idRubrique,
+            data: {
+              _token: csrfToken
+            } //token!!!
+
+          }).done(function (data) {
+            elem.remove();
+            console.log(data);
+          }).fail(function () {
+            alert('Oups! une erreur a empêché la suppression.');
+          });
+        } else if (elem.hasClass('type-index')) {
+          var idRubrique = $(this).attr('data-rubrique_id');
+          $.ajax({
+            method: 'post',
+            url: '/coulisses/destroyrubrique/' + idRubrique,
+            data: {
+              _token: csrfToken
+            } //token!!!
+
+          }).done(function (data) {
+            elem.parents('tr').remove();
+            console.log(data);
+          }).fail(function () {
+            alert('Oups! une erreur a empêché la suppression.');
+          });
+        } else {
+          var idBloc = $(this).next().attr('data-bloc_id');
+
+          if (idBloc != 0) {
+            $.ajax({
+              method: 'post',
+              url: '/coulisses/destroybloc/' + idBloc,
+              data: {
+                _token: csrfToken
+              } //token!!!
+
+            }).done(function (data) {
+              elem.remove();
+              console.log(data);
+            }).fail(function () {
+              alert('Oups! une erreur a empêché la suppression.');
+            });
+          } else {
+            elem.remove();
+          }
+        }
+
+        $('.add-bloc').off();
+        listenToAddBloc();
+      }
+    });
+  }
+
+  function colsManager() {
+    $('.change-col').off();
+    $('.ranger').off();
+    $('.inverser').off();
+    $('.change-col').click(function () {
+      var previousRow = $(this).parents(".markerRow").first(),
+          //classNames = previousRow.children('[class*="col-"]').first().attr('class'),
+      //cols = classNames.substring(classNames.indexOf(' ')+1),
+      nbCols = parseInt(this.getAttribute('data-colonnes')),
+          newCols = "",
+          targetChildren = previousRow.find('.col-12').not('.large-bloc'),
+          rubrique_id = previousRow.parent().attr('data-rubrique_id');
+      rubrique_id = parseInt(rubrique_id);
+      previousRow.children('.clearfix').remove();
+      targetChildren.attr('class', 'col-12');
+
+      switch (nbCols) {
+        case 1:
+          newCols = '';
+          break;
+
+        case 2:
+          newCols = 'col-md-6';
+          targetChildren.addClass(newCols);
+          break;
+
+        case 3:
+          newCols = 'col-md-6 col-lg-4';
+          targetChildren.addClass(newCols);
+          break;
+      } //alert(newCols);
+
+
+      $.ajax({
+        method: 'post',
+        url: '/coulisses/cols/' + rubrique_id,
+        data: {
+          cols: nbCols,
+          _token: csrfToken
+        },
+        //token!!!
+        dataType: 'json'
+      }).done(function (data) {
+        console.log(data['response']);
+        colsManager();
+        setTimeout(function () {
+          resizeVideos();
+        }, 900);
+      }).fail(function (data) {
+        alert('Oups! une erreur a empêché la modification');
+      });
+    });
+    $('.ranger').click(function () {
+      var container = $(this).parents('.after-rubrique').first(),
+          idRubrique = container.attr('data-rubrique_id');
+      idRubrique = parseInt(idRubrique);
+      reloadBlocs(container, idRubrique);
+    });
+    $('.inverser').click(function () {
+      var container = $(this).parents('.after-rubrique').first(),
+          idRubrique = container.attr('data-rubrique_id');
+      $.ajax({
+        method: 'post',
+        url: '/coulisses/ascdesc/' + idRubrique,
+        data: {
+          _token: csrfToken
+        } //token!!!
+
+      }).done(function (data) {
+        console.log(data);
+        parseInt(idRubrique);
+        reloadBlocs(container, idRubrique);
+      }).fail(function () {
+        alert('Oups! une erreur a empêché l\'inversion.');
+      });
+    });
+    $('.deplacer').click(function () {
+      $('.editable').off(); //remove listeners on others blocs
+
+      $('.editrubrique').off();
+      $('.btn-destroy').off();
+      $('.add-bloc').off();
+      var container = $(this).parents('.after-rubrique').first(),
+          idRubrique = container.attr('data-rubrique_id');
+      container.load('/coulisses/partial_drag/' + idRubrique, function (response, status, xhr) {
+        if (status == "error") {
+          console.log(xhr.statusText);
+        } else {
+          colsManager();
+          dragdrop();
+        }
+      });
+    });
+  }
+
+  function resizeVideos() {
+    var videos = $('.editable iframe');
+
+    if (videos.length != 0) {
+      videos.first().parent().css('width', '100%');
+      videos.each(function () {
+        $(this).removeAttr('style');
+        var wid = $(this).width();
+        $(this).width(Math.round(wid));
+        $(this).height(Math.round(wid * 9 / 16));
+      });
+    }
+  }
+
+  function reloadBlocs(container, idRubrique) {
+    container.load('/coulisses/partial_bloc/' + idRubrique, function (response, status, xhr) {
+      if (status == "error") {
+        console.log(xhr.statusText);
+      } else {
+        console.log('Blocs de la rubrique ' + idRubrique + ' actualisés.'); //use that
+        //getTypeContents();
+        //or that
+
+        initMceBlocs();
+        listenToNumBlocs(); //not both
+
+        colsManager();
+        listenToDestroy();
+        listenToAddBloc();
+        resizeVideos();
+      }
+    });
+  }
+
+  function dragdrop() {
+    //partie 1- réorganisation, drag&drop.
+    function insertAfter(newElement, afterElement) {
+      var parent = afterElement.parentNode;
+
+      if (parent.lastChild === afterElement) {
+        parent.appendChild(newElement);
+      } else {
+        parent.insertBefore(newElement, afterElement.nextSibling);
+      }
+    }
+
+    function cleanDropZone() {
+      var dropzones = $('.dropzone'),
+          dropzonesLen = dropzones.length;
+
+      if (dropzonesLen > 0) {
+        dropzones.css('width', '2px');
+        setTimeout(function () {
+          dropzones.remove();
+        }, 700);
+      }
+    }
+
+    var dragged,
+        numdrag,
+        numover,
+        finalPlace,
+        rubrique = document.getElementById('drag-mode'),
+        rubrique_id = rubrique.dataset.id,
+        Jelements = $('.dropy'),
+        elements = document.getElementsByClassName('dropy'),
+        elemlen = elements.length;
+
+    for (var i = 0; i < elemlen; i++) {
+      elements[i].addEventListener('dragstart', function (event) {
+        numdrag = parseInt(this.dataset.position);
+        event.dataTransfer.setData('text/plain', '4Rt89dhMx'); //obligatoire pour firefox
+
+        dragged = event.target;
+        event.target.style.opacity = "0.5";
+      }, false);
+    }
+
+    function dragEnters() {
+      Jelements.off();
+      Jelements.on('dragenter', function (event) {
+        cleanDropZone();
+        event.stopPropagation();
+        finalPlace = parseInt(this.dataset.place);
+        numover = parseInt(this.dataset.position);
+        dropzone = document.createElement('div');
+        dropzone.className = dragged.parentNode.className + ' dropzone';
+        dropzone.innerHTML = '<div class="indropzone" style = "height: ' + dragged.clientHeight + 'px" ></div>';
+        dropzone.style.width = '2px';
+
+        if (numdrag > numover) {
+          //alert(numdrag+'=> cas 1 '+numover);
+          rubrique.insertBefore(dropzone, this.parentElement);
+        } else if (numdrag < numover) {
+          //alert(numdrag+'=> cas 2 '+numover);
+          insertAfter(dropzone, this.parentElement);
+        }
+
+        $(this).off();
+        dropzone.addEventListener("transitionend", function (event) {
+          dropZone(dropzone);
+        }, false);
+        setTimeout(function () {
+          dropzone.style = null;
+        }, 5);
+      });
+    }
+
+    dragEnters();
+
+    function dropZone(dropzone) {
+      dropzone.addEventListener("dragover", function (event) {
+        //alert('dragover');
+        // prevent default to allow drop
+        event.preventDefault();
+      }, false);
+      dropzone.addEventListener('drop', function (event) {
+        event.preventDefault();
+
+        if (event.dataTransfer.getData('text/plain') == '4Rt89dhMx') {
+          //alert(event.target.className);
+          var transitNode = dragged.parentNode.cloneNode(true),
+              initPlace = parseInt(dragged.dataset.place),
+              container = $(this).parents('.after-rubrique').first();
+          rubrique.replaceChild(transitNode, dragged.parentNode);
+          setTimeout(function () {
+            rubrique.replaceChild(dragged.parentNode, event.target.parentNode);
+            transitNode.style.width = '2px';
+          }, 5);
+          setTimeout(function () {
+            rubrique.removeChild(transitNode);
+            cleanDropZone();
+            dragged.style.opacity = "1";
+            dragEnters(); //alert(initPlace + ' -> ' + finalPlace + '  ' + rubrique_id);
+
+            $.ajax({
+              method: 'post',
+              url: '/coulisses/moveblock/' + rubrique_id,
+              data: {
+                init_place: initPlace,
+                final_place: finalPlace,
+                _token: $('[name="csrf-token"]').attr('content')
+              },
+              dataType: 'json'
+            }).done(function (data) {
+              console.log(data['response']); //location.reload();
+
+              reloadBlocs(container, rubrique_id);
+            }).fail(function (data) {
+              console.log(data);
+              alert('Oups! une erreur a empêché la modification');
+            });
+          }, 705);
+        }
+      }, false);
+    }
+
+    document.addEventListener('dragend', function () {
+      //if (dragged.className=='dropy'){
+      //alert('dragend');
+      //}
+      cleanDropZone();
+      dragged.style.opacity = "1";
+      dragEnters();
+    }, false);
+    document.addEventListener("dragover", function (event) {
+      if (event.clientY < 100) {
+        window.scrollBy(0, -10);
+      } else if (event.clientY > window.innerHeight - 100) {
+        window.scrollBy(0, 10);
+      }
+    }, false);
+  } //end drag&drop function
+
+});
+
+/***/ }),
+
+/***/ 1:
+/*!********************************************!*\
+  !*** multi ./resources/assets/js/admin.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /home/sylvestre/www/modules/modules-chemins/resources/assets/js/admin.js */"./resources/assets/js/admin.js");
+
+
+/***/ })
+
+/******/ });

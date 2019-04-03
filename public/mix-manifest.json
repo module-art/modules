@@ -1,6 +1,6 @@
 {
     "/js/admin.js": "/js/admin.js",
-    "/themes/baramots/js/scripts.js": "/themes/baramots/js/scripts.js",
-    "/themes/baramots/css/styles.css": "/themes/baramots/css/styles.css",
+    "/js/scripts.js": "/js/scripts.js",
+    "/css/styles.css": "/css/styles.css",
     "/css/admin.css": "/css/admin.css"
 }
