@@ -1,7 +1,7 @@
 @extends('themes.'.config('app.theme').'.template')
 
 @section('title')
-  <title>Connexion - Asso Les Grands Chemins</title>
+  <title>Connexion</title>
   <link href="/css/styles.css" rel="stylesheet">
 @endsection
 

@@ -28,7 +28,7 @@ class LoginController extends Controller
    *
    * @var string
    */
-  protected $redirectTo = '/coulisses/accueil/';
+  protected $redirectTo = '/coulisses';
   /*protected function redirectTo()
   {
     if(Auth::check()){
