@@ -39,6 +39,10 @@
   }
 }
 
+#replacement{
+  color: black;
+}
+
 #sidebar {
   font-family: $font-family-base;
   background-color: lighten($dark-gray, 5%);
