@@ -164,7 +164,8 @@ class ControlRepository
   static function getDiapoAccueil(){
 
     $images = array();
-    $diapos_path = config('images.diapos');
+    //$diapos_path = config('images.diapos');
+    $diapos_path = 'public/gitedhote46/files/diapo-accueil/';
     foreach(Storage::files($diapos_path) as $image){
       $images[] = preg_replace('/^public/', '/storage', $image);
     }
