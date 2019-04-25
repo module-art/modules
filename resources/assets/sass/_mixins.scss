@@ -115,6 +115,25 @@ $is-hidpi : "(-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio
   //}
 //}
 
+@mixin publish_button($right, $top){
+  position: relative;
+  .btn-publish{
+    z-index: 100;
+    position: absolute;
+    right: $right;
+    top: $top;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: none;
+  }
+  &:hover{
+    .btn-publish{
+      display: block;
+    }
+  }
+}
+
 @mixin destroy_button($right, $top){
   position: relative;
   .btn-destroy{

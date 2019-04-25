@@ -6,6 +6,7 @@
 
 .rubrique-container{
   @include destroy_button(95%, -5px);
+  @include publish_button(91%, -5px);
 }
 
 .after-rubrique{

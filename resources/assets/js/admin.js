@@ -122,6 +122,34 @@ $(document).ready(function()
     });
   });
 
+  //boutons de publication de rubriques normales
+
+  $('.btn-publish').click(function(){
+    var idRubrique = $(this).next('.editrubrique').attr('data-rubrique_id'),
+        nodeStatus = $(this).children().first();
+
+    togglePublished(nodeStatus, 'publicationcontent', idRubrique);
+  });
+
+  function togglePublished(nodeStatus, routeUrl, idContent){
+    $.ajax({
+        method: 'post',
+        url: '/coulisses/'+routeUrl+'/'+idContent,
+        data: { _token: csrfToken},//token!!!
+    })
+    .done(function(data) {
+      console.log(data);
+      if(nodeStatus.is('.published')){
+        nodeStatus.removeClass('published').addClass('unpublished').html('<i class="fas fa-eye"></i>');
+      }else{
+        nodeStatus.removeClass('unpublished').addClass('published').html('<i class="fas fa-eye-slash"></i>');
+      }
+    })
+    .fail(function() {
+      alert(failMessage);
+    });
+  }
+
   /// ---------- TYNIMCE ------
 
   //tinyMCE vars

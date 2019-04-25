@@ -84,6 +84,7 @@ class RubriqueController extends Controller
       $rubrique->contenu = 'Nouvelle rubrique';
       $rubrique->place = $place;
       $rubrique->cols = 2;
+      $rubrique->publie= 0;
       $rubrique->page_id = $id_page;
 
       $rubrique->save();
