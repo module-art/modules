@@ -6,21 +6,21 @@ $(document).ready(function()
   $('td[data-toggle="publication"]').click(function(){
     var idPage = $(this).attr('data-page_id'),
         nodeStatus = $(this).children().first();
-
+    document.body.style.cursor = 'wait';
     togglePublished(nodeStatus, 'publicationpage', idPage);
   });
 
   $('td[data-toggle="content-publication"]').click(function(){
     var idContent = $(this).attr('data-content_id'),
         nodeStatus = $(this).children().first();
-
+    document.body.style.cursor = 'wait';
     togglePublished(nodeStatus, 'publicationcontent', idContent);
   });
 
   $('td[data-toggle="content-archivage"]').click(function(){
     var idContent = $(this).attr('data-content_id'),
         nodeStatus = $(this).children().first();
-
+    document.body.style.cursor = 'wait';
     togglePublished(nodeStatus, 'archivecontent', idContent);
   });
 
@@ -31,6 +31,7 @@ $(document).ready(function()
         data: { _token: csrfToken},//token!!!
     })
     .done(function(data) {
+      document.body.style.cursor = 'default';
       console.log(data);
       if(nodeStatus.is('.published')){
         nodeStatus.removeClass('published').addClass('unpublished').html('<i class="far fa-times-circle"></i>');
@@ -39,6 +40,7 @@ $(document).ready(function()
       }
     })
     .fail(function() {
+      document.body.style.cursor = 'default';
       alert(failMessage);
     });
   }

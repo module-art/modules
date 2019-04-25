@@ -128,6 +128,8 @@ $(document).ready(function()
     var idRubrique = $(this).next('.editrubrique').attr('data-rubrique_id'),
         nodeStatus = $(this).children().first();
 
+    document.body.style.cursor = 'wait';
+
     togglePublished(nodeStatus, 'publicationcontent', idRubrique);
   });
 
@@ -138,6 +140,7 @@ $(document).ready(function()
         data: { _token: csrfToken},//token!!!
     })
     .done(function(data) {
+      document.body.style.cursor = 'default';
       console.log(data);
       if(nodeStatus.is('.published')){
         nodeStatus.removeClass('published').addClass('unpublished').html('<i class="fas fa-eye"></i>');
@@ -146,7 +149,8 @@ $(document).ready(function()
       }
     })
     .fail(function() {
-      alert(failMessage);
+      document.body.style.cursor = 'default';
+      alert('Oups! une erreur a empêché la modification.');
     });
   }
 
