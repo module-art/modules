@@ -125,15 +125,15 @@ $(document).ready(function()
   //boutons de publication de rubriques normales
 
   $('.btn-publish').click(function(){
-    var idRubrique = $(this).next('.editrubrique').attr('data-rubrique_id'),
-        nodeStatus = $(this).children().first();
+    var idRubrique = $(this).next('.editrubrique').attr('data-rubrique_id');
 
     document.body.style.cursor = 'wait';
 
-    togglePublished(nodeStatus, 'publicationcontent', idRubrique);
+    togglePublished($(this), 'publicationcontent', idRubrique);
   });
 
-  function togglePublished(nodeStatus, routeUrl, idContent){
+  function togglePublished(nodeBtn, routeUrl, idContent){
+    var nodeStatus = nodeBtn.children().first();
     $.ajax({
         method: 'post',
         url: '/coulisses/'+routeUrl+'/'+idContent,
@@ -144,8 +144,10 @@ $(document).ready(function()
       console.log(data);
       if(nodeStatus.is('.published')){
         nodeStatus.removeClass('published').addClass('unpublished').html('<i class="fas fa-eye"></i>');
+        nodeBtn.attr('title', 'Publier cette rubrique');
       }else{
         nodeStatus.removeClass('unpublished').addClass('published').html('<i class="fas fa-eye-slash"></i>');
+        nodeBtn.attr('title', 'Masquer cette rubrique');
       }
     })
     .fail(function() {
