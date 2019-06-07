@@ -40,7 +40,7 @@ $(document).ready(function()
   //global vars
   var idPage = $('#id_page').html(),
       imageChange = false,
-      defaultBackgroundImage = '/storage/'+current_theme+'/files/images/default_background.jpg',//current_theme is defined with php in back.page view file
+      defaultBackgroundImage = '/storage/'+current_theme+'/files/images/default_background.jpg',//current_theme is defined with php in template view file
       wasEdited = false,
       imgWidth = 0,
       maxFileSize = 4096000,
