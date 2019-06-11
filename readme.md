@@ -1,6 +1,5 @@
-<p>Modules, it's <a href="https://laravel.com/">Laravel</a> with a content manager layer on it...</p>
-<p>As there is not many CMS, I did one more ah ah ah...</p>
-<p>For now, there is no composer package, maybe later.</p>
+<p>Modules, it's <a href="https://laravel.com/">Laravel</a> with a content manager layer above...</p>
+<p>As there is not many CMS, I did one more...</p>
 
 ## License
 
