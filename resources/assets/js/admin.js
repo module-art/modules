@@ -60,8 +60,8 @@ $(document).ready(function()
     })
     .done(function(data) {
       console.log(data['response']);
-      //location.assign($('#current_page').attr('href'));
-      var newRubrique = document.createElement('div'),
+      document.location.reload(true);
+      /*var newRubrique = document.createElement('div'),
           newAfter = document.createElement('div');
 
       newRubrique.className = 'rubrique-container';
@@ -79,7 +79,7 @@ $(document).ready(function()
       $('body,html').animate({
         scrollTop: window.innerHeight,
         }, scroll_top_duration
-      );
+      );*/
     })
     .fail(function() {
       alert('Oups! une erreur a empêché l\'ajout de rubrique.');
@@ -96,7 +96,7 @@ $(document).ready(function()
       })
       .done(function(data) {
         alert(data);
-        location.assign('/coulisses/accueil');
+        location.assign('/coulisses');
       })
       .fail(function() {
         alert('Oups! une erreur a empêché la suppression.');
@@ -162,9 +162,9 @@ $(document).ready(function()
   
   var lang = 'fr_FR',
       myPlugins = [
-            'advlist autolink lists link image charmap print preview anchor textcolor',
+            'advlist autolink lists link image charmap print preview anchor',
             'searchreplace visualblocks code fullscreen',
-            'insertdatetime media table contextmenu paste code help wordcount responsivefilemanager'
+            'insertdatetime media table paste code help wordcount responsivefilemanager'
         ],
       fullToolbar = 'pictos insertfile undo redo | fontsizeselect | styleselect | bold italic subscript superscript exposant removeformat | alignleft aligncenter alignright alignjustify | bullist numlist nonbreaking | link unlink media responsivefilemanager insertimage insertfile | table hr | forecolor backcolor emoticons | paste code | iconesliens | fontawesome',
       mediumToolbar = 'bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify  | bullist numlist | link unlink | media responsivefilemanager',

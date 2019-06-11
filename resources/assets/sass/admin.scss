@@ -19,7 +19,7 @@
       font-size: initial;
       position: absolute;
       top: -3*$spacer;
-      z-index: 5000;
+      z-index: 1300;
       .dropdown-menu{
         right: 0;
         left: inherit;
@@ -182,7 +182,7 @@
 }
 
 .btn-save{
-  z-index: 2000;
+  z-index: 1300;
 }
 
 .table{
