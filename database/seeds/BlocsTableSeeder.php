@@ -27,5 +27,15 @@ class BlocsTableSeeder extends Seeder
         'rubrique_id' => 1,
       ]);
     }
+    for($i=0; $i<=3; $i++){
+      DB::table('blocs')->insert([
+        //'created_at' => $now,
+        //'updated_at' => $now,
+        'contenu' => '<p>bloc footer numéro : '.$i. '</p>',
+        'place' =>  $i+1,
+        'type' =>  'footer',
+        'rubrique_id' => 2,
+      ]);
+    }
   }
 }

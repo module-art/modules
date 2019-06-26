@@ -9,7 +9,14 @@ class FooterRepository
 
   static function makeFooter(){
 
-    return Rubrique::where('place', 0)->where('contenu', 'footer')->first();
+    $footer = Rubrique::where('place', 0)->where('contenu', 'footer')->get();
+    $is_footer = $footer->count() > 0 ? true : false;
+
+    if($is_footer){
+      return $footer->first();
+    }else{
+      return false;
+    }
 
   }
 

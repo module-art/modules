@@ -25,9 +25,10 @@ class ContactRequest extends FormRequest
     {
         return [
           'nom' => 'required|min:2|max:20',
+          'prenom' => 'max:20',
           'email' => 'required|email',
           'subject' => 'required|max:210',
-          'texte' => ['required','not_regex:/(bit.ly|drive.google)/']
+          'texte' => ['required','not_regex:/(bit.ly|drive.google|https?:)/']
         ];
     }
 

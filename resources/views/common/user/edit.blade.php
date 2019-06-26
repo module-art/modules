@@ -12,7 +12,7 @@
 @section('contenu')
 
   <section class='row center-card'>
-    <div class="col-12">
+    <div class="col-12 col-lg-8 col-xl-6">
       <div class="card"> 
         <div class="card-header">
           <h3 class="card-title">{!! $title_tag !!}</h3>
@@ -61,9 +61,13 @@
               </div>
             </div>
           </div>
-          <a class="pw-change" data-toggle="collapse" data-target="#passwords" aria-expanded="false" aria-controls="passwords">
-            Modifier le mot de passe <i class="fas fa-chevron-circle-down"></i>
-          </a>
+          <div class="form-row">
+            <div class="col-3 col-form-label text-md-right">
+              <a class="pw-change" data-toggle="collapse" data-target="#passwords" aria-expanded="false" aria-controls="passwords">
+                Modifier le mot de passe <i class="fas fa-chevron-circle-down"></i>
+              </a>
+            </div>
+          </div>
           <div class="collapse" id="passwords">
             <div class="form-row mt-2">
               <div class="col-3 col-form-label text-md-right">
@@ -83,9 +87,9 @@
               </div>
             </div>
           </div>
-          <div class="form-group last">
+          <div class="form-row justify-content-between last">
             {!! Form::submit('Envoyer', ['class' => 'btn btn-info']) !!}
-            <a href="javascript:history.back()" class="btn btn-primary pull-right">
+            <a href="javascript:history.back()" class="btn btn-primary">
               <i class="fas fa-redo"></i> Retour
             </a>
           </div>

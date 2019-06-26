@@ -22,6 +22,7 @@ class PagesTableSeeder extends Seeder
       'menu_title' => 'Accueil',
       'place' => 1,
       'slug' => str_slug('Accueil'),
+      'is_home' => 1,
       'publie' => 1,
     ]);
   }

@@ -125,7 +125,7 @@ $(document).ready(function()
   //boutons de publication de rubriques normales
 
   $('.btn-publish').click(function(){
-    var idRubrique = $(this).next('.editrubrique').attr('data-rubrique_id');
+    var idRubrique = $(this).nextAll('.editrubrique').first().attr('data-rubrique_id');
 
     document.body.style.cursor = 'wait';
 

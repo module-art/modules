@@ -24,13 +24,13 @@ $(function()
     .fail(function(data) {
       $('.fa-cog').css('display', 'none');
       //console.log(data);
-      var errors = data.responseJSON.message + '\n';
+      var errors = '';
       $.each(data.responseJSON.errors, function (key, value) {
         errors += value + '\n';
       });
+      errors += data.responseJSON.message;
       alert(errors);
       //history.back();
     });
-
   });
 });

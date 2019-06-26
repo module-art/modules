@@ -222,19 +222,24 @@ class PageController extends Controller
 
   public function mailFromContact(ContactRequest $request)
   {
+    if($request->prenom){
+      return response()->json(['response' => 'Votre message est bien envoyé.']);
+    }else{
+      //return response()->json(['response' => $request->nom]);
 
-    $frommail = $request->email;
-    $subject = $request->subject;
-    $to = config('mail.dest');
-    Mail::send('themes.'.config('app.theme').'.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail)
-    {
-      $message->from($frommail, 'module-art.fr');
-      $message->to($to)->subject('Message du site : '.$subject);
-    });
+      $frommail = $request->email;
+      $subject = $request->subject;
+      $to = config('mail.dest');
+      Mail::send('themes.'.config('app.theme').'.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail)
+      {
+        $message->from($frommail, 'module-art.fr');
+        $message->to($to)->subject('Message du site : '.$subject);
+      });
 
-    $back_message = count(Mail::failures()) == 0 ? 'Le message est bien envoyé.' : 'Echec de l\'envoi du message, merci de nous contacter autrement.';
- 
-    return response()->json(['response' => $back_message]);
+      $back_message = count(Mail::failures()) == 0 ? 'Le message est bien envoyé.' : 'Echec de l\'envoi du message, merci de nous contacter autrement.';
+   
+      return response()->json(['response' => $back_message]);
+    }
   }
 
   /**

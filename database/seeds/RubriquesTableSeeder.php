@@ -24,6 +24,15 @@ class RubriquesTableSeeder extends Seeder
       'background_img_url' => null,
       //'background_hd_url' => null,
       'page_id' => 1,
+    ]);DB::table('rubriques')->insert([
+      'created_at' => $date,
+      'updated_at' => $date,
+      'contenu' => 'footer',
+      'place' => 0,
+      'cols' => 0,
+      'background_img_url' => null,
+      //'background_hd_url' => null,
+      'page_id' => null,
     ]);
   }
 }

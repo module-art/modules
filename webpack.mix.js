@@ -12,6 +12,7 @@ let mix = require('laravel-mix');
  */
 
 var current_theme = process.env.APP_THEME;
+mix.config.fileLoaderDirs.fonts = 'storage/'+current_theme+'/fonts';
 
 mix
    .js('Themes/'+current_theme+'/assets/js/scripts.js', 'public/js')
