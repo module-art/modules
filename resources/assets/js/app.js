@@ -20,3 +20,27 @@ require('./bootstrap');
 const app = new Vue({
     el: '#app'
 });*/
+
+( function(){
+  //rgpd notice
+  $('#rgpd-notice-close').click(function(e){
+    $('#rgpd-notice').remove();
+    $.ajax({
+      url: '/rgpd-notice',
+      method: 'get',
+      data: {setting: 'closed'},
+      //dataType : 'json',
+    })
+    .done(function(data) {
+      console.log('Seuls les jetons de sécurité seront utilisée comme cookies, les statistiques de fréquentation du site se font à partir des journaux serveur.')
+    })
+    .fail(function(data) {
+      var errors = data.responseJSON.message + '\n';
+      //var errors = '';
+      $.each(data.responseJSON.errors, function (key, value) {
+        errors += value + '\n';
+      });
+      alert('La requête n\'a pas abouti.\n'+errors);
+    });
+  });
+} )();
