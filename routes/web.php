@@ -54,6 +54,8 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
   Route::post('ascdesc/{id}', 'RubriqueController@switchOrder');
   Route::post('moveblock/{id}', 'RubriqueController@moveBlock');
   Route::post('change-type-content/{id}', 'RubriqueController@changeTypeContents');
+  
+  Route::resource('mail', 'MailController', ['except' => ['show']]);
 
   //Route::post('redactorimgupload', 'RedactorController@uploadImage');
   //Route::get('imagemanager', 'RedactorController@imageManager');

@@ -52,6 +52,21 @@ return [
             'prefix' => '',
             'strict' => true,
             'engine' => null,
+         ],
+
+         'mysql_mails' => [
+            'driver'    => 'mysql',
+            'host'      => env('DB_EXT_HOST', 'localhost'),
+            'port'      => env('DB_EXT_PORT', '3306'),
+            'database'  => env('DB_EXT_DATABASE', 'forge'),
+            'username'  => env('DB_EXT_USERNAME', 'forge'),
+            'password'  => env('DB_EXT_PASSWORD', ''),
+            'unix_socket' => env('DB_EXT_SOCKET', ''),
+            'charset'   => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix'    => '',
+            'strict' => true,
+            'engine' => null,
         ],
 
         'pgsql' => [

@@ -74,7 +74,9 @@
         </li>
       @endif
       <li>
-        {{ link_to_route('user.index', 'Utilisateurs', null, ['class' => '']) }}
+        <a href='{{ route('user.index') }}'>
+          <i class="fas fa-user-friends"></i> Utilisateurs
+        </a>
       </li>
       <li>
         <a href='{{ route('user.edit', Auth::user()->id) }}'>
@@ -82,7 +84,12 @@
         </a>
       </li>
       <li>
-        <a href="/tools/rfm/filemanager/dialog.php?type=0&akey=fsUn8A5u9e6UypkZ" target="_blank">Gestionnaire de Fichiers</a>
+        <a href="/tools/rfm/filemanager/dialog.php?type=0&akey=fsUn8A5u9e6UypkZ" target="_blank"><i class="fas fa-folder-open"></i> Gestionnaire de Fichiers</a>
+      </li>
+      <li>
+        <a href='{{ route('mail.index') }}'>
+          <i class="fas fa-at"></i> Gestion des Emails
+        </a>
       </li>
       <li>
         <a href="{{ route('logout') }}"

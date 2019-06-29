@@ -27,6 +27,12 @@
           @include('common.back.inc.insert_type')
         @elseif($model == 'type')
           @include('common.back.inc.new_type')
+        @elseif($model == 'mail')
+          @if($operation == 'create')
+            @include('common.back.inc.new_mail')
+          @elseif($operation == 'edit')
+            @include('common.back.inc.edit_mail')
+          @endif
         @endif
         @if($model == 'page' || $operation == 'create')
           <div class="card-footer d-flex justify-content-end">
