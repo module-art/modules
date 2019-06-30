@@ -13,7 +13,7 @@ use App\Models\MailUser;
 class MailController extends Controller
 {
 
-  public function __construct(ControlRepository $controlRepository)
+  public function __construct(ControlRepository $controlRepository, Request $request)
   {
     $this->middleware('auth');
     $this->middleware('authAsAdmin');
@@ -27,10 +27,15 @@ class MailController extends Controller
     $operation = 'index';
     $menus = MenusRepository::makeAdminMenus();
     $domain = $this->domain;
-    $mails = $domain->mailUsers()->paginate($this->nbrPerPage);
+    $failed_connexion = is_null($domain) ? true : false;
+    if(!$failed_connexion){
+      $mails = $domain->mailUsers()->paginate($this->nbrPerPage);
+    }else{
+      $mails = false;
+    }
     //dd($this->nbrPerPage);
 
-    return view('common.back.mailIndex', compact('mails', 'menus', 'operation'));
+    return view('common.back.mailIndex', compact('mails', 'menus', 'operation', 'failed_connexion'));
   }
 
   /**

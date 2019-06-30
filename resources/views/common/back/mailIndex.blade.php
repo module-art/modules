@@ -33,23 +33,27 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($mails as $mail)
-                <tr>
-                  <td class="text-primary">{!! $mail->email !!}</td>
-                  <td>
-                    <a href="{{ route('mail.edit', $mail->id) }}" class="btn btn-sm btn-warning" title="Modifier" ><i class="far fa-edit"></i><span class="sr-only"> Modifier</span></a>
-                  </td>
-                  <td>
-                    {!! Form::open(['method' => 'DELETE', 'route' => ['mail.destroy', $mail->id]]) !!}
-                    {{-- Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return confirm(\'Vraiment supprimer cet utilisateur ?\')']) --}}
-                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Vraiment supprimer cet Email ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
-                    {!! Form::close() !!}
-                  </td>
-                </tr>
-              @endforeach
+              @if($failed_connexion)
+                <tr><td>Echec de la connexion.</td></tr>
+              @else
+                @foreach ($mails as $mail)
+                  <tr>
+                    <td class="text-primary">{!! $mail->email !!}</td>
+                    <td>
+                      <a href="{{ route('mail.edit', $mail->id) }}" class="btn btn-sm btn-warning" title="Modifier" ><i class="far fa-edit"></i><span class="sr-only"> Modifier</span></a>
+                    </td>
+                    <td>
+                      {!! Form::open(['method' => 'DELETE', 'route' => ['mail.destroy', $mail->id]]) !!}
+                      {{-- Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return confirm(\'Vraiment supprimer cet utilisateur ?\')']) --}}
+                      <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Vraiment supprimer cet Email ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
+                      {!! Form::close() !!}
+                    </td>
+                  </tr>
+                @endforeach
+              @endif
             </tbody>
           </table>
-          {!! $mails->links() !!}
+          {!! $failed_connexion ? '' : $mails->links() !!}
           <div class="row justify-content-between px-3">
             {!! link_to_route('mail.create', 'Ajouter un email', [], ['class' => 'btn btn-info']) !!}
             <a href="javascript:history.back()" class="btn btn-primary">
