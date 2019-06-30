@@ -27,9 +27,10 @@ class MailRequest extends FormRequest
       //dd($request->mail);
       $rules = array();
       if(!isset($request->mail)){//update case
-        $rules[] = [
+        $rules = [
           'username' => [ 'required', 'regex:/^[a-z0-9.-]+$/', 'between:2,36' ],
         ];
+        //dd($rules);
       }
       return array_merge($rules, [
           'password' => [ 'required','regex:/^.*(?=.*[a-z])(?=.*[A-Z])(?=.*[\d]).*$/','confirmed','min:8' ]
