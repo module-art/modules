@@ -40,7 +40,11 @@
                   <tr>
                     <td class="text-primary">{!! $mail->email !!}</td>
                     <td>
-                      <a href="{{ route('mail.edit', $mail->id) }}" class="btn btn-sm btn-warning" title="Modifier" ><i class="far fa-edit"></i><span class="sr-only"> Modifier</span></a>
+                      <a class="btn btn-sm btn-success" href="{{ route('mail.show', [$mail->id]) }}" title="Voir les paramètres de connexion"><i class="far fa-eye"></i><span class="sr-only">voir</span></a>
+
+                    </td>
+                    <td>
+                      <a href="{{ route('mail.edit', $mail->id) }}" class="btn btn-sm btn-warning" title="Modifier le mot de passe" ><i class="far fa-edit"></i><span class="sr-only"> Modifier</span></a>
                     </td>
                     <td>
                       {!! Form::open(['method' => 'DELETE', 'route' => ['mail.destroy', $mail->id]]) !!}

@@ -18,8 +18,8 @@ class MailController extends Controller
     $this->middleware('auth');
     $this->middleware('authAsAdmin');
     $this->nbrPerPage = $controlRepository->nbrPerPage;
-    $this->domain = MailDomain::where('name', $request->getHttpHost())->first();
-    //$this->domain = MailDomain::where('name', 'lebaramots.fr')->first();
+    //$this->domain = MailDomain::where('name', $request->getHttpHost())->first();
+    $this->domain = MailDomain::where('name', 'lebaramots.fr')->first();
   }
 
   public function index(Request $request)
@@ -38,6 +38,22 @@ class MailController extends Controller
     return view('common.back.mailIndex', compact('mails', 'menus', 'operation', 'failed_connexion'));
   }
 
+    /**
+     * Show the settings for mail client.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+  public function show($id, Request $request){
+
+    $menus = MenusRepository::makeAdminMenus();
+    $mail = MailUser::findOrFail($id);
+    $server_name = 'mail.'. $this->domain->name;
+    $username = $mail->email;
+    //dd($username);
+    return view('common.back.mailSettings', compact('menus', 'username', 'server_name'));
+  }
+
   /**
    * Show the form for creating a new resource.
    *
@@ -45,7 +61,8 @@ class MailController extends Controller
    */
   public function create(Request $request){
     $operation = 'create';
-    $domain_name = $request->getHttpHost();
+    //$domain_name = $request->getHttpHost();
+    $domain_name = $this->domain->name;
     $menus = MenusRepository::makeAdminMenus();
     $model = 'mail';
     return view('common.back.form', compact('menus', 'operation', 'model', 'domain_name'));
