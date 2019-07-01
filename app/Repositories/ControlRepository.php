@@ -62,7 +62,14 @@ class ControlRepository
 
     if($order_by == 'created_at' || $order_by == 'updated_at'){
 
-      if($auth){
+      if($nb_per_page == 0){ //pagination is disabled
+        $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->get();
+      }else{
+        $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
+      }
+
+      //si on veut que les contenus non publiés s'affichent quand loggé
+      /*if($auth){
         if($nb_per_page == 0){ //pagination is disabled
           $sorted_rubriques = Rubrique::where('type_id', $type->id)->orderBy($order_by, $order)->get();
         }else{
@@ -74,7 +81,8 @@ class ControlRepository
         }else{
           $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
         }
-      }
+      }*/
+
       return $sorted_rubriques;
 
     }else{
@@ -159,18 +167,6 @@ class ControlRepository
     return($datas[0]);
     return($modified_data);
 
-  }
-
-  static function getDiapoAccueil(){
-
-    $images = array();
-    //$diapos_path = config('images.diapos');
-    $diapos_path = 'public/gitedhote46/files/diapo-accueil/';
-    foreach(Storage::files($diapos_path) as $image){
-      $images[] = preg_replace('/^public/', '/storage', $image);
-    }
-
-    return $images;
   }
 
 }
