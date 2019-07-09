@@ -408,6 +408,9 @@ $(document).ready(function()
       media_live_embeds: true,
       external_plugins: myExternalPlugins,
       extended_valid_elements : myExtendedValidElements,
+      //audio_template_callback: function(data) {
+        //return '<audio class="toto" controls>' + '\n<source src="' + data.source1 + '"' + (data.source1mime ? ' type="' + data.source1mime + '"' : '') + ' />\n' + '</audio>';
+      //},
       init_instance_callback: function (editor) {
         blocCallback(editor);
       }

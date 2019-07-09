@@ -43,4 +43,12 @@ const app = new Vue({
       alert('La requête n\'a pas abouti.\n'+errors);
     });
   });
+
+  //audio cleaner for tinymce bug
+  $('img[data-mce-p-type="audio/mpeg"]').each(function(){
+    var audioSrc = $(this).attr('data-mce-p-src'),
+        audioHtml =  $(this).attr('data-mce-html');
+    $(this).replaceWith('<audio controls="controls" src="'+ audioSrc +'" type="audio/mpeg">'+ audioHtml +'</audio>');
+  });
+
 } )();

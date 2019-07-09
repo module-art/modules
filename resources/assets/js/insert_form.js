@@ -1,11 +1,7 @@
 $(document).ready(function(){
 
-  var current_theme = 'grands_chemins' ;
-
   //galleries
   
-  var $galleriesSelect = $('#gallery-collapse');
-
   $('#add-gallery').click(function(){
     if($galleriesSelect.hasClass('show')){
       $galleriesSelect.collapse('hide');
@@ -75,11 +71,11 @@ var tinyconf = {
       height: 360,
       menubar: false,
       branding: false,
-      content_css : "/themes/"+ current_theme +"/css/tiny_custom.css",
+      content_css : "/themes/"+ current_theme +"/css/tiny_custom.css",//current_theme is defined with php in template view file
       plugins: [
-          'advlist autolink lists link image charmap print preview anchor textcolor',
+          'advlist autolink lists link image charmap print preview anchor',
           'searchreplace visualblocks code fullscreen',
-          'insertdatetime media table contextmenu paste code help wordcount responsivefilemanager'
+          'insertdatetime media table paste code help wordcount responsivefilemanager'
       ],
 
       toolbar1: "pictos insertfile undo redo | styleselect | bold italic subscript superscript exposant removeformat | alignleft aligncenter alignright alignjustify | bullist numlist  nonbreaking | link unlink   media  responsivefilemanager insertimage insertfile | table hr  | forecolor backcolor emoticons | paste code | iconesliens | fontawesome ",//| print preview outdent indent image
@@ -114,9 +110,9 @@ var tinyconf = {
   tinymce.init(tinyconf_medium);
 
   var tinyconf_small = tinyconf;
+  tinyconf_small.selector = '.simple-redactored';
   tinyconf_small.menubar = false;
   tinyconf_small.block_formats = 'Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5';
-  tinyconf_small.selector = '.simple-redactored';
   tinyconf_small.height = 100;
   //tinyconf_small.toolbar1 =  "formatselect | bold italic | link unlink | subscript superscript | paste code";
   tinyconf_small.toolbar1 =  "formatselect | bold italic underline | alignleft aligncenter alignright | code";
