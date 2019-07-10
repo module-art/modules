@@ -217,7 +217,7 @@ class TypeController extends Controller
     $footer = $this->footerRepository->makeFooter();
 
     $champs = explode(',', $type->champs);
-    $results = ModuleControl::getSortedTypeRubriques($type, $type->default_filtre);// results utilisable avec un foreach;
+    $results = ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, 0, true);// results utilisable avec un foreach;
 
     return view('common.back.insertedTypeIndex', compact('type', 'results', 'champs', 'menus', 'operation', 'footer'));
   }

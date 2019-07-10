@@ -11,6 +11,7 @@
 
 .after-rubrique{
   [class*="col-"]{
+    transition: all 0.8s ease;
     @include destroy_button(0px, -5px);
   }
   .row{

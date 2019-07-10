@@ -62,26 +62,20 @@ class ControlRepository
 
     if($order_by == 'created_at' || $order_by == 'updated_at'){
 
-      if($nb_per_page == 0){ //pagination is disabled
-        $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->get();
-      }else{
-        $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
-      }
-
-      //si on veut que les contenus non publiés s'affichent quand loggé
-      /*if($auth){
-        if($nb_per_page == 0){ //pagination is disabled
+      //On veut que les contenus non publiés s'affichent quand loggé
+      if($auth){
+        if($nb_per_page == 0){ /*pagination is disabled*/
           $sorted_rubriques = Rubrique::where('type_id', $type->id)->orderBy($order_by, $order)->get();
         }else{
           $sorted_rubriques = Rubrique::where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
         }
       }else{
-        if($nb_per_page == 0){ //pagination is disabled
+        if($nb_per_page == 0){ /*pagination is disabled*/
           $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->get();
         }else{
           $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
         }
-      }*/
+      }
 
       return $sorted_rubriques;
 

@@ -910,6 +910,7 @@ $(document).ready(function()
 
     for(var i=0; i<elemlen; i++){
       elements[i].addEventListener('dragstart', function(event) {
+        //alert('event dragstart');
         numdrag = parseInt(this.dataset.position);
         event.dataTransfer.setData('text/plain', '4Rt89dhMx');//obligatoire pour firefox
         dragged = event.target;
@@ -924,6 +925,7 @@ $(document).ready(function()
 
         cleanDropZone();
         event.stopPropagation();
+        //alert('event dragenter');
 
         finalPlace = parseInt(this.dataset.place);
         numover = parseInt(this.dataset.position);
@@ -943,6 +945,7 @@ $(document).ready(function()
         $(this).off();
 
         dropzone.addEventListener("transitionend", function(event) {
+          //alert('end');
           dropZone(dropzone);
         }, false);
 
@@ -964,6 +967,7 @@ $(document).ready(function()
 
       dropzone.addEventListener('drop', function(event) {
         event.preventDefault();
+        //alert('drop');
 
         if (event.dataTransfer.getData('text/plain')=='4Rt89dhMx'){
           //alert(event.target.className);
