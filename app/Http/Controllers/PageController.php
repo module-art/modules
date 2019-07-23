@@ -59,10 +59,10 @@ class PageController extends Controller
     $types = Type::all();
 
     if(Auth::check()){
-      return view('themes.'.config('app.theme').'.back.page', compact('menus', 'page', 'footer', 'bg_img','types'));
+      return view('themes.'.config('modules.theme').'.back.page', compact('menus', 'page', 'footer', 'bg_img','types'));
     }
 
-    return view('themes.'.config('app.theme').'.front.page', compact('menus', 'page', 'footer', 'bg_img','types'));
+    return view('themes.'.config('modules.theme').'.front.page', compact('menus', 'page', 'footer', 'bg_img','types'));
   }
 
   public function goHome()
@@ -230,7 +230,7 @@ class PageController extends Controller
       $frommail = $request->email;
       $subject = $request->subject;
       $to = config('mail.dest');
-      Mail::send('themes.'.config('app.theme').'.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail)
+      Mail::send('themes.'.config('modules.theme').'.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail)
       {
         $message->from($frommail, 'module-art.fr');
         $message->to($to)->subject('Message du site : '.$subject);

@@ -1,4 +1,4 @@
-@extends('themes.'.config('app.theme').'.template')
+@extends('themes.'.config('modules.theme').'.template')
 
 @section('contenu')
   <div class="heading error row justify-content-center align-items-center" 

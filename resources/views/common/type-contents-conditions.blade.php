@@ -3,9 +3,9 @@
     $type = $rubrique->inclusive_type;
   @endphp
   <div class="large-bloc type-contents row equal justify-content-center" data-content_type='{{ $type['content_type'] }}' data-filtre="{{ $type['default_filtre'] }}" data-desc="{{ $type['descendant'] }}">
-    @if(View::exists('themes.'.config('app.theme') . '.' . $context . '.type-list-'.str_slug($type->content_type)))
+    @if(View::exists('themes.'.config('modules.theme') . '.' . $context . '.type-list-'.str_slug($type->content_type)))
       {{--next include redirect to the specific view if exists--}}
-      @include('themes.'.config('app.theme') . '.' . $context . '.type-list-'.str_slug( $type->content_type ), [
+      @include('themes.'.config('modules.theme') . '.' . $context . '.type-list-'.str_slug( $type->content_type ), [
         'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
       ])
     @else
@@ -18,8 +18,8 @@
   </div>
 @elseif(isset($type_content))
   {{--$type_content is a rubrique--}}
-  @if(View::exists('themes.'.config('app.theme') . '.' . $context . '.type-content-'.str_slug($type_content->type['content_type'])))
-    @include('themes.'.config('app.theme') . '.' . $context . '.type-content-'.str_slug( $type_content->type['content_type'] ), [$type_content])
+  @if(View::exists('themes.'.config('modules.theme') . '.' . $context . '.type-content-'.str_slug($type_content->type['content_type'])))
+    @include('themes.'.config('modules.theme') . '.' . $context . '.type-content-'.str_slug( $type_content->type['content_type'] ), [$type_content])
   @else
     @include('common.' . $context . '.type-content', [$type_content])
   @endif

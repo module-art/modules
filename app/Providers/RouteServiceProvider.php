@@ -81,8 +81,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapThemesRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace.'\Themes\\'.config('app.theme'))
-             //->namespace('Themes\\'.config('app.theme').'\Http\Controllers')
-             ->group(base_path('Themes/'.config('app.theme').'/routes/web.php'));
+             ->namespace($this->namespace.'\Themes\\'.config('modules.theme'))
+             //->namespace('Themes\\'.config('modules.theme').'\Http\Controllers')
+             ->group(base_path('Themes/'.config('modules.theme').'/routes/web.php'));
     }
 }

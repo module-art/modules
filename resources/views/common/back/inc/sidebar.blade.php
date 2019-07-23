@@ -27,7 +27,7 @@
             <li>
               <a id="publication">{{ $page->publie? "Masquer" : "Publier" }}</a>
             </li>
-            @if(config('theme.multi_rubrique') == true)
+            @if(config('modules.multi_rubrique') == true)
             <li>
               <a id="add-rubrique">Ajouter une rubrique</a>
             </li>
@@ -86,11 +86,13 @@
       <li>
         <a href="/tools/rfm/filemanager/dialog.php?type=0&akey=fsUn8A5u9e6UypkZ" target="_blank"><i class="fas fa-folder-open"></i> Gestionnaire de Fichiers</a>
       </li>
-      <li>
-        <a href='{{ route('mail.index') }}'>
-          <i class="fas fa-at"></i> Gestion des Emails
-        </a>
-      </li>
+      @if(config('modules.mails') == true)
+        <li>
+          <a href='{{ route('mail.index') }}'>
+            <i class="fas fa-at"></i> Gestion des Emails
+          </a>
+        </li>
+      @endif
       <li>
         <a href="{{ route('logout') }}"
            onclick="event.preventDefault();
