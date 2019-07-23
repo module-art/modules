@@ -11,7 +11,7 @@ let mix = require('laravel-mix');
  |
  */
 
-var current_theme = process.env.APP_THEME;
+var current_theme = process.env.MODULES_THEME;
 mix.config.fileLoaderDirs.fonts = 'storage/'+current_theme+'/fonts';
 
 mix
