@@ -2,6 +2,7 @@ $(document).ready(function(){
 
   //galleries
   
+  var $galleriesSelect = $('#gallery-collapse');
   $('#add-gallery').click(function(){
     if($galleriesSelect.hasClass('show')){
       $galleriesSelect.collapse('hide');
@@ -71,7 +72,7 @@ var tinyconf = {
       height: 360,
       menubar: false,
       branding: false,
-      content_css : "/themes/"+ current_theme +"/css/tiny_custom.css",//current_theme is defined with php in template view file
+      content_css : "/css/tiny_custom.css",//current_theme is defined with php in template view file
       plugins: [
           'advlist autolink lists link image charmap print preview anchor',
           'searchreplace visualblocks code fullscreen',
@@ -113,7 +114,7 @@ var tinyconf = {
   tinyconf_small.selector = '.simple-redactored';
   tinyconf_small.menubar = false;
   tinyconf_small.block_formats = 'Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5';
-  tinyconf_small.height = 100;
+  tinyconf_small.height = 200;
   //tinyconf_small.toolbar1 =  "formatselect | bold italic | link unlink | subscript superscript | paste code";
   tinyconf_small.toolbar1 =  "formatselect | bold italic underline | alignleft aligncenter alignright | code";
 

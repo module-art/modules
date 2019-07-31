@@ -93,10 +93,8 @@
       </div>
     @elseif(preg_match('/titre/i', $champs[$i]))
       <div class="form-group">
-        <div class="input-group">
         {!! Form::label($champs[$i], str_replace('_', ' ', $champs[$i]) . ' :', ['class' => 'control-label']) !!}
         <textarea name="{{ $champs[$i] }}" class="form-control simple-redactored">{{ $editing ? $contenu : old($champs[$i]) }}</textarea>
-        </div>
       </div>
     @else
       <div class="form-group">

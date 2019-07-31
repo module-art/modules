@@ -27,7 +27,7 @@ class ArticleMigrationSeeder extends Seeder
       foreach($image_urls as $image_url){
         $pathWithoutExt = preg_replace('/\..+$/', '', $image_url );
         $ext = pathinfo($image_url)['extension'];
-        $fancy .= '<a class="fancy col-12 col-sm-6 col-md-4 col-lg-3" href="';
+        $fancy .= '<a class="fancy col-6 col-sm-4 col-md-3 col-lg-2" href="';
         $fancy .= $image_url;
         $fancy .= '" data-fancybox="gallery"><img src="';
         $fancy .= $pathWithoutExt . '-150x150.' . $ext;
