@@ -175,8 +175,8 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Jenssegers\Date\DateServiceProvider::class,
-        Laravel\Scout\ScoutServiceProvider::class,
-        ScoutEngines\Elasticsearch\ElasticsearchProvider::class,
+        //Laravel\Scout\ScoutServiceProvider::class,
+        //ScoutEngines\Elasticsearch\ElasticsearchProvider::class,
 
         /*
          * Application Service Providers...
