@@ -19,7 +19,7 @@ class ArticleMigrationSeeder extends Seeder
       $is_rounds = preg_match('/circle/', $matches[2]);
       foreach($images_refs as $ref){
         $image_row = DB::table('wp_posts')->select('guid')->where('id', $ref)->first();
-        $image_urls[] = preg_replace('/http:\/\/localhost\/sylvope\/wordpress\/wp-content/', '', $image_row->guid);
+        $image_urls[] = preg_replace('/http:\/\/localhost\/sylvope\/wordpress\/wp-content/', '/storage/grands_chemins', $image_row->guid);
       }
 
       $fancy = '<figure class="gallery row justify-content-center">';
@@ -30,7 +30,7 @@ class ArticleMigrationSeeder extends Seeder
         $fancy .= '<a class="fancy col-6 col-sm-4 col-md-3 col-lg-2" href="';
         $fancy .= $image_url;
         $fancy .= '" data-fancybox="gallery"><img src="';
-        $fancy .= $pathWithoutExt . '-150x150.' . $ext;
+        $fancy .= $pathWithoutExt . '-300x224.' . $ext;
         if($is_rounds){
           $fancy .= '" class="rond';
         }
@@ -42,7 +42,7 @@ class ArticleMigrationSeeder extends Seeder
     }
 
     //$post = $posts->first();
-    $post = DB::table('wp_posts')->where('id', '1241')->first();
+    $post = DB::table('wp_posts')->where('id', '1243')->first();
     //foreach($posts as $post){
       $rubrique_id = DB::table('rubriques')->insertGetId([
         'created_at' => $post->post_date,
@@ -58,7 +58,7 @@ class ArticleMigrationSeeder extends Seeder
         'rubrique_id' => $rubrique_id,
       ]);
 
-      $texte = preg_replace('/http:\/\/localhost\/sylvope\/wordpress\/wp-content/', '', $post->post_content);
+      $texte = preg_replace('/http:\/\/localhost\/sylvope\/wordpress\/wp-content/', '/storage/grands_chemins', $post->post_content);
 
       //$texte = preg_replace('/<img\sclass=".+"/U', '<img ', $texte);
 

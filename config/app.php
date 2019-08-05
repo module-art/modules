@@ -6,6 +6,7 @@ return [
         '_ENV' => [
             'APP_KEY',
             'DB_PASSWORD',
+            'DB_EXT_PASSWORD',
             'MAIL_PASSWORD',
             'REDIS_PASSWORD',
         ],
@@ -13,6 +14,7 @@ return [
         '_SERVER' => [
             'APP_KEY',
             'DB_PASSWORD',
+            'DB_EXT_PASSWORD',
             'MAIL_PASSWORD',
             'REDIS_PASSWORD',
         ],

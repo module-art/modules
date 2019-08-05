@@ -25,7 +25,7 @@ $(document).ready(function(){
       var $galleryData = new FormData($('#gallery_form')[0]),
           $isRound = parseInt( $galleryData.get('round_border') );
 
-      //alert($galleryData.get('round_border'));
+      //alert($isRound);
 
       if($galleryData.get('gallery') === null){
         alert('Il faut sélectionner un dossier !');
@@ -41,9 +41,18 @@ $(document).ready(function(){
         })
         .done(function(data) {
           $('.fa-cog').css('display', 'none');
-          console.log(data);
-
-          tinymce.activeEditor.execCommand('mceInsertContent', false, '[gallery]'+$galleryData.get('gallery')+'[gallery]<figure class="gallery row justify-content-center">');
+          //console.log(data);
+          //insert gallery using json data, problem with inline editing
+          /*var galleryJson = {};
+          galleryJson.gallery = $galleryData.get('gallery');
+          galleryJson.type = $isRound ? 'circle':'square';
+          galleryJson.images = [];
+          $.each(data.thumbs, function (key, value) {
+            galleryJson.images.push(value);
+          });
+          tinymce.activeEditor.execCommand('mceInsertContent', false, '<p class="gallery-json">'+JSON.stringify(galleryJson)+'</p>');*/
+          //console.log(galleryJson);
+          tinymce.activeEditor.execCommand('mceInsertContent', false, '<p class="d-none" data-gallery='+$galleryData.get('gallery')+'></p><figure class="gallery row justify-content-center">');
           $.each(data.thumbs, function (key, value) {
             var imageNode = '<a href="'+ value.replace(/thumbs\//, '') +'" class="fancy col-6 col-sm-4 col-md-3 col-lg-2" data-fancybox="gallery">'+
               '<img'+ ($isRound ? ' class="rond"' : '') +' src="' + value + '" alt="" />'+
@@ -51,6 +60,7 @@ $(document).ready(function(){
             tinymce.activeEditor.execCommand('mceInsertContent', false, imageNode);
           });
           tinymce.activeEditor.execCommand('mceInsertContent', false, '</figure>');
+
         })
         .fail(function(data) {
           $('.fa-cog').css('display', 'none');
