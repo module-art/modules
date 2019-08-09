@@ -15,8 +15,7 @@
         "laravel/scout": "^7.1",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.5",
-        "predis/predis": "^1.1",
-        "tamayo/laravel-scout-elastic": "^5.0"
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
