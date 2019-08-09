@@ -33,8 +33,8 @@ class RedactorController extends Controller
 
         //$ok = Image::make($image)->resize(300, null, function ($constraint){
           //$constraint->aspectRatio();
-        //})->save(preg_replace('/^public/', 'storage', $path_to_gallery) . '/thumbs/' . $name, 60);//image use the public path
-        $ok = Image::make($image)->fit(300)->save(preg_replace('/^public/', 'storage', $path_to_gallery) . '/thumbs/' . $name, 60);//image use the public path
+        //})->save(preg_replace('/^public/', 'storage', $path_to_gallery) . '/thumbs/' . $name, 60);//image uses the public path
+        $ok = Image::make($image)->fit(300)->save(preg_replace('/^public/', 'storage', $path_to_gallery) . '/thumbs/' . $name, 60);//imageClass uses the public path
       }
 
     }

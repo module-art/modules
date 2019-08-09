@@ -200,9 +200,7 @@
   }
 }
 
-.type-contents{
-  .type-content{
-      @include destroy_button(-30px, 9px);
-      @include edit_button(10px, 9px);
-  }
+.type-content{
+    @include destroy_button(-30px, 9px);
+    @include edit_button(10px, 9px);
 }

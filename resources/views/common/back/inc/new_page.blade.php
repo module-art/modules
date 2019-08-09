@@ -15,7 +15,7 @@
   @if($operation == 'edit')
     <div class="form-group">
       <div class="form-check">
-        <input type="checkbox" class="form-check-input" value="1" name="is_home" {{ $operation == 'edit' && $page->is_home ? 'checked readonly' : '' }}>
+        <input type="checkbox" class="form-check-input" value="1" name="is_home" {{ $operation == 'edit' && $page->is_home ? 'checked disabled' : '' }}>
         <label class="form-check-label" for="is_home"> Page d'accueil</label>
       </div>
     </div>

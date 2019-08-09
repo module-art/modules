@@ -42,7 +42,7 @@ class ArticleMigrationSeeder extends Seeder
     }
 
     //$post = $posts->first();
-    $post = DB::table('wp_posts')->where('id', '1243')->first();
+    $post = DB::table('wp_posts')->where('id', '1244')->first();
     //foreach($posts as $post){
       $rubrique_id = DB::table('rubriques')->insertGetId([
         'created_at' => $post->post_date,

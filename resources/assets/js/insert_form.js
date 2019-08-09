@@ -52,14 +52,15 @@ $(document).ready(function(){
           });
           tinymce.activeEditor.execCommand('mceInsertContent', false, '<p class="gallery-json">'+JSON.stringify(galleryJson)+'</p>');*/
           //console.log(galleryJson);
-          tinymce.activeEditor.execCommand('mceInsertContent', false, '<p class="d-none" data-gallery='+$galleryData.get('gallery')+'></p><figure class="gallery row justify-content-center">');
+          /*tinymce.activeEditor.execCommand('mceInsertContent', false, '<p class="d-none" data-gallery='+$galleryData.get('gallery')+'></p><figure class="gallery row justify-content-center">');
           $.each(data.thumbs, function (key, value) {
             var imageNode = '<a href="'+ value.replace(/thumbs\//, '') +'" class="fancy col-6 col-sm-4 col-md-3 col-lg-2" data-fancybox="gallery">'+
               '<img'+ ($isRound ? ' class="rond"' : '') +' src="' + value + '" alt="" />'+
               '</a>';
             tinymce.activeEditor.execCommand('mceInsertContent', false, imageNode);
           });
-          tinymce.activeEditor.execCommand('mceInsertContent', false, '</figure>');
+          tinymce.activeEditor.execCommand('mceInsertContent', false, '</figure>');*/
+          tinymce.activeEditor.execCommand('mceInsertContent', false, '[gallery url="/'+$galleryData.get('gallery')+'" type="'+ ($isRound ? 'circle':'square') +'"]');
 
         })
         .fail(function(data) {
