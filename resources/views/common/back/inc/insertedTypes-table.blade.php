@@ -44,7 +44,7 @@
               </td>
             @elseif(preg_match('/\(nb\)/', $bloc->type))
               @php
-                $unit = preg_replace('/^.*\(nb\)/', '', $bloc->type);
+                $unit = preg_replace('/^.+\(nb\)/', '', $bloc->type);
               @endphp
               <td>
                 <span>{!! $bloc->contenu !!}</span><span> {!! $unit !!}</span>

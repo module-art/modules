@@ -204,3 +204,47 @@
     @include destroy_button(-30px, 9px);
     @include edit_button(10px, 9px);
 }
+
+#field-manage-script{
+  section{
+    position: relative;
+    .remove-field-button{
+      color: $red;
+      position: absolute;
+      top: 30%;
+      right: 0;
+      &:hover{
+        cursor: pointer;
+        color: $yellow;
+      }
+    }
+    .up-button{
+      color: $green;
+      position: absolute;
+      top: 15px;
+      left: 0;
+      &:hover{
+        cursor: pointer;
+        color: $cyan;
+      }
+    }
+    .down-button{
+      color: $green;
+      position: absolute;
+      bottom: 15px;
+      left: 0;
+      &:hover{
+        cursor: pointer;
+        color: $cyan;
+      }
+    }
+  }
+}
+
+#add-field-button{
+  font-size: 2em;
+  &:hover{
+    cursor: pointer;
+    color: $blue;
+  }
+}

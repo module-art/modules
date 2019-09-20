@@ -68,5 +68,6 @@
   @if($operation == 'edit' && $model == 'type')
     <script src="/js/plugins/popover-suggest.js"></script>
     <script src="/js/categorie.js"></script>
+    <script src="/js/fields.js"></script>
   @endif
 @endsection
