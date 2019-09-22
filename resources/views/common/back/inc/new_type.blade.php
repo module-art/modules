@@ -1,19 +1,19 @@
 <div class="card-header"><h2>{{ $operation == 'create' ? 'Créer' : 'Modifier' }} un type de contenu</h2></div>
 <br/>
 <div class="card-body"> 
-  {!! Form::open(array('route' => $operation == 'create' ? 'type.store' : [ 'type.update', $type->id ], 'method' => $operation == 'create' ? 'POST' : 'PUT')) !!}
+  {!! Form::open(array('route' => $operation == 'create' ? 'type.store' : [ 'type.update', $type->id ], 'method' => $operation == 'create' ? 'POST' : 'PUT', 'id' => 'the-form')) !!}
   <div class="form-group">
     {!! Form::label('content_type', 'Type de contenu (ex: article, événement...) :', ['class' => 'control-label']) !!}
     {!! Form::text('content_type', $operation == 'create' ? old('content_type') : $type->content_type, ['class' => 'form-control' . ( $errors->has('content_type') ? ' is-invalid' : '' )]) !!}
     {!! $errors->first('content_type', '<small class="invalid-feedback">:message</small>') !!}
   </div>
+  <div class="form-row">
+    {!! Form::label('champs', 'Champs (ex: titre,date,lieu...) :', ['class' => 'control-label col-12 col-md-6']) !!}
+    <label class="control-label col-12 col-md-6">Type de champ :</label>
+    <input type="text" name="champs" value="{{ $operation == 'create' ? old('champs') : $type->champs }}" class="form-control d-none {{ $errors->has('champs') ? ' is-invalid' : '' }}" />
+    {{--{!! $errors->first('champs', '<small class="invalid-feedback">:message</small>') !!}--}}
+  </div>
   <section id="field-manage-script">
-    <div class="form-row">
-      {!! Form::label('champs', 'Champs (ex: titre,date,lieu...) :', ['class' => 'control-label col-12 col-md-6']) !!}
-      <label class="control-label col-12 col-md-6">Type de champ :</label>
-      <input type="text" name="champs" value="{{ $operation == 'create' ? old('champs') : $type->champs }}" class="form-control {{ $errors->has('champs') ? ' is-invalid' : '' }}" />
-      {!! $errors->first('champs', '<small class="invalid-feedback">:message</small>') !!}
-    </div>
     @if($operation == 'create')
       <div class="form-group">
         <input type="text" name="champs-0" value="{{ old('champs-0') }}" class="form-control" />
@@ -56,7 +56,6 @@
   </section>
   <div class="d-none" id="fields-length">{{ $i }}</div>
   <div class="form-row justify-content-end">
-    <div class="col-2" id="test-field-button"><i class="fab fa-angellist"></i></div>
     <div class="col-2" id="add-field-button"><i class="fas fa-plus-circle"></i></div>
   </div>
   <div class="form-group">

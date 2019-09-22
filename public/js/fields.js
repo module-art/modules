@@ -1,1 +1,234 @@
-!function(e){var t={};function n(i){if(t[i])return t[i].exports;var o=t[i]={i:i,l:!1,exports:{}};return e[i].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=e,n.c=t,n.d=function(e,t,i){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:i})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var i=Object.create(null);if(n.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(i,o,function(t){return e[t]}.bind(null,o));return i},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="/",n(n.s=2)}([,,function(e,t,n){e.exports=n(3)},function(e,t){$(document).ready(function(){var e=$("#field-manage-script"),t=parseInt($("#fields-length").text());function n(){$(".remove-field-button").click(function(){$(this).parent().remove()})}function i(){$(".up-button").click(function(){var e=$(this).parent();e.prev().before(e)})}function o(){$(".down-button").click(function(){var e=$(this).parent();e.next().after(e)})}function c(){$("input[type=radio]").change(function(){var e=$(this).attr("name"),t=$("input[value=nb][name="+e+"]"),n=t.nextAll(".unit").first();"nb"!=this.value?(t.removeClass("checked"),n.addClass("d-none")):($(this).addClass("checked"),n.removeClass("d-none"))})}c(),n(),i(),o(),$("#add-field-button").click(function(){var a='<section class="form-row justify-content-end"><div class="form-group col-11 col-md-5"><input type="text" name="champs-'+ ++t+'" class="form-control" /></div><div class="form-group offset-1 col-11 offset-md-0 col-md-6"><div class="form-check"><input class="form-check-input" type="radio" name="radios-'+t+'" value="text" checked><label class="form-check-label">Texte</label></div><div class="form-check"><input class="form-check-input" type="radio" name="radios-'+t+'" value="date"><label class="form-check-label">Date</label></div><div class="form-check"><input class="form-check-input" type="radio" name="radios-'+t+'" value="time"><label class="form-check-label">Heure</label></div><div class="form-check"><input class="form-check-input" type="radio" name="radios-'+t+'" value="nb"><label class="form-check-label">Nombre</label><input class="unit d-none" type="text"/></div></div><div class="remove-field-button" id=""><i class="fas fa-minus-circle"></i></div><div class="up-button" id=""><i class="fas fa-arrow-circle-up"></i></div><div class="down-button" id=""><i class="fas fa-arrow-circle-down"></i></div></section>';e.append(a),c(),n(),i(),o()}),$("#test-field-button").click(function(){var t,n,i={fields:[]};e.children("section").each(function(){var e=$(this).find("input[type=radio]:checked").val();"nb"==e?i.fields.push({name:$(this).find(".form-control").first().val(),type:e,unit:$(this).find(".unit").val()}):i.fields.push({name:$(this).find(".form-control").first().val(),type:e})}),console.log(JSON.stringify(i)),t="",n=!0,i.fields.forEach(function(e,i){console.log(e),n?(n=!1,t+=e.name):(t+=","+e.name,"nb"==e.type&&(t+="(nb)"),null!=e.unit&&""!=e.unit&&(t+=e.unit))}),$("input[name=champs]").val(t)})})}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/assets/js/fields.js":
+/*!***************************************!*\
+  !*** ./resources/assets/js/fields.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  var fieldsSection = $('#field-manage-script'),
+      fieldLength = parseInt($('#fields-length').text());
+  radioListener();
+  removeButtonListener();
+  upButtonListener();
+  downButtonListener();
+  hideLimitButtons();
+  $('#add-field-button').click(function () {
+    showLimitButtons();
+    fieldLength++;
+    var newField = '<section class="form-row justify-content-end">' + '<div class="form-group col-11 col-md-5">' + '<input type="text" name="champs-' + fieldLength + '" class="form-control" />' + '</div>' + '<div class="form-group offset-1 col-11 offset-md-0 col-md-6">' + '<div class="form-check">' + '<input class="form-check-input" type="radio" name="radios-' + fieldLength + '" value="text" checked>' + '<label class="form-check-label">Texte</label>' + '</div>' + '<div class="form-check">' + '<input class="form-check-input" type="radio" name="radios-' + fieldLength + '" value="date">' + '<label class="form-check-label">Date</label>' + '</div>' + '<div class="form-check">' + '<input class="form-check-input" type="radio" name="radios-' + fieldLength + '" value="time">' + '<label class="form-check-label">Heure</label>' + '</div>' + '<div class="form-check">' + '<input class="form-check-input" type="radio" name="radios-' + fieldLength + '" value="nb">' + '<label class="form-check-label">Nombre</label>' + '<input class="unit d-none" type="text"/>' + '</div>' + '</div>' + '<div class="remove-field-button" id=""><i class="fas fa-minus-circle"></i></div>' + '<div class="up-button" id=""><i class="fas fa-arrow-circle-up"></i></div>' + '<div class="down-button" id=""><i class="fas fa-arrow-circle-down"></i></div>' + '</section>';
+    fieldsSection.append(newField);
+    radioListener();
+    removeButtonListener();
+    upButtonListener();
+    downButtonListener();
+    hideLimitButtons();
+  });
+  $('#the-form').submit(function (event) {
+    //event.preventDefault();
+    var fieldsObject = {
+      fields: []
+    };
+    fieldsSection.children('section').each(function () {
+      var $type = $(this).find('input[type=radio]:checked').val();
+
+      if ($type == 'nb') {
+        fieldsObject.fields.push({
+          name: $(this).find('.form-control').first().val(),
+          type: $type,
+          unit: $(this).find('.unit').val()
+        });
+      } else {
+        fieldsObject.fields.push({
+          name: $(this).find('.form-control').first().val(),
+          type: $type
+        });
+      }
+    });
+    console.log(JSON.stringify(fieldsObject));
+    makeCsv(fieldsObject); //$('the-form').submit();
+  });
+
+  function removeButtonListener() {
+    $('.remove-field-button').click(function () {
+      showLimitButtons();
+      $(this).parent().remove();
+      hideLimitButtons();
+    });
+  }
+
+  function upButtonListener() {
+    $('.up-button').click(function () {
+      showLimitButtons();
+      var sectionToMove = $(this).parent();
+      sectionToMove.prev().before(sectionToMove);
+      hideLimitButtons();
+    });
+  }
+
+  function downButtonListener() {
+    $('.down-button').click(function () {
+      showLimitButtons();
+      var sectionToMove = $(this).parent();
+      sectionToMove.next().after(sectionToMove);
+      hideLimitButtons();
+    });
+  }
+
+  function radioListener() {
+    $('input[type=radio]').change(function () {
+      var sameName = $(this).attr('name'),
+          nextNbRadio = $('input[value=nb][name=' + sameName + ']'),
+          unitInput = nextNbRadio.nextAll('.unit').first();
+
+      if (this.value != 'nb') {
+        nextNbRadio.removeClass('checked');
+        unitInput.addClass('d-none');
+      } else {
+        $(this).addClass('checked');
+        unitInput.removeClass('d-none');
+      }
+    });
+  }
+
+  function makeCsv(jsonFields) {
+    var csv = '',
+        firstLoop = true;
+    jsonFields.fields.forEach(function (field, i) {
+      console.log(field);
+
+      if (field.name.match(/[()]+/)) {
+        alert('Les champs ne doivent pas contenir de parenthése.\nElles seront supprimées pour l\'enregistrement.');
+        field.name = field.name.replace(/[()]+/g, '');
+      }
+
+      if (firstLoop) {
+        firstLoop = false;
+        csv += field.name;
+      } else {
+        csv += ',' + field.name;
+      }
+
+      if (field.type == 'nb') csv += "(nb)";
+      if (field.unit != null && field.unit != '') csv += field.unit;
+    });
+    $('input[name=champs]').val(csv);
+  }
+
+  function hideLimitButtons() {
+    var currentFields = $('#field-manage-script').children('section'),
+        currentFieldsLength = currentFields.length - 1,
+        i = 0;
+    currentFields.first().children('.up-button').first().addClass('d-none');
+    currentFields.last().children('.down-button').first().addClass('d-none');
+  }
+
+  function showLimitButtons() {
+    $('.up-button').removeClass('d-none');
+    $('.down-button').removeClass('d-none');
+  }
+});
+
+/***/ }),
+
+/***/ 1:
+/*!*********************************************!*\
+  !*** multi ./resources/assets/js/fields.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /home/sylvestre/www/modules/modules-chemins/resources/assets/js/fields.js */"./resources/assets/js/fields.js");
+
+
+/***/ })
+
+/******/ });

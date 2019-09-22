@@ -7,8 +7,10 @@ $(document).ready(function()
   removeButtonListener();
   upButtonListener();
   downButtonListener();
+  hideLimitButtons();
 
   $('#add-field-button').click(function(){
+    showLimitButtons();
     fieldLength++;
     var newField = 
         '<section class="form-row justify-content-end">'+
@@ -43,9 +45,11 @@ $(document).ready(function()
     removeButtonListener();
     upButtonListener();
     downButtonListener();
+    hideLimitButtons();
   });
 
-  $('#test-field-button').click(function(){
+  $('#the-form').submit(function(event){
+    //event.preventDefault();
     var fieldsObject = {fields:[]};
 
     fieldsSection.children('section').each(function(){
@@ -65,25 +69,32 @@ $(document).ready(function()
     });
     console.log(JSON.stringify(fieldsObject));
     makeCsv(fieldsObject);
+    //$('the-form').submit();
   });
 
   function removeButtonListener(){
     $('.remove-field-button').click(function(){
+      showLimitButtons();
       $(this).parent().remove();
+      hideLimitButtons();
     });
   }
 
   function upButtonListener(){
     $('.up-button').click(function(){
+      showLimitButtons();
       var sectionToMove = $(this).parent();
       sectionToMove.prev().before(sectionToMove);
+      hideLimitButtons();
     });
   }
 
   function downButtonListener(){
     $('.down-button').click(function(){
+      showLimitButtons();
       var sectionToMove = $(this).parent();
       sectionToMove.next().after(sectionToMove);
+      hideLimitButtons();
     });
   }
 
@@ -106,18 +117,35 @@ $(document).ready(function()
   function makeCsv(jsonFields){
     var csv = '',
         firstLoop = true;
-    jsonFields.fields.forEach(function(field, index){
+    jsonFields.fields.forEach(function(field, i){
       console.log(field);
+      if(field.name.match(/[()]+/)){ 
+        alert('Les champs ne doivent pas contenir de parenthése.\nElles seront supprimées pour l\'enregistrement.');
+        field.name = field.name.replace(/[()]+/g, '');
+      }
       if(firstLoop){
         firstLoop = false;
         csv += field.name;
       }else{
         csv += ','+field.name;
-        if(field.type == 'nb') csv += "(nb)";
-        if(field.unit != null && field.unit != '') csv += field.unit;
       }
+      if(field.type == 'nb') csv += "(nb)";
+      if(field.unit != null && field.unit != '') csv += field.unit;
     });
     $('input[name=champs]').val(csv);
+  }
+  
+  function hideLimitButtons(){
+    var currentFields = $('#field-manage-script').children('section'),
+        currentFieldsLength = currentFields.length-1,
+        i = 0;
+    currentFields.first().children('.up-button').first().addClass('d-none');
+    currentFields.last().children('.down-button').first().addClass('d-none');
+  }
+
+  function showLimitButtons(){
+    $('.up-button').removeClass('d-none');
+    $('.down-button').removeClass('d-none');
   }
 
 });
