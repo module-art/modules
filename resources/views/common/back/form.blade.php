@@ -65,7 +65,7 @@
     <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
     <script src="/js/insert_form.js"></script>
   @endif
-  @if($operation == 'edit' && $model == 'type')
+  @if($operation == 'edit' || $operation == 'create' && $model == 'type')
     <script src="/js/plugins/popover-suggest.js"></script>
     <script src="/js/categorie.js"></script>
     <script src="/js/fields.js"></script>

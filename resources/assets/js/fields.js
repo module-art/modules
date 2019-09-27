@@ -33,7 +33,7 @@ $(document).ready(function()
             '<div class="form-check">'+
               '<input class="form-check-input" type="radio" name="radios-'+fieldLength+'" value="nb">'+
               '<label class="form-check-label">Nombre</label>'+
-              '<input class="unit d-none" type="text"/>'+
+              '<input class="unit d-none" type="text" placeholder="unité"/>'+
             '</div>'+
           '</div>'+
           '<div class="remove-field-button" id=""><i class="fas fa-minus-circle"></i></div>'+
@@ -137,8 +137,12 @@ $(document).ready(function()
   
   function hideLimitButtons(){
     var currentFields = $('#field-manage-script').children('section'),
-        currentFieldsLength = currentFields.length-1,
-        i = 0;
+        currentFieldsLength = currentFields.length-1;
+    if(currentFieldsLength){ 
+      $('.remove-field-button').removeClass('d-none');
+    }else{
+      $('.remove-field-button').addClass('d-none');
+    }
     currentFields.first().children('.up-button').first().addClass('d-none');
     currentFields.last().children('.down-button').first().addClass('d-none');
   }

@@ -104,7 +104,7 @@ $(document).ready(function () {
   $('#add-field-button').click(function () {
     showLimitButtons();
     fieldLength++;
-    var newField = '<section class="form-row justify-content-end">' + '<div class="form-group col-11 col-md-5">' + '<input type="text" name="champs-' + fieldLength + '" class="form-control" />' + '</div>' + '<div class="form-group offset-1 col-11 offset-md-0 col-md-6">' + '<div class="form-check">' + '<input class="form-check-input" type="radio" name="radios-' + fieldLength + '" value="text" checked>' + '<label class="form-check-label">Texte</label>' + '</div>' + '<div class="form-check">' + '<input class="form-check-input" type="radio" name="radios-' + fieldLength + '" value="date">' + '<label class="form-check-label">Date</label>' + '</div>' + '<div class="form-check">' + '<input class="form-check-input" type="radio" name="radios-' + fieldLength + '" value="time">' + '<label class="form-check-label">Heure</label>' + '</div>' + '<div class="form-check">' + '<input class="form-check-input" type="radio" name="radios-' + fieldLength + '" value="nb">' + '<label class="form-check-label">Nombre</label>' + '<input class="unit d-none" type="text"/>' + '</div>' + '</div>' + '<div class="remove-field-button" id=""><i class="fas fa-minus-circle"></i></div>' + '<div class="up-button" id=""><i class="fas fa-arrow-circle-up"></i></div>' + '<div class="down-button" id=""><i class="fas fa-arrow-circle-down"></i></div>' + '</section>';
+    var newField = '<section class="form-row justify-content-end">' + '<div class="form-group col-11 col-md-5">' + '<input type="text" name="champs-' + fieldLength + '" class="form-control" />' + '</div>' + '<div class="form-group offset-1 col-11 offset-md-0 col-md-6">' + '<div class="form-check">' + '<input class="form-check-input" type="radio" name="radios-' + fieldLength + '" value="text" checked>' + '<label class="form-check-label">Texte</label>' + '</div>' + '<div class="form-check">' + '<input class="form-check-input" type="radio" name="radios-' + fieldLength + '" value="date">' + '<label class="form-check-label">Date</label>' + '</div>' + '<div class="form-check">' + '<input class="form-check-input" type="radio" name="radios-' + fieldLength + '" value="time">' + '<label class="form-check-label">Heure</label>' + '</div>' + '<div class="form-check">' + '<input class="form-check-input" type="radio" name="radios-' + fieldLength + '" value="nb">' + '<label class="form-check-label">Nombre</label>' + '<input class="unit d-none" type="text" placeholder="unité"/>' + '</div>' + '</div>' + '<div class="remove-field-button" id=""><i class="fas fa-minus-circle"></i></div>' + '<div class="up-button" id=""><i class="fas fa-arrow-circle-up"></i></div>' + '<div class="down-button" id=""><i class="fas fa-arrow-circle-down"></i></div>' + '</section>';
     fieldsSection.append(newField);
     radioListener();
     removeButtonListener();
@@ -205,8 +205,14 @@ $(document).ready(function () {
 
   function hideLimitButtons() {
     var currentFields = $('#field-manage-script').children('section'),
-        currentFieldsLength = currentFields.length - 1,
-        i = 0;
+        currentFieldsLength = currentFields.length - 1;
+
+    if (currentFieldsLength) {
+      $('.remove-field-button').removeClass('d-none');
+    } else {
+      $('.remove-field-button').addClass('d-none');
+    }
+
     currentFields.first().children('.up-button').first().addClass('d-none');
     currentFields.last().children('.down-button').first().addClass('d-none');
   }

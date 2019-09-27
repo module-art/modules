@@ -15,9 +15,33 @@
   </div>
   <section id="field-manage-script">
     @if($operation == 'create')
-      <div class="form-group">
-        <input type="text" name="champs-0" value="{{ old('champs-0') }}" class="form-control" />
-      </div>
+      <section class="form-row justify-content-end">
+        <div class="form-group col-11 col-md-5">
+          <input type="text" name="champs-0" value="{{ old('champs-0') }}" class="form-control" />
+        </div>
+        <div class="form-group offset-1 col-11 offset-md-0 col-md-6">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="radios-0" value="text" checked>
+            <label class="form-check-label">Texte</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="radios-0" value="date">
+            <label class="form-check-label">Date</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="radios-0" value="time">
+            <label class="form-check-label">Heure</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="radios-0" value="nb">
+            <label class="form-check-label">Nombre</label>
+            <input class='unit d-none' type="text" placeholder="unité"/>
+          </div>
+        </div>
+        <div class="remove-field-button" id=""><i class="fas fa-minus-circle"></i></div>
+        <div class="up-button" id=""><i class="fas fa-arrow-circle-up"></i></div>
+        <div class="down-button" id=""><i class="fas fa-arrow-circle-down"></i></div>
+      </section>
     @else
       @foreach($champs as $i => $field)
         <section class="form-row justify-content-end">
@@ -44,7 +68,7 @@
               @endphp
               <input class="form-check-input {{ $nb_checked ? 'checked' : '' }}" type="radio" name="radios-{{ $i }}" value="nb" {{ $nb_checked ? 'checked' : '' }}>
               <label class="form-check-label">Nombre</label>
-              <input class='unit {{ $nb_checked ? '' : 'd-none' }}' type="text" value="{{ $nb_has_unit ? preg_replace('/^.+\(nb\)/', '', $field) : '' }}"/>
+              <input class='unit {{ $nb_checked ? '' : 'd-none' }}' type="text" value="{{ $nb_has_unit ? preg_replace('/^.+\(nb\)/', '', $field) : '' }}" placeholder="unité"/>
             </div>
           </div>
           <div class="remove-field-button" id=""><i class="fas fa-minus-circle"></i></div>
@@ -54,7 +78,7 @@
       @endforeach
     @endif
   </section>
-  <div class="d-none" id="fields-length">{{ $i }}</div>
+  <div class="d-none" id="fields-length">{{ $operation == 'edit' ? $i : 0 }}</div>
   <div class="form-row justify-content-end">
     <div class="col-2" id="add-field-button"><i class="fas fa-plus-circle"></i></div>
   </div>
@@ -63,10 +87,23 @@
       <p>On peut ajouter, supprimer ou modifier des champs.<br>
       Attention ! Chaque opération doit être faite séparément.</p>
     @endif
-    <p>Chaque champ pourra être rempli avec du texte, des images, des vidéos.<br>
-    Si vous mettez le mot "date" dans le nom du champ, il sera rempli avec un calendrier.<br>
-    Pour les nombres, vous pouvez ajouter "(nb)" ou "(nb)une-unité" à la fin du nom du champ (ex "prix(nb)€", "contenance(nb)litres"...).<br>
-    L'expression (nb) est réservée pour cet usage.</p>
+    <p>Chaque champ de type texte pourra être rempli avec du texte, des images, des vidéos.<br>
+    Si vous mettez le mot "date", "heure" ou "horaire" dans le nom du champ, il sera rempli avec un calendrier.<br>
+    Les parenthéses sont interdites dans les noms des champs.</p>
+    <p>
+      <a class="text-warning" data-toggle="collapse" href="#advanced-info" role="button" aria-expanded="false" aria-controls="advanced-info">
+        Info développeur <i class="fas fa-caret-down"></i>
+      </a>
+    </p>
+    <div class="collapse" id="advanced-info">
+      <div class="card card-body">
+        Par défaut, les types de contenus s'affichent dans un tableau assez moche.<br>
+        Pour personnaliser l'affichage des types de contenu, il faut créer deux fichiers de vues dans Themes/{ton theme}/views/front.<br>
+        Le premier doit se nommer type-list-{nom du type de contenu}.blade.php et s'affichera en liste.<br>
+        Le second doit se nommer type-content-{nom du type de contenu}.blade.php et s'affichera en page complète.<br>
+        Pour qu'une page dédiée à un type de contenu puisse s'afficher, il faut créer une page hors menu, publiée, avec pour titre le nom du type de contenu, par exemple : Article.
+      </div>
+    </div>
   </div>
   <div class="form-row">
     <div class="col-2 col-form-label">
