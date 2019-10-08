@@ -18,24 +18,24 @@
       <section class="form-row justify-content-end">
         <div class="form-group col-11 col-md-5">
           <input type="text" name="champs-0" value="{{ old('champs-0') }}" class="form-control" />
+          {!! $errors->first('champs-0', '<small class="invalid-feedback">:message</small>') !!}
         </div>
         <div class="form-group offset-1 col-11 offset-md-0 col-md-6">
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="radios-0" value="text" checked>
+            <input class="form-check-input" type="radio" name="type-0" value="text" checked>
             <label class="form-check-label">Texte</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="radios-0" value="date">
+            <input class="form-check-input" type="radio" name="type-0" value="date">
             <label class="form-check-label">Date</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="radios-0" value="time">
+            <input class="form-check-input" type="radio" name="type-0" value="time">
             <label class="form-check-label">Heure</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="radios-0" value="nb">
+            <input class="form-check-input" type="radio" name="type-0" value="nb">
             <label class="form-check-label">Nombre</label>
-            <input class='unit d-none' type="text" placeholder="unité"/>
           </div>
         </div>
         <div class="remove-field-button" id=""><i class="fas fa-minus-circle"></i></div>
@@ -43,32 +43,31 @@
         <div class="down-button" id=""><i class="fas fa-arrow-circle-down"></i></div>
       </section>
     @else
-      @foreach($champs as $i => $field)
+      @foreach($fields as $i => $field)
         <section class="form-row justify-content-end">
           <div class="form-group col-11 col-md-5">
-            <input type="text" name="champs-{{ $i }}" value="{{ preg_replace('/\(.+\).*$/', '', $field) }}" class="form-control" />
+            <div class="input-group">
+              <input type="text" name="champs-{{ $i }}" value="{{ $field->name }}" class="form-control" disabled />
+              <div class="input-group-append field-editor">
+                <span class="input-group-text"><i class="fas fa-pen"></i></span>
+              </div></div>
           </div>
           <div class="form-group offset-1 col-11 offset-md-0 col-md-6">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="radios-{{ $i }}" value="text" {{ !preg_match('/\(.+\)/', $field) ? 'checked' : '' }}>
+              <input class="form-check-input" type="radio" name="type-{{ $i }}" value="text" {{ $field->type == 'text' ? 'checked' : '' }} disabled>
               <label class="form-check-label">Texte</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="radios-{{ $i }}" value="date" {{ preg_match('/\(date\)/', $field) ? 'checked' : '' }}>
+              <input class="form-check-input" type="radio" name="type-{{ $i }}" value="date" {{ $field->type == 'date' ? 'checked' : '' }} disabled>
               <label class="form-check-label">Date</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="radios-{{ $i }}" value="time" {{ preg_match('/\(time\)/', $field) ? 'checked' : '' }}>
+              <input class="form-check-input" type="radio" name="type-{{ $i }}" value="time" {{ $field->type == 'time' ? 'checked' : '' }} disabled>
               <label class="form-check-label">Heure</label>
             </div>
             <div class="form-check">
-              @php
-                $nb_checked = preg_match('/\(nb\)/', $field) ? true : false;
-                $nb_has_unit = preg_match('/\(.+\).+$/', $field) ? true : false;
-              @endphp
-              <input class="form-check-input {{ $nb_checked ? 'checked' : '' }}" type="radio" name="radios-{{ $i }}" value="nb" {{ $nb_checked ? 'checked' : '' }}>
+              <input class="form-check-input" type="radio" name="type-{{ $i }}" value="nb" {{ $field->type == 'nb' ? 'checked' : '' }} disabled>
               <label class="form-check-label">Nombre</label>
-              <input class='unit {{ $nb_checked ? '' : 'd-none' }}' type="text" value="{{ $nb_has_unit ? preg_replace('/^.+\(nb\)/', '', $field) : '' }}" placeholder="unité"/>
             </div>
           </div>
           <div class="remove-field-button" id=""><i class="fas fa-minus-circle"></i></div>
@@ -80,15 +79,10 @@
   </section>
   <div class="d-none" id="fields-length">{{ $operation == 'edit' ? $i : 0 }}</div>
   <div class="form-row justify-content-end">
-    <div class="col-2" id="add-field-button"><i class="fas fa-plus-circle"></i></div>
+    <div class="col-2 enabled" id="add-field-button"><i class="fas fa-plus-circle"></i></div>
   </div>
   <div class="form-group">
-    @if($operation == 'edit')
-      <p>On peut ajouter, supprimer ou modifier des champs.<br>
-      Attention ! Chaque opération doit être faite séparément.</p>
-    @endif
     <p>Chaque champ de type texte pourra être rempli avec du texte, des images, des vidéos.<br>
-    Si vous mettez le mot "date", "heure" ou "horaire" dans le nom du champ, il sera rempli avec un calendrier.<br>
     Les parenthéses sont interdites dans les noms des champs.</p>
     <p>
       <a class="text-warning" data-toggle="collapse" href="#advanced-info" role="button" aria-expanded="false" aria-controls="advanced-info">
@@ -119,10 +113,10 @@
         <label class="form-check-label"> dernière mise à jour</label>
       </div>
       @if($operation == 'edit')
-        @foreach($champs as $champ)
+        @foreach($fields as $field)
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="default_filtre" value="{{ $champ }}" {{ $type->default_filtre  == $champ ? 'checked' : '' }}/>
-            <label class="form-check-label"> {{ preg_replace('/\(.*\).*$/', '', $champ) }}</label>
+            <input class="form-check-input" type="radio" name="default_filtre" value="{{ $field->name }}" {{ $type->default_filtre  == $field->name ? 'checked' : '' }}/>
+            <label class="form-check-label"> {{ $field->name }}</label>
           </div>
         @endforeach
       @endif
@@ -169,4 +163,52 @@
     </a>
     {!! Form::close() !!}
   @endif
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalFieldEditor" tabindex="-1" role="dialog" aria-labelledby="modalFieldTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Modifier un champ
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <section class="form-row justify-content-end">
+          <div class="form-group col-11 col-md-5">
+            <input type="text" name="new-field" value="{{ old('champs-0') }}" class="form-control" />
+            <small class="invalid-feedback"></small>
+          </div>
+          <div class="form-group offset-1 col-11 offset-md-0 col-md-6">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="new-type" value="text" checked>
+              <label class="form-check-label">Texte</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="new-type" value="date">
+              <label class="form-check-label">Date</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="new-type" value="time">
+              <label class="form-check-label">Heure</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="new-type" value="nb">
+              <label class="form-check-label">Nombre</label>
+            </div>
+          </div>
+          <input type="text" name="old-field" class="d-none"/>
+          <input type="text" name="old-type" class="d-none"/>
+          <input type="number" value="{{ $type->id }}" name="type_id" class="d-none"/>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <button id="field-update" type="button" class="btn btn-primary"><i class="far fa-save"></i> Enregistrer</button>
+      </div>
+    </div>
+  </div>
 </div>

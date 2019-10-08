@@ -44,16 +44,24 @@
 
   @for($i=0; $i<$nb_champs; $i++)
     @php
+      $field = $json_fields->fields[$i];
       if($editing){
-        $contenu = $type_content->blocs()->where('type', $champs[$i])->first()->contenu;
+        $contenu = $type_content->blocs()->where('type', $field->name)->first()->contenu;
+        if($field->type == "date" && !preg_match('/^(19|20)\d{2}-\d{2}-\d{2}$/', $contenu)){
+          $contenu = "1975-08-15";
+        }elseif($field->type == "time" && !preg_match('/^\d{2}:\d{2}:\d{2}$/', $contenu)){
+          $contenu = "12:00:00";
+        }elseif($field->type == "nb" && !preg_match('/^\d+$/', $contenu)){
+          $contenu = 0;
+        }
       }
     @endphp
-    @if(preg_match('/date/i', $champs[$i]))
+    @if($field->type == 'date')
       <div class="form-group">
         <div class="form-row">
-          {!! Form::label($champs[$i], str_replace('_', ' ', $champs[$i]) . ' :', ['class' => 'control-label col-12 col-lg-3']) !!}
+          {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label col-12 col-lg-3']) !!}
           <div class="input-group date col-12 col-lg-4" id="datepicker{{ $i }}" data-target-input="nearest">
-            <input type="text" name="{{ $champs[$i] }}" class="form-control datetimepicker-input" value="{{ $editing ? date_format(date_create($contenu), 'd/m/Y') : old($champs[$i]) }}"/>
+            <input type="text" name="{{ $field->name }}" class="form-control datetimepicker-input" value="{{ $editing ? date_format(date_create($contenu), 'd/m/Y') : old($field->name) }}"/>
             <div class="input-group-append" data-target="#datepicker{{ $i }}" data-toggle="datetimepicker">
               <div class="input-group-text"><i class="fa fa-calendar"></i>
               </div>
@@ -61,45 +69,36 @@
           </div>
         </div>
       </div>
-    @elseif(preg_match('/heure|horaire/i', $champs[$i]))
+    @elseif($field->type == 'time')
       <div class="form-group">
         <div class="form-row">
-          {!! Form::label($champs[$i], str_replace('_', ' ', $champs[$i]) . ' :', ['class' => 'control-label col-12 col-lg-3']) !!}
+          {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label col-12 col-lg-3']) !!}
           <div class="input-group heure col-12 col-lg-4" id="timepicker{{ $i }}" data-target-input="nearest">
-            <input type="text" name="{{ $champs[$i] }}" class="form-control datetimepicker-input" value="{{ $editing ? date_format(date_create($contenu), 'H:i') : old($champs[$i]) }}"/>
+            <input type="text" name="{{ $field->name }}" class="form-control datetimepicker-input" value="{{ $editing ? date_format(date_create($contenu), 'H:i') : old($field->name) }}"/>
             <div class="input-group-append" data-target="#timepicker{{ $i }}" data-toggle="datetimepicker">
               <div class="input-group-text"><i class="fa fa-clock"></i></div>
             </div>
           </div>
         </div>
       </div>
-    @elseif(preg_match('/\(nb\)/', $champs[$i]))
-      @php
-        $unit = preg_replace('/^.*\(nb\)/', '', $champs[$i]);
-        $field_name = preg_replace('/\(nb\).*$/', '', $champs[$i]);
-      @endphp
+    @elseif($field->type == 'nb')
       <div class="form-group">
         <div class="form-row">
           <div class="input-group">
-            {!! Form::label($champs[$i], str_replace('_', ' ', $field_name) . ' :', ['class' => 'control-label']) !!}
-            <input type="number" name="{{ $champs[$i] }}" class="form-control col-12 col-lg-4 offset-lg-1" value="{{ $editing ? $contenu : old($champs[$i]) }}"/>
-            @if($unit != '')
-              <div class="input-group-append">
-                <div class="input-group-text">{{ $unit }}</div>
-              </div>
-            @endif
+            {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
+            <input type="number" name="{{ $field->name }}" class="form-control col-12 col-lg-4 offset-lg-1" value="{{ $editing ? $contenu : old($field->name) }}"/>
           </div>
         </div>
       </div>
-    @elseif(preg_match('/titre/i', $champs[$i]))
+    @elseif(preg_match('/titre/i', $field->name))
       <div class="form-group">
-        {!! Form::label($champs[$i], str_replace('_', ' ', $champs[$i]) . ' :', ['class' => 'control-label']) !!}
-        <textarea name="{{ $champs[$i] }}" class="form-control simple-redactored">{{ $editing ? $contenu : old($champs[$i]) }}</textarea>
+        {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
+        <textarea name="{{ $field->name }}" class="form-control simple-redactored">{{ $editing ? $contenu : old($field->name) }}</textarea>
       </div>
     @else
       <div class="form-group">
-        {!! Form::label($champs[$i], str_replace('_', ' ', $champs[$i]) . ' :', ['class' => 'control-label']) !!}
-        <textarea name="{{ $champs[$i] }}" class="form-control redactored">{{ $editing ? $contenu : old($champs[$i]) }}</textarea>
+        {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
+        <textarea name="{{ $field->name }}" class="form-control redactored">{{ $editing ? $contenu : old($field->name) }}</textarea>
       </div>
     @endif
   @endfor

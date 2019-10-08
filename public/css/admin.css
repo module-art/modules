@@ -371,13 +371,17 @@
 #field-manage-script section .down-button {
   color: #63A375;
   position: absolute;
-  bottom: 15px;
+  bottom: 50px;
   left: 0;
 }
 
 #field-manage-script section .down-button:hover {
   cursor: pointer;
   color: #b2c6de;
+}
+
+#field-manage-script section .field-editor:hover {
+  cursor: pointer;
 }
 
 #add-field-button {
@@ -387,5 +391,9 @@
 #add-field-button:hover {
   cursor: pointer;
   color: #002FA7;
+}
+
+#modalFieldEditor .unit {
+  width: 100%;
 }
 

@@ -17,7 +17,8 @@ class CreateTypesTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('content_type', 100)->unique();
-            $table->text('champs');
+            $table->text('champs')->nullable();
+            $table->text('json_fields')->nullable();
             $table->string('default_filtre', 255);
             $table->boolean('descendant')->default(0);
             $table->smallInteger('nb_per_page')->default(0);

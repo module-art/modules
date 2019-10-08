@@ -231,12 +231,15 @@
     .down-button{
       color: $green;
       position: absolute;
-      bottom: 15px;
+      bottom: 50px;
       left: 0;
       &:hover{
         cursor: pointer;
         color: $cyan;
       }
+    }
+    .field-editor:hover{
+      cursor: pointer;
     }
   }
 }
@@ -246,5 +249,11 @@
   &:hover{
     cursor: pointer;
     color: $blue;
+  }
+}
+
+#modalFieldEditor{
+  .unit{
+    width: 100%;
   }
 }

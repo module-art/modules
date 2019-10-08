@@ -163,4 +163,25 @@ class ControlRepository
 
   }
 
+  public function moveCsvToJsonFields($type){
+    if(!$type->json_fields){
+      $champs = explode(',', $type->champs);
+      $array_fields = array();
+      foreach($champs as $champ){
+        if(preg_match('/date/', $champ)){
+          $array_fields[] = (object) array('name' => $champ, 'type' => 'date');
+        }elseif(preg_match('/heure/', $champ)){
+          $array_fields[] = (object) array('name' => $champ, 'type' => 'time');
+        }elseif(preg_match('/\(nb\)/', $champ)){
+          $array_fields[] = (object) array('name' => preg_replace('/\(nb\).*$/', '', $champ), 'type' => 'nb');
+        }else{
+          $array_fields[] = (object) array('name' => $champ, 'type' => 'text');
+        }
+      }
+      $json_fields =(object) array("fields" => $array_fields);
+      $type->json_fields = json_encode($json_fields, JSON_UNESCAPED_UNICODE);
+      $type->save();
+    }
+  }
+
 }

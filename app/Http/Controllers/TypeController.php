@@ -89,13 +89,55 @@ class TypeController extends Controller
   public function edit($id)
   {
     $type = Type::findOrFail($id);
+    $this->controlRepository->moveCsvToJsonFields($type);
     $types = Type::all();
     $operation = 'edit';
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
     $model = 'type';
-    $champs = explode(',', $type->champs);
-    return view('common.back.form', compact('type', 'menus', 'operation', 'footer', 'model','champs', 'types'));
+    $fields =  json_decode($type->json_fields)->fields;
+    return view('common.back.form', compact('type', 'menus', 'operation', 'footer', 'model', 'champs', 'fields', 'types'));
+  }
+
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function updateField(Request $request, $id)
+  {
+    $type = Type::findOrFail($id);
+    $type_fields = json_decode($type->json_fields)->fields;
+    $field_match = 0;
+    foreach($type_fields as $i => $field){//update field
+      if( $field->name == $request->oldField){
+        $type_fields[$i]->name = $request->newField;
+        $type_fields[$i]->type = $request->newType;
+        break;
+      }
+    }
+    foreach($type_fields as $i => $field){//search duplicates
+      if($field->name == $request->newField){
+        $field_match++;
+      }
+    }
+    if($field_match > 1){
+      return response()->json([ 'error' => 'Il y a déjà un champ '.$request->newField.'.' ]);
+    }
+    $json_fields =(object) array("fields" => $type_fields);
+    //return response()->json($json_fields);
+    $type->json_fields = json_encode($json_fields, JSON_UNESCAPED_UNICODE);
+    $type->save();
+    //return response()->json(['json' => json_encode($json_fields, JSON_UNESCAPED_UNICODE)]);
+
+    foreach($type->blocs()->where('type', $request->oldField)->get() as $bloc){
+      $bloc->type = $request->newField;
+      $bloc->save();
+      //$test[] = $bloc;
+    }
+    return response()->json(['response' => $request->all()]);
   }
 
   /**
@@ -108,75 +150,138 @@ class TypeController extends Controller
   public function update(TypeRequest $request, $id)
   {
     $type = Type::findOrFail($id);
-    $inputs = $request->all();
-    //dd($inputs);
 
-    //modification des champs dans les blocs
-    if($type->champs != $request->champs){
-      $old_champs = explode(',', $type->champs);
-      $new_champs = explode(',', $request->champs);
-      $old_length = count($old_champs);
-      $new_length = count($new_champs);
+    //gestion des champs avec json
+    $json_fields_old = json_decode($type->json_fields);
+    $json_fields_new = json_decode($request->champs);
+    $old_length = count($json_fields_old->fields);
+    $new_length = count($json_fields_new->fields);
+    $array_fields_new = array();
+    foreach($json_fields_new->fields as $new_field){
+      $array_fields_new[] = $new_field->name;
+    }
 
-      $difference = abs($old_length - $new_length);
+    $duplicates = array_unique( array_diff_assoc( $array_fields_new, array_unique( $array_fields_new ) ) );
+    if(count($duplicates) > 0){
+      return back()->withError('Deux champs ne peuvent pas porter le même nom.');
+    }
 
-      if($old_length == $new_length){//modification de nom de champ
-        //$test[] = 'modif';
-        for($i=0;$i<$old_length;$i++){
-          if($old_champs[$i] != $new_champs[$i]){
-            foreach($type->blocs()->where('type', $old_champs[$i])->get() as $bloc){
-              $bloc->type = $new_champs[$i];
-              $bloc->save();
+    if($type->json_fields != $request->champs){
+
+      if($old_length > $new_length){//suppression de champs
+        //$test[] = 'suppression';
+
+        $array_fields_old = array();
+        foreach($json_fields_old->fields as $old_field){
+          $array_fields_old[] = $old_field->name;
+        }
+        
+        $removed_fields = array_diff($array_fields_old, $array_fields_new);
+        //dd($removed_fields);
+
+        foreach($type->rubriques as $typed_rubrique){
+          foreach($removed_fields as $removed_field){
+            foreach($typed_rubrique->blocs()->where('type', $removed_field)->get() as $bloc){
+              $bloc->delete();
               //$test[] = $bloc;
             }
           }
         }
-      }elseif($old_length > $new_length){//suppression de champs
-        //$test[] = 'suppression';
-        $diffs = array_diff($old_champs, $new_champs);
 
-        //vérification que des actions contradictoires n'ont pas été effectuées
-        if(count($diffs) > $difference){
-          return redirect()->back()->withError('Ne pas modifier des champs existants lorsqu\'on modifie le nombre de champs !');
-        }
+        //dd($test);
 
-        foreach($diffs as $diff){
-          foreach($type->blocs()->where('type', $diff)->get() as $bloc){
-            $bloc->forceDelete();
-            //$test[] = $bloc;
-          }
-        }
       }elseif($old_length < $new_length){//ajout de champs
-        $diffs = array_diff($new_champs, $old_champs);
-        //$test[] = $diffs;
-
-        //vérification que des actions contradictoires n'ont pas été effectuées
-        if(count($diffs) > $difference){
-          return redirect()->back()->withError('Ne pas modifier des champs existants lorsqu\'on modifie le nombre de champs !');
-        }
+        //$test[] = 'ajout';
 
         $place = $old_length + 1;
-        foreach($diffs as $diff){
-          foreach($type->rubriques as $rubrique){
-            $new_bloc = [
-              'contenu' => 'Non renseigné',
-              'place' => $place,
-              'type' => $diff,
-              'rubrique_id' => $rubrique->id
-            ];
-            Bloc::create($new_bloc);
-            //$test[] = $new_bloc;
+        foreach($json_fields_new->fields as $new_field){
+          if(isset($new_field->isNew) && $new_field->isNew){
+            foreach($type->rubriques as $typed_rubrique){
+              $new_bloc = [
+                'contenu' => 'Non renseigné',
+                'place' => $place,
+                'type' => $new_field->name,
+                'rubrique_id' => $typed_rubrique->id
+              ];
+              Bloc::create($new_bloc);
+              //$test[] = $new_bloc;
+            }
+            $place++;
           }
-          $place++;
         }
+        //dd($test);
       }
-      //return response($test);
+    }
+    //dd('inchangé');
+
+    /* --- ancienne gestion avec csv ---
+
+      //modification des champs dans les blocs
+      if($type->champs != $request->champs){
+        $old_champs = explode(',', $type->champs);
+        $new_champs = explode(',', $request->champs);
+        $old_length = count($old_champs);
+        $new_length = count($new_champs);
+
+        $difference = abs($old_length - $new_length);
+
+        if($old_length > $new_length){//suppression de champs
+          //$test[] = 'suppression';
+          $diffs = array_diff($old_champs, $new_champs);
+
+          //vérification que des actions contradictoires n'ont pas été effectuées
+          if(count($diffs) > $difference){
+            return redirect()->back()->withError('Ne pas modifier des champs existants lorsqu\'on modifie le nombre de champs !');
+          }
+
+          foreach($diffs as $diff){
+            foreach($type->blocs()->where('type', $diff)->get() as $bloc){
+              $bloc->forceDelete();
+              //$test[] = $bloc;
+            }
+          }
+        }elseif($old_length < $new_length){//ajout de champs
+          $diffs = array_diff($new_champs, $old_champs);
+          //$test[] = $diffs;
+
+          //vérification que des actions contradictoires n'ont pas été effectuées
+          if(count($diffs) > $difference){
+            return redirect()->back()->withError('Ne pas modifier des champs existants lorsqu\'on modifie le nombre de champs !');
+          }
+
+          $place = $old_length + 1;
+          foreach($diffs as $diff){
+            foreach($type->rubriques as $rubrique){
+              $new_bloc = [
+                'contenu' => 'Non renseigné',
+                'place' => $place,
+                'type' => $diff,
+                'rubrique_id' => $rubrique->id
+              ];
+              Bloc::create($new_bloc);
+              //$test[] = $new_bloc;
+            }
+            $place++;
+          }
+        }
+        //return response($test);
+      }*/
+
+    foreach($json_fields_new->fields as $field){//remove isNew properties
+      unset($field->isNew);
     }
 
-    if(!$request->has('descendant')){
-      $inputs = array_merge($inputs, ['descendant' => 0]);
-    }
+    $inputs = [
+      "content_type" => $request->content_type,
+      "champs" => implode(', ', $array_fields_new),
+      "json_fields" => json_encode($json_fields_new, JSON_UNESCAPED_UNICODE),
+      "default_filtre" => $request->default_filtre,
+      "descendant" => $request->has('descendant') ? 1 : 0,
+      "nb_per_page" => $request->nb_per_page,
+      "child_of" => $request->child_of
+    ];
 
+    //dd($inputs);
     $type->update($inputs);
 
     return redirect()->route('type.index')->withInfo('Le type ' . $type->type . ' est modifié.');
@@ -230,16 +335,17 @@ class TypeController extends Controller
     $footer = $this->footerRepository->makeFooter();
     $type = Type::where('content_type', $type_name)->first();
     $champs = explode(',', $type->champs);
-    $nb_champs = count($champs);
+    $json_fields = json_decode($type->json_fields);
+    $nb_champs = count($json_fields->fields);
 
     $galleries = $this->getGalleriesArray();
 
     if($type->child_of > 0){
       $parent_type = Type::findOrFail($type->child_of);
-      return view('common.back.form', compact('type', 'parent_type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries'));
+      return view('common.back.form', compact('type', 'parent_type', 'champs', 'json_fields', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries'));
     }
 
-    return view('common.back.form', compact('type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries'));
+    return view('common.back.form', compact('type', 'champs', 'json_fields', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries'));
   }
 
   public function getGalleries(){
@@ -307,16 +413,17 @@ class TypeController extends Controller
     $footer = $this->footerRepository->makeFooter();
     $type = Type::where('content_type', $type_name)->first();
     $champs = explode(',', $type->champs);
-    $nb_champs = count($champs);
+    $json_fields = json_decode($type->json_fields);
+    $nb_champs = count($json_fields->fields);
 
     $galleries = $this->getGalleriesArray();
 
     if($type->child_of > 0){
       $parent_type = Type::findOrFail($type->child_of);
-      return view('common.back.form', compact('type_content', 'type', 'parent_type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries', 'categories_ids'));
+      return view('common.back.form', compact('type_content', 'type', 'parent_type', 'champs', 'json_fields', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries', 'categories_ids'));
     }
 
-    return view('common.back.form', compact('type_content', 'type', 'champs', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries', 'categories_ids'));
+    return view('common.back.form', compact('type_content', 'type', 'champs', 'json_fields', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries', 'categories_ids'));
   }
 
   public function updateInsertedType(Request $request, $type_id, $id)
