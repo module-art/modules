@@ -62,8 +62,26 @@ class TypeController extends Controller
    */
   public function store(TypeRequest $request)
   {
-    $champs = preg_replace('/\s/', '_', $request->champs);
-    $inputs = array_merge($request->except('champs'), ['champs' => $champs]);
+    $json_fields = json_decode($request->champs)->fields;
+    $array_fields = array();
+    foreach($json_fields as $field){//prepare csv
+      $array_fields[] = $field->name;
+    }
+
+    foreach($json_fields as $field){//remove isNew properties
+      unset($field->isNew);
+    }
+    $json_fields =(object) array("fields" => $json_fields);
+    $inputs = [
+      "content_type" => $request->content_type,
+      "champs" => implode(', ', $array_fields),
+      "json_fields" => json_encode($json_fields, JSON_UNESCAPED_UNICODE),
+      "default_filtre" => $request->default_filtre,
+      "descendant" => $request->has('descendant') ? 1 : 0,
+      "nb_per_page" => $request->nb_per_page,
+      "child_of" => $request->has('child_of') ? $request->child_of : 0
+    ];
+
     //dd($inputs);
     Type::create($inputs);
     return redirect()->route('type.index')->withInfo('Le type ' . $request->content_type . ' est crée.');
@@ -129,8 +147,13 @@ class TypeController extends Controller
     $json_fields =(object) array("fields" => $type_fields);
     //return response()->json($json_fields);
     $type->json_fields = json_encode($json_fields, JSON_UNESCAPED_UNICODE);
-    $type->save();
     //return response()->json(['json' => json_encode($json_fields, JSON_UNESCAPED_UNICODE)]);
+    $array_fields_new = array();
+    foreach($json_fields->fields as $new_field){
+      $array_fields_new[] = $new_field->name;
+    }
+    $type->champs = implode(', ', $array_fields_new);
+    $type->save();
 
     foreach($type->blocs()->where('type', $request->oldField)->get() as $bloc){
       $bloc->type = $request->newField;
@@ -212,60 +235,6 @@ class TypeController extends Controller
         //dd($test);
       }
     }
-    //dd('inchangé');
-
-    /* --- ancienne gestion avec csv ---
-
-      //modification des champs dans les blocs
-      if($type->champs != $request->champs){
-        $old_champs = explode(',', $type->champs);
-        $new_champs = explode(',', $request->champs);
-        $old_length = count($old_champs);
-        $new_length = count($new_champs);
-
-        $difference = abs($old_length - $new_length);
-
-        if($old_length > $new_length){//suppression de champs
-          //$test[] = 'suppression';
-          $diffs = array_diff($old_champs, $new_champs);
-
-          //vérification que des actions contradictoires n'ont pas été effectuées
-          if(count($diffs) > $difference){
-            return redirect()->back()->withError('Ne pas modifier des champs existants lorsqu\'on modifie le nombre de champs !');
-          }
-
-          foreach($diffs as $diff){
-            foreach($type->blocs()->where('type', $diff)->get() as $bloc){
-              $bloc->forceDelete();
-              //$test[] = $bloc;
-            }
-          }
-        }elseif($old_length < $new_length){//ajout de champs
-          $diffs = array_diff($new_champs, $old_champs);
-          //$test[] = $diffs;
-
-          //vérification que des actions contradictoires n'ont pas été effectuées
-          if(count($diffs) > $difference){
-            return redirect()->back()->withError('Ne pas modifier des champs existants lorsqu\'on modifie le nombre de champs !');
-          }
-
-          $place = $old_length + 1;
-          foreach($diffs as $diff){
-            foreach($type->rubriques as $rubrique){
-              $new_bloc = [
-                'contenu' => 'Non renseigné',
-                'place' => $place,
-                'type' => $diff,
-                'rubrique_id' => $rubrique->id
-              ];
-              Bloc::create($new_bloc);
-              //$test[] = $new_bloc;
-            }
-            $place++;
-          }
-        }
-        //return response($test);
-      }*/
 
     foreach($json_fields_new->fields as $field){//remove isNew properties
       unset($field->isNew);
@@ -322,9 +291,10 @@ class TypeController extends Controller
     $footer = $this->footerRepository->makeFooter();
 
     $champs = explode(',', $type->champs);
-    $results = ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, 0, true);// results utilisable avec un foreach;
+    $json_fields = json_decode($type->json_fields)->fields;
+    $results = ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant, true);// results utilisable avec un foreach;
 
-    return view('common.back.insertedTypeIndex', compact('type', 'results', 'champs', 'menus', 'operation', 'footer'));
+    return view('common.back.insertedTypeIndex', compact('type', 'results', 'json_fields', 'menus', 'operation', 'footer'));
   }
 
   public function showInsertForm($type_name)
@@ -361,6 +331,7 @@ class TypeController extends Controller
     //dd($request->all());
     $type = Type::findOrFail($type_id);
     $type_name = $type->content_type;
+    $json_fields = json_decode($type->json_fields)->fields;
 
     $rubrique_inputs = [
       'contenu' => $type_name,
@@ -375,24 +346,25 @@ class TypeController extends Controller
     $i = 1;
     
     foreach($request->except(array('_token', 'publie', 'archive', 'parent_id')) as $key => $value){
-      //categories
       if(preg_match('/categorie/', $key)){
-        $typed_rubrique->categories()->attach($value);
+        $new_categories_ids[] = (int)$value;
       }else{
-        if(preg_match('/date/i', $key)){
-          $value = preg_replace('/^(\d{2})\/(\d{2})\/(19|20)(\d{2})$/', '$3$4-$2-$1', $value);
-        //}elseif(preg_match('/heure|horaire/i', $key)){
-          //$value = preg_replace('/:/', '', $value);
+        foreach($json_fields as $field){
+          if($field->name == preg_replace('/_/', ' ', $key)) $field_type = $field->type;
+        }
+        if($field_type == 'date'){
+          $value = preg_replace('/^(\d{2})\/(\d{2})\/(\d{4})$/', '$3-$2-$1', $value);
+        }elseif($field_type == 'time'){
+          $value = preg_replace('/^(\d{2}:\d{2})$/', '$1:00', $value);
         }
         Bloc::create([
           'contenu' => $value,
           'place' => $i,
-          'type' => $key,
+          'type' => preg_replace('/_/', ' ', $key),
           'rubrique_id' => $rubrique_id,
         ]);
         $i++;
       }
-
     }
 
     return redirect()->route('type.insertform', $type_name)->withInfo('L\'insertion s\'est bien déroulée.');
@@ -428,10 +400,11 @@ class TypeController extends Controller
 
   public function updateInsertedType(Request $request, $type_id, $id)
   {
-    //dd($request);
+    //dd($request->all());
     $type_content = Rubrique::findOrFail($id);
     $type = Type::findOrFail($type_id);
     $type_name = $type->content_type;
+    $json_fields = json_decode($type->json_fields)->fields;
 
     //publication et archivage
     $type_content->publie = $request->has('publie') ? 1:0;
@@ -450,12 +423,15 @@ class TypeController extends Controller
       if(preg_match('/categorie/', $key)){
         $new_categories_ids[] = (int)$value;
       }else{
-        if(preg_match('/date/i', $key)){
-          $value = preg_replace('/^(\d{2})\/(\d{2})\/(19|20)(\d{2})$/', '$3$4-$2-$1', $value);
-        }elseif(preg_match('/heure|horaire/i', $key)){
-          $value = preg_replace('/:/', '', $value);
+        foreach($json_fields as $field){
+          if($field->name == preg_replace('/_/', ' ', $key)) $field_type = $field->type;
         }
-        $type_content->blocs()->where('type', $key)->first()->update([
+        if($field_type == 'date'){
+          $value = preg_replace('/^(\d{2})\/(\d{2})\/(\d{4})$/', '$3-$2-$1', $value);
+        }elseif($field_type == 'time'){
+          $value = preg_replace('/^(\d{2}:\d{2})$/', '$1:00', $value);
+        }
+        $type_content->blocs()->where('type', preg_replace('/_/', ' ', $key))->first()->update([
           'contenu' => $value,
         ]);
       }
@@ -469,7 +445,8 @@ class TypeController extends Controller
       $type_content->categories()->attach($cat_id);
     }
 
-    return redirect()->route('type.insertUpdate', [$type_name, $id])->withInfo('La modification s\'est bien déroulée.');
+    //return redirect()->route('type.insertUpdate', [$type_name, $id])->withInfo('La modification s\'est bien déroulée.');
+    return redirect()->route('type.insertedIndex', [$type->id])->withInfo('La modification s\'est bien déroulée.');
   }
 
   public function switchPublication($id)

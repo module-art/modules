@@ -6,6 +6,10 @@
   <link href="/css/admin.css" rel="stylesheet">
 @endsection
 
+@section('sidebar')
+  @include('common.back.inc.sidebar')
+@endsection
+
 @section('menu')
   @include('themes.'.config('modules.theme').'.menu')
 @endsection
@@ -59,10 +63,11 @@
 @endsection
 
 @section('scripts')
+  <script src="/tools/tinymce/tinymce.min.js"></script>
+  <script src="/js/tempus-dominus/moment-with-locales.min.js"></script>
+  <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
+  <script src="/js/admin.js"></script>
   @if($operation == 'insert' && $model == 'type')
-    <script src="/tools/tinymce/tinymce.min.js"></script>
-    <script src="/js/tempus-dominus/moment-with-locales.min.js"></script>
-    <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
     <script src="/js/insert_form.js"></script>
   @endif
   @if($operation == 'edit' || $operation == 'create' && $model == 'type')

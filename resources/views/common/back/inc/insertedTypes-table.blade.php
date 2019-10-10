@@ -4,15 +4,8 @@
       <th>date</th>
       <th>Publié</th>
       <th>Archivé</th>
-      @foreach($champs as $champ)
-        @if(preg_match('/\(nb\)/', $champ))
-          @php
-            $field_name = preg_replace('/\(nb\)/', '', $champ);
-          @endphp
-          <th>{{ preg_replace('/_/', ' ', $field_name) }}</th>
-        @else
-          <th>{{ preg_replace('/_/', ' ', $champ) }}</th>
-        @endif
+      @foreach($json_fields as $field)
+        <th>{{ $field->name }}</th>
       @endforeach
       <th></th>
       <th></th>
@@ -22,7 +15,7 @@
   <tbody>
     @php //dd($results); @endphp
     @if($results->count() > 0)
-      @foreach ($results as $i => $result)
+      @foreach ($results as $result)
         <tr>
           <td class="">
             {{ ( new Date($result->created_at) )->format('j M Y') }}
@@ -33,29 +26,41 @@
           <td data-toggle="content-archivage" data-content_id="{{ $result->id }}">
             {!! $result->archive ? '<span class="published"><i class="far fa-check-circle"></i></span>' : '<span class="unpublished"><i class="far fa-times-circle"></i></span>' !!}
           </td>
-          @foreach ($result->blocs as $y => $bloc)
-            @if(preg_match('/date/i', $bloc->type))
-              <td>
-                {!! date_format(date_create($bloc->contenu), 'd/m/Y') !!}
-              </td>
-            @elseif(preg_match('/heure|horaire/i', $bloc->type))
-              <td>
-                {!! date_format(date_create($bloc->contenu), 'H:i') !!}
-              </td>
-            @elseif(preg_match('/\(nb\)/', $bloc->type))
+          @php
+            $bloc_fields = $result->blocs;
+          @endphp
+          @foreach ($json_fields as $field)
+            @php
+              $contenu = $bloc_fields->where('type', $field->name)->first()->contenu;
+            @endphp
+            @if($field->type == 'date')
               @php
-                $unit = preg_replace('/^.+\(nb\)/', '', $bloc->type);
+                if(!preg_match('/^\d{4}-\d{2}-\d{2}$/', $contenu)) $contenu = "2004-08-15";
               @endphp
               <td>
-                <span>{!! $bloc->contenu !!}</span><span> {!! $unit !!}</span>
+                {!! date_format(date_create($contenu), 'd/m/Y') !!}
               </td>
-            @elseif(preg_match('/titre/i', $bloc->type))
+            @elseif($field->type == 'time')
+              @php
+                if(!preg_match('/^\d{2}:\d{2}:\d{2}$/', $contenu)) $contenu = "12:00:00";
+              @endphp
               <td>
-                <div>{!! strip_tags($bloc->contenu) !!}</div>
+                {!! date_format(date_create($contenu), 'H:i') !!}
+              </td>
+            @elseif($field->type == 'nb')
+              @php
+                if(!preg_match('/^\d+$/', $contenu)) $contenu = 0;
+              @endphp
+              <td>
+                {!! $contenu !!}
+              </td>
+            @elseif(preg_match('/titre/i', $field->name))
+              <td>
+                {!! strip_tags($contenu) !!}
               </td>
             @else
               <td>
-                {!! str_limit(strip_tags($bloc->contenu), $limit = 50, $end = ' [...]') !!}
+                {!! str_limit(strip_tags($contenu), $limit = 50, $end = ' [...]') !!}
                 {{--<div data-bloc_id="{!! $bloc->id !!}">{!! $bloc->contenu !!}</div>--}}
               </td>
             @endif

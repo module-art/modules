@@ -37,7 +37,7 @@ class PageController extends Controller
     $operation = 'index';
     $menus = $this->menusRepository->makeAdminMenus();
     //$pages = page::where('place', 0)->paginate($this->nbrPerPage);
-    $pages = page::orderBy('place')->paginate($this->nbrPerPage);
+    $pages = Page::orderBy('place')->paginate($this->nbrPerPage);
 
     return view('common.back.pageIndex', compact('pages', 'menus', 'operation'));
   }

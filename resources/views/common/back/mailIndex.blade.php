@@ -5,6 +5,10 @@
   <link href="/css/admin.css" rel="stylesheet">
 @endsection
 
+@section('sidebar')
+  @include('common.back.inc.sidebar')
+@endsection
+
 @section('menu')
   @include('themes.'.config('modules.theme').'.menu')
 @endsection
@@ -59,7 +63,7 @@
           </table>
           {!! $failed_connexion ? '' : $mails->links() !!}
           <div class="row justify-content-between px-3">
-            {!! link_to_route('mail.create', 'Ajouter un email', [], ['class' => 'btn btn-info']) !!}
+            <a href="{{ route('mail.create') }}" class="btn btn-info {{ $failed_connexion ? 'disabled' : '' }}">Ajouter un email</a>
             <a href="javascript:history.back()" class="btn btn-primary">
               <i class="fas fa-redo"></i> Retour
             </a>
@@ -74,5 +78,9 @@
 @endsection
 
 @section('scripts')
+  <script src="/tools/tinymce/tinymce.min.js"></script>
+  <script src="/js/tempus-dominus/moment-with-locales.min.js"></script>
+  <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
+  <script src="/js/admin.js"></script>
   <script src="/js/lists.js"></script>
 @endsection

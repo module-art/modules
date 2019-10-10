@@ -5,6 +5,10 @@
   <link href="/css/admin.css" rel="stylesheet">
 @endsection
 
+@section('sidebar')
+  @include('common.back.inc.sidebar')
+@endsection
+
 @section('menu')
   @include('themes.'.config('modules.theme').'.menu')
 @endsection
@@ -79,5 +83,6 @@
 @endsection
 
 @section('scripts')
+  <script src="/js/admin.js"></script>
   <script src="/js/lists.js"></script>
 @endsection

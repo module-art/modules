@@ -37,6 +37,10 @@
             </li>
           </ul>
         </li>
+      @else
+        <li>
+          {{ link_to_route('page.index', 'Liste des pages', null, ['class' => '']) }}
+        </li>
       @endif
       @if(Auth()->user()->role == 'maintainer')
         <li>
@@ -51,7 +55,12 @@
           </ul>
         </li>
       @endif
-      @if(isset($types) && $types->count()>0)
+      @php
+        if(!isset($types)){
+          $types = App\Models\Type::all();
+        }
+      @endphp
+      @if($types->count()>0)
         <li>
           <a href="#subsubmenu-types" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ajouter</a>
           <ul class="collapse list-unstyled" id="subsubmenu-types">

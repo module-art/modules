@@ -11,7 +11,7 @@
     @else
     {{--next include displays any type contents in a table--}}
     @include('common.' . $context . '.type-contents', [
-      'champs' => explode(',', $type->champs),
+      'json_fields' => json_decode($type->json_fields)->fields,
       'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant, true)
     ])
     @endif

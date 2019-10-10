@@ -6,6 +6,10 @@
   <link rel="stylesheet" href="/tools/fancybox/jquery.fancybox.min.css">
 @endsection
 
+@section('sidebar')
+  @include('common.back.inc.sidebar')
+@endsection
+
 @section('menu')
   @include('themes.'.config('modules.theme').'.menu')
 @endsection
@@ -26,10 +30,7 @@
         </div>
         <div class="card-body">
 
-          @include('common.back.inc.insertedTypes-table', [
-            'champs' => explode(',', $type->champs),
-            'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant, true)
-          ])
+          @include('common.back.inc.insertedTypes-table')
           <div class="row justify-content-between px-3">
             {{--@if(Auth::user()->role == 'admin')--}}
               {{ link_to_route('type.insertform', 'Ajouter '.$type->content_type, $type->content_type, ['class' => 'btn btn-info']) }}

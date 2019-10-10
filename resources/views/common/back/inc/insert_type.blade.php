@@ -47,8 +47,8 @@
       $field = $json_fields->fields[$i];
       if($editing){
         $contenu = $type_content->blocs()->where('type', $field->name)->first()->contenu;
-        if($field->type == "date" && !preg_match('/^(19|20)\d{2}-\d{2}-\d{2}$/', $contenu)){
-          $contenu = "1975-08-15";
+        if($field->type == "date" && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $contenu)){
+          $contenu = "2004-08-15";
         }elseif($field->type == "time" && !preg_match('/^\d{2}:\d{2}:\d{2}$/', $contenu)){
           $contenu = "12:00:00";
         }elseif($field->type == "nb" && !preg_match('/^\d+$/', $contenu)){

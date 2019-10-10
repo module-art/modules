@@ -5,11 +5,11 @@
 <br/>
 <div class="card-body"> 
 
-  @if($type->categories()->count() > 0)
-    <div class="form-group" id="categories-container">
+  <div class="form-group" id="categories-container">
+    @if($type->categories()->count() > 0)
       @include('common.back.inc.categorie_table')
-    </div>
-  @endif
+    @endif
+  </div>
   <div class="form-group">
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCategorie">
       Créer une catégorie

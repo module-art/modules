@@ -157,58 +157,62 @@
   </div>
 
   @if($operation == 'create')
-    {!! Form::submit('Créer', ['class' => 'btn btn-info']) !!}
-    <a href="javascript:history.back()" class="btn btn-primary pull-right">
-      <i class="fa fa-redo"></i> Retour
-    </a>
-    {!! Form::close() !!}
+    <div class="d-flex justify-content-around">
+      {!! Form::submit('Créer', ['class' => 'btn btn-info']) !!}
+      <a href="javascript:history.back()" class="btn btn-primary">
+        <i class="fa fa-redo"></i> Retour
+      </a>
+      {!! Form::close() !!}
+    </div>
   @endif
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="modalFieldEditor" tabindex="-1" role="dialog" aria-labelledby="modalFieldTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">
-          Modifier un champ
-        </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <section class="form-row justify-content-end">
-          <div class="form-group col-11 col-md-5">
-            <input type="text" name="new-field" value="{{ old('champs-0') }}" class="form-control" />
-            <small class="invalid-feedback"></small>
-          </div>
-          <div class="form-group offset-1 col-11 offset-md-0 col-md-6">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="new-type" value="text" checked>
-              <label class="form-check-label">Texte</label>
+@if($operation == 'edit')
+  <!-- Modal -->
+  <div class="modal fade" id="modalFieldEditor" tabindex="-1" role="dialog" aria-labelledby="modalFieldTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            Modifier un champ
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <section class="form-row justify-content-end">
+            <div class="form-group col-11 col-md-5">
+              <input type="text" name="new-field" value="{{ old('champs-0') }}" class="form-control" />
+              <small class="invalid-feedback"></small>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="new-type" value="date">
-              <label class="form-check-label">Date</label>
+            <div class="form-group offset-1 col-11 offset-md-0 col-md-6">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="new-type" value="text" checked>
+                <label class="form-check-label">Texte</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="new-type" value="date">
+                <label class="form-check-label">Date</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="new-type" value="time">
+                <label class="form-check-label">Heure</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="new-type" value="nb">
+                <label class="form-check-label">Nombre</label>
+              </div>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="new-type" value="time">
-              <label class="form-check-label">Heure</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="new-type" value="nb">
-              <label class="form-check-label">Nombre</label>
-            </div>
-          </div>
-          <input type="text" name="old-field" class="d-none"/>
-          <input type="text" name="old-type" class="d-none"/>
-          <input type="number" value="{{ $type->id }}" name="type_id" class="d-none"/>
-        </section>
-      </div>
-      <div class="modal-footer">
-        <button id="field-update" type="button" class="btn btn-primary"><i class="far fa-save"></i> Enregistrer</button>
+            <input type="text" name="old-field" class="d-none"/>
+            <input type="text" name="old-type" class="d-none"/>
+            <input type="number" value="{{ $type->id }}" name="type_id" class="d-none"/>
+          </section>
+        </div>
+        <div class="modal-footer">
+          <button id="field-update" type="button" class="btn btn-primary"><i class="far fa-save"></i> Enregistrer</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+@endif

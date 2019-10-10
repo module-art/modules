@@ -38,9 +38,9 @@ $(document).ready(function()
       dataType: "json"
     })
     .done(function(data) {
-      $.each(data, function (key, value) {
+      /*$.each(data, function (key, value) {
         console.log(key+' - '+value);
-      });
+      });*/
       $('#categories-container').load('/coulisses/categorie?type_id='+idType, function(){
         listenToEdit();
         listenToDetach();
@@ -85,7 +85,7 @@ $(document).ready(function()
           },
         })
         .done(function(data) {
-          console.log(data);
+          //console.log(data);
           elem.parents('tr').first().remove();
         })
         .fail(function(data) {
@@ -109,7 +109,7 @@ $(document).ready(function()
         },
       })
       .done(function(data) {
-        console.log(data);
+        //console.log(data);
         elem.parents('tr').first().remove();
       })
       .fail(function(data) {
@@ -131,9 +131,9 @@ $(document).ready(function()
       dataType: "json"
     })
     .done(function(data) {
-      $.each(data, function (key, value) {
+      /*$.each(data, function (key, value) {
         console.log(key+' - '+value);
-      });
+      });*/
       if(data['error']){
         alert(data['error']);
       }else{
