@@ -135,7 +135,7 @@ class TypeController extends Controller
     $footer = $this->footerRepository->makeFooter();
     $model = 'type';
     $fields =  json_decode($type->json_fields)->fields;
-    return view('common.back.form', compact('type', 'menus', 'operation', 'footer', 'model', 'champs', 'fields', 'types'));
+    return view('common.back.form', compact('type', 'menus', 'operation', 'footer', 'model', 'fields', 'types'));
   }
 
   /**
