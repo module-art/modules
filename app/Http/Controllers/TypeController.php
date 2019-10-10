@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\TypeRequest;
 use App\Repositories\FooterRepository;
 use App\Repositories\MenusRepository;
@@ -24,6 +25,26 @@ class TypeController extends Controller
     $this->middleware('authAsAdmin');
     $this->nbrPerPage = $controlRepository->nbrPerPage;
   }
+
+  private function validateInsertion($inputs, $json_fields){
+
+    $rules = [];
+    $messages = [];
+    foreach($json_fields as $field){//validation
+      $field_name = preg_replace('/\s/', '_', $field->name);
+      if($field->type == 'date'){
+        $rules[$field_name] = 'date_format:d/m/Y';
+        $messages[$field_name.'.date_format'] = 'Le champ :attribute doit être une date ex: 15/08/2004.';
+      }else if($field->type == 'time'){
+        $rules[$field_name] = 'date_format:h:i';
+        $messages[$field_name.'.date_format'] = 'Le champ :attribute doit être une heure ex: 15:45.';
+      }else if($field->type == 'nb'){
+        $rules[$field_name] = 'numeric';
+      }
+    }
+    return Validator::make($inputs, $rules, $messages);
+  }
+
   /**
    * Display a listing of the resource.
    *
@@ -333,6 +354,11 @@ class TypeController extends Controller
     $type_name = $type->content_type;
     $json_fields = json_decode($type->json_fields)->fields;
 
+    $validator = $this->validateInsertion($request->all(), $json_fields);
+    if ($validator->fails()) {
+      return back()->withErrors($validator)->withInput();
+    }
+
     $rubrique_inputs = [
       'contenu' => $type_name,
       'type_id' => $type_id,
@@ -349,8 +375,9 @@ class TypeController extends Controller
       if(preg_match('/categorie/', $key)){
         $new_categories_ids[] = (int)$value;
       }else{
+        $key = preg_replace('/_/', ' ', $key);
         foreach($json_fields as $field){
-          if($field->name == preg_replace('/_/', ' ', $key)) $field_type = $field->type;
+          if($field->name == $key) $field_type = $field->type;
         }
         if($field_type == 'date'){
           $value = preg_replace('/^(\d{2})\/(\d{2})\/(\d{4})$/', '$3-$2-$1', $value);
@@ -360,7 +387,7 @@ class TypeController extends Controller
         Bloc::create([
           'contenu' => $value,
           'place' => $i,
-          'type' => preg_replace('/_/', ' ', $key),
+          'type' => $key,
           'rubrique_id' => $rubrique_id,
         ]);
         $i++;
@@ -400,11 +427,16 @@ class TypeController extends Controller
 
   public function updateInsertedType(Request $request, $type_id, $id)
   {
-    //dd($request->all());
+
     $type_content = Rubrique::findOrFail($id);
     $type = Type::findOrFail($type_id);
     $type_name = $type->content_type;
     $json_fields = json_decode($type->json_fields)->fields;
+
+    $validator = $this->validateInsertion($request->all(), $json_fields);
+    if ($validator->fails()) {
+      return back()->withErrors($validator)->withInput();
+    }
 
     //publication et archivage
     $type_content->publie = $request->has('publie') ? 1:0;

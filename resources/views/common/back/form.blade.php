@@ -24,6 +24,11 @@
       @if(session()->has('error'))
         <div class="alert alert-danger alert-dismissible">{!! session('error') !!}</div>
       @endif
+      @if(session()->has('errors'))
+        @foreach($errors->all() as $error)
+          <div class="alert alert-danger alert-dismissible">{!! $error !!}</div>
+        @endforeach
+      @endif
       <div class="card card-default">
         @if($model == 'page')
           @include('common.back.inc.new_page')

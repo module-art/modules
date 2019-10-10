@@ -17,7 +17,6 @@ class UserRepository
   public function isLastAdmin($id)
   {
     $role = $this->user->find($id)->role;
-    $reste = $this->user->where('role', 'regexp', 'admin|maintainer')->count();
 
     if($this->user->where('role', 'regexp', 'admin|maintainer')->count() == 1 && ( $role == 'admin' || $role == 'maintainer')){
       return true;

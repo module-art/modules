@@ -80,7 +80,6 @@ $(document).ready(function()
         isNew: $fieldInput.hasClass('new') ? true : false
       });
     });
-    //makeCsv(fieldsObject);
     makeJsonString(fieldsObject);
     //$('the-form').submit();
   });
@@ -173,43 +172,8 @@ $(document).ready(function()
     });
   }
 
-  //function radioListener(){
-    //$('input[type=radio]').change(function() {
-      //var sameName = $(this).attr('name'),
-          //nextNbRadio = $('input[value=nb][name='+sameName+']'),
-          //unitInput = nextNbRadio.nextAll('.unit').first();
-      //if (this.value != 'nb') {
-        //nextNbRadio.removeClass('checked');
-        //unitInput.addClass('d-none');
-      //}
-      //else {
-        //$(this).addClass('checked');
-        //unitInput.removeClass('d-none');
-      //}
-    //});
-  //}
-
   function makeJsonString(jsonFields){
     $('input[name=champs]').val(JSON.stringify(jsonFields));
-  }
-
-  function makeCsv(jsonFields){
-    var csv = '',
-        firstLoop = true;
-    jsonFields.fields.forEach(function(field, i){
-      console.log(field);
-      if(field.name.match(/[()]+/)){ 
-        alert('Les champs ne doivent pas contenir de parenthése.\nElles seront supprimées pour l\'enregistrement.');
-        field.name = field.name.replace(/[()]+/g, '');
-      }
-      if(firstLoop){
-        firstLoop = false;
-        csv += field.name+'('+field.type+')';
-      }else{
-        csv += ','+field.name+'('+field.type+')';
-      }
-    });
-    $('input[name=champs]').val(csv);
   }
   
   function hideLimitButtons(){

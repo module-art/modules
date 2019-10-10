@@ -1,6 +1,7 @@
 {
     "/js/categorie.js": "/js/categorie.js",
     "/js/fields.js": "/js/fields.js",
+    "/js/insert_form.js": "/js/insert_form.js",
     "/js/scripts.js": "/js/scripts.js",
     "/css/styles.css": "/css/styles.css",
     "/css/admin.css": "/css/admin.css"

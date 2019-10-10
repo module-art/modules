@@ -42,19 +42,17 @@
           {{ link_to_route('page.index', 'Liste des pages', null, ['class' => '']) }}
         </li>
       @endif
-      @if(Auth()->user()->role == 'maintainer')
-        <li>
-          <a href="#submenu-type" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Types de contenus</a>
-          <ul class="collapse list-unstyled" id="submenu-type">
-            <li>
-              {{ link_to_route('type.create', 'Créer', null, ['class' => '']) }}
-            </li>
-            <li>
-              {{ link_to_route('type.index', 'Voir les types de contenu', null, ['class' => '']) }}
-            </li>
-          </ul>
-        </li>
-      @endif
+      <li>
+        <a href="#submenu-type" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Types de contenus</a>
+        <ul class="collapse list-unstyled" id="submenu-type">
+          <li>
+            {{ link_to_route('type.create', 'Créer', null, ['class' => '']) }}
+          </li>
+          <li>
+            {{ link_to_route('type.index', 'Voir les types de contenu', null, ['class' => '']) }}
+          </li>
+        </ul>
+      </li>
       @php
         if(!isset($types)){
           $types = App\Models\Type::all();

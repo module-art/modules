@@ -45,6 +45,7 @@
   @for($i=0; $i<$nb_champs; $i++)
     @php
       $field = $json_fields->fields[$i];
+      $field_name_error = preg_replace('/\s/', '_', $field->name);
       if($editing){
         $contenu = $type_content->blocs()->where('type', $field->name)->first()->contenu;
         if($field->type == "date" && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $contenu)){
@@ -61,7 +62,7 @@
         <div class="form-row">
           {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label col-12 col-lg-3']) !!}
           <div class="input-group date col-12 col-lg-4" id="datepicker{{ $i }}" data-target-input="nearest">
-            <input type="text" name="{{ $field->name }}" class="form-control datetimepicker-input" value="{{ $editing ? date_format(date_create($contenu), 'd/m/Y') : old($field->name) }}"/>
+            <input type="text" name="{{ $field->name }}" class="form-control datetimepicker-input {{ $errors->has($field_name_error) ? ' is-invalid' : '' }}" value="{{ $editing ? date_format(date_create($contenu), 'd/m/Y') : old($field->name) }}"/>
             <div class="input-group-append" data-target="#datepicker{{ $i }}" data-toggle="datetimepicker">
               <div class="input-group-text"><i class="fa fa-calendar"></i>
               </div>
@@ -74,7 +75,7 @@
         <div class="form-row">
           {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label col-12 col-lg-3']) !!}
           <div class="input-group heure col-12 col-lg-4" id="timepicker{{ $i }}" data-target-input="nearest">
-            <input type="text" name="{{ $field->name }}" class="form-control datetimepicker-input" value="{{ $editing ? date_format(date_create($contenu), 'H:i') : old($field->name) }}"/>
+            <input type="text" name="{{ $field->name }}" class="form-control datetimepicker-input {{ $errors->has($field_name_error) ? ' is-invalid' : '' }}" value="{{ $editing ? date_format(date_create($contenu), 'H:i') : old($field->name) }}"/>
             <div class="input-group-append" data-target="#timepicker{{ $i }}" data-toggle="datetimepicker">
               <div class="input-group-text"><i class="fa fa-clock"></i></div>
             </div>
@@ -86,7 +87,7 @@
         <div class="form-row">
           <div class="input-group">
             {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
-            <input type="number" name="{{ $field->name }}" class="form-control col-12 col-lg-4 offset-lg-1" value="{{ $editing ? $contenu : old($field->name) }}"/>
+            <input type="number" name="{{ $field->name }}" class="form-control col-12 col-lg-4 offset-lg-1 {{ $errors->has($field_name_error) ? ' is-invalid' : '' }}" value="{{ $editing ? $contenu : old($field->name) }}"/>
           </div>
         </div>
       </div>
