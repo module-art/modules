@@ -307,6 +307,7 @@ class TypeController extends Controller
   {
     $operation = 'index';
     $type = Type::findOrFail($type_id);
+    $this->controlRepository->moveCsvToJsonFields($type);
 
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
@@ -325,6 +326,7 @@ class TypeController extends Controller
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
     $type = Type::where('content_type', $type_name)->first();
+    $this->controlRepository->moveCsvToJsonFields($type);
     $champs = explode(',', $type->champs);
     $json_fields = json_decode($type->json_fields);
     $nb_champs = count($json_fields->fields);
@@ -411,6 +413,7 @@ class TypeController extends Controller
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
     $type = Type::where('content_type', $type_name)->first();
+    $this->controlRepository->moveCsvToJsonFields($type);
     $champs = explode(',', $type->champs);
     $json_fields = json_decode($type->json_fields);
     $nb_champs = count($json_fields->fields);
