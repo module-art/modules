@@ -10,6 +10,7 @@ use App\Models\Rubrique;
 use App\Models\Bloc;
 use App\Models\User;
 use App\Models\Type;
+use ModuleControl;
 
 class BlocController extends Controller
 {
@@ -96,5 +97,16 @@ class BlocController extends Controller
       $bloc->forceDelete();
  
       return response('Le bloc '.$id.' est supprimé.');
+    }
+
+    public function listGalleries(Request $request)
+    {
+      $galleries = ModuleControl::getGalleriesArray($needle = $request->chain);
+      $list_galleries = '';
+
+      foreach($galleries as $key => $value){
+        $list_galleries .= $key.'|';
+      }
+      return response($list_galleries);
     }
 }

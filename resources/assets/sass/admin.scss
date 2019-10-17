@@ -30,6 +30,9 @@
 
     .bloc-button{
       right: 0px;
+      .select-gallery{
+        max-width: 100%;
+      }
     }
 
     .cols-button{
@@ -177,6 +180,10 @@
   border: 1px $light-gray solid;
 }
 
+.tox-tinymce-inline{
+  z-index: 500;
+}
+
 #categories-checkbox, #categories-container{
   max-height: 50vh;
   overflow: auto;
@@ -256,4 +263,8 @@
   .unit{
     width: 100%;
   }
+}
+
+.form-control {
+	height: unset;
 }

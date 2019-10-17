@@ -184,4 +184,84 @@ class ControlRepository
     }
   }
 
+  public static function getGalleriesArray($needle = false){
+    
+    //get gallery folders
+    $path_gallery = config('images.galeries');
+    $folders = Storage::directories($path_gallery);
+    $galleries = array();
+    foreach($folders as $folder){
+      $folder_name = preg_replace('/^.+\/(.+)$/', '$1', $folder);
+      if($needle){
+        if(preg_match('/'.$needle.'/', $folder_name)){
+          $galleries[$folder_name] = $folder;
+        }
+      }else{
+        $galleries[$folder_name] = $folder;
+      }
+    }
+    return $galleries;
+
+  }
+
+  public static function parseGallery($matches){
+    $gallery_url = $matches[1];
+    $is_rounds = preg_match('/circle/', $matches[2]);
+    $images = Storage::files($gallery_url);
+
+    //test if thumb folder exists
+    if(Auth::check() && !Storage::exists($gallery_url.'/thumbs')){
+      Storage::makeDirectory($gallery_url.'/thumbs');
+    }elseif(!Storage::exists($gallery_url.'/thumbs')){
+      return('<p>Affichage de la galerie d\'images impossible.</p>');
+    }
+
+    //test if thumb exists for each image
+    if(Auth::check()){
+      foreach($images as $image_path){
+        $name = preg_replace('/.+\/(.+)$/', '$1', $image_path);
+        if(!Storage::exists($gallery_url.'/thumbs/'.$name)){
+          $image = Storage::get($image_path);
+          $ok = Image::make($image)->fit(300)->save(preg_replace('/^public/', 'storage', $gallery_url) . '/thumbs/' . $name, 60);//imageClass uses the public path
+        }
+      }
+    }
+
+    $storage_thumbs = Storage::files($gallery_url.'/thumbs');
+
+    //test if image exists for each thumb
+    if(Auth::check()){
+      foreach($storage_thumbs as $key => $thumb_path){
+        $name = preg_replace('/.+\/(.+)$/', '$1', $thumb_path);
+        if(!Storage::exists($gallery_url.'/'.$name)){
+          Storage::delete($thumb_path);
+          unset($storage_thumbs[$key]);
+        }
+      }
+    }
+
+    //get public urls
+    $thumbs = array();
+    foreach($storage_thumbs as $thumb){
+      $thumbs[] = Storage::url($thumb);
+    }
+
+    //make html for fancybox
+    $fancy = '<figure class="gallery row justify-content-center">';
+
+    foreach($thumbs as $thumb_url){
+      $image_url = preg_replace('/\/thumbs/', '', $thumb_url );
+      $fancy .= '<a class="fancy col-6 col-sm-4 col-md-3 col-lg-2" href="';
+      $fancy .= $image_url;
+      $fancy .= '" data-fancybox="gallery"><img src="';
+      $fancy .= $thumb_url;
+      if($is_rounds){
+        $fancy .= '" class="rond';
+      }
+      $fancy .= '" alt="image" border="0"></a>';
+    }
+    $fancy .= '</figure>';
+
+    return $fancy;
+  }
 }

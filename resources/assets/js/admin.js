@@ -1,9 +1,11 @@
+import '../../../public/tools/popsuggest/popover-suggest.min.js';
+
 $(document).ready(function()
 {
   $('.sidebarCollapse').on('click', function () {
     $('#sidebar').toggleClass('active');
   });
-
+  
   //insertion des listes par type
   
   function getTypeContents(){
@@ -44,7 +46,7 @@ $(document).ready(function()
       wasEdited = false,
       imgWidth = 0,
       maxFileSize = 4096000,
-      minImgWidth = 1200,
+      minImgWidth = 400,
       idCreatedBloc = 0,
       //duration of the top scrolling animation (in ms)
       scroll_top_duration = 1000,
@@ -125,7 +127,7 @@ $(document).ready(function()
   //boutons de publication de rubriques normales
 
   $('.btn-publish').click(function(){
-    var idRubrique = $(this).nextAll('.editrubrique').first().attr('data-rubrique_id');
+    var idRubrique = $(this).parents('.rubrique-container').first().find('.editrubrique').attr('data-rubrique_id');
 
     document.body.style.cursor = 'wait';
 
@@ -155,6 +157,57 @@ $(document).ready(function()
       alert('Oups! une erreur a empêché la modification.');
     });
   }
+
+  ///------ galleries ------------
+  
+  function addGallery(rubriqueId, gallery){
+    var container = $('.after-rubrique[data-rubrique_id='+rubriqueId+']').first().find('.markerRow').first(),
+        bloc_id = 'rubrique-'+rubriqueId,
+        newBloc = '[gallery url="/public/'+current_theme+'/files/galeries/'+gallery+'" type="square"]',
+        type = 'gallery',
+        action = '/coulisses/bloc/' + bloc_id;
+
+    if(newBloc === undefined) return;//exit to avoid TypeError
+
+    $.ajax({
+        url: action,
+        method: 'post',
+      data: { 
+        _token: csrfToken,
+        texte: newBloc,
+        format: type
+      },
+      dataType : 'json',
+    })
+    .done(function(data) {
+      console.log(data['response']);
+      reloadBlocs(container, rubriqueId);
+    })
+    .fail(function() {
+      alert('La requête n\'a pas abouti. Êtes-vous bien connecté comme admin?');
+    });
+
+  }
+
+  function listenToGetGallery(jQueryObj){
+    var rubriqueId = 0;
+    jQueryObj.focus(function(){
+      rubriqueId = $(this).parents('.after-rubrique').first().attr('data-rubrique_id');
+    });
+    jQueryObj.popsuggest({
+      placement : 'bottom',
+      dataUrl: '/coulisses/list-galleries',
+      separator: '|',
+      rows: 6,
+      addData: {
+        '_token': csrfToken,
+      }
+    }).on( "popSelect", function() {
+      //alert("Your choice : "+this.value);
+      addGallery(rubriqueId, this.value);
+    });
+  }
+  listenToGetGallery($('.select-gallery'));
 
   /// ---------- TYNIMCE ------
 
@@ -192,7 +245,7 @@ $(document).ready(function()
         editor.on('focus', function (e) {
           //console.log(e);
           var tar = $(e.target.bodyElement),
-              imageNode = tar.hasClass('imagenode') ? tar : tar.parents('.imagenode').first(),
+              imageNode = tar.hasClass('imagenode') ? tar : tar.parents('.rubrique-container').find('.imagenode'),
               initBackgroundImage = imageNode.attr('data-image-src'),
             replacement = '<section id="replacement" class="row justify-content-end mb-4"><div class="col-12 col-md-8 col-lg-6 col-xl-5"><div class="card"><div class="card-body">'+
             '<form method="post" enctype="multipart/form-data" class="" id="replacement-form"><div class="form-group">'+
@@ -220,6 +273,7 @@ $(document).ready(function()
           if($('#replacement')[0] === undefined){
             tar.parent().append(replacement);
           }
+          //console.log(imageNode);
 
           imageManage(imageNode, initBackgroundImage);
 
@@ -295,7 +349,7 @@ $(document).ready(function()
       $('.btn-save').on('mousedown', function(){
         var newBloc = tar.html(),
           bloc_id = tar.attr('data-bloc_id'),
-          isNewBloc = bloc_id == 0 ? true : false;
+          isNewBloc = bloc_id == 0 ? true : false,
           type = '';
 
         if(newBloc === undefined) return;//exit to avoid TypeError
@@ -597,7 +651,6 @@ $(document).ready(function()
 
     $('.add-bloc').click(function(){
       var previousRow = $(this).parents(".markerRow").first(),
-          classNames = previousRow.children('[class*="col-md"]').first().attr('class'),
           cols = previousRow.parent().attr('data-rubrique_cols'),
           type = this.getAttribute('data-format'),
           order = $(this).attr('data-order'),
@@ -660,9 +713,9 @@ $(document).ready(function()
       if(confirm('Êtes vous sûr?')){
         var elem = $(this).parent();
 
-        if($(this).next().hasClass('editrubrique')){
+        if(elem.hasClass('rubrique-container')){
           if(confirm('Tous les blocs associés à cette rubrique seront effacés. Êtes vous vraiment sûr?')){
-            var idRubrique = $(this).next().attr('data-rubrique_id');
+            var idRubrique = elem.find('.editrubrique').attr('data-rubrique_id');
 
             $.ajax({
                 method: 'post',
@@ -747,8 +800,6 @@ $(document).ready(function()
     $('.change-col').click(function(){
 
       var previousRow = $(this).parents(".markerRow").first(),
-          //classNames = previousRow.children('[class*="col-"]').first().attr('class'),
-          //cols = classNames.substring(classNames.indexOf(' ')+1),
           nbCols = parseInt( this.getAttribute('data-colonnes') ),
           newCols = "",
           targetChildren = previousRow.find('.col-12').not('.large-bloc'),
@@ -783,6 +834,7 @@ $(document).ready(function()
       .done(function(data) {
         console.log(data['response']);
         colsManager();
+        previousRow.parent().attr('data-rubrique_cols', nbCols);
         setTimeout(function(){
           resizeVideos();
         }, 900);
@@ -902,6 +954,7 @@ $(document).ready(function()
         numdrag,
         numover,
         finalPlace,
+        dropzone,
         rubrique = document.getElementById('drag-mode'),
         rubrique_id = rubrique.dataset.id,
         Jelements = $('.dropy'),

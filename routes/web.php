@@ -46,6 +46,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => 'auth'), function ()
   Route::post('destroybloc/{id}', 'BlocController@destroy');
   Route::get('partial_bloc/{id}', 'BlocController@partialShow');
   Route::get('partial_drag/{id}', 'BlocController@partialShowDrag');
+  Route::post('list-galleries', 'BlocController@listGalleries')->middleware('ajax');
 
   Route::post('rubrique/{id}', 'RubriqueController@update');
   Route::post('destroyrubrique/{id}', 'RubriqueController@destroy');

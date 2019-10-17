@@ -290,19 +290,6 @@ class TypeController extends Controller
     return redirect()->route('type.index')->withInfo('Le type ' . $type->type . ' est supprimé.');
   }
 
-  private function getGalleriesArray(){
-    
-    //get gallery folders
-    $path_gallery = config('images.galeries');
-    $folders = Storage::directories($path_gallery);
-    $galleries = array();
-    foreach($folders as $folder){
-      $galleries[preg_replace('/.+\/(.+)$/', '$1', $folder )] = $folder;
-    }
-    return $galleries;
-
-  }
-
   public function insertedTypeIndex($type_id)
   {
     $operation = 'index';
@@ -331,7 +318,7 @@ class TypeController extends Controller
     $json_fields = json_decode($type->json_fields);
     $nb_champs = count($json_fields->fields);
 
-    $galleries = $this->getGalleriesArray();
+    $galleries = ModuleControl::getGalleriesArray();
 
     if($type->child_of > 0){
       $parent_type = Type::findOrFail($type->child_of);
@@ -343,7 +330,7 @@ class TypeController extends Controller
 
   public function getGalleries(){
     
-    $galleries = $this->getGalleriesArray();
+    $galleries = ModuleControl::getGalleriesArray();
 
     return view('common.back.inc.galleries', compact('galleries'));
 
@@ -418,7 +405,7 @@ class TypeController extends Controller
     $json_fields = json_decode($type->json_fields);
     $nb_champs = count($json_fields->fields);
 
-    $galleries = $this->getGalleriesArray();
+    $galleries = ModuleControl::getGalleriesArray();
 
     if($type->child_of > 0){
       $parent_type = Type::findOrFail($type->child_of);

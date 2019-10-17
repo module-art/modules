@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
       'name' => 'Sylvestre',
       'username' => 'sylvope',
       'email' => 'sylvestre@module-art.fr',
-      'password' => Hash::make('2008bord'),
+      'password' => Hash::make("IBj*Y'7aas*..hhQa&ME"),
       'role' => 'maintainer',
       'created_at' => $date,
       'updated_at' => $date,

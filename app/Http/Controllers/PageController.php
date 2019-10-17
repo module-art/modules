@@ -158,9 +158,10 @@ class PageController extends Controller
       $page->is_home = 1;
       $old_home_page->save();
       $page->save();
-    }elseif($page->is_home && !$request->has('is_home')){
-      return back()->withError('Vous devez avoir une page d\'accueil ! ');
     }
+    /*elseif($page->is_home && !$request->has('is_home')){
+      return back()->withError('Vous devez avoir une page d\'accueil ! ');
+    }*/
 
     $from_menu = (boolean)$page->place;
     $to_menu = (boolean)$request->place;
@@ -222,6 +223,7 @@ class PageController extends Controller
 
   public function mailFromContact(ContactRequest $request)
   {
+    //dd($request->all());
     if($request->prenom){
       return response()->json(['response' => 'Votre message est bien envoyé.']);
     }else{

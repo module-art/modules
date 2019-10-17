@@ -23,5 +23,10 @@
       @else
         <a class="dropdown-item change-type" data-contentType="{{ $rubrique->inclusive_type['content_type'] }}" data-dbAction="remove">Retirer les<br>{{ $rubrique->inclusive_type['content_type'] }}s</a>
       @endif
+
+      <div class="dropdown-item">
+        <label for="gallery">Galerie d'images</label><br>
+        <input name="gallery" type="text" class="select-gallery" placeholder="Choisir..." autocomplete="off" data-toggle="popover" data-content="error"/>
+      </div>
     </div>
   </div>
