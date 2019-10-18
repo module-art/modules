@@ -96,7 +96,7 @@ var tinyconf = {
       paste_as_text: true,
       image_advtab: true ,
       valid_elements : '+*[*]',
-      external_filemanager_path:"/tools/rfm/filemanager/",
+      external_filemanager_path:"/js/rfm/filemanager/",
       //content_css: '/css/styles.css,/css/wsm/awsomefont.css',
       filemanager_title:"Gestionnaire de fichiers" ,
       filemanager_sort_by:"date",
@@ -104,7 +104,7 @@ var tinyconf = {
       filemanager_access_key:"fsUn8A5u9e6UypkZ" ,
       relative_urls: false,
       media_live_embeds: true,
-      external_plugins: { "filemanager" : "/tools/rfm/filemanager/plugin.min.js"},///composants/rfm/filemanager/plugin.min.js
+      external_plugins: { "filemanager" : "/js/rfm/filemanager/plugin.min.js"},
       extended_valid_elements : "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],$elements",
       /*init_instance_callback: function (editor) {
         editor.on('blur', function(){

@@ -225,12 +225,12 @@ $(document).ready(function()
       myFormats = 'Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5;Paragraph=p',
       fontSizes = '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
       myValidElements = '+*[*]',
-      fmPath = "/tools/rfm/filemanager/",
+      fmPath = "/js/rfm/filemanager/",
       fmTitle = "Gestionnaire de fichiers",
       fmSortBy = "date",
       fmDesc = true,
       fmKey = "fsUn8A5u9e6UypkZ",
-      myExternalPlugins = { "filemanager" : "/tools/rfm/filemanager/plugin.min.js"},
+      myExternalPlugins = { "filemanager" : "/js/rfm/filemanager/plugin.min.js"},
       myExtendedValidElements = "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|style|onmouseover|onmouseout|name],$elements";
 
   //getTypeContents();
