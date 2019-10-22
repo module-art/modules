@@ -1,7 +1,7 @@
 <?php
 $version = "9.14.0";
-//$theme = 'grands_chemins';
-$theme = 'tarot';
+$theme = 'grands_chemins';
+//$theme = 'tarot';
 
 if (session_id() == '') session_start();
 /*
