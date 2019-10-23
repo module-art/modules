@@ -11,7 +11,7 @@ class module extends Command
    *
    * @var string
    */
-  protected $signature = 'module:link {--feature=views : Controllers,Requests,Middleware,Repositories,all}';
+  protected $signature = 'module:link {--feature= : views, Controllers, Requests, Middleware, Repositories, all}';
 
   /**
    * The console command description.
@@ -138,7 +138,9 @@ class module extends Command
         }
       }
 
-      if($ok) $this->info('Your module theme is linked for ' . $feature . ' !');
+      if($ok){ 
+        $this->info('Your module theme is linked for ' . $feature . ' !');
+      }
     }
 
   }
