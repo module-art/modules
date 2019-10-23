@@ -11,7 +11,7 @@ class module extends Command
    *
    * @var string
    */
-  protected $signature = 'module:link {feature=views : all,controllers,requests...}';
+  protected $signature = 'module:link {--feature=views : Controllers,Requests,Middleware,Repositories,all}';
 
   /**
    * The console command description.
@@ -39,17 +39,28 @@ class module extends Command
   {
     //check if theme is here
     $themes = scandir('./Themes');
+    $ok = false;
 
     if(!in_array(config('modules.theme'), $themes)){
       $this->error('It seems that you didn\'t install your theme yet ?');
     }else{
-      $feature = $this->choice('Which feature must be linked (views is minimum)?', ['views', 'Controllers', 'Requests', 'Middleware', 'Repositories', 'all']);
+      if($this->option('feature') != null){
+        $feature = $this->option('feature');
+      }else{
+        $feature = $this->choice('Which feature must be linked (views is minimum)?', ['views', 'Controllers', 'Requests', 'Middleware', 'Repositories', 'all']);
+      }
+      
+      if(!in_array($feature, ['all', 'views', 'Controllers', 'Requests', 'Middleware', 'Repositories']))
+      {
+        $this->error('Feature option accept only this values : views, Controllers, Requests, Middleware, Repositories, all');
+      }
 
       if(in_array($feature, ['all', 'views']))
       {
         //link views
         $app_views_path = './resources/views/themes';
         $theme_views_path = './Themes/' . config('modules.theme') . '/views';
+        $ok = true;
 
         if(!file_exists($app_views_path)){
           mkdir($app_views_path, 0755);
@@ -63,6 +74,7 @@ class module extends Command
         //link controllers
         $app_controllers_path = './app/Http/Controllers/Themes';
         $theme_controllers_path = './Themes/' . config('modules.theme') . '/Http/Controllers';
+        $ok = true;
 
         if(!file_exists($app_controllers_path)){
           mkdir($app_controllers_path, 0755);
@@ -79,6 +91,7 @@ class module extends Command
         //link requests
         $app_requests_path = './app/Http/Requests/Themes';
         $theme_requests_path = './Themes/' . config('modules.theme') . '/Http/Requests';
+        $ok = true;
 
         if(!file_exists($app_requests_path)){
           mkdir($app_requests_path, 0755);
@@ -95,6 +108,7 @@ class module extends Command
         //link middleware
         $app_middleware_path = './app/Http/Middleware/Themes';
         $theme_middleware_path = './Themes/' . config('modules.theme') . '/Http/Middleware';
+        $ok = true;
 
         if(!file_exists($app_middleware_path)){
           mkdir($app_middleware_path, 0755);
@@ -111,6 +125,7 @@ class module extends Command
         //link repositories
         $app_repositories_path = './app/Repositories/Themes';
         $theme_repositories_path = './Themes/' . config('modules.theme') . '/repositories';
+        $ok = true;
 
         if(!file_exists($app_repositories_path)){
           mkdir($app_repositories_path, 0755);
@@ -123,7 +138,7 @@ class module extends Command
         }
       }
 
-      $this->info('Your module theme is linked for ' . $feature . ' !');
+      if($ok) $this->info('Your module theme is linked for ' . $feature . ' !');
     }
 
   }
