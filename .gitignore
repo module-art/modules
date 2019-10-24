@@ -4,6 +4,7 @@
 /public/uploads
 /public/tools
 **/[Tt]hemes
+!/public/js/tinymce/themes
 /storage/*.key
 /vendor
 /.idea
