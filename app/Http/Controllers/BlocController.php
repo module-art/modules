@@ -11,6 +11,7 @@ use App\Models\Bloc;
 use App\Models\User;
 use App\Models\Type;
 use ModuleControl;
+use View;
 
 class BlocController extends Controller
 {
@@ -31,7 +32,11 @@ class BlocController extends Controller
   {
     $rubrique = Rubrique::findOrFail($id_rubrique);
     $types = Type::all();
-    return view('themes.'.config('modules.theme').'.back.inc.partial_bloc', compact('id_rubrique', 'rubrique', 'types'));
+    if(View::exists('themes.'.config('modules.theme').'.back.inc.partial_bloc')){
+      return view('themes.'.config('modules.theme').'.back.inc.partial_bloc', compact('id_rubrique', 'rubrique', 'types'));
+    }else{
+      return view('common.back.inc.partial_bloc', compact('id_rubrique', 'rubrique', 'types'));
+    }
   }
 
   public function partialShowDrag($id_rubrique)

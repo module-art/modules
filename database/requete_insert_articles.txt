@@ -1,1 +1,0 @@
-INSERT INTO `rubriques`(`created_at`, `updated_at`) SELECT `post_date`, `post_date` FROM `wp_posts`

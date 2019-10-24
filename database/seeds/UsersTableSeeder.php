@@ -17,10 +17,10 @@ class UsersTableSeeder extends Seeder
     $date = Carbon::now();
 
     DB::table('users')->insert([
-      'name' => 'Sylvestre',
-      'username' => 'sylvope',
-      'email' => 'sylvestre@module-art.fr',
-      'password' => Hash::make("IBj*Y'7aas*..hhQa&ME"),
+      'name' => 'Admin',
+      'username' => 'admin',
+      'email' => 'admin@module-art.fr',
+      'password' => Hash::make("admin"),
       'role' => 'maintainer',
       'created_at' => $date,
       'updated_at' => $date,

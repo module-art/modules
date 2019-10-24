@@ -1,6 +1,5 @@
 // Bootstrap already imported with style.css
 //@import "~bootstrap/scss/bootstrap";
-// Variables
 @import "_variables";
 @import '_mixins';
 
@@ -266,5 +265,5 @@
 }
 
 .form-control {
-	height: unset;
+	height: auto !important;
 }
