@@ -25,5 +25,15 @@ class PagesTableSeeder extends Seeder
       'is_home' => 1,
       'publie' => 1,
     ]);
+    DB::table('pages')->insert([
+      'created_at' => $date,
+      'updated_at' => $date,
+      'title' => 'Page contact',
+      'menu_title' => 'Contact',
+      'place' => 2,
+      'slug' => str_slug('Contact'),
+      'is_home' => 0,
+      'publie' => 1,
+    ]);
   }
 }
