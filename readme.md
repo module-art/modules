@@ -6,12 +6,12 @@
 The html structure, the styles, the javascript and possibly additional php classes are worked separately in the files of the theme folder.</p>
 
 ## Install
-The installation is like Laravel.<br>
-Then you have to create the folder Themes/ at the root.<br>
+<pre>composer install</pre>
+Then you have to create folders Themes/{your theme name}/ at the root.<br>
 Clone the <a href="https://framagit.org/module-art/theme-base" target="_blank">theme_base</a> in<br>
 Start commands :<br>
-php artisan migrate --seed<br>
-php artisan module:link<br>
+<pre>php artisan migrate --seed></pre>
+<pre>php artisan module:link></pre>
 and choose "views" at least<br>
 Then change the theme as you see fit ...
 
