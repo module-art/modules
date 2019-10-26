@@ -1,7 +1,7 @@
 ## What is that ?
 <p>Modules, is <a href="https://laravel.com/">Laravel</a> with a content manager layer above.</p>
-<p>I developed this CMS for my personal use (for now in French), to have a tool whose backoffice, the simplest possible, is intended only for the end user to manage its contents.
-The html structure, the styles, the javascript and possibly additional php classes are worked separately in the files of the theme folder.</p>
+<p>I developed this CMS for my personal use (for now in French), to have a tool whose backoffice, the simplest possible, is intended only for the end user to manage its contents.<br>
+HTML structure, styles, javascript and possibly additional php classes are worked separately in the files of the theme folder.</p>
 
 ## Install
 Run
@@ -9,8 +9,11 @@ Run
 Then you have to create folders Themes/{your theme name}/ at the root.<br>
 Clone the <a href="https://framagit.org/module-art/theme-base" target="_blank">theme_base</a> in<br>
 Run commands :<br>
-<pre>php artisan migrate --seed></pre>
-<pre>php artisan module:link></pre>
+<pre>
+php artisan migrate --seed>
+php artisan storage:link>
+php artisan module:link>
+</pre>
 and choose "views" at least<br>
 Then change the theme as you see fit ...
 
