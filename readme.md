@@ -10,9 +10,9 @@ Then you have to create folders Themes/{your theme name}/ at the root.<br>
 Clone the <a href="https://framagit.org/module-art/theme-base" target="_blank">theme_base</a> in<br>
 Run commands :<br>
 <pre>
-php artisan migrate --seed>
-php artisan storage:link>
-php artisan module:link>
+php artisan migrate --seed
+php artisan storage:link
+php artisan module:link
 </pre>
 and choose "views" at least<br>
 Then change the theme as you see fit ...
