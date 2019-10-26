@@ -4,12 +4,17 @@ $version = "9.14.0";
 $theme = 'themebase';
 
 if (session_id() == '') session_start();
-/*
-echo '<pre>';
+
+$keyfile = fopen("../../../../storage/app/rfm.key", "r") or die("Unable to open storage/app/rfm.key");
+$key = fgets($keyfile);
+fclose($keyfile);
+
+/*echo '<pre>';
 var_dump($_SESSION);
-echo '</pre>';
-*/
-if(!isset($_SESSION['fmanager']) || !isset($_SESSION['fmanager-ts']) || $_SESSION['fmanager']!=md5($_SESSION['fmanager-ts'].'salt_code')){
+echo $key;
+echo '</pre>';*/
+
+if(!isset($_SESSION['fmanager']) || !isset($_SESSION['fmanager-ts']) || $_SESSION['fmanager']!=md5($_SESSION['fmanager-ts'].$key)){
   echo "Vous n'êtes pas autorisé à visualiser ce contenu pour le moment ...";
   exit();
 }
@@ -45,7 +50,7 @@ TODO WSM check user logged in
 | tiny init ...
 | external_filemanager_path:"../filemanager/",
 | filemanager_title:"Filemanager" ,
-| filemanager_access_key:"myPrivateKey" ,fsUn8A5u9e6UypkZ
+| filemanager_access_key:"myPrivateKey" ,
 | ...
 |
 */
