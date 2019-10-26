@@ -9,7 +9,7 @@ echo '<pre>';
 var_dump($_SESSION);
 echo '</pre>';
 */
-if(!isset($_SESSION['fmanager']) || !isset($_SESSION['fmanager-ts']) || $_SESSION['fmanager']!=md5($_SESSION['fmanager-ts'].'5XxZyQvLMbZSLaPvAPMhdsEyL2T')){
+if(!isset($_SESSION['fmanager']) || !isset($_SESSION['fmanager-ts']) || $_SESSION['fmanager']!=md5($_SESSION['fmanager-ts'].'salt_code')){
   echo "Vous n'êtes pas autorisé à visualiser ce contenu pour le moment ...";
   exit();
 }

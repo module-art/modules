@@ -22,7 +22,7 @@ class RubriquesTableSeeder extends Seeder
       'place' => 1,
       'cols' => 3,
       //'background_img_url' => "/storage/themebase/img/violin.jpg",
-      'background_hd_url' => null,
+      'background_img_url' => null,
       'page_id' => 1,
     ]);
     DB::table('rubriques')->insert([
@@ -32,7 +32,6 @@ class RubriquesTableSeeder extends Seeder
       'place' => 0,
       'cols' => 0,
       'background_img_url' => null,
-      //'background_hd_url' => null,
       'page_id' => null,
     ]);
     DB::table('rubriques')->insert([
@@ -42,7 +41,7 @@ class RubriquesTableSeeder extends Seeder
       'place' => 1,
       'cols' => 2,
       //'background_img_url' => "/storage/themebase/img/cantal.jpg",
-      'background_hd_url' => null,
+      'background_img_url' => null,
       'page_id' => 2,
     ]);
   }
