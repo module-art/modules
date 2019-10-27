@@ -765,9 +765,9 @@ $(document).ready(function()
           var idRubrique = $(this).attr('data-rubrique_id');
 
           $.ajax({
-              method: 'post',
-              url: '/coulisses/destroyrubrique/'+ idRubrique,
-              data: { _token: csrfToken},//token!!!
+            method: 'post',
+            url: '/coulisses/destroyrubrique/'+ idRubrique,
+            data: { _token: csrfToken},//token!!!
           })
           .done(function(data) {
             elem.parents('tr').remove();
@@ -783,9 +783,9 @@ $(document).ready(function()
 
           if(idBloc != 0){
             $.ajax({
-                method: 'post',
-                url: '/coulisses/destroybloc/'+ idBloc,
-                data: { _token: csrfToken},//token!!!
+              method: 'post',
+              url: '/coulisses/destroybloc/'+ idBloc,
+              data: { _token: csrfToken},//token!!!
             })
             .done(function(data) {
               elem.remove();
