@@ -18,6 +18,7 @@ class fmkeys
     {
       $role = $request->user()->role;
       if($role == 'admin' || $role == 'maintainer'){
+        if(!Storage::exists('theme')) Storage::put('theme', config('modules.theme'));
         $fmkey = md5(uniqid());
         Storage::put('fm.key', $fmkey);
         $request->merge(['fmkey' => $fmkey]);

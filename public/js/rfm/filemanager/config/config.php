@@ -1,7 +1,9 @@
 <?php
 $version = "9.14.0";
-$theme = 'grands_chemins';
-//$theme = 'themebase';
+
+$themefile = fopen("../../../../storage/app/theme", "r") or die("Unable to open storage/app/theme");
+$theme = fgets($themefile);
+fclose($themefile);
 
 if (session_id() == '') session_start();
 
