@@ -54,7 +54,7 @@ class ControlRepository
     return $new_array;
   }
 
-  static function getSortedTypeRubriques($type, $order_by, $desc = 0, $index = false){
+  public static function getSortedTypeRubriques($type, $order_by, $desc = 0, $index = false){
 
     $order = $desc ? 'desc' : 'asc';
     $nb_per_page = $index ? 15 : $type->nb_per_page;
@@ -123,7 +123,7 @@ class ControlRepository
 
   }
 
-  static function insertGallery($datas){
+  public static function insertGallery($datas){
 
     $modified_data = "";
     $path = config('images.galeries');
