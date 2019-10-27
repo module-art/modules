@@ -1,1 +1,211 @@
-!function(e){var t={};function n(o){if(t[o])return t[o].exports;var r=t[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var r in e)n.d(o,r,function(t){return e[t]}.bind(null,r));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="/",n(n.s=0)}([function(e,t,n){n(1),e.exports=n(2)},function(e,t){$(document).ready((function(){var e=$(".cd-top"),t=$(".heading.first").first();parseInt(t.css("padding-top")),parseInt(t.css("padding-bottom"));$(document).on("click",'a[href^="#"]',(function(e){e.preventDefault(),$("html, body").animate({scrollTop:$($.attr(this,"href")).offset().top},1e3)})),$(window).scroll((function(){$(this).scrollTop()>300?e.addClass("cd-is-visible"):e.removeClass("cd-is-visible cd-fade-out"),$(this).scrollTop()>1200?e.addClass("cd-fade-out"):$(this).scrollTop()<1200&&e.removeClass("cd-fade-out")})),e.on("click",(function(e){e.preventDefault(),$("body,html").animate({scrollTop:0},1e3)}))}))},function(e,t){}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./Themes/grands_chemins/assets/js/scripts.js":
+/*!****************************************************!*\
+  !*** ./Themes/grands_chemins/assets/js/scripts.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  //parse gallery
+
+  /*$('.gallery-json').each(function(){
+    var galleryJson = $.parseJSON($(this).html()),
+        galleryString = $(this).html();
+    var fancy = '<figure class="gallery row justify-content-center">';
+    $.each(galleryJson.images, function(key,value){
+      fancy += '<a href="'+value.replace(/thumbs\//, '')+'" class="fancy col-6 col-sm-4 col-md-3 col-lg-2" data-fancybox="gallery">'+
+        '<img'+ (galleryJson.type == 'circle' ? ' class="rond"' : '') +' src="' + value + '" alt="image" />'+
+        '</a>';
+    });
+    fancy += '</figure>';
+    $(this).html(fancy);
+    $(this).attr('data-gallery_json', galleryString);
+  });*/
+  //fancybox
+  $('.gallery').each(function () {
+    $('.fancy', this).fancybox({
+      transitionEffect: "slide",
+      closeExisting: true,
+      loop: false
+    });
+  });
+  $('#global-wrapper').fadeIn(500); //insertion des liste par type
+
+  /*var typeContents = $('.type-contents');
+   typeContents.each(function(){
+    var type = $(this).attr('data-content_type');
+     $(this).load('/get-type-contents/'+type+'?orderby=titre&order=asc', function(response, status, xhr){
+      if( status == "error" ){
+        console.log(xhr.statusText);
+      }
+    });
+  });*/
+
+  /* Bouton retour en haut */
+  // browser window scroll (in pixels) after which the "back to top" link is shown
+
+  var offset = 300,
+      //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+  offset_opacity = 1200,
+      //duration of the top scrolling animation (in ms)
+  scroll_top_duration = 1000,
+      //grab the "back to top" link
+  $back_to_top = $('.cd-top'),
+      $rubrique = $('.heading.first').first(),
+      $paddingTop = parseInt($rubrique.css('padding-top')),
+      $paddingBottom = parseInt($rubrique.css('padding-bottom')); //Smooth scroll
+
+  $(document).on('click', 'a[href^="#"]', function (event) {
+    event.preventDefault();
+    $('html, body').animate({
+      scrollTop: $($.attr(this, 'href')).offset().top
+    }, scroll_top_duration);
+  }); //hide or show the "back to top" link
+
+  $(window).scroll(function () {
+    //console.log($(this).scrollTop());
+    $(this).scrollTop() > offset ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
+
+    if ($(this).scrollTop() > offset_opacity) {
+      $back_to_top.addClass('cd-fade-out');
+    } else if ($(this).scrollTop() < offset_opacity) {
+      $back_to_top.removeClass('cd-fade-out');
+    }
+    /* reduction du header en scrollant
+     if($(this).scrollTop() > 10){
+      $rubrique.css({
+        paddingTop: $paddingTop-200,
+        paddingBottom: $paddingBottom-150
+      });
+    }else if($(this).scrollTop() < 2){
+      $rubrique.css({
+        paddingTop: $paddingTop,
+        paddingBottom: $paddingBottom
+      });
+    }*/
+
+  }); //smooth scroll to top
+
+  $back_to_top.on('click', function (event) {
+    event.preventDefault();
+    $('body,html').animate({
+      scrollTop: 0
+    }, scroll_top_duration);
+  });
+});
+
+/***/ }),
+
+/***/ "./Themes/grands_chemins/assets/sass/styles.scss":
+/*!*******************************************************!*\
+  !*** ./Themes/grands_chemins/assets/sass/styles.scss ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 0:
+/*!**********************************************************************************************************!*\
+  !*** multi ./Themes/grands_chemins/assets/js/scripts.js ./Themes/grands_chemins/assets/sass/styles.scss ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! /home/sylvestre/www/modules/modules-chemins/Themes/grands_chemins/assets/js/scripts.js */"./Themes/grands_chemins/assets/js/scripts.js");
+module.exports = __webpack_require__(/*! /home/sylvestre/www/modules/modules-chemins/Themes/grands_chemins/assets/sass/styles.scss */"./Themes/grands_chemins/assets/sass/styles.scss");
+
+
+/***/ })
+
+/******/ });

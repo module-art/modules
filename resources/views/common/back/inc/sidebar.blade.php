@@ -91,7 +91,7 @@
         </a>
       </li>
       <li>
-        <a href="/js/rfm/filemanager/dialog.php?type=0&akey=fsUn8A5u9e6UypkZ" target="_blank"><i class="fas fa-folder-open"></i> Gestionnaire de Fichiers</a>
+        <a href="{{ route('filemanager') }}" target="_blank"><i class="fas fa-folder-open"></i> Gestionnaire de Fichiers</a>
       </li>
       @if(config('modules.mails') == true)
         <li>

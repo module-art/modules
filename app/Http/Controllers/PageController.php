@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Mail;
 use Auth;
+use Storage;
 use Illuminate\Http\Request;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\PageRequest;
@@ -25,6 +26,7 @@ class PageController extends Controller
     $this->menusRepository = $menusRepository;
     $this->middleware('authAsAdmin', ['except' => ['show', 'goHome', 'mailFromContact']]);
     $this->middleware('ajax', ['only' => ['switchPublication']]);
+    $this->middleware('fmkeys', ['only' => ['getfm']]);
     $this->nbrPerPage = $controlRepository->nbrPerPage;
   }
   /**
@@ -42,7 +44,19 @@ class PageController extends Controller
     return view('common.back.pageIndex', compact('pages', 'menus', 'operation'));
   }
 
-  public function show($slug)
+  public function getfm()
+  {
+    $fmkey = Storage::get('fm.key');
+    return response()->json(['fmkey' => $fmkey]);
+  }
+
+  public function filemanager()
+  {
+    $fmkey = Storage::get('fm.key');
+    return redirect('/js/rfm/filemanager/dialog.php?type=0&akey='.$fmkey);
+  }
+
+  public function show(Request $request, $slug)
   {
     if(Auth::check()){
       $page = Page::where('slug', $slug)->firstOrFail();
@@ -59,7 +73,8 @@ class PageController extends Controller
     $types = Type::all();
 
     if(Auth::check()){
-      return view('themes.'.config('modules.theme').'.back.page', compact('menus', 'page', 'footer', 'bg_img','types'));
+      $fmkey = $request->fmkey;
+      return view('themes.'.config('modules.theme').'.back.page', compact('menus', 'page', 'footer', 'bg_img','types', 'fmkey'));
     }
 
     return view('themes.'.config('modules.theme').'.front.page', compact('menus', 'page', 'footer', 'bg_img','types'));

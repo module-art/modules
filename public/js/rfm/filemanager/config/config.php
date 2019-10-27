@@ -1,7 +1,7 @@
 <?php
 $version = "9.14.0";
-//$theme = 'grands_chemins';
-$theme = 'themebase';
+$theme = 'grands_chemins';
+//$theme = 'themebase';
 
 if (session_id() == '') session_start();
 
@@ -9,10 +9,14 @@ $keyfile = fopen("../../../../storage/app/rfm.key", "r") or die("Unable to open 
 $key = fgets($keyfile);
 fclose($keyfile);
 
-/*echo '<pre>';
-var_dump($_SESSION);
-echo $key;
-echo '</pre>';*/
+$accesskeyfile = fopen("../../../../storage/app/fm.key", "r") or die("Unable to open storage/app/fm.key");
+$accesskey = fgets($accesskeyfile);
+fclose($accesskeyfile);
+
+//echo '<pre>';
+////var_dump($_SESSION);
+//echo $accesskey;
+//echo '</pre>';
 
 if(!isset($_SESSION['fmanager']) || !isset($_SESSION['fmanager-ts']) || $_SESSION['fmanager']!=md5($_SESSION['fmanager-ts'].$key)){
   echo "Vous n'êtes pas autorisé à visualiser ce contenu pour le moment ...";
@@ -174,7 +178,7 @@ $config = array(
 	|
 	*/
 
-	'access_keys' => array('fsUn8A5u9e6UypkZ'),
+	'access_keys' => array($accesskey),
 
 	//--------------------------------------------------------------------------------------------------------
 	// YOU CAN COPY AND CHANGE THESE VARIABLES INTO FOLDERS config.php FILES TO CUSTOMIZE EACH FOLDER OPTIONS

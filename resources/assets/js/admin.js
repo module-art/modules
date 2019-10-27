@@ -229,17 +229,30 @@ $(document).ready(function()
       fmTitle = "Gestionnaire de fichiers",
       fmSortBy = "date",
       fmDesc = true,
-      fmKey = "fsUn8A5u9e6UypkZ",
+      fmKey = "45er455d8f7z6e5f4d4s66uhtgf448ez",
       myExternalPlugins = { "filemanager" : "/js/rfm/filemanager/plugin.min.js"},
       myExtendedValidElements = "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|style|onmouseover|onmouseout|name],$elements";
 
-  //getTypeContents();
-  initMceBlocs();
-  initMceRubriques();
-  listenToAddBloc();
-  listenToDestroy();
-  colsManager();
-  resizeVideos();
+  $.ajax({
+      method: 'post',
+      url: '/coulisses/getfm/',
+      data: { _token: csrfToken},
+  })
+  .done(function(data) {
+    fmKey = data.fmkey;
+    //console.log(data);
+    //getTypeContents();
+    initMceBlocs();
+    initMceRubriques();
+    listenToAddBloc();
+    listenToDestroy();
+    colsManager();
+    resizeVideos();
+  })
+  .fail(function() {
+    alert('Oups! une erreur, contactez votre administrateur.');
+  });
+
 
   function rubriqueCallback(editor) {
         editor.on('focus', function (e) {

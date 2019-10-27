@@ -62,5 +62,6 @@ class Kernel extends HttpKernel
         'ajax' => \App\Http\Middleware\Ajax::class,
         'authAsAdmin' => \App\Http\Middleware\authAsAdmin::class,
         'authAsMaintainer' => \App\Http\Middleware\authAsMaintainer::class,
+        'fmkeys' => \App\Http\Middleware\Fmkeys::class,
     ];
 }
