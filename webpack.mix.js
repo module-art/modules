@@ -17,7 +17,7 @@ mix.config.fileLoaderDirs.fonts = 'storage/'+current_theme+'/fonts';
 mix
    .js('Themes/'+current_theme+'/assets/js/scripts.js', 'public/js')
    //.js('resources/assets/js/app.js', 'public/js')
-   .js('resources/assets/js/admin.js', 'public/js')
+   //.js('resources/assets/js/admin.js', 'public/js')
    //.js('resources/assets/js/lists.js', 'public/js')
    //.js('resources/assets/js/contact.js', 'public/js')
    //.js('resources/assets/js/insert_form.js', 'public/js')
