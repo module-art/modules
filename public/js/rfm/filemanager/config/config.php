@@ -5,7 +5,7 @@ $theme = $_COOKIE['modth'];
 
 if (session_id() == '') session_start();
 
-$keyfile = fopen("../../../../storage/app/rfm.key", "r") or die("Unable to open storage/app/rfm.key");
+$keyfile = fopen("../../../../storage/app/rfm.key", "r") or die("Access denied !");
 $key = fgets($keyfile);
 fclose($keyfile);
 

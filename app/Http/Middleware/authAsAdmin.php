@@ -18,7 +18,6 @@ class authAsAdmin
     {
       $role = $request->user()->role;
       if($role == 'admin' || $role == 'maintainer'){
-        Storage::put('rfm.key', config('modules.rfm_key'));
         if ( ! session_id() ) @ session_start();
         if ( ! isset($_SESSION['fmanager-ts'])) $_SESSION['fmanager-ts'] = time();
         $_SESSION['fmanager'] = md5($_SESSION['fmanager-ts'].config('modules.rfm_key'));
