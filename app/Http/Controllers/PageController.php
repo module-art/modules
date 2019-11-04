@@ -16,6 +16,7 @@ use App\Models\Rubrique;
 use App\Models\Bloc;
 use App\Models\User;
 use App\Models\Type;
+use Illuminate\Support\Facades\Cookie;
 
 class PageController extends Controller
 {
@@ -26,7 +27,6 @@ class PageController extends Controller
     $this->menusRepository = $menusRepository;
     $this->middleware('authAsAdmin', ['except' => ['show', 'goHome', 'mailFromContact']]);
     $this->middleware('ajax', ['only' => ['switchPublication']]);
-    $this->middleware('fmkeys', ['only' => ['getfm']]);
     $this->nbrPerPage = $controlRepository->nbrPerPage;
   }
   /**
@@ -44,15 +44,9 @@ class PageController extends Controller
     return view('common.back.pageIndex', compact('pages', 'menus', 'operation'));
   }
 
-  public function getfm()
-  {
-    $fmkey = Storage::get('fm.key');
-    return response()->json(['fmkey' => $fmkey]);
-  }
-
   public function filemanager()
   {
-    $fmkey = Storage::get('fm.key');
+    $fmkey = Cookie::get('fmk');
     return redirect('/js/rfm/filemanager/dialog.php?type=0&akey='.$fmkey);
   }
 

@@ -1,9 +1,7 @@
 <?php
 $version = "9.14.0";
 
-$themefile = fopen("../../../../storage/app/theme", "r") or die("Unable to open storage/app/theme");
-$theme = fgets($themefile);
-fclose($themefile);
+$theme = $_COOKIE['modth'];
 
 if (session_id() == '') session_start();
 
@@ -11,13 +9,11 @@ $keyfile = fopen("../../../../storage/app/rfm.key", "r") or die("Unable to open 
 $key = fgets($keyfile);
 fclose($keyfile);
 
-$accesskeyfile = fopen("../../../../storage/app/fm.key", "r") or die("Unable to open storage/app/fm.key");
-$accesskey = fgets($accesskeyfile);
-fclose($accesskeyfile);
+$accesskey = $_COOKIE['fmk'];
 
 //echo '<pre>';
 ////var_dump($_SESSION);
-//echo $accesskey;
+//var_dump( $theme );
 //echo '</pre>';
 
 if(!isset($_SESSION['fmanager']) || !isset($_SESSION['fmanager-ts']) || $_SESSION['fmanager']!=md5($_SESSION['fmanager-ts'].$key)){

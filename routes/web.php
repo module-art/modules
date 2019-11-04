@@ -18,7 +18,6 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => ['auth']), function 
 
   Route::resource('user', 'UserController', ['except' => ['show']]);
   
-  Route::post('getfm', 'PageController@getfm')->middleware('ajax');
   Route::get('filemanager', 'PageController@filemanager')->name('filemanager');
 
   Route::get('pages', 'PageController@index')->name('page.index');

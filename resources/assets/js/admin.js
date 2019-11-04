@@ -229,29 +229,34 @@ $(document).ready(function()
       fmTitle = "Gestionnaire de fichiers",
       fmSortBy = "date",
       fmDesc = true,
-      fmKey = "45er455d8f7z6e5f4d4s66uhtgf448ez",
+      fmKey = "",
       myExternalPlugins = { "filemanager" : "/js/rfm/filemanager/plugin.min.js"},
       myExtendedValidElements = "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|style|onmouseover|onmouseout|name],$elements";
 
-  $.ajax({
-      method: 'post',
-      url: '/coulisses/getfm/',
-      data: { _token: csrfToken},
-  })
-  .done(function(data) {
-    fmKey = data.fmkey;
-    //console.log(data);
-    //getTypeContents();
-    initMceBlocs();
-    initMceRubriques();
-    listenToAddBloc();
-    listenToDestroy();
-    colsManager();
-    resizeVideos();
-  })
-  .fail(function() {
-    alert('Oups! une erreur, contactez votre administrateur.');
-  });
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        //return c.substring(name.length, c.length);
+        fmKey = c.substring(name.length, c.length);
+        initMceBlocs();
+        initMceRubriques();
+      }
+    }
+    return "";
+  }
+
+  getCookie('fmk');
+  listenToAddBloc();
+  listenToDestroy();
+  colsManager();
+  resizeVideos();
 
 
   function rubriqueCallback(editor) {
