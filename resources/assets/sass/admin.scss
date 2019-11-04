@@ -19,7 +19,7 @@
       font-size: initial;
       position: absolute;
       top: -3*$spacer;
-      z-index: 1300;
+      z-index: 1000;
       .dropdown-menu{
         right: 0;
         left: inherit;
@@ -28,6 +28,7 @@
     }
 
     .bloc-button{
+      font-family: $font-family-admin;
       right: 0px;
       .select-gallery{
         max-width: 100%;
@@ -35,6 +36,7 @@
     }
 
     .cols-button{
+      font-family: $font-family-admin;
       right: 130px;
     }
     .dropdown-item{
@@ -48,7 +50,7 @@
 }
 
 #sidebar {
-  font-family: $font-family-base;
+  font-family: $font-family-admin;
   background-color: lighten($dark-gray, 5%);
   color: $white;
   min-width: $navbar-width;

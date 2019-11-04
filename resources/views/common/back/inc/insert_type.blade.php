@@ -87,7 +87,16 @@
         <div class="form-row">
           <div class="input-group">
             {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
-            <input type="number" name="{{ $field->name }}" class="form-control col-12 col-lg-4 offset-lg-1 {{ $errors->has($field_name_error) ? ' is-invalid' : '' }}" value="{{ $editing ? $contenu : old($field->name) }}"/>
+            <input type="number" name="{{ $field->name }}" class="form-control col-12 col-lg-4 offset-lg-1{{ $errors->has($field_name_error) ? ' is-invalid' : '' }}" value="{{ $editing ? $contenu : old($field->name) }}"/>
+          </div>
+        </div>
+      </div>
+    @elseif($field->type == 'text-raw')
+      <div class="form-group">
+        <div class="form-row">
+          <div class="input-group">
+            {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
+            <input type="text" name="{{ $field->name }}" class="form-control col-12 col-lg-4 offset-lg-1{{ $errors->has($field_name_error) ? ' is-invalid' : '' }}" value="{{ $editing ? $contenu : old($field->name) }}"/>
           </div>
         </div>
       </div>

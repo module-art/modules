@@ -22,6 +22,10 @@ $(document).ready(function()
             '</div>'+
             '<div class="form-group offset-1 col-11 offset-md-0 col-md-6">'+
               '<div class="form-check">'+
+                '<input class="form-check-input" type="radio" name="type-'+fieldLength+'" value="text-raw" checked>'+
+                '<label class="form-check-label">Texte brut</label>'+
+              '</div>'+
+              '<div class="form-check">'+
                 '<input class="form-check-input" type="radio" name="type-'+fieldLength+'" value="text" checked>'+
                 '<label class="form-check-label">Texte</label>'+
               '</div>'+

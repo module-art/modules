@@ -1,6 +1,8 @@
+@inject('module_control', 'ModuleControl'){{--make instance like new ModuleControl--}}
+<div class="row markerRow">
 
-<?php
-  switch ($rubrique->cols) {
+  @php
+    switch ($rubrique->cols) {
     case 1:
       $cols = '';
       break;
@@ -10,26 +12,19 @@
     case 3:
       $cols = ' col-md-6 col-lg-4';
       break;
-  }
-  $order= $rubrique->ascendant ? 'asc' : 'desc'; 
-?>
-<div class="row markerRow" id="blocs-rubrique{{ $rubrique->id }}" >
+    }
+    $order = $rubrique->ascendant ? 'asc' : 'desc'; 
+  @endphp
 
   @include('common.back.inc.menu_rubrique')
 
   @foreach($rubrique->blocs()->orderBy('place', $order)->get() as $bloc)
     @if($bloc->type == 'gallery')
-      @php
-        $bloc_contenu = $bloc->contenu;
-        $gallery_data[0] = $bloc_contenu;
-        //parseGallery function is declared in inclusion line 1
-        $gallery_data[1] = preg_replace('/(<p>)?.*\[gallery\surl="\/(.*)"\stype="(.*)"\].*(<\/p>)?/', '$2', $bloc_contenu);
-        $gallery_data[2] = preg_replace('/(<p>)?.*\[gallery\surl="\/(.*)"\stype="(.*)"\].*(<\/p>)?/', '$3', $bloc_contenu);
-        $fancy_html = ModuleControl::parseGallery($gallery_data);
-      @endphp
-      <div class="col-12" data-bloc_id="{!! $bloc->id !!}">
+      <div class="col-12">
         <button class="btn btn-sm btn-outline-danger btn-destroy" ><i class="fas fa-trash-alt"></i></button>
-        {!! $fancy_html !!}
+        <figure class="gallery row justify-content-center" data-bloc_id="{!! $bloc->id !!}">
+          {!! $module_control->parseGalleryInRubrique($bloc->contenu) !!}
+        </figure>
       </div>
     @elseif($bloc->type == 'large')
       <div class="col-12 large-bloc">

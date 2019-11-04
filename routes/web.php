@@ -75,7 +75,7 @@ Route::get('rgpd-notice', function () {
 });
 Route::post('mail', 'PageController@mailFromContact')->name('page.mail');
 Route::get('get-type-contents/{type}', 'RubriqueController@getTypeContents');
-Route::get('{type}/{id_rubrique}', 'RubriqueController@showTypeContentPage')->name('type_content');
+Route::get('{type}/{id_rubrique}/{title?}', 'RubriqueController@showTypeContentPage')->name('type_content');
 
 /*
 Route::get('testdrop', function (){

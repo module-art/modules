@@ -22,6 +22,10 @@
         </div>
         <div class="form-group offset-1 col-11 offset-md-0 col-md-6">
           <div class="form-check">
+            <input class="form-check-input" type="radio" name="type-0" value="text-raw" checked>
+            <label class="form-check-label">Texte brut</label>
+          </div>
+          <div class="form-check">
             <input class="form-check-input" type="radio" name="type-0" value="text" checked>
             <label class="form-check-label">Texte</label>
           </div>
@@ -53,6 +57,10 @@
               </div></div>
           </div>
           <div class="form-group offset-1 col-11 offset-md-0 col-md-6">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="type-{{ $i }}" value="text-raw" {{ $field->type == 'text-raw' ? 'checked' : '' }} disabled>
+              <label class="form-check-label">Texte brut</label>
+            </div>
             <div class="form-check">
               <input class="form-check-input" type="radio" name="type-{{ $i }}" value="text" {{ $field->type == 'text' ? 'checked' : '' }} disabled>
               <label class="form-check-label">Texte</label>
@@ -127,6 +135,10 @@
     <input name="descendant" value="1" type="checkbox"{{ $operation == 'edit' && $type->descendant ? 'checked' : '' }}>
   </div>
   <div class="form-group">
+    <label for="available">Disponible pour les rubriques :</label>
+    <input name="available" value="1" type="checkbox"{{ $operation == 'edit' && $type->available ? 'checked' : '' }}>
+  </div>
+  <div class="form-group">
     <label for="nb_per_page">Nombre à afficher (0 désactive la pagination):</label>
     <input name="nb_per_page" class="form-control" value="{{ $operation == 'edit' ? $type->nb_per_page : 0 }}" type="number">
   </div>
@@ -188,7 +200,11 @@
             </div>
             <div class="form-group offset-1 col-11 offset-md-0 col-md-6">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="new-type" value="text" checked>
+                <input class="form-check-input" type="radio" name="new-type" value="text-raw" checked>
+                <label class="form-check-label">Texte brut</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="new-type" value="text">
                 <label class="form-check-label">Texte</label>
               </div>
               <div class="form-check">

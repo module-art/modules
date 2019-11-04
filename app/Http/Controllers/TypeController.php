@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\TypeRequest;
 use App\Repositories\FooterRepository;
 use App\Repositories\MenusRepository;
-use App\Repositories\ControlRepository;
 use App\Models\Type;
 use App\Models\Rubrique;
 use App\Models\Bloc;
@@ -17,13 +16,13 @@ use ModuleControl;
 class TypeController extends Controller
 {
   
-  public function __construct(FooterRepository $footerRepository, MenusRepository $menusRepository, ControlRepository $controlRepository)
+  public function __construct(FooterRepository $footerRepository, MenusRepository $menusRepository,  ModuleControl $module_control)
   {
     $this->footerRepository = $footerRepository;
     $this->menusRepository = $menusRepository;
-    $this->controlRepository = $controlRepository;
     $this->middleware('authAsAdmin');
-    $this->nbrPerPage = $controlRepository->nbrPerPage;
+    $this->nbrPerPage = $module_control->nbrPerPage;
+    $this->moduleControl = $module_control;
   }
 
   private function validateInsertion($inputs, $json_fields){
@@ -99,6 +98,7 @@ class TypeController extends Controller
       "json_fields" => json_encode($json_fields, JSON_UNESCAPED_UNICODE),
       "default_filtre" => $request->default_filtre,
       "descendant" => $request->has('descendant') ? 1 : 0,
+      "available" => $request->has('available') ? 1 : 0,
       "nb_per_page" => $request->nb_per_page,
       "child_of" => $request->has('child_of') ? $request->child_of : 0
     ];
@@ -128,7 +128,7 @@ class TypeController extends Controller
   public function edit($id)
   {
     $type = Type::findOrFail($id);
-    $this->controlRepository->moveCsvToJsonFields($type);
+    $this->moduleControl->moveCsvToJsonFields($type);
     $types = Type::all();
     $operation = 'edit';
     $menus = $this->menusRepository->makeAdminMenus();
@@ -267,12 +267,18 @@ class TypeController extends Controller
       "json_fields" => json_encode($json_fields_new, JSON_UNESCAPED_UNICODE),
       "default_filtre" => $request->default_filtre,
       "descendant" => $request->has('descendant') ? 1 : 0,
+      "available" => $request->has('available') ? 1 : 0,
       "nb_per_page" => $request->nb_per_page,
       "child_of" => $request->child_of
     ];
 
     //dd($inputs);
     $type->update($inputs);
+
+    foreach($type->rubriques as $rubrique){
+      $rubrique->contenu = $request->content_type;
+      $rubrique->save();
+    }
 
     return redirect()->route('type.index')->withInfo('Le type ' . $type->type . ' est modifié.');
   }
@@ -294,14 +300,14 @@ class TypeController extends Controller
   {
     $operation = 'index';
     $type = Type::findOrFail($type_id);
-    $this->controlRepository->moveCsvToJsonFields($type);
+    $this->moduleControl->moveCsvToJsonFields($type);
 
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
 
     $champs = explode(',', $type->champs);
     $json_fields = json_decode($type->json_fields)->fields;
-    $results = ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant, true);// results utilisable avec un foreach;
+    $results = $this->moduleControl->getSortedTypeRubriques($type, $type->default_filtre, $type->descendant, true);// results utilisable avec un foreach;
 
     return view('common.back.insertedTypeIndex', compact('type', 'results', 'json_fields', 'menus', 'operation', 'footer'));
   }
@@ -313,12 +319,12 @@ class TypeController extends Controller
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
     $type = Type::where('content_type', $type_name)->first();
-    $this->controlRepository->moveCsvToJsonFields($type);
+    $this->moduleControl->moveCsvToJsonFields($type);
     $champs = explode(',', $type->champs);
     $json_fields = json_decode($type->json_fields);
     $nb_champs = count($json_fields->fields);
-
-    $galleries = ModuleControl::getGalleriesArray();
+    
+    $galleries = $this->moduleControl->getGalleriesArray();
 
     if($type->child_of > 0){
       $parent_type = Type::findOrFail($type->child_of);
@@ -330,7 +336,7 @@ class TypeController extends Controller
 
   public function getGalleries(){
     
-    $galleries = ModuleControl::getGalleriesArray();
+    $galleries = $this->moduleControl->getGalleriesArray();
 
     return view('common.back.inc.galleries', compact('galleries'));
 
@@ -400,12 +406,12 @@ class TypeController extends Controller
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
     $type = Type::where('content_type', $type_name)->first();
-    $this->controlRepository->moveCsvToJsonFields($type);
+    $this->moduleControl->moveCsvToJsonFields($type);
     $champs = explode(',', $type->champs);
     $json_fields = json_decode($type->json_fields);
     $nb_champs = count($json_fields->fields);
 
-    $galleries = ModuleControl::getGalleriesArray();
+    $galleries = $this->moduleControl->getGalleriesArray();
 
     if($type->child_of > 0){
       $parent_type = Type::findOrFail($type->child_of);

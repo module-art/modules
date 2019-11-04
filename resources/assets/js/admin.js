@@ -195,7 +195,7 @@ $(document).ready(function()
       rubriqueId = $(this).parents('.after-rubrique').first().attr('data-rubrique_id');
     });
     jQueryObj.popsuggest({
-      placement : 'bottom',
+      placement : 'left',
       dataUrl: '/coulisses/list-galleries',
       separator: '|',
       rows: 6,
@@ -430,6 +430,7 @@ $(document).ready(function()
       fontsize_formats: fontSizes,
       paste_as_text: true,
       image_advtab: true ,
+      entity_encoding : "raw",
       valid_elements : myValidElements,
       external_filemanager_path: fmPath,
       filemanager_title: fmTitle,
@@ -462,6 +463,7 @@ $(document).ready(function()
       fontsize_formats: fontSizes,
       paste_as_text: true,
       image_advtab: true ,
+      entity_encoding : "raw",
       //force_br_newlines : true,
       //force_p_newlines : false,
       //forced_root_block : '', // Needed for 3.x
@@ -495,6 +497,7 @@ $(document).ready(function()
       fontsize_formats: fontSizes,
       paste_as_text: true,
       image_advtab: true ,
+      entity_encoding : "raw",
       valid_elements : myValidElements,
       external_filemanager_path: fmPath,
       filemanager_title: fmTitle,
@@ -779,6 +782,7 @@ $(document).ready(function()
 
         }else{
           
+          //var idBloc = elem.attr('data-bloc_id');
           var idBloc = $(this).next().attr('data-bloc_id');
 
           if(idBloc != 0){

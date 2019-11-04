@@ -16,10 +16,11 @@ use View;
 class BlocController extends Controller
 {
   
-  public function __construct()
+  public function __construct(ModuleControl $module_control)
   {
     $this->middleware('authAsAdmin');
     $this->middleware('ajax');
+    $this->moduleControl = $module_control;
   }
 
     /**
@@ -106,12 +107,15 @@ class BlocController extends Controller
 
     public function listGalleries(Request $request)
     {
-      $galleries = ModuleControl::getGalleriesArray($needle = $request->chain);
+      $galleries = $this->moduleControl->getGalleriesArray($needle = $request->chain);
       $list_galleries = '';
 
       foreach($galleries as $key => $value){
         $list_galleries .= $key.'|';
       }
+
+      if($list_galleries == '') $list_galleries = 'Aucun Résultat.';
+
       return response($list_galleries);
     }
 }

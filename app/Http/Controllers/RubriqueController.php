@@ -18,11 +18,12 @@ use ModuleControl;
 class RubriqueController extends Controller
 {
 
-  public function __construct()
+  public function __construct(ModuleControl $module_control)
   {
     $this->middleware('auth', ['except' => ['getTypeContents', 'showTypeContentPage']]);
     $this->middleware('authAsAdmin', ['except' => ['getTypeContents', 'showTypeContentPage']]);
     $this->middleware('ajax', ['except' => ['getTypeContents', 'showTypeContentPage']]);
+    $this->moduleControl = $module_control;
   }
 
   public function getTypeContents(Request $request, $type_name){
@@ -30,7 +31,7 @@ class RubriqueController extends Controller
     $type = Type::where('content_type', $type_name)->firstOrFail();
     $champs = explode(',', $type->champs);
 
-    $results = ModuleControl::getSortedTypeRubriques($type, $request->orderby, $request->desc);// results utilisable avec un foreach
+    $results = $this->moduleControl->getSortedTypeRubriques($type, $request->orderby, $request->desc);// results utilisable avec un foreach
 
     $context = Auth::check() ? 'back' : 'front';
     
@@ -43,7 +44,7 @@ class RubriqueController extends Controller
     }
   }
 
-  public function showTypeContentPage(Request $request, $type_name, $rubrique_id){
+  public function showTypeContentPage(Request $request, $type_name, $rubrique_id, $slug = null){
 
     $type_content = Rubrique::findOrFail($rubrique_id);
     $page = Page::where('slug', $type_name)->firstOrFail();

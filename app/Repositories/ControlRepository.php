@@ -54,11 +54,13 @@ class ControlRepository
     return $new_array;
   }
 
-  public static function getSortedTypeRubriques($type, $order_by, $desc = 0, $index = false){
+  public function getSortedTypeRubriques($type, $order_by = 0, $desc = 0, $index = false){
 
     $order = $desc ? 'desc' : 'asc';
     $nb_per_page = $index ? 15 : $type->nb_per_page;
     $auth = Auth::check();
+
+    if(!$order_by) $order_by = $type->default_filtre;
 
     if($order_by == 'created_at' || $order_by == 'updated_at'){
 
@@ -123,7 +125,7 @@ class ControlRepository
 
   }
 
-  public static function insertGallery($datas){
+  public function insertGallery($datas){
 
     $modified_data = "";
     $path = config('images.galeries');
@@ -184,7 +186,7 @@ class ControlRepository
     }
   }
 
-  public static function getGalleriesArray($needle = false){
+  public function getGalleriesArray($needle = false){
     
     //get gallery folders
     $path_gallery = config('images.galeries');
@@ -193,7 +195,7 @@ class ControlRepository
     foreach($folders as $folder){
       $folder_name = preg_replace('/^.+\/(.+)$/', '$1', $folder);
       if($needle){
-        if(preg_match('/'.$needle.'/', $folder_name)){
+        if(preg_match('/'.$needle.'/i', $folder_name)){
           $galleries[$folder_name] = $folder;
         }
       }else{
@@ -204,9 +206,9 @@ class ControlRepository
 
   }
 
-  public static function parseGallery($matches){
-    $gallery_url = $matches[1];
-    $is_rounds = preg_match('/circle/', $matches[2]);
+  public function galleryThumbsManager($gallery_url)
+  {
+
     $images = Storage::files($gallery_url);
 
     //test if thumb folder exists
@@ -246,8 +248,16 @@ class ControlRepository
       $thumbs[] = Storage::url($thumb);
     }
 
+    return $thumbs;
+  }
+
+  public function parseGalleryInRubrique($string_with_gallery){
+
+    $gallery_url = preg_replace('/(<p>)?.*\[gallery\surl="\/(.*)"\stype="(.*)"\].*(<\/p>)?/', '$2', $string_with_gallery);
+
+    $thumbs = $this->galleryThumbsManager($gallery_url);
     //make html for fancybox
-    $fancy = '<figure class="gallery row justify-content-center">';
+    $fancy = '';
 
     foreach($thumbs as $thumb_url){
       $image_url = preg_replace('/\/thumbs/', '', $thumb_url );
@@ -255,12 +265,8 @@ class ControlRepository
       $fancy .= $image_url;
       $fancy .= '" data-fancybox="gallery"><img src="';
       $fancy .= $thumb_url;
-      if($is_rounds){
-        $fancy .= '" class="rond';
-      }
       $fancy .= '" alt="image" border="0"></a>';
     }
-    $fancy .= '</figure>';
 
     return $fancy;
   }

@@ -95,6 +95,7 @@ var tinyconf = {
       block_formats: 'Paragraph=p;Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5',
       paste_as_text: true,
       image_advtab: true ,
+      entity_encoding : "raw",
       valid_elements : '+*[*]',
       external_filemanager_path:"/js/rfm/filemanager/",
       //content_css: '/css/styles.css,/css/wsm/awsomefont.css',

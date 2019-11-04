@@ -1,3 +1,4 @@
+@inject('module_control', 'ModuleControl'){{--make instance like new ModuleControl--}}
 @if(isset($rubrique->type_contents))
   @php
     $type = $rubrique->inclusive_type;
@@ -6,14 +7,14 @@
     @if(View::exists('themes.'.config('modules.theme') . '.' . $context . '.type-list-'.str_slug($type->content_type)))
       {{--next include redirect to the specific view if exists--}}
       @include('themes.'.config('modules.theme') . '.' . $context . '.type-list-'.str_slug( $type->content_type ), [
-        'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
+      'results' => $module_control->getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
       ])
     @else
-    {{--next include displays any type contents in a table--}}
-    @include('common.' . $context . '.type-contents', [
-      'json_fields' => json_decode($type->json_fields)->fields,
-      'results' => ModuleControl::getSortedTypeRubriques($type, $type->default_filtre, $type->descendant, true)
-    ])
+      {{--next include displays any type contents in a table--}}
+      @include('common.' . $context . '.type-contents', [
+        'json_fields' => json_decode($type->json_fields)->fields,
+        'results' => $module_control->getSortedTypeRubriques($type, $type->default_filtre, $type->descendant, true)
+      ])
     @endif
   </div>
 @elseif(isset($type_content))

@@ -9,7 +9,7 @@ class Type extends Model
     protected $table = 'types';
     public $timestamps = true;
 
-    protected $fillable = array('content_type', 'champs', 'json_fields', 'default_filtre', 'descendant', 'nb_per_page', 'child_of');
+    protected $fillable = array('content_type', 'champs', 'json_fields', 'default_filtre', 'descendant', 'available', 'nb_per_page', 'child_of');
 
 
     public function rubriques()
