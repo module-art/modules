@@ -1,25 +1,28 @@
 <?php
 $version = "9.14.0";
 
-$theme = $_COOKIE['modth'];
-
 if (session_id() == '') session_start();
 
-$keyfile = fopen("../../../../storage/app/rfm.key", "r") or die("Access denied !");
-$key = fgets($keyfile);
-fclose($keyfile);
+$theme = $_COOKIE['modth'];
+$username = $_COOKIE['modus'];
 
-$accesskey = $_COOKIE['fmk'];
+/*$keyfile = fopen("../../../../storage/app/rfm.key", "r") or die("Access denied !");
+$key = fgets($keyfile);
+fclose($keyfile);*/
+
+$accesskeyfile = fopen("../../../../storage/app/" . $username . ".key", "r") or die("Access denied !");
+$accesskey = fgets($accesskeyfile);
+fclose($accesskeyfile);
 
 //echo '<pre>';
 ////var_dump($_SESSION);
 //var_dump( $theme );
 //echo '</pre>';
 
-if(!isset($_SESSION['fmanager']) || !isset($_SESSION['fmanager-ts']) || $_SESSION['fmanager']!=md5($_SESSION['fmanager-ts'].$key)){
+/*if(!isset($_SESSION['fmanager']) || !isset($_SESSION['fmanager-ts']) || $_SESSION['fmanager']!=md5($_SESSION['fmanager-ts'].$key)){
   echo "Vous n'êtes pas autorisé à visualiser ce contenu pour le moment ...";
   exit();
-}
+}*/
 
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
@@ -29,14 +32,6 @@ mb_regex_encoding('UTF-8');
 ob_start('mb_output_handler');
 date_default_timezone_set('Europe/Paris');
 setlocale(LC_CTYPE, 'fr_FR'); //correct transliteration
-
-
-/*------------------
-
-
-TODO WSM check user logged in
-
-*/
 
 
 /*

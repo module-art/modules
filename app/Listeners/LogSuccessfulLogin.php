@@ -31,9 +31,11 @@ class LogSuccessfulLogin
       if($role == 'admin' || $role == 'maintainer'){
         $theme = config('modules.theme');
         Cookie::queue('modth', $theme, 720, "", "", 0, 0);
+        Cookie::queue('modus', $event->user->username, 720, "", "", 0, 0);
         $value = md5(uniqid());
         Cookie::queue('fmk', $value, 720, "", "", 0, 0);
-        Storage::put('rfm.key', config('modules.rfm_key'));
+        Storage::put($event->user->username.'.key', $value);
+        //Storage::put('rfm.key', config('modules.rfm_key'));
       }
     }
 }

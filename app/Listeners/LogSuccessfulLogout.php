@@ -28,6 +28,7 @@ class LogSuccessfulLogout
     public function handle($event)
     {
       Cookie::queue('fmk', "", time()-1300);
-      Storage::delete('rfm.key');
+      //Storage::delete('rfm.key');
+      Storage::delete($event->user->username.'.key');
     }
 }
