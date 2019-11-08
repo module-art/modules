@@ -86,52 +86,18 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./Themes/grands_chemins/assets/js/scripts.js":
-/*!****************************************************!*\
-  !*** ./Themes/grands_chemins/assets/js/scripts.js ***!
-  \****************************************************/
+/***/ "./Themes/panier/assets/js/scripts.js":
+/*!********************************************!*\
+  !*** ./Themes/panier/assets/js/scripts.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-  //parse gallery
-
-  /*$('.gallery-json').each(function(){
-    var galleryJson = $.parseJSON($(this).html()),
-        galleryString = $(this).html();
-    var fancy = '<figure class="gallery row justify-content-center">';
-    $.each(galleryJson.images, function(key,value){
-      fancy += '<a href="'+value.replace(/thumbs\//, '')+'" class="fancy col-6 col-sm-4 col-md-3 col-lg-2" data-fancybox="gallery">'+
-        '<img'+ (galleryJson.type == 'circle' ? ' class="rond"' : '') +' src="' + value + '" alt="image" />'+
-        '</a>';
-    });
-    fancy += '</figure>';
-    $(this).html(fancy);
-    $(this).attr('data-gallery_json', galleryString);
-  });*/
-  //fancybox
-  $('.gallery').each(function () {
-    $('.fancy', this).fancybox({
-      transitionEffect: "slide",
-      closeExisting: true,
-      loop: false
-    });
-  });
-  $('#global-wrapper').fadeIn(500); //insertion des liste par type
-
-  /*var typeContents = $('.type-contents');
-   typeContents.each(function(){
-    var type = $(this).attr('data-content_type');
-     $(this).load('/get-type-contents/'+type+'?orderby=titre&order=asc', function(response, status, xhr){
-      if( status == "error" ){
-        console.log(xhr.statusText);
-      }
-    });
-  });*/
+  //$('#global-wrapper').hide().fadeIn(1500);
 
   /* Bouton retour en haut */
   // browser window scroll (in pixels) after which the "back to top" link is shown
-
   var offset = 300,
       //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
   offset_opacity = 1200,
@@ -159,19 +125,6 @@ $(document).ready(function () {
     } else if ($(this).scrollTop() < offset_opacity) {
       $back_to_top.removeClass('cd-fade-out');
     }
-    /* reduction du header en scrollant
-     if($(this).scrollTop() > 10){
-      $rubrique.css({
-        paddingTop: $paddingTop-200,
-        paddingBottom: $paddingBottom-150
-      });
-    }else if($(this).scrollTop() < 2){
-      $rubrique.css({
-        paddingTop: $paddingTop,
-        paddingBottom: $paddingBottom
-      });
-    }*/
-
   }); //smooth scroll to top
 
   $back_to_top.on('click', function (event) {
@@ -184,10 +137,10 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ "./Themes/grands_chemins/assets/sass/styles.scss":
-/*!*******************************************************!*\
-  !*** ./Themes/grands_chemins/assets/sass/styles.scss ***!
-  \*******************************************************/
+/***/ "./Themes/panier/assets/sass/styles.scss":
+/*!***********************************************!*\
+  !*** ./Themes/panier/assets/sass/styles.scss ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -196,14 +149,14 @@ $(document).ready(function () {
 /***/ }),
 
 /***/ 0:
-/*!**********************************************************************************************************!*\
-  !*** multi ./Themes/grands_chemins/assets/js/scripts.js ./Themes/grands_chemins/assets/sass/styles.scss ***!
-  \**********************************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** multi ./Themes/panier/assets/js/scripts.js ./Themes/panier/assets/sass/styles.scss ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/sylvestre/www/modules/modules-chemins/Themes/grands_chemins/assets/js/scripts.js */"./Themes/grands_chemins/assets/js/scripts.js");
-module.exports = __webpack_require__(/*! /home/sylvestre/www/modules/modules-chemins/Themes/grands_chemins/assets/sass/styles.scss */"./Themes/grands_chemins/assets/sass/styles.scss");
+__webpack_require__(/*! /home/sylvestre/www/modules/modules-chemins/Themes/panier/assets/js/scripts.js */"./Themes/panier/assets/js/scripts.js");
+module.exports = __webpack_require__(/*! /home/sylvestre/www/modules/modules-chemins/Themes/panier/assets/sass/styles.scss */"./Themes/panier/assets/sass/styles.scss");
 
 
 /***/ })
