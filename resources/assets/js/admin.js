@@ -2,6 +2,8 @@ import '../../../public/tools/popsuggest/popover-suggest.min.js';
 
 $(document).ready(function()
 {
+	"use strict";
+
   $('.sidebarCollapse').on('click', function () {
     $('#sidebar').toggleClass('active');
   });
@@ -46,11 +48,15 @@ $(document).ready(function()
       wasEdited = false,
       imgWidth = 0,
       maxFileSize = 4096000,
-      minImgWidth = 400,
       idCreatedBloc = 0,
       //duration of the top scrolling animation (in ms)
       scroll_top_duration = 1000,
       csrfToken = $('meta[name="csrf-token"]').attr('content');//get csrf-field in head
+
+  //not working set minimgwidth in template global vars.
+  //if(minImgWidth === undefined){
+    //var minImgWidth = 1200;
+  //}
 
   $('#add-rubrique').click(function(){
     var globalContainer = document.getElementById('global-wrapper');
