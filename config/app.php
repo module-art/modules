@@ -239,7 +239,8 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html'  => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Date' => Jenssegers\Date\Date::class,
+        'Date' => Jenssegers\Date\Date::class, 
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         //Custom classes
         'ModuleControl' => App\Repositories\ControlRepository::class,
         'ModuleHelpers' => App\Repositories\ModuleHelpers::class,
