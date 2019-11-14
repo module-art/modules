@@ -1,6 +1,7 @@
 $(function()
 {
   var form = $('#form-contact');
+  $('.required').css('display', 'none');
 
   $(form).submit(function(event) {
     event.preventDefault();

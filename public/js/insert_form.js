@@ -1,1 +1,274 @@
-!function(e){var t={};function r(n){if(t[n])return t[n].exports;var a=t[n]={i:n,l:!1,exports:{}};return e[n].call(a.exports,a,a.exports,r),a.l=!0,a.exports}r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},r.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var a in e)r.d(n,a,function(t){return e[t]}.bind(null,a));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="/",r(r.s=5)}({5:function(e,t,r){e.exports=r(6)},6:function(e,t){$(document).ready((function(){var e=$("#gallery-collapse");$("#add-gallery").click((function(){e.hasClass("show")?e.collapse("hide"):e.load("/coulisses/get-galleries",(function(t,r,n){$(".fa-cog").css("display","none"),"error"==r?alert(n.statusText):(e.collapse("show"),$("#insert-gallery").click((function(){var e=new FormData($("#gallery_form")[0]),t=parseInt(e.get("round_border"));null===e.get("gallery")?alert("Il faut sélectionner un dossier !"):($(".fa-cog").css("display","inline-block"),$.ajax({url:"/coulisses/get-gallery",method:"post",data:e,processData:!1,contentType:!1,dataType:"json"}).done((function(r){$(".fa-cog").css("display","none"),tinymce.activeEditor.execCommand("mceInsertContent",!1,'[gallery url="/'+e.get("gallery")+'" type="'+(t?"circle":"square")+'"]')})).fail((function(e){$(".fa-cog").css("display","none");var t=e.responseJSON.message+"\n";$.each(e.responseJSON.errors,(function(e,r){t+=r+"\n"})),alert("La requête n'a pas abouti.\n"+t)})))})))}))}));var t={selector:".redactored_full",language:"fr_FR",height:360,menubar:!1,branding:!1,content_css:"/css/tiny_custom.css",plugins:["advlist autolink lists link image charmap print preview anchor","searchreplace visualblocks code fullscreen","insertdatetime media table paste code help wordcount responsivefilemanager"],toolbar1:"pictos insertfile undo redo | styleselect | bold italic subscript superscript exposant removeformat | alignleft aligncenter alignright alignjustify | bullist numlist  nonbreaking | link unlink   media  responsivefilemanager insertimage insertfile | table hr  | forecolor backcolor emoticons | paste code | iconesliens | fontawesome ",block_formats:"Paragraph=p;Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5",paste_as_text:!0,image_advtab:!0,entity_encoding:"raw",valid_elements:"+*[*]",external_filemanager_path:"/js/rfm/filemanager/",filemanager_title:"Gestionnaire de fichiers",filemanager_sort_by:"date",filemanager_descending:!0,filemanager_access_key:"fsUn8A5u9e6UypkZ",relative_urls:!1,media_live_embeds:!0,external_plugins:{filemanager:"/js/rfm/filemanager/plugin.min.js"},extended_valid_elements:"i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],$elements"};tinymce.init(t);var r=t;r.selector=".redactored",r.menubar=!0,r.toolbar1="bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify  | bullist numlist | link unlink | media responsivefilemanager",tinymce.init(r);var n=t;n.selector=".simple-redactored",n.menubar=!1,n.block_formats="Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5",n.height=200,n.toolbar1="formatselect | bold italic underline | alignleft aligncenter alignright | code",tinymce.init(n),$(".date").datetimepicker({locale:"fr",format:"L",widgetPositioning:{horizontal:"right"}}),$(".heure").datetimepicker({locale:"fr",format:"LT",widgetPositioning:{horizontal:"right"}})}))}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/assets/js/insert_form.js":
+/*!********************************************!*\
+  !*** ./resources/assets/js/insert_form.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  //galleries
+  var $galleriesSelect = $('#gallery-collapse');
+  $('#add-gallery').click(function () {
+    if ($galleriesSelect.hasClass('show')) {
+      $galleriesSelect.collapse('hide');
+    } else {
+      $galleriesSelect.load('/coulisses/get-galleries', function (response, status, xhr) {
+        $('.fa-cog').css('display', 'none');
+
+        if (status == "error") {
+          alert(xhr.statusText);
+        } else {
+          $galleriesSelect.collapse('show');
+          listenToInsertGallery();
+        }
+      });
+    }
+  });
+
+  function listenToInsertGallery() {
+    $('#insert-gallery').click(function () {
+      var $galleryData = new FormData($('#gallery_form')[0]),
+          $isRound = parseInt($galleryData.get('round_border')); //alert($isRound);
+
+      if ($galleryData.get('gallery') === null) {
+        alert('Il faut sélectionner un dossier !');
+      } else {
+        $('.fa-cog').css('display', 'inline-block');
+        $.ajax({
+          url: '/coulisses/get-gallery',
+          method: 'post',
+          data: $galleryData,
+          processData: false,
+          contentType: false,
+          dataType: 'json'
+        }).done(function (data) {
+          $('.fa-cog').css('display', 'none'); //console.log(data);
+          //insert gallery using json data, problem with inline editing
+
+          /*var galleryJson = {};
+          galleryJson.gallery = $galleryData.get('gallery');
+          galleryJson.type = $isRound ? 'circle':'square';
+          galleryJson.images = [];
+          $.each(data.thumbs, function (key, value) {
+            galleryJson.images.push(value);
+          });
+          tinymce.activeEditor.execCommand('mceInsertContent', false, '<p class="gallery-json">'+JSON.stringify(galleryJson)+'</p>');*/
+          //console.log(galleryJson);
+
+          /*tinymce.activeEditor.execCommand('mceInsertContent', false, '<p class="d-none" data-gallery='+$galleryData.get('gallery')+'></p><figure class="gallery row justify-content-center">');
+          $.each(data.thumbs, function (key, value) {
+            var imageNode = '<a href="'+ value.replace(/thumbs\//, '') +'" class="fancy col-6 col-sm-4 col-md-3 col-lg-2" data-fancybox="gallery">'+
+              '<img'+ ($isRound ? ' class="rond"' : '') +' src="' + value + '" alt="" />'+
+              '</a>';
+            tinymce.activeEditor.execCommand('mceInsertContent', false, imageNode);
+          });
+          tinymce.activeEditor.execCommand('mceInsertContent', false, '</figure>');*/
+
+          tinymce.activeEditor.execCommand('mceInsertContent', false, '[gallery url="/' + $galleryData.get('gallery') + '" type="' + ($isRound ? 'circle' : 'square') + '"]');
+        }).fail(function (data) {
+          $('.fa-cog').css('display', 'none');
+          var errors = data.responseJSON.message + '\n';
+          $.each(data.responseJSON.errors, function (key, value) {
+            errors += value + '\n';
+          });
+          alert('La requête n\'a pas abouti.\n' + errors);
+        });
+      }
+    });
+  } /// ---------- TYNIMCE ------
+
+
+  var fmKey = "";
+
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+
+      if (c.indexOf(name) == 0) {
+        //return c.substring(name.length, c.length);
+        fmKey = c.substring(name.length, c.length);
+      }
+    }
+
+    return "";
+  }
+
+  getCookie('fmk');
+  var tinyconf = {
+    selector: '.redactored_full',
+    language: 'fr_FR',
+    height: 360,
+    menubar: false,
+    branding: false,
+    content_css: "/css/tiny_custom.css",
+    //current_theme is defined with php in template view file
+    plugins: ['advlist autolink lists link image charmap print preview anchor', 'searchreplace visualblocks code fullscreen', 'insertdatetime media table paste code help wordcount responsivefilemanager'],
+    toolbar1: "pictos insertfile undo redo | styleselect | bold italic subscript superscript exposant removeformat | alignleft aligncenter alignright alignjustify | bullist numlist  nonbreaking | link unlink   media  responsivefilemanager insertimage insertfile | table hr  | forecolor backcolor emoticons | paste code | iconesliens | fontawesome ",
+    //| print preview outdent indent image
+    //toolbar: "bold italic strikethrough | link unlink | styleselect blockquote | bullist numlist outdent indent | insertfile image media | code",
+    block_formats: 'Paragraph=p;Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5',
+    paste_as_text: true,
+    image_advtab: true,
+    entity_encoding: "raw",
+    valid_elements: '+*[*]',
+    external_filemanager_path: "/js/rfm/filemanager/",
+    //content_css: '/css/styles.css,/css/wsm/awsomefont.css',
+    filemanager_title: "Gestionnaire de fichiers",
+    filemanager_sort_by: "date",
+    filemanager_descending: true,
+    filemanager_access_key: fmKey,
+    relative_urls: false,
+    media_live_embeds: true,
+    external_plugins: {
+      "filemanager": "/js/rfm/filemanager/plugin.min.js"
+    },
+    extended_valid_elements: "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],$elements"
+    /*init_instance_callback: function (editor) {
+      editor.on('blur', function(){
+        alert('blur');
+      });
+    }*/
+
+  };
+  tinymce.init(tinyconf);
+  var tinyconf_medium = tinyconf;
+  tinyconf_medium.selector = '.redactored';
+  tinyconf_medium.menubar = true, tinyconf_medium.toolbar1 = 'bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify  | bullist numlist | link unlink | media responsivefilemanager';
+  tinymce.init(tinyconf_medium);
+  var tinyconf_small = tinyconf;
+  tinyconf_small.selector = '.simple-redactored';
+  tinyconf_small.menubar = false;
+  tinyconf_small.block_formats = 'Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5';
+  tinyconf_small.height = 200; //tinyconf_small.toolbar1 =  "formatselect | bold italic | link unlink | subscript superscript | paste code";
+
+  tinyconf_small.toolbar1 = "formatselect | bold italic underline | alignleft aligncenter alignright | code";
+  tinymce.init(tinyconf_small);
+  /* ------- Tempus dominus --------- */
+
+  $('.date').datetimepicker({
+    locale: 'fr',
+    format: 'L',
+    widgetPositioning: {
+      horizontal: 'right'
+    }
+  });
+  $('.heure').datetimepicker({
+    locale: 'fr',
+    format: 'LT',
+    widgetPositioning: {
+      horizontal: 'right'
+    }
+  });
+});
+
+/***/ }),
+
+/***/ 3:
+/*!**************************************************!*\
+  !*** multi ./resources/assets/js/insert_form.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /home/sylvestre/www/modules/modules-chemins/resources/assets/js/insert_form.js */"./resources/assets/js/insert_form.js");
+
+
+/***/ })
+
+/******/ });

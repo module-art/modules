@@ -76,6 +76,26 @@ $(document).ready(function(){
     });
   }
 /// ---------- TYNIMCE ------
+var fmKey = "";
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      //return c.substring(name.length, c.length);
+      fmKey = c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+getCookie('fmk');
+
 var tinyconf = {
       
     selector: '.redactored_full',
@@ -102,7 +122,7 @@ var tinyconf = {
       filemanager_title:"Gestionnaire de fichiers" ,
       filemanager_sort_by:"date",
       filemanager_descending:true,
-      filemanager_access_key:"fsUn8A5u9e6UypkZ" ,
+      filemanager_access_key: fmKey,
       relative_urls: false,
       media_live_embeds: true,
       external_plugins: { "filemanager" : "/js/rfm/filemanager/plugin.min.js"},

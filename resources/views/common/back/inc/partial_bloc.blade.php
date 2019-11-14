@@ -1,21 +1,6 @@
 @inject('module_control', 'ModuleControl'){{--make instance like new ModuleControl--}}
 <div class="row markerRow">
 
-  @php
-    switch ($rubrique->cols) {
-    case 1:
-      $cols = '';
-      break;
-    case 2:
-      $cols = ' col-md-6';
-      break;
-    case 3:
-      $cols = ' col-md-6 col-lg-4';
-      break;
-    }
-    $order = $rubrique->ascendant ? 'asc' : 'desc'; 
-  @endphp
-
   @include('common.back.inc.menu_rubrique')
 
   @foreach($rubrique->blocs()->orderBy('place', $order)->get() as $bloc)
