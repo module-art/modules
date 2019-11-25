@@ -22,7 +22,7 @@ $(document).ready(function()
 
         $(this).load('/get-type-contents/'+type+'?orderby='+filtre+'&desc='+desc, function(response, status, xhr){
           if( status == "error" ){
-            console.log(xhr.statusText);
+            console.log(xhr.status + " " +xhr.statusText);
           }else{
             console.log(type + ' est rechargé.');
             initMceBlocs();
@@ -394,9 +394,6 @@ $(document).ready(function()
             format: type
           },
           dataType : 'json',
-          //async: false,
-          //processData: false,
-          //contentType: false,
         })
         .done(function(data) {
           console.log(data['response']);

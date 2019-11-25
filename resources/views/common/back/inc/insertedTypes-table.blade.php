@@ -48,9 +48,6 @@
                 {!! date_format(date_create($contenu), 'H:i') !!}
               </td>
             @elseif($field->type == 'nb')
-              @php
-                if(!preg_match('/^\d+$/', $contenu)) $contenu = 0;
-              @endphp
               <td>
                 {!! $contenu !!}
               </td>

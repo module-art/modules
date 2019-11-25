@@ -52,9 +52,10 @@
           $contenu = "2004-08-15";
         }elseif($field->type == "time" && !preg_match('/^\d{2}:\d{2}:\d{2}$/', $contenu)){
           $contenu = "12:00:00";
-        }elseif($field->type == "nb" && !preg_match('/^\d+$/', $contenu)){
-          $contenu = 0;
         }
+        //elseif($field->type == "nb" && !preg_match('/^\d+$/', $contenu)){
+        //  $contenu = 0;
+        //}
       }
     @endphp
     @if($field->type == 'date')
@@ -87,7 +88,7 @@
         <div class="form-row">
           <div class="input-group">
             {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
-            <input type="number" name="{{ $field->name }}" class="form-control col-12 col-lg-4 offset-lg-1{{ $errors->has($field_name_error) ? ' is-invalid' : '' }}" value="{{ $editing ? $contenu : old($field->name) }}"/>
+            <input type="number" step="0.01" name="{{ $field->name }}" class="form-control col-12 col-lg-4 offset-lg-1{{ $errors->has($field_name_error) ? ' is-invalid' : '' }}" value="{{ $editing ? $contenu : old($field->name) }}"/>
           </div>
         </div>
       </div>
