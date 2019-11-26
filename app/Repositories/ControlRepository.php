@@ -9,6 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Image;
 use App\Models\Type;
 use App\Models\Rubrique;
+use App\Models\Categorie;
 
 class ControlRepository
 {
@@ -56,6 +57,7 @@ class ControlRepository
 
   public function getSortedTypeRubriques($type, $order_by = 0, $desc = 0, $index = false){
 
+    $reference = isset($_GET['category']) ? Categorie::find($_GET['category']) : $type;
     $order = $desc ? 'desc' : 'asc';
     $nb_per_page = $index ? 15 : $type->nb_per_page;
     $auth = Auth::check();
@@ -67,15 +69,15 @@ class ControlRepository
       //On veut que les contenus non publiés s'affichent quand loggé
       if($auth){
         if($nb_per_page == 0){ /*pagination is disabled*/
-          $sorted_rubriques = Rubrique::where('type_id', $type->id)->orderBy($order_by, $order)->get();
+          $sorted_rubriques = $reference->rubriques()->orderBy($order_by, $order)->get();
         }else{
-          $sorted_rubriques = Rubrique::where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
+          $sorted_rubriques = $reference->rubriques()->orderBy($order_by, $order)->paginate($nb_per_page);
         }
       }else{
         if($nb_per_page == 0){ /*pagination is disabled*/
-          $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->get();
+          $sorted_rubriques = $reference->rubriques()->where('publie', 1)->orderBy($order_by, $order)->get();
         }else{
-          $sorted_rubriques = Rubrique::where('publie', 1)->where('type_id', $type->id)->orderBy($order_by, $order)->paginate($nb_per_page);
+          $sorted_rubriques = $reference->rubriques()->where('publie', 1)->orderBy($order_by, $order)->paginate($nb_per_page);
         }
       }
 
@@ -83,22 +85,29 @@ class ControlRepository
 
     }else{
 
-      //on récupère les blocs par type juste pour avoir l'ordre des rubriques
-      $blocs = $type->blocs()->where('type', $order_by)->orderBy('contenu', $order)->get();
+      if($auth){
+        $all_rubriques = $reference->rubriques()->get();
+      }else{
+        $all_rubriques = $reference->rubriques()->where('publie', 1)->get();
+      }
+
+      $rubrique_id_block = array();
+
+      foreach($all_rubriques as $rubrique){
+        $order_block = $rubrique->blocs()->where('type', $order_by)->first();
+        $rubrique_id_block[$rubrique->id] = $order_block->contenu;
+      }
+
+      if($desc){
+        arsort($rubrique_id_block);
+      }else{
+        asort($rubrique_id_block);
+      }
 
       $sorted_rubriques = array();
-      if($auth){
-        foreach($blocs as $bloc){
-          $rubrique = Rubrique::find($bloc->rubrique_id);
-          $sorted_rubriques[] = $rubrique;
-        }
-      }else{
-        foreach($blocs as $bloc){
-          $rubrique = Rubrique::find($bloc->rubrique_id);
-          if($rubrique->publie){
-            $sorted_rubriques[] = $rubrique;
-          }
-        }
+      foreach($rubrique_id_block as $key => $value){
+        $rubrique = Rubrique::find($key);
+        $sorted_rubriques[] = $rubrique;
       }
 
       if($nb_per_page == 0){ //pagination is disabled and not index
@@ -111,18 +120,18 @@ class ControlRepository
 
         $paginated_rubriques = new LengthAwarePaginator($current_rubriques, count($sorted_rubriques), $nb_per_page, $current_page);
 
-        $paginated_rubriques->withPath(url()->current());
-        //$paginator->withPath('filtredate')->appends(['date' => $request->date, 'cycle' => $request->cycle]);
+        if(isset($_GET['category'])){ 
+          $paginated_rubriques->withPath(url()->current())->appends(['category' => $_GET['category']]);
+        }else{
+          $paginated_rubriques->withPath(url()->current());
+        }
 
         //$paginated_rubriques = $paginator->items();
-
         //$links = $paginator->links();
 
         return $paginated_rubriques;
       }
-
     }
-
   }
 
   public function insertGallery($datas){

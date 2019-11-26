@@ -368,7 +368,7 @@ class TypeController extends Controller
     
     foreach($request->except(array('_token', 'publie', 'archive', 'parent_id')) as $key => $value){
       if(preg_match('/categorie/', $key)){
-        $new_categories_ids[] = (int)$value;
+        $typed_rubrique->categories()->attach((int)$value);
       }else{
         $key = preg_replace('/_/', ' ', $key);
         foreach($json_fields as $field){

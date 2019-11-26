@@ -9,7 +9,7 @@
       @include('themes.'.config('modules.theme') . '.' . $context . '.type-list-'.str_slug( $type->content_type ), [
       'results' => $module_control->getSortedTypeRubriques($type, $type->default_filtre, $type->descendant)
       ])
-    @else
+  @else
       {{--next include displays any type contents in a table--}}
       @include('common.' . $context . '.type-contents', [
         'json_fields' => json_decode($type->json_fields)->fields,

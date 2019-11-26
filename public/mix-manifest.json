@@ -1,8 +1,4 @@
 {
-    "/js/admin.js": "/js/admin.js",
-    "/js/contact.js": "/js/contact.js",
-    "/js/insert_form.js": "/js/insert_form.js",
     "/js/scripts.js": "/js/scripts.js",
-    "/css/styles.css": "/css/styles.css",
-    "/css/admin.css": "/css/admin.css"
+    "/css/styles.css": "/css/styles.css"
 }
