@@ -24,7 +24,13 @@ const app = new Vue({
 ( function(){
   //rgpd notice
   $('#rgpd-notice-close').click(function(e){
-    $('#rgpd-notice').remove();
+    var nodeHeight = parseInt( $('#rgpd-notice').height() )+30;
+    $('#rgpd-notice').animate({
+      bottom: -nodeHeight+"px"
+    }, "slow", function() {
+      // Animation complete.
+      $(this).remove();
+  });
     $.ajax({
       url: '/rgpd-notice',
       method: 'get',
