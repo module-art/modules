@@ -30,7 +30,7 @@
             <li>Mot de passe : celui défini à la création</li>
             <li>Type de serveur : POP3</li>
             <li>Port : 995</li>
-            <li>Nom du serveur : {{ $server_name }}</li>
+            <li>Nom du serveur : mail.module-art.fr</li>
             <li>Nom d'utilisateur : {{ $username }}</li>
             <li>Sécurité : SSL/TLS</li>
             <li>Authentification : mot de passe normal</li>
