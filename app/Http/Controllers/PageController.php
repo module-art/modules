@@ -239,11 +239,12 @@ class PageController extends Controller
       //return response()->json(['response' => $request->nom]);
 
       $frommail = $request->email;
+      $fromname = config('mail.from.name');
       $subject = $request->subject;
       $to = config('mail.dest');
-      Mail::send('themes.'.config('modules.theme').'.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail)
+      Mail::send('themes.'.config('modules.theme').'.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail,$fromname)
       {
-        $message->from($frommail, 'module-art.fr');
+        $message->from($frommail, $fromname);
         $message->to($to)->subject('Message du site : '.$subject);
       });
 
