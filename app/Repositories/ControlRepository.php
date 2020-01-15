@@ -57,7 +57,12 @@ class ControlRepository
 
   public function getSortedTypeRubriques($type, $order_by = 0, $desc = 0, $index = false){
 
-    $reference = isset($_GET['category']) ? Categorie::find($_GET['category']) : $type;
+    if(isset($_GET['category'])){
+      $reference = is_numeric($_GET['category']) ? Categorie::find($_GET['category']) : Categorie::where('slug', $_GET['category'])->firstOrFail();
+    }else{
+      $reference = $type;
+    }
+    //$reference = isset($_GET['category']) ? Categorie::find($_GET['category']) : $type;
     $order = $desc ? 'desc' : 'asc';
     $nb_per_page = $index ? 15 : $type->nb_per_page;
     $auth = Auth::check();
