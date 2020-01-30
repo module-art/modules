@@ -30,6 +30,6 @@
         "leaflet": "^1.5.1",
         "tempusdominus-bootstrap-4": "^5.1.2",
         "tempusdominus-core": "^5.0.3",
-        "tinymce": "^4.9.6"
+        "tinymce": "^4.9.7"
     }
 }
