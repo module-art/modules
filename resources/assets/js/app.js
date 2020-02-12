@@ -57,4 +57,11 @@ const app = new Vue({
     $(this).replaceWith('<audio controls="controls" src="'+ audioSrc +'" type="audio/mpeg">'+ audioHtml +'</audio>');
   });
 
+  //video cleaner for tinymce bug
+  $('img[data-mce-p-type="video/mp4"]').each(function(){
+    var videoSrc = $(this).attr('data-mce-p-src'),
+        videoHtml =  $(this).attr('data-mce-html');
+    $(this).replaceWith('<video loop="" muted="" autoplay="" source="" src="'+ videoSrc +'" type="video/mp4">'+ videoHtml +'</video>');
+  });
+
 } )();
