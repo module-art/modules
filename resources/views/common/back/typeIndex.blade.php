@@ -52,10 +52,11 @@
                     <a href="{{ route('type.edit', $type->id) }}" class="btn btn-warning" title="Modifier" ><i class="far fa-edit"></i><span class="sr-only"> Modifier</span></a>
                   </td>
                   <td>
-                    {!! Form::open(['method' => 'DELETE', 'route' => ['type.destroy', $type->id]]) !!}
-                    {{-- Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return confirm(\'Vraiment supprimer cet utilisateur ?\')']) --}}
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Vraiment supprimer ce type et tous les contenus associés ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
-                    {!! Form::close() !!}
+                    <form method="POST" action="{{ route('type.destroy', $type->id) }}" accept-charset="UTF-8">
+                      <input name="_method" type="hidden" value="DELETE">
+                      <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                      <button type="submit" class="btn btn-danger" onclick="return confirm('Vraiment supprimer ce type et tous les contenus associés ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
+                    </form>
                   </td>
                 </tr>
               @endforeach
@@ -63,10 +64,10 @@
           </table>
           {!! $types->links() !!}
           <div class="row justify-content-between px-3">
-          {!! link_to_route('type.create', 'Ajouter un type de contenu', [], ['class' => 'btn btn-info']) !!}
-          <a href="javascript:history.back()" class="btn btn-primary">
-            <i class="fas fa-redo"></i> Retour
-          </a>
+            <a href="{{ route('type.create') }}" class="btn btn-info">Ajouter un type de contenu</a>
+            <a href="javascript:history.back()" class="btn btn-primary">
+              <i class="fas fa-redo"></i> Retour
+            </a>
           </div>
         </div>
         <div class="card-footer d-flex justify-content-end">

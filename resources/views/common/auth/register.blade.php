@@ -2,7 +2,11 @@
 
 @section('title')
   <title>{!! $title_tag !!}</title>
-  <link href="/css/styles.css" rel="stylesheet">
+  <link href="/css/admin.css" rel="stylesheet">
+@endsection
+
+@section('sidebar')
+  @include('common.back.inc.sidebar')
 @endsection
 
 @section('menu')
@@ -12,9 +16,11 @@
 @section('contenu')
 
   <div class="row center-card">
-      <div class="col-12">
+    <div class="col-12 col-lg-8 col-xl-6">
           <div class="card">
-              <div class="card-header">{{ __('Ajout d\'un utilisateur') }}</div>
+              <div class="card-header">
+                <h3 class="card-title">{!! $title_tag !!}</h3>
+              </div>
 
               <div class="card-body">
                   <form method="POST" action="{{ route('user.store') }}" aria-label="{{ __('Register') }}">
@@ -98,19 +104,25 @@
                           </div>
                       </div>
 
-                      <div class="form-group row mb-0">
-                          <div class="col-md-8 offset-md-2">
-                              <button type="submit" class="btn btn-info">
-                                  {{ __('Enregistrer') }}
-                              </button>
-                              <a href="javascript:history.back()" class="btn btn-primary pull-right">
-                                <i class="fas fa-redo"></i> Retour
-                              </a>
-                          </div>
+                      <div class="form-row mb-0 justify-content-between last">
+                        <button type="submit" class="btn btn-info">
+                          {{ __('Enregistrer') }}
+                        </button>
+                        <a href="javascript:history.back()" class="btn btn-primary">
+                          <i class="fas fa-redo"></i> Retour
+                        </a>
                       </div>
                   </form>
               </div>
           </div>
       </div>
   </div>
+@endsection
+
+@section('scripts')
+  <script src="/tools/tinymce/tinymce.min.js"></script>
+  <script src="/js/tempus-dominus/moment-with-locales.min.js"></script>
+  <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
+  <script src="/js/admin.js"></script>
+  <script src="/js/lists.js"></script>
 @endsection

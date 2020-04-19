@@ -84,9 +84,8 @@ class UserController extends Controller
         $menus = $this->menusRepository->makeAdminMenus();
         $footer = $this->footerRepository->makeFooter();
         $user = $this->userRepository->getById($id);
-        $title_tag = 'Compte de ' . $user->name;
 
-        return view('common.user.edit',  compact('title_tag', 'user', 'menus', 'operation', 'footer'));
+        return view('common.user.edit',  compact('user', 'menus', 'operation', 'footer'));
     }
 
     /**

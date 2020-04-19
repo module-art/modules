@@ -32,9 +32,7 @@
 
           @include('common.back.inc.insertedTypes-table')
           <div class="row justify-content-between px-3">
-            {{--@if(Auth::user()->role == 'admin')--}}
-              {{ link_to_route('type.insertform', 'Ajouter '.$type->content_type, $type->content_type, ['class' => 'btn btn-info']) }}
-            {{--@endif--}}
+              <a class="btn btn-info" href="{{ route('type.insertform', $type->content_type) }}">Ajouter {{ $type->content_type }}</a>
             <a href="javascript:history.back()" class="btn btn-primary">
               <i class="fas fa-redo"></i> Retour
             </a>

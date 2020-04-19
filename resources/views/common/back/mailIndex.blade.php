@@ -51,10 +51,12 @@
                       <a href="{{ route('mail.edit', $mail->id) }}" class="btn btn-sm btn-warning" title="Modifier le mot de passe" ><i class="far fa-edit"></i><span class="sr-only"> Modifier</span></a>
                     </td>
                     <td>
-                      {!! Form::open(['method' => 'DELETE', 'route' => ['mail.destroy', $mail->id]]) !!}
-                      {{-- Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return confirm(\'Vraiment supprimer cet utilisateur ?\')']) --}}
-                      <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Vraiment supprimer cet Email ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
-                      {!! Form::close() !!}
+                      {{-- Form::open(['method' => 'DELETE', 'route' => ['mail.destroy', $mail->id]]) --}}
+                      <form method="POST" action="{{ route('mail.destroy', $page->id) }}" accept-charset="UTF-8">
+                        <input name="_method" type="hidden" value="DELETE">
+                        <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Vraiment supprimer cet Email ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
+                      </form>
                     </td>
                   </tr>
                 @endforeach

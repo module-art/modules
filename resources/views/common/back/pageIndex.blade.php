@@ -57,10 +57,12 @@
                     <a href="{{ route('page.edit', $page->id) }}" class="btn btn-sm btn-warning" title="Modifier" ><i class="far fa-edit"></i><span class="sr-only"> Modifier</span></a>
                   </td>
                   <td>
-                    {!! Form::open(['method' => 'DELETE', 'route' => ['page.destroy', $page->id]]) !!}
-                    {{-- Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return confirm(\'Vraiment supprimer cet utilisateur ?\')']) --}}
-                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Vraiment supprimer cette page et tous les contenus associés ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
-                    {!! Form::close() !!}
+                    <form method="POST" action="{{ route('page.destroy', $page->id) }}" accept-charset="UTF-8">
+                      <input name="_method" type="hidden" value="DELETE">
+                      <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                    
+                      <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Vraiment supprimer cette page et tous les contenus associés ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
+                    </form>
                   </td>
                 </tr>
               @endforeach
@@ -68,7 +70,7 @@
           </table>
           {!! $pages->links() !!}
           <div class="row justify-content-between px-3">
-            {!! link_to_route('page.create', 'Ajouter une page', [], ['class' => 'btn btn-info']) !!}
+            <a href="{{ route('page.create') }}" class="btn btn-info">Ajouter une page</a>
             <a href="javascript:history.back()" class="btn btn-primary">
               <i class="fas fa-redo"></i> Retour
             </a>
