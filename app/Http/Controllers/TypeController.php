@@ -35,7 +35,7 @@ class TypeController extends Controller
         $rules[$field_name] = 'date_format:d/m/Y';
         $messages[$field_name.'.date_format'] = 'Le champ :attribute doit être une date ex: 15/08/2004.';
       }else if($field->type == 'time'){
-        $rules[$field_name] = 'date_format:h:i';
+        $rules[$field_name] = 'date_format:H:i';
         $messages[$field_name.'.date_format'] = 'Le champ :attribute doit être une heure ex: 15:45.';
       }else if($field->type == 'nb'){
         $rules[$field_name] = 'numeric';
