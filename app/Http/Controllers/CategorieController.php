@@ -165,11 +165,11 @@ class CategorieController extends Controller
       ]);
     }
 
-    public function detach($id)
+    public function detach($id, Request $request)
     {
       $cat = Categorie::findOrFail($id);
 
-      $cat->types()->detach();
+      $cat->types()->detach($request->idType);
 
       return response()->json([
         'response' => 'La catégorie est dissociée.'

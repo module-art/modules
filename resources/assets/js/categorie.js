@@ -106,6 +106,7 @@ $(document).ready(function()
         url: '/coulisses/categorie/'+categorie_id+'/detach',
         data: {
           _token: $('[name="csrf-token"]').attr('content'),
+          idType: idType,
         },
       })
       .done(function(data) {
