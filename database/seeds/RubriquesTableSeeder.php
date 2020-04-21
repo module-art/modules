@@ -21,8 +21,8 @@ class RubriquesTableSeeder extends Seeder
       'contenu' => '<h2>Voici une première rubrique.</h2>',
       'place' => 1,
       'cols' => 3,
-      //'background_img_url' => "/storage/themebase/img/violin.jpg",
-      'background_img_url' => null,
+      'background_img_url' => "/storage/themebase/img/violin.jpg",
+      //'background_img_url' => null,
       'page_id' => 1,
     ]);
     DB::table('rubriques')->insert([
@@ -40,8 +40,8 @@ class RubriquesTableSeeder extends Seeder
       'contenu' => '<h2>Contact</h2>',
       'place' => 1,
       'cols' => 2,
-      //'background_img_url' => "/storage/themebase/img/cantal.jpg",
-      'background_img_url' => null,
+      'background_img_url' => "/storage/themebase/img/cantal.jpg",
+      //'background_img_url' => null,
       'page_id' => 2,
     ]);
   }
