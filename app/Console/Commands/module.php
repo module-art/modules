@@ -11,7 +11,7 @@ class module extends Command
    *
    * @var string
    */
-  protected $signature = 'module:link {--feature= : views, Controllers, Requests, Middleware, Repositories, all}';
+  protected $signature = 'module:link {--feature= : public, views, Controllers, Requests, Middleware, Repositories, all}';
 
   /**
    * The console command description.
@@ -47,12 +47,34 @@ class module extends Command
       if($this->option('feature') != null){
         $feature = $this->option('feature');
       }else{
-        $feature = $this->choice('Which feature must be linked (views is minimum)?', ['views', 'Controllers', 'Requests', 'Middleware', 'Repositories', 'all']);
+        $feature = $this->choice('Which feature must be linked (views is minimum)?', ['public', 'views', 'Controllers', 'Requests', 'Middleware', 'Repositories', 'all']);
       }
       
-      if(!in_array($feature, ['all', 'views', 'Controllers', 'Requests', 'Middleware', 'Repositories']))
+      if(!in_array($feature, ['all', 'public', 'views', 'Controllers', 'Requests', 'Middleware', 'Repositories']))
       {
-        $this->error('Feature option accept only this values : views, Controllers, Requests, Middleware, Repositories, all');
+        $this->error('Feature option accept only this values : public, views, Controllers, Requests, Middleware, Repositories, all');
+      }
+
+      if(in_array($feature, ['all', 'views', 'public']))
+      {
+        //link views
+        $app_js_path = './public/js/themes';
+        $app_css_path = './public/css/themes';
+        $theme_public_path = './Themes/' . config('modules.theme') . '/public';
+        $ok = true;
+
+        if(!file_exists($app_js_path)){
+          mkdir($app_js_path, 0755);
+        }
+        if(!file_exists($app_css_path)){
+          mkdir($app_css_path, 0755);
+        }
+        if(!file_exists($app_js_path . '/' . config('modules.theme')) && file_exists($theme_public_path)){
+          symlink('../../.' . $theme_public_path, $app_js_path . '/' . config('modules.theme'));
+        }
+        if(!file_exists($app_css_path . '/' . config('modules.theme')) && file_exists($theme_public_path)){
+          symlink('../../.' . $theme_public_path, $app_css_path . '/' . config('modules.theme'));
+        }
       }
 
       if(in_array($feature, ['all', 'views']))
