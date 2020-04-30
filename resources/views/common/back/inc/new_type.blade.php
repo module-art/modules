@@ -227,6 +227,10 @@
                 <input class="form-check-input" type="radio" name="new-type" value="nb">
                 <label class="form-check-label">Nombre</label>
               </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="new-type" value="checkbox">
+                <label class="form-check-label">Case à cocher</label>
+              </div>
             </div>
             <input type="text" name="old-field" class="d-none"/>
             <input type="text" name="old-type" class="d-none"/>
