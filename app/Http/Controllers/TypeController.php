@@ -242,7 +242,7 @@ class TypeController extends Controller
           if(isset($new_field->isNew) && $new_field->isNew){
             foreach($type->rubriques as $typed_rubrique){
               $new_bloc = [
-                'contenu' => 'Non renseigné',
+                'contenu' => 0,
                 'place' => $place,
                 'type' => $new_field->name,
                 'rubrique_id' => $typed_rubrique->id
@@ -366,6 +366,7 @@ class TypeController extends Controller
     $rubrique_id = $typed_rubrique->id;
     $i = 1;
     
+    // insert blocs for each field
     foreach($request->except(array('_token', 'publie', 'archive', 'parent_id')) as $key => $value){
       if(preg_match('/categorie/', $key)){
         $typed_rubrique->categories()->attach((int)$value);
@@ -383,6 +384,19 @@ class TypeController extends Controller
           'contenu' => $value,
           'place' => $i,
           'type' => $key,
+          'rubrique_id' => $rubrique_id,
+        ]);
+        $i++;
+      }
+    }
+
+    // unchecked checkboxes
+    foreach($json_fields as $field){
+      if($field->type == "checkbox" && !$request->has(preg_replace('/\s/', '_', $field->name))){
+        Bloc::create([
+          'contenu' => 0,
+          'place' => $i,
+          'type' => $field->name,
           'rubrique_id' => $rubrique_id,
         ]);
         $i++;
@@ -423,6 +437,7 @@ class TypeController extends Controller
 
   public function updateInsertedType(Request $request, $type_id, $id)
   {
+    //dd($request->all());
 
     $type_content = Rubrique::findOrFail($id);
     $type = Type::findOrFail($type_id);
@@ -445,7 +460,6 @@ class TypeController extends Controller
     foreach($type_content->categories as $categorie){
       $old_categories_ids[] = $categorie->id;
     }
-    //dd($request);
 
     foreach($request->except(array('_token', 'publie', 'archive', 'parent_id')) as $key => $value){
       if(preg_match('/categorie/', $key)){
@@ -461,6 +475,15 @@ class TypeController extends Controller
         }
         $type_content->blocs()->where('type', preg_replace('/_/', ' ', $key))->first()->update([
           'contenu' => $value,
+        ]);
+      }
+    }
+
+    // unchecked checkboxes
+    foreach($json_fields as $field){
+      if($field->type == "checkbox" && !$request->has(preg_replace('/\s/', '_', $field->name))){
+        $type_content->blocs()->where('type', $field->name)->first()->update([
+          'contenu' => 0,
         ]);
       }
     }

@@ -41,6 +41,10 @@ $(document).ready(function()
                 '<input class="form-check-input" type="radio" name="type-'+fieldLength+'" value="nb">'+
                 '<label class="form-check-label">Nombre</label>'+
               '</div>'+
+              '<div class="form-check">'+
+                '<input class="form-check-input" type="radio" name="type-'+fieldLength+'" value="checkbox">'+
+                '<label class="form-check-label">Case à cocher</label>'+
+              '</div>'+
             '</div>'+
             '<div class="remove-field-button" id=""><i class="fas fa-minus-circle"></i></div>'+
             '<div class="up-button" id=""><i class="fas fa-arrow-circle-up"></i></div>'+

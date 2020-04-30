@@ -51,6 +51,10 @@
               <td>
                 {!! $contenu !!}
               </td>
+            @elseif($field->type == 'checkbox')
+              <td>
+                {!! $contenu ? 'oui':'non' !!}
+              </td>
             @elseif(preg_match('/titre/i', $field->name))
               <td>
                 {!! strip_tags($contenu) !!}

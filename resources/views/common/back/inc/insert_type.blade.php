@@ -101,6 +101,15 @@
           </div>
         </div>
       </div>
+    @elseif($field->type == 'checkbox')
+      <div class="form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="{{ $field->name }}" value="1"{{ $editing && $contenu ? " checked" : "" }}>
+          <label class="form-check-label" for="{{ $field->name }}">
+            {{ $field->name }}
+          </label>
+        </div>
+      </div>
     @elseif(preg_match('/titre/i', $field->name))
       <div class="form-group">
         {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
