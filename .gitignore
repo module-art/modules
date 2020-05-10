@@ -17,6 +17,7 @@ yarn-error.log
 composer.lock
 .htaccess
 .env
+nohup.out
 *~
 *.swp
 *.swo
