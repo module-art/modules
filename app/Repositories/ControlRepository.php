@@ -55,7 +55,7 @@ class ControlRepository
     return $new_array;
   }
 
-  public function getSortedTypeRubriques($type, $order_by = 0, $desc = 0, $index = false){
+  public function getSortedTypeRubriques($type, $order_by = 0, $desc = 0, $archive = false, $index = false){
 
     if(isset($_GET['category'])){
       $reference = is_numeric($_GET['category']) ? Categorie::find($_GET['category']) : Categorie::where('slug', $_GET['category'])->firstOrFail();
@@ -74,15 +74,31 @@ class ControlRepository
       //On veut que les contenus non publiés s'affichent quand loggé
       if($auth){
         if($nb_per_page == 0){ /*pagination is disabled*/
-          $sorted_rubriques = $reference->rubriques()->orderBy($order_by, $order)->get();
+          if($archive){
+            $sorted_rubriques = $reference->rubriques()->where('archive', 1)->orderBy($order_by, $order)->get();
+          }else{
+            $sorted_rubriques = $reference->rubriques()->where('archive', 0)->orderBy($order_by, $order)->get();
+          }
         }else{
-          $sorted_rubriques = $reference->rubriques()->orderBy($order_by, $order)->paginate($nb_per_page);
+          if($archive){
+            $sorted_rubriques = $reference->rubriques()->where('archive', 1)->orderBy($order_by, $order)->paginate($nb_per_page);
+          }else{
+            $sorted_rubriques = $reference->rubriques()->where('archive', 0)->orderBy($order_by, $order)->paginate($nb_per_page);
+          }
         }
       }else{
         if($nb_per_page == 0){ /*pagination is disabled*/
-          $sorted_rubriques = $reference->rubriques()->where('publie', 1)->orderBy($order_by, $order)->get();
+          if($archive){
+            $sorted_rubriques = $reference->rubriques()->where('publie', 1)->where('archive', 1)->orderBy($order_by, $order)->get();
+          }else{
+            $sorted_rubriques = $reference->rubriques()->where('publie', 1)->where('archive', 0)->orderBy($order_by, $order)->get();
+          }
         }else{
-          $sorted_rubriques = $reference->rubriques()->where('publie', 1)->orderBy($order_by, $order)->paginate($nb_per_page);
+          if($archive){
+            $sorted_rubriques = $reference->rubriques()->where('publie', 1)->where('archive', 1)->orderBy($order_by, $order)->paginate($nb_per_page);
+          }else{
+            $sorted_rubriques = $reference->rubriques()->where('publie', 1)->where('archive', 0)->orderBy($order_by, $order)->paginate($nb_per_page);
+          }
         }
       }
 
@@ -91,9 +107,17 @@ class ControlRepository
     }else{
 
       if($auth){
-        $all_rubriques = $reference->rubriques()->get();
+        if($archive){
+          $all_rubriques = $reference->rubriques()->where('archive', 1)->get();
+        }else{
+          $all_rubriques = $reference->rubriques()->where('archive', 0)->get();
+        }
       }else{
-        $all_rubriques = $reference->rubriques()->where('publie', 1)->get();
+        if($archive){
+          $all_rubriques = $reference->rubriques()->where('publie', 1)->where('archive', 1)->get();
+        }else{
+          $all_rubriques = $reference->rubriques()->where('publie', 1)->where('archive', 0)->get();
+        }
       }
 
       $rubrique_id_block = array();
