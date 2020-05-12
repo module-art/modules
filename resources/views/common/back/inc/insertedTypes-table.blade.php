@@ -83,4 +83,6 @@
   </tbody>
 </table>
 
-{{ $results->links('themes.'.config('modules.theme').'.vendor.pagination.bootstrap-4') }}
+@if($results->count() > 0)
+  {{ $results->links('themes.'.config('modules.theme').'.vendor.pagination.bootstrap-4') }}
+@endif

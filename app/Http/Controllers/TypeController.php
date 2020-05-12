@@ -307,7 +307,7 @@ class TypeController extends Controller
 
     $champs = explode(',', $type->champs);
     $json_fields = json_decode($type->json_fields)->fields;
-    $results = $this->moduleControl->getSortedTypeRubriques($type, $type->default_filtre, $type->descendant, true);// results utilisable avec un foreach;
+    $results = $this->moduleControl->getSortedTypeRubriques($type, $type->default_filtre, $type->descendant, $archive = false, true);// results utilisable avec un foreach;
 
     return view('common.back.insertedTypeIndex', compact('type', 'results', 'json_fields', 'menus', 'operation', 'footer'));
   }
