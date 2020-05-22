@@ -1,5 +1,9 @@
 @extends('themes.'.config('modules.theme').'.template')
 
+@section('title')
+  <title>erreur 404</title>
+@endsection
+
 @section('contenu')
   <div class="heading error row justify-content-center align-items-center" 
        style="background: url('/images/jungle3200.jpg') no-repeat center/100%;">

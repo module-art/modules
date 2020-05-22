@@ -1,5 +1,9 @@
 @extends('themes.'.config('modules.theme').'.template')
 
+@section('title')
+  <title>erreur 403</title>
+@endsection
+
 @section('contenu')
   <div class="heading error row justify-content-center align-items-center" 
        style="background-image: url('/images/forbidden.jpg');">
