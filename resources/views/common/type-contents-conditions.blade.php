@@ -4,7 +4,7 @@
     $type = $rubrique->inclusive_type;
     $archive = $page->slug == 'archives' ? true : false;
   @endphp
-  <div class="large-bloc type-contents row equal justify-content-center" data-content_type='{{ $type['content_type'] }}' data-filtre="{{ $type['default_filtre'] }}" data-desc="{{ $type['descendant'] }}">
+  <div class="large-bloc type-contents" data-content_type='{{ $type['content_type'] }}' data-filtre="{{ $type['default_filtre'] }}" data-desc="{{ $type['descendant'] }}">
     @if(View::exists('themes.'.config('modules.theme') . '.' . $context . '.type-list-'.str_slug($type->content_type)))
       {{--next include redirect to the specific view if exists--}}
       @include('themes.'.config('modules.theme') . '.' . $context . '.type-list-'.str_slug( $type->content_type ), [

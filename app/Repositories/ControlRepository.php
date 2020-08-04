@@ -55,6 +55,24 @@ class ControlRepository
     return $new_array;
   }
 
+  public function getTypedRub($id){
+
+    $type = Type::find($id);
+    return $type->rubriques()->where('publie', 1)->get();
+  }
+
+  public function getData($typed_rubrique, $type){
+
+    return $typed_rubrique->blocs()->where('type', $type)->first()->contenu;
+  }
+
+  public function getImage($typed_rubrique, $type = 'image'){
+
+    $raw_image = $typed_rubrique->blocs()->where('type',$type)->first();
+
+    return preg_replace('/^.*<img\ssrc="(.+)".*$/U','$1', $raw_image->contenu);
+  }
+
   public function getSortedTypeRubriques($type, $order_by = 0, $desc = 0, $archive = false, $index = false){
 
     if(isset($_GET['category'])){
