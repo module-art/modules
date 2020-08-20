@@ -357,6 +357,7 @@ class TypeController extends Controller
     $rubrique_inputs = [
       'contenu' => $type_name,
       'type_id' => $type_id,
+      'place' => $request->rubrique_place,
       'publie' => $request->has('publie') ? 1 : 0,
       'archive' => $request->has('archive') ? 1 : 0,
       'parent_id' => $request->parent_id
@@ -367,7 +368,7 @@ class TypeController extends Controller
     $i = 1;
     
     // insert blocs for each field
-    foreach($request->except(array('_token', 'publie', 'archive', 'parent_id')) as $key => $value){
+    foreach($request->except(array('_token', 'publie', 'archive', 'rubrique_place', 'parent_id')) as $key => $value){
       if(preg_match('/categorie/', $key)){
         $typed_rubrique->categories()->attach((int)$value);
       }else{
@@ -452,6 +453,7 @@ class TypeController extends Controller
     //publication et archivage
     $type_content->publie = $request->has('publie') ? 1:0;
     $type_content->archive = $request->has('archive') ? 1:0;
+    $type_content->place = $request->rubrique_place;
     $type_content->parent_id = $request->parent_id;
     $type_content->save();
 
@@ -461,7 +463,7 @@ class TypeController extends Controller
       $old_categories_ids[] = $categorie->id;
     }
 
-    foreach($request->except(array('_token', 'publie', 'archive', 'parent_id')) as $key => $value){
+    foreach($request->except(array('_token', 'publie', 'archive', 'rubrique_place', 'parent_id')) as $key => $value){
       if(preg_match('/categorie/', $key)){
         $new_categories_ids[] = (int)$value;
       }else{
