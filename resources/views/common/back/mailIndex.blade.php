@@ -52,7 +52,7 @@
                     </td>
                     <td>
                       {{-- Form::open(['method' => 'DELETE', 'route' => ['mail.destroy', $mail->id]]) --}}
-                      <form method="POST" action="{{ route('mail.destroy', $page->id) }}" accept-charset="UTF-8">
+                      <form method="POST" action="{{ route('mail.destroy', $mail->id) }}" accept-charset="UTF-8">
                         <input name="_method" type="hidden" value="DELETE">
                         <input name="_token" type="hidden" value="{{ csrf_token() }}">
                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Vraiment supprimer cet Email ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
