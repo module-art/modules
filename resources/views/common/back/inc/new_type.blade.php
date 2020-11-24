@@ -128,6 +128,10 @@
         <input class="form-check-input" type="radio" name="default_filtre" value="updated_at"{{ $operation == 'edit' && $type->default_filtre  == 'updated_at' ? 'checked' : '' }}/>
         <label class="form-check-label"> dernière mise à jour</label>
       </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="default_filtre" value="place"{{ $operation == 'edit' && $type->default_filtre  == 'place' ? 'checked' : '' }}/>
+        <label class="form-check-label"> place</label>
+      </div>
       @if($operation == 'edit')
         @foreach($fields as $field)
           <div class="form-check">

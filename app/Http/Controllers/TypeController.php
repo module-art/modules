@@ -312,6 +312,20 @@ class TypeController extends Controller
     return view('common.back.insertedTypeIndex', compact('type', 'results', 'json_fields', 'menus', 'operation', 'footer'));
   }
 
+  private function placeManagement($type){
+  
+    $max = $type->rubriques()->max('place');
+    $total = $type->rubriques()->count();
+    if($max != $total-1){
+      foreach($type->rubriques()->orderBy($type->default_filtre)->get() as $y => $rubrique_to_number){
+        $rubrique_to_number->place = $y;
+        $rubrique_to_number->save();
+      }
+    }
+    return $total;
+  
+  }
+
   public function showInsertForm($type_name)
   {
     $operation = 'insert';
@@ -326,12 +340,15 @@ class TypeController extends Controller
     
     $galleries = $this->moduleControl->getGalleriesArray();
 
+    //place management
+    $total = $this->placeManagement($type);
+
     if($type->child_of > 0){
       $parent_type = Type::findOrFail($type->child_of);
-      return view('common.back.form', compact('type', 'parent_type', 'champs', 'json_fields', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries'));
+      return view('common.back.form', compact('type', 'parent_type', 'champs', 'json_fields', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries', 'total'));
     }
 
-    return view('common.back.form', compact('type', 'champs', 'json_fields', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries'));
+    return view('common.back.form', compact('type', 'champs', 'json_fields', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries', 'total'));
   }
 
   public function getGalleries(){
@@ -354,16 +371,29 @@ class TypeController extends Controller
       return back()->withErrors($validator)->withInput();
     }
 
+    //make placement
+    $total = $type->rubriques()->count();
+    $place = $request->rubrique_place;
+    if($place > $total){
+      $place = $total;
+    }elseif($place < $total){
+      foreach($type->rubriques()->where('place', '>=', $place)->get() as $rubrique_to_increase){
+        $rubrique_to_increase->place = $rubrique_to_increase->place + 1;
+        $rubrique_to_increase->save();
+      }
+    }
+
     $rubrique_inputs = [
       'contenu' => $type_name,
       'type_id' => $type_id,
-      'place' => $request->rubrique_place,
+      'place' => $place,
       'publie' => $request->has('publie') ? 1 : 0,
       'archive' => $request->has('archive') ? 1 : 0,
       'parent_id' => $request->parent_id
     ];
 
     $typed_rubrique = Rubrique::create($rubrique_inputs);
+
     $rubrique_id = $typed_rubrique->id;
     $i = 1;
     
@@ -428,12 +458,15 @@ class TypeController extends Controller
 
     $galleries = $this->moduleControl->getGalleriesArray();
 
+    //place management
+    $total = $this->placeManagement($type);
+
     if($type->child_of > 0){
       $parent_type = Type::findOrFail($type->child_of);
-      return view('common.back.form', compact('type_content', 'type', 'parent_type', 'champs', 'json_fields', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries', 'categories_ids'));
+      return view('common.back.form', compact('type_content', 'type', 'parent_type', 'champs', 'json_fields', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries', 'categories_ids','total'));
     }
 
-    return view('common.back.form', compact('type_content', 'type', 'champs', 'json_fields', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries', 'categories_ids'));
+    return view('common.back.form', compact('type_content', 'type', 'champs', 'json_fields', 'nb_champs', 'model', 'menus', 'operation', 'footer', 'galleries', 'categories_ids','total'));
   }
 
   public function updateInsertedType(Request $request, $type_id, $id)
@@ -448,6 +481,21 @@ class TypeController extends Controller
     $validator = $this->validateInsertion($request->all(), $json_fields);
     if ($validator->fails()) {
       return back()->withErrors($validator)->withInput();
+    }
+
+    //make placement
+    $old_place = $type_content->place;
+    $new_place = $request->rubrique_place;
+    if($new_place > $old_place){
+      foreach($type->rubriques()->where('place', '>', $old_place)->where('place', '<=', $new_place)->get() as $rubrique_to_decrease){
+        $rubrique_to_decrease->place = $rubrique_to_decrease->place - 1;
+        $rubrique_to_decrease->save();
+      }
+    }elseif($new_place < $old_place){
+      foreach($type->rubriques()->where('place', '>=', $new_place)->where('place', '<', $old_place)->get() as $rubrique_to_increase){
+        $rubrique_to_increase->place = $rubrique_to_increase->place + 1;
+        $rubrique_to_increase->save();
+      }
     }
 
     //publication et archivage
@@ -500,6 +548,28 @@ class TypeController extends Controller
 
     //return redirect()->route('type.insertUpdate', [$type_name, $id])->withInfo('La modification s\'est bien déroulée.');
     return redirect()->route('type.insertedIndex', [$type->id])->withInfo('La modification s\'est bien déroulée.');
+  }
+
+  public function destroyInsertedRubrique($id)
+  {
+    $rubrique = Rubrique::findOrFail($id);
+    $type = $rubrique->type;
+
+    $rubriques_to_decrease = $type->rubriques()->where('place', '>', $rubrique->place)->get();
+
+    if($rubriques_to_decrease){
+      foreach($rubriques_to_decrease as $newplace){
+        $newplace->place = $newplace->place - 1;
+        $newplace->save();
+      } 
+    }
+
+    foreach($rubrique->blocs as $bloc){
+      $bloc->delete();
+    }
+    $rubrique->delete();
+
+    return response('La rubrique '.$id . ' de type ' . $type->content_type . ' et ses blocs associés viennent d\'être effacés');
   }
 
   public function switchPublication($id)

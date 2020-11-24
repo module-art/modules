@@ -760,7 +760,7 @@ $(document).ready(function()
 
           $.ajax({
               method: 'post',
-              url: '/coulisses/destroyrubrique/'+ idRubrique,
+              url: '/coulisses/destroyinsertedrubrique/'+ idRubrique,
               data: { _token: csrfToken},//token!!!
             })
             .done(function(data) {
@@ -777,7 +777,7 @@ $(document).ready(function()
 
           $.ajax({
             method: 'post',
-            url: '/coulisses/destroyrubrique/'+ idRubrique,
+            url: '/coulisses/destroyinsertedrubrique/'+ idRubrique,
             data: { _token: csrfToken},//token!!!
           })
           .done(function(data) {

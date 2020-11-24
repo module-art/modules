@@ -87,7 +87,7 @@ class ControlRepository
 
     if(!$order_by) $order_by = $type->default_filtre;
 
-    if($order_by == 'created_at' || $order_by == 'updated_at'){
+    if($order_by == 'created_at' || $order_by == 'place' || $order_by == 'updated_at'){
 
       //On veut que les contenus non publiés s'affichent quand loggé
       if($auth){

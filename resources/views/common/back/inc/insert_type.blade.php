@@ -46,7 +46,7 @@
     <div class="form-row">
       <div class="input-group">
         <label class="control-label" for="rubrique_place">place :</label>
-        <input name="rubrique_place" type="number" class="form-control col-12 col-lg-4 offset-lg-1{{ $errors->has('rubrique_place') ? ' is-invalid' : '' }}" value="{{ $editing ? $type_content->place : old('rubrique_place') }}"/>
+        <input name="rubrique_place" type="number" min="0" max="{{ $editing ? ( $total - 1 ) : $total }}" class="form-control col-12 col-lg-4 offset-lg-1{{ $errors->has('rubrique_place') ? ' is-invalid' : '' }}" value="{{ $editing ? $type_content->place : $total }}"/>
       </div>
     </div>
   </div>
