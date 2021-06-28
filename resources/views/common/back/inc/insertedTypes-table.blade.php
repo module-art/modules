@@ -1,11 +1,19 @@
 <table class="table">
   <thead>
     <tr>
-      <th>date</th>
+      @if($type->default_filtre == 'place')
+        <th>Place</th>
+      @elseif($type->default_filtre == 'updated_at')
+        <th>Mis à jour</th>
+      @else
+        <th>date</th>
+      @endif
       <th>Publié</th>
       <th>Archivé</th>
       @foreach($json_fields as $field)
-        <th>{{ $field->name }}</th>
+        @if($field->name != 'image')
+          <th>{{ $field->name }}</th>
+        @endif
       @endforeach
       <th></th>
       <th></th>
@@ -17,9 +25,15 @@
     @if($results->count() > 0)
       @foreach ($results as $result)
         <tr>
-          <td class="">
-            {{ ( new Date($result->created_at) )->format('j M Y') }}
-          </td>
+          @if($type->default_filtre == 'place')
+            <td>{{ $result->place }}</td>
+          @elseif($type->default_filtre == 'updated_at')
+            <td>{{ $result->updated_at }}</td>
+          @else
+            <td>
+              {{ ( new Date($result->created_at) )->format('j M Y') }}
+            </td>
+          @endif
           <td data-toggle="content-publication" data-content_id="{{ $result->id }}">
             {!! $result->publie ? '<span class="published"><i class="far fa-check-circle"></i></span>' : '<span class="unpublished"><i class="far fa-times-circle"></i></span>' !!}
           </td>
@@ -59,6 +73,7 @@
               <td>
                 {!! strip_tags($contenu) !!}
               </td>
+            @elseif($field->name == 'image')
             @else
               <td>
                 {!! str_limit(strip_tags($contenu), $limit = 50, $end = ' [...]') !!}
