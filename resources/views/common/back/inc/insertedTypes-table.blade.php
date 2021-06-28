@@ -11,7 +11,7 @@
       <th>Publié</th>
       <th>Archivé</th>
       @foreach($json_fields as $field)
-        @if($field->name != 'image')
+        @if( !in_array(strtolower($field->name), ['image', 'photo']) )
           <th>{{ $field->name }}</th>
         @endif
       @endforeach
@@ -73,7 +73,7 @@
               <td>
                 {!! strip_tags($contenu) !!}
               </td>
-            @elseif($field->name == 'image')
+            @elseif( in_array(strtolower($field->name), ['image', 'photo']) )
             @else
               <td>
                 {!! str_limit(strip_tags($contenu), $limit = 50, $end = ' [...]') !!}
