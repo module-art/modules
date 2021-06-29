@@ -54,4 +54,7 @@
   <script src="/js/admin.js"></script>
   <script src="/js/lists.js"></script>
   <script src="/tools/fancybox/jquery.fancybox.min.js"></script>
+  @if( $type->default_filtre == 'place' )
+    <script src="/tools/jquery_ui/jquery-ui.min.js"></script>
+  @endif
 @endsection
