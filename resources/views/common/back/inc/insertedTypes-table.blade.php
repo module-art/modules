@@ -2,6 +2,7 @@
   <thead>
     <tr>
       @if($type->default_filtre == 'place')
+        <th></th>
         <th>Place</th>
       @elseif($type->default_filtre == 'updated_at')
         <th>Mis à jour</th>
@@ -20,13 +21,14 @@
       <th></th>
     </tr>
   </thead>
-  <tbody>
+  <tbody{{ $type->default_filtre == 'place' ? ' id=sortable' : '' }}>
     @php //dd($results); @endphp
     @if($results->count() > 0)
       @foreach ($results as $result)
         <tr>
           @if($type->default_filtre == 'place')
-            <td>{{ $result->place }}</td>
+            <td><i class="fas fa-arrows-alt-v"></i></td>
+            <td class="place-indicator">{{ $result->place }}</td>
           @elseif($type->default_filtre == 'updated_at')
             <td>{{ $result->updated_at }}</td>
           @else

@@ -44,4 +44,23 @@ $(document).ready(function()
       alert(failMessage);
     });
   }
+
+  //sort and reorder when type ordered by place
+  var fromNumber = 0,
+      toNumber = 0,
+      newVal = 0;
+      
+  $("#sortable").sortable({
+    axis: "y",
+    start: function(event, ui){
+      fromNumber = ui.item.children('.place-indicator').text();
+    },
+    update: function( event, ui ) {
+      toNumber = ui.item.prev().children('.place-indicator').text();
+      newVal = parseInt( toNumber )+1;
+      if(isNaN(newVal)) newVal = 0;
+      alert("l'élément de position " + fromNumber + " va devenir " + newVal);
+    }
+  });
+
 });

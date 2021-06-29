@@ -1,4 +1,6 @@
 {
+    "/js/lists.js": "/js/lists.js",
     "/js/themes/ricochet/scripts.js": "/js/themes/ricochet/scripts.js",
-    "/css/themes/ricochet/styles.css": "/css/themes/ricochet/styles.css"
+    "/css/themes/ricochet/styles.css": "/css/themes/ricochet/styles.css",
+    "/css/admin.css": "/css/admin.css"
 }

@@ -4,6 +4,7 @@
   <title>Index {{ $type->content_type }}</title>
   <link href="/css/admin.css" rel="stylesheet">
   <link rel="stylesheet" href="/tools/fancybox/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/tools/jquery_ui/jquery-ui.min.css">
 @endsection
 
 @section('sidebar')
@@ -48,13 +49,11 @@
 @endsection
 
 @section('scripts')
+  <script src="/tools/jquery_ui/jquery-ui.min.js"></script>
   <script src="/js/tinymce/tinymce.min.js"></script>
   <script src="/js/tempus-dominus/moment-with-locales.min.js"></script>
   <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
   <script src="/js/admin.js"></script>
   <script src="/js/lists.js"></script>
   <script src="/tools/fancybox/jquery.fancybox.min.js"></script>
-  @if( $type->default_filtre == 'place' )
-    <script src="/tools/jquery_ui/jquery-ui.min.js"></script>
-  @endif
 @endsection

@@ -212,6 +212,12 @@
   .type-content{
     @include destroy_button(-30px, 9px);
   }
+  .place-indicator{
+    text-align: center;
+  }
+  #sortable .fa-arrows-alt-v{
+    font-size: 1.6em;
+  }
 }
 
 .type-content{

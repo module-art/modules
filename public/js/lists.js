@@ -1,1 +1,174 @@
-!function(t){var e={};function n(o){if(e[o])return e[o].exports;var r=e[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:o})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)n.d(o,r,function(e){return t[e]}.bind(null,r));return o},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="/",n(n.s=4)}({4:function(t,e,n){t.exports=n(5)},5:function(t,e){$(document).ready(function(){var t=$('meta[name="csrf-token"]').attr("content"),e="Oups! une erreur a empêché la modification.";function n(n,o,r){$.ajax({method:"post",url:"/coulisses/"+o+"/"+r,data:{_token:t}}).done(function(t){document.body.style.cursor="default",console.log(t),n.is(".published")?n.removeClass("published").addClass("unpublished").html('<i class="far fa-times-circle"></i>'):n.removeClass("unpublished").addClass("published").html('<i class="far fa-check-circle"></i>')}).fail(function(){document.body.style.cursor="default",alert(e)})}$('td[data-toggle="publication"]').click(function(){var t=$(this).attr("data-page_id"),e=$(this).children().first();document.body.style.cursor="wait",n(e,"publicationpage",t)}),$('td[data-toggle="content-publication"]').click(function(){var t=$(this).attr("data-content_id"),e=$(this).children().first();document.body.style.cursor="wait",n(e,"publicationcontent",t)}),$('td[data-toggle="content-archivage"]').click(function(){var t=$(this).attr("data-content_id"),e=$(this).children().first();document.body.style.cursor="wait",n(e,"archivecontent",t)})})}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/assets/js/lists.js":
+/*!**************************************!*\
+  !*** ./resources/assets/js/lists.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  var csrfToken = $('meta[name="csrf-token"]').attr('content'),
+      //get csrf-field in head
+  failMessage = 'Oups! une erreur a empêché la modification.';
+  $('td[data-toggle="publication"]').click(function () {
+    var idPage = $(this).attr('data-page_id'),
+        nodeStatus = $(this).children().first();
+    document.body.style.cursor = 'wait';
+    togglePublished(nodeStatus, 'publicationpage', idPage);
+  });
+  $('td[data-toggle="content-publication"]').click(function () {
+    var idContent = $(this).attr('data-content_id'),
+        nodeStatus = $(this).children().first();
+    document.body.style.cursor = 'wait';
+    togglePublished(nodeStatus, 'publicationcontent', idContent);
+  });
+  $('td[data-toggle="content-archivage"]').click(function () {
+    var idContent = $(this).attr('data-content_id'),
+        nodeStatus = $(this).children().first();
+    document.body.style.cursor = 'wait';
+    togglePublished(nodeStatus, 'archivecontent', idContent);
+  });
+
+  function togglePublished(nodeStatus, routeUrl, idContent) {
+    $.ajax({
+      method: 'post',
+      url: '/coulisses/' + routeUrl + '/' + idContent,
+      data: {
+        _token: csrfToken
+      } //token!!!
+
+    }).done(function (data) {
+      document.body.style.cursor = 'default';
+      console.log(data);
+
+      if (nodeStatus.is('.published')) {
+        nodeStatus.removeClass('published').addClass('unpublished').html('<i class="far fa-times-circle"></i>');
+      } else {
+        nodeStatus.removeClass('unpublished').addClass('published').html('<i class="far fa-check-circle"></i>');
+      }
+    }).fail(function () {
+      document.body.style.cursor = 'default';
+      alert(failMessage);
+    });
+  } //sort and reorder when type ordered by place
+
+
+  var fromNumber = 0,
+      toNumber = 0,
+      newVal = 0;
+  $("#sortable").sortable({
+    axis: "y",
+    start: function start(event, ui) {
+      fromNumber = ui.item.children('.place-indicator').text();
+    },
+    update: function update(event, ui) {
+      toNumber = ui.item.prev().children('.place-indicator').text();
+      newVal = parseInt(toNumber) + 1;
+      if (isNaN(newVal)) newVal = 0;
+      alert("l'élément de position " + fromNumber + " va devenir " + newVal);
+    }
+  });
+});
+
+/***/ }),
+
+/***/ 1:
+/*!********************************************!*\
+  !*** multi ./resources/assets/js/lists.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /home/sylvestre/www/modules/modules-chemins/resources/assets/js/lists.js */"./resources/assets/js/lists.js");
+
+
+/***/ })
+
+/******/ });
