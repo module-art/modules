@@ -609,4 +609,39 @@ class TypeController extends Controller
 
     return response('Le contenu '. $content->contenu . $verbe . 'archivé.');
   }
+
+  public function sortTypeRubriques(Request $request, $type_id)
+  {
+    $type = Type::findOrFail($type_id);
+    $rubriques = $type->rubriques;
+    $numFrom = $request->numFrom;
+    $numTo = $request->numTo;
+    //$steps = array();
+
+    $movedRubrique = $rubriques->where('place', $numFrom)->first();
+
+    if($numTo < $numFrom){
+      for($i = $numTo; $i < $numFrom; $i++){
+        $rubriqueToMove = $rubriques->where('place', $i)->first();
+        $rubriqueToMove->place = $i+1;
+        $rubriqueToMove->save();
+      }
+      $movedRubrique->place = $numTo;
+      $movedRubrique->save();
+    }else{
+      for($i = ($numFrom+1); $i < $numTo; $i++){
+        $rubriqueToMove = $rubriques->where('place', $i)->first();
+        $rubriqueToMove->place = ($i-1);
+        $rubriqueToMove->save();
+        //$steps[] = $i . " -> " . ($i-1);
+      }
+      $movedRubrique->place = ($numTo-1);
+      $movedRubrique->save();
+      //$steps[] = $numFrom . " -> " . ($numTo-1);
+    }
+    //$steps[] = "Les rubriques sont réordonnées.";
+
+    //return response($steps);
+    return response("Les rubriques sont réordonnées.");
+  }
 }

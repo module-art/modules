@@ -100,6 +100,8 @@ class ControlRepository
         }else{
           if($archive){
             $sorted_rubriques = $reference->rubriques()->where('archive', 1)->orderBy($order_by, $order)->paginate($nb_per_page);
+          }elseif($index){
+            $sorted_rubriques = $reference->rubriques()->orderBy($order_by, $order)->paginate($nb_per_page);
           }else{
             $sorted_rubriques = $reference->rubriques()->where('archive', 0)->orderBy($order_by, $order)->paginate($nb_per_page);
           }
@@ -127,6 +129,8 @@ class ControlRepository
       if($auth){
         if($archive){
           $all_rubriques = $reference->rubriques()->where('archive', 1)->get();
+        }elseif($index){
+          $all_rubriques = $reference->rubriques()->get();
         }else{
           $all_rubriques = $reference->rubriques()->where('archive', 0)->get();
         }

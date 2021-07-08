@@ -1,25 +1,27 @@
 $(document).ready(function()
 {
   var csrfToken = $('meta[name="csrf-token"]').attr('content'),//get csrf-field in head
-      failMessage = 'Oups! une erreur a empêché la modification.';
+      failMessage = 'Oups! une erreur a empêché la modification.',
+      typeId = $('#typeList').attr('data-typeid');
+
 
   $('td[data-toggle="publication"]').click(function(){
-    var idPage = $(this).attr('data-page_id'),
-        nodeStatus = $(this).children().first();
-    document.body.style.cursor = 'wait';
-    togglePublished(nodeStatus, 'publicationpage', idPage);
+  var idPage = $(this).attr('data-page_id'),
+    nodeStatus = $(this).children().first();
+  document.body.style.cursor = 'wait';
+  togglePublished(nodeStatus, 'publicationpage', idPage);
   });
 
   $('td[data-toggle="content-publication"]').click(function(){
     var idContent = $(this).attr('data-content_id'),
-        nodeStatus = $(this).children().first();
+      nodeStatus = $(this).children().first();
     document.body.style.cursor = 'wait';
     togglePublished(nodeStatus, 'publicationcontent', idContent);
   });
 
   $('td[data-toggle="content-archivage"]').click(function(){
     var idContent = $(this).attr('data-content_id'),
-        nodeStatus = $(this).children().first();
+      nodeStatus = $(this).children().first();
     document.body.style.cursor = 'wait';
     togglePublished(nodeStatus, 'archivecontent', idContent);
   });
@@ -53,13 +55,32 @@ $(document).ready(function()
   $("#sortable").sortable({
     axis: "y",
     start: function(event, ui){
-      fromNumber = ui.item.children('.place-indicator').text();
+      fromNumber = ui.item.children('.place-indicator').attr('data-place');
     },
     update: function( event, ui ) {
-      toNumber = ui.item.prev().children('.place-indicator').text();
+      document.body.style.cursor = 'wait';
+      toNumber = ui.item.prev().children('.place-indicator').attr('data-place');
       newVal = parseInt( toNumber )+1;
       if(isNaN(newVal)) newVal = 0;
-      alert("l'élément de position " + fromNumber + " va devenir " + newVal);
+      //alert("l'élément de position " + fromNumber + " va devenir " + newVal);
+      $.ajax({
+          method: 'post',
+          url: '/coulisses/sortrubriques/'+typeId,
+          data: {
+            _token: csrfToken,
+            numFrom: fromNumber,
+            numTo: newVal
+          },
+      })
+      .done(function(data) {
+        document.body.style.cursor = 'default';
+        console.log(data);
+        document.location.reload(true);
+      })
+      .fail(function() {
+        document.body.style.cursor = 'default';
+        alert(failMessage);
+      });
     }
   });
 

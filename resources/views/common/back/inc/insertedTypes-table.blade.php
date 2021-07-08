@@ -28,7 +28,7 @@
         <tr>
           @if($type->default_filtre == 'place')
             <td><i class="fas fa-arrows-alt-v"></i></td>
-            <td class="place-indicator">{{ $result->place }}</td>
+            <td class="place-indicator" data-place="{{ $result->place }}">{{ $result->place }}</td>
           @elseif($type->default_filtre == 'updated_at')
             <td>{{ $result->updated_at }}</td>
           @else

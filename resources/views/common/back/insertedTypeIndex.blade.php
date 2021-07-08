@@ -18,20 +18,22 @@
 @section('contenu')
           
   <section class='row center-card'>
-    <div class="">
+    <div>
       @if(session()->has('info'))
         <div class="alert alert-success alert-dismissible">{!! session('info') !!}</div>
       @endif
       @if(session()->has('error'))
         <div class="alert alert-danger alert-dismissible">{!! session('error') !!}</div>
       @endif
-      <div class="card">
+      <div class="card" id="typeList" data-typeid="{{$type->id}}">
         <div class="card-header">
           <h3 class="card-title">Liste du type : {{$type->content_type}}</h3>
         </div>
         <div class="card-body">
 
-          @include('common.back.inc.insertedTypes-table')
+          <div id="index-container">
+            @include('common.back.inc.insertedTypes-table')
+          </div>
           <div class="row justify-content-between px-3">
               <a class="btn btn-info" href="{{ route('type.insertform', $type->content_type) }}">Ajouter {{ $type->content_type }}</a>
             <a href="javascript:history.back()" class="btn btn-primary">
