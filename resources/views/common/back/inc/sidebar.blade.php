@@ -28,9 +28,12 @@
               <a id="publication">{{ $page->publie? "Masquer" : "Publier" }}</a>
             </li>
             @if(config('modules.multi_rubrique') == true)
-            <li>
-              <a id="add-rubrique">Ajouter une rubrique</a>
-            </li>
+              <li>
+                {{ link_to_route('rubrique.index', 'Liste des rubriques', $page->id, ['class' => '']) }}
+              </li>
+              <li>
+                <a id="add-rubrique">Ajouter une rubrique</a>
+              </li>
             @endif
             <li>
               {{ link_to_route('page.index', 'Liste des pages', null, ['class' => '']) }}

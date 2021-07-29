@@ -323,7 +323,6 @@ class TypeController extends Controller
       }
     }
     return $total;
-  
   }
 
   public function showInsertForm($type_name)

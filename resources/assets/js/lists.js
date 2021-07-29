@@ -12,6 +12,13 @@ $(document).ready(function()
   togglePublished(nodeStatus, 'publicationpage', idPage);
   });
 
+  $('td[data-toggle="rubrique-publication"]').click(function(){
+  var idRubrique = $(this).attr('data-rubrique_id'),
+    nodeStatus = $(this).children().first();
+  document.body.style.cursor = 'wait';
+  togglePublished(nodeStatus, 'publicationrubrique', idRubrique);
+  });
+
   $('td[data-toggle="content-publication"]').click(function(){
     var idContent = $(this).attr('data-content_id'),
       nodeStatus = $(this).children().first();

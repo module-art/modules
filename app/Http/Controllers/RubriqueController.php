@@ -18,13 +18,33 @@ use ModuleControl;
 class RubriqueController extends Controller
 {
 
-  public function __construct(ModuleControl $module_control)
+  public function __construct(MenusRepository $menusRepository, ModuleControl $module_control)
   {
     $this->middleware('auth', ['except' => ['getTypeContents', 'showTypeContentPage']]);
     $this->middleware('authAsAdmin', ['except' => ['getTypeContents', 'showTypeContentPage']]);
-    $this->middleware('ajax', ['except' => ['getTypeContents', 'showTypeContentPage']]);
+    $this->middleware('ajax', ['except' => ['index', 'getTypeContents', 'showTypeContentPage']]);
+    $this->menusRepository = $menusRepository;
     $this->moduleControl = $module_control;
   }
+
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index($page_id)
+  {
+    $page = Page::findOrFail($page_id);
+
+    //place management
+    $total = $this->placeManagement($page);
+
+    $menus = $this->menusRepository->makeAdminMenus();
+    $rubriques = $page->rubriques()->orderBy('place')->get();
+
+    return view('common.back.rubriqueIndex', compact('page', 'rubriques', 'menus'));
+  }
+
 
   public function getTypeContents(Request $request, $type_name){
 
@@ -209,6 +229,38 @@ class RubriqueController extends Controller
       $rubrique->save();
 
       return response('Le rubrique ' . $id . ' est en ordre ' . $state);
+    }
+
+    public function switchPublication($id)
+    {
+      $rubrique = Rubrique::findOrFail($id);
+      $state = $rubrique->publie;
+
+      if($state){
+        $state = 0;
+        $verbe = " n'est plus ";
+      }else{
+        $state = 1;
+        $verbe = " est ";
+      }
+      
+      $rubrique->publie = $state;
+      $rubrique->save();
+
+      return response('La rubrique '. $rubrique->id . $verbe . 'publié.');
+    }
+
+    private function placeManagement($page){
+    
+      $max = $page->rubriques()->max('place');
+      $total = $page->rubriques()->count();
+      if($max != $total-1){
+        foreach($page->rubriques as $y => $rubrique_to_number){
+          $rubrique_to_number->place = $y;
+          $rubrique_to_number->save();
+        }
+      }
+      return $total;
     }
 
     public function moveBlock(Request $request, $id)

@@ -54,6 +54,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => ['auth']), function 
   Route::get('partial_drag/{id}', 'BlocController@partialShowDrag');
   Route::post('list-galleries', 'BlocController@listGalleries')->middleware('ajax');
 
+  Route::get('rubriques/{page_id}', 'RubriqueController@index')->name('rubrique.index');
   Route::post('rubrique/{id}', 'RubriqueController@update');
   Route::post('destroyrubrique/{id}', 'RubriqueController@destroy');
   Route::post('cols/{id}', 'RubriqueController@colsChange');
@@ -62,6 +63,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => ['auth']), function 
   Route::post('ascdesc/{id}', 'RubriqueController@switchOrder');
   Route::post('moveblock/{id}', 'RubriqueController@moveBlock');
   Route::post('change-type-content/{id}', 'RubriqueController@changeTypeContents');
+  Route::post('publicationrubrique/{id}', 'RubriqueController@switchPublication')->middleware('ajax');
   
   Route::resource('mail', 'MailController');
 
