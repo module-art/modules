@@ -23,7 +23,7 @@
       @if(session()->has('error'))
         <div class="alert alert-danger alert-dismissible">{!! session('error') !!}</div>
       @endif
-      <div class="card">
+      <div class="card" id="pageList" data-pageid="{{$page->id}}">
         <div class="card-header">
           <h3 class="card-title">Liste des rubriques de la page : {!! $page->is_home ? "d'accueil" : $page->menu_title !!}</h3>
         </div>
@@ -35,7 +35,8 @@
                 <th>Place</th>
                 <th>Publiée</th>
                 <th>Titre</th>
-                {{--<th></th>supprimer--}}
+                <th>Class</th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="sortable">
@@ -47,14 +48,10 @@
                     {!! $rubrique->publie ? '<span class="published"><i class="far fa-check-circle"></i></span>' : '<span class="unpublished"><i class="far fa-times-circle"></i></span>' !!}
                   </td>
                   <td class="text-primary"><strong>{!! strip_tags($rubrique->contenu) !!}</strong></td>
-                  {{--<td>
-                    <form method="POST" action="{{ route('rubrique.destroy', $rubrique->id) }}" accept-charset="UTF-8">
-                      <input name="_method" type="hidden" value="DELETE">
-                      <input name="_token" type="hidden" value="{{ csrf_token() }}">
-                    
-                      <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Vraiment supprimer cette rubrique et tous les contenus associés ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
-                    </form>
-                  </td>--}}
+                  <td class="text-primary">{!! $rubrique->class !!}</td>
+                  <td>
+                    <button class="btn btn-sm btn-danger btn-destroy-rubrique" data-rubrique_id="{{ $rubrique->id }}"><i class="fas fa-trash-alt"></i></button>
+                  </td>
                 </tr>
               @endforeach
             </tbody>
@@ -70,6 +67,7 @@
 
 @section('scripts')
   <script src="/tools/jquery_ui/jquery-ui.min.js"></script>
+  <script src="/js/tinymce/tinymce.min.js"></script>
   <script src="/js/admin.js"></script>
   <script src="/js/lists.js"></script>
 @endsection

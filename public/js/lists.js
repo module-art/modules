@@ -96,8 +96,18 @@
 $(document).ready(function () {
   var csrfToken = $('meta[name="csrf-token"]').attr('content'),
       //get csrf-field in head
-  failMessage = 'Oups! une erreur a empêché la modification.',
-      typeId = $('#typeList').attr('data-typeid');
+  failMessage = 'Oups! une erreur a empêché la modification.';
+
+  if ($('#typeList').length == 1) {
+    var refId = $('#typeList').attr('data-typeid'),
+        sortUrl = '/coulisses/sorttyperubriques/',
+        typeIndex = 1;
+  } else {
+    var refId = $('#pageList').attr('data-pageid'),
+        sortUrl = '/coulisses/sortpagerubriques/',
+        typeIndex = 0;
+  }
+
   $('td[data-toggle="publication"]').click(function () {
     var idPage = $(this).attr('data-page_id'),
         nodeStatus = $(this).children().first();
@@ -163,7 +173,7 @@ $(document).ready(function () {
 
       $.ajax({
         method: 'post',
-        url: '/coulisses/sortrubriques/' + typeId,
+        url: sortUrl + refId,
         data: {
           _token: csrfToken,
           numFrom: fromNumber,
@@ -177,6 +187,28 @@ $(document).ready(function () {
         document.body.style.cursor = 'default';
         alert(failMessage);
       });
+    }
+  }); //rubrique destroy
+
+  $(".btn-destroy-rubrique").click(function () {
+    var idRubrique = $(this).attr('data-rubrique_id');
+
+    if (confirm('Êtes vous sûr?')) {
+      if (confirm('Tous les blocs associés à cette rubrique seront effacés. Êtes vous vraiment sûr?')) {
+        $.ajax({
+          method: 'post',
+          url: '/coulisses/destroyrubrique/' + idRubrique,
+          data: {
+            _token: csrfToken
+          } //token!!!
+
+        }).done(function (data) {
+          console.log(data);
+          document.location.reload(true);
+        }).fail(function () {
+          alert('Oups! une erreur a empêché la suppression.');
+        });
+      }
     }
   });
 });

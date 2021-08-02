@@ -306,4 +306,39 @@ class RubriqueController extends Controller
         return response()->json(['response' => 'Les contenus de type ' . $request->contentType . ' ne sont plus insérés dans cette rubrique.']);
       }
     }
+
+  public function sortRubriques(Request $request, $page_id)
+  {
+    $page = Page::findOrFail($page_id);
+    $rubriques = $page->rubriques;
+    $numFrom = $request->numFrom;
+    $numTo = $request->numTo;
+    //$steps = array();
+
+    $movedRubrique = $rubriques->where('place', $numFrom)->first();
+
+    if($numTo < $numFrom){
+      for($i = $numTo; $i < $numFrom; $i++){
+        $rubriqueToMove = $rubriques->where('place', $i)->first();
+        $rubriqueToMove->place = $i+1;
+        $rubriqueToMove->save();
+      }
+      $movedRubrique->place = $numTo;
+      $movedRubrique->save();
+    }else{
+      for($i = ($numFrom+1); $i < $numTo; $i++){
+        $rubriqueToMove = $rubriques->where('place', $i)->first();
+        $rubriqueToMove->place = ($i-1);
+        $rubriqueToMove->save();
+        //$steps[] = $i . " -> " . ($i-1);
+      }
+      $movedRubrique->place = ($numTo-1);
+      $movedRubrique->save();
+      //$steps[] = $numFrom . " -> " . ($numTo-1);
+    }
+    //$steps[] = "Les rubriques sont réordonnées.";
+
+    //return response($steps);
+    return response("Les rubriques sont réordonnées.");
+  }
 }

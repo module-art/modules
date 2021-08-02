@@ -41,7 +41,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => ['auth']), function 
   Route::get('get-galleries', 'TypeController@getGalleries')->middleware('ajax');
   Route::post('publicationcontent/{id}', 'TypeController@switchPublication')->middleware('ajax');
   Route::post('archivecontent/{id}', 'TypeController@switchArchivage')->middleware('ajax');
-  Route::post('sortrubriques/{type_name}', 'TypeController@sortTypeRubriques')->middleware('ajax');
+  Route::post('sorttyperubriques/{type_id}', 'TypeController@sortTypeRubriques')->middleware('ajax');
 
   Route::resource('categorie', 'CategorieController', ['except' => ['create']]);
   Route::post('categorie/{id}/detach', 'CategorieController@detach')->middleware('ajax');
@@ -63,7 +63,8 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => ['auth']), function 
   Route::post('ascdesc/{id}', 'RubriqueController@switchOrder');
   Route::post('moveblock/{id}', 'RubriqueController@moveBlock');
   Route::post('change-type-content/{id}', 'RubriqueController@changeTypeContents');
-  Route::post('publicationrubrique/{id}', 'RubriqueController@switchPublication')->middleware('ajax');
+  Route::post('publicationrubrique/{id}', 'RubriqueController@switchPublication');
+  Route::post('sortpagerubriques/{page_id}', 'RubriqueController@sortRubriques');
   
   Route::resource('mail', 'MailController');
 
