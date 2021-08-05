@@ -122,4 +122,39 @@ $(document).ready(function()
     }
   });
 
+  function listenToEditClass(){
+    $('.editclass').click(function(){
+    $('.editclass').off();
+      var target = $(this),
+          rubriqueId = target.attr('data-rubrique_id'),
+          innerText = target.text();
+      //alert(innerText);
+      target.html('<input type="text" name="class" id="classEdited" value="'+innerText+'">');
+      $('#classEdited').keypress(function(event){
+        if(event.which == 13){
+          document.body.style.cursor = 'wait';
+          target.html($(this).val());
+          $.ajax({
+              method: 'post',
+              url: '/coulisses/updaterubriqueclass/'+rubriqueId,
+              data: {
+                rubriqueClass : $(this).val(),
+                _token: csrfToken
+              },
+          })
+          .done(function(data) {
+            document.body.style.cursor = 'default';
+            console.log(data);
+          })
+          .fail(function() {
+            document.body.style.cursor = 'default';
+            alert(failMessage);
+          });
+          listenToEditClass();
+        }
+      });
+    });
+  }
+  listenToEditClass();
+
 });

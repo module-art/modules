@@ -65,6 +65,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => ['auth']), function 
   Route::post('change-type-content/{id}', 'RubriqueController@changeTypeContents');
   Route::post('publicationrubrique/{id}', 'RubriqueController@switchPublication');
   Route::post('sortpagerubriques/{page_id}', 'RubriqueController@sortRubriques');
+  Route::post('updaterubriqueclass/{id}', 'RubriqueController@updateClass');
   
   Route::resource('mail', 'MailController');
 

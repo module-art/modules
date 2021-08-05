@@ -48,7 +48,7 @@
                     {!! $rubrique->publie ? '<span class="published"><i class="far fa-check-circle"></i></span>' : '<span class="unpublished"><i class="far fa-times-circle"></i></span>' !!}
                   </td>
                   <td class="text-primary"><strong>{!! strip_tags($rubrique->contenu) !!}</strong></td>
-                  <td class="text-primary">{!! $rubrique->class !!}</td>
+                  <td class="text-primary editclass" data-rubrique_id="{{$rubrique->id}}" >{!! $rubrique->class !!}</td>
                   <td>
                     <button class="btn btn-sm btn-danger btn-destroy-rubrique" data-rubrique_id="{{ $rubrique->id }}"><i class="fas fa-trash-alt"></i></button>
                   </td>

@@ -250,6 +250,16 @@ class RubriqueController extends Controller
       return response('La rubrique '. $rubrique->id . $verbe . 'publié.');
     }
 
+    public function updateClass(Request $request, $id)
+    {
+      $rubrique = Rubrique::findOrFail($id);
+
+      $rubrique->class = $request->rubriqueClass;
+      $rubrique->save();
+
+      return response('La donnée de rubrique est modifiée.');
+    }
+
     private function placeManagement($page){
     
       $max = $page->rubriques()->max('place');
