@@ -159,7 +159,8 @@ $(document).ready(function () {
 
   var fromNumber = 0,
       toNumber = 0,
-      newVal = 0;
+      newVal = 0,
+      endItem = {};
   $("#sortable").sortable({
     axis: "y",
     start: function start(event, ui) {
@@ -167,6 +168,7 @@ $(document).ready(function () {
     },
     update: function update(event, ui) {
       document.body.style.cursor = 'wait';
+      endItem = ui.item;
       toNumber = ui.item.prev().children('.place-indicator').attr('data-place');
       newVal = parseInt(toNumber) + 1;
       if (isNaN(newVal)) newVal = 0; //alert("l'élément de position " + fromNumber + " va devenir " + newVal);
@@ -182,13 +184,56 @@ $(document).ready(function () {
       }).done(function (data) {
         document.body.style.cursor = 'default';
         console.log(data);
-        document.location.reload(true);
+        reOrderNumbers(fromNumber, newVal, endItem); //document.location.reload(true);
       }).fail(function () {
         document.body.style.cursor = 'default';
         alert(failMessage);
       });
     }
-  }); //rubrique destroy
+  });
+
+  function reOrderNumbers(numFrom, numTo, endItem) {
+    var y = 0;
+
+    if (numTo < numFrom) {
+      endItem.children('.place-indicator').attr('data-place', numTo).text(numTo);
+      var item = endItem;
+
+      var _loop = function _loop(i) {
+        y++;
+
+        (function (index) {
+          setTimeout(function () {
+            item = item.next();
+            item.children('.place-indicator').attr('data-place', i).text(i);
+          }, y * 400);
+        })(y);
+      };
+
+      for (var i = numTo + 1; i <= numFrom; i++) {
+        _loop(i);
+      }
+    } else {
+      endItem.children('.place-indicator').attr('data-place', numTo - 1).text(numTo - 1);
+      var item = endItem;
+
+      var _loop2 = function _loop2(_i) {
+        y++;
+
+        (function (index) {
+          setTimeout(function () {
+            item = item.prev();
+            item.children('.place-indicator').attr('data-place', _i).text(_i);
+          }, y * 400);
+        })(y);
+      };
+
+      for (var _i = numTo - 2; _i >= numFrom; _i--) {
+        _loop2(_i);
+      }
+    }
+  } //rubrique destroy
+
 
   $(".btn-destroy-rubrique").click(function () {
     var idRubrique = $(this).attr('data-rubrique_id');

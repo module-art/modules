@@ -66,7 +66,8 @@ $(document).ready(function()
   //sort and reorder when type ordered by place
   var fromNumber = 0,
       toNumber = 0,
-      newVal = 0;
+      newVal = 0,
+      endItem = {};
       
   $("#sortable").sortable({
     axis: "y",
@@ -75,6 +76,7 @@ $(document).ready(function()
     },
     update: function( event, ui ) {
       document.body.style.cursor = 'wait';
+      endItem = ui.item;
       toNumber = ui.item.prev().children('.place-indicator').attr('data-place');
       newVal = parseInt( toNumber )+1;
       if(isNaN(newVal)) newVal = 0;
@@ -91,7 +93,8 @@ $(document).ready(function()
       .done(function(data) {
         document.body.style.cursor = 'default';
         console.log(data);
-        document.location.reload(true);
+        reOrderNumbers(fromNumber, newVal, endItem);
+        //document.location.reload(true);
       })
       .fail(function() {
         document.body.style.cursor = 'default';
@@ -99,6 +102,35 @@ $(document).ready(function()
       });
     }
   });
+
+  function reOrderNumbers(numFrom, numTo, endItem){
+    let y = 0;
+    if(numTo < numFrom){
+      endItem.children('.place-indicator').attr('data-place', numTo).text(numTo);
+      var item = endItem;
+      for(let i = numTo+1; i <= numFrom; i++){
+        y++;
+        (function(index) {
+          setTimeout(function(){
+            item = item.next();
+            item.children('.place-indicator').attr('data-place', i).text(i);
+          }, y * 400);
+        })(y);
+      }
+    }else{
+      endItem.children('.place-indicator').attr('data-place', numTo-1).text(numTo-1);
+      var item = endItem;
+      for(let i = numTo-2; i >= numFrom; i--){
+        y++;
+        (function(index) {
+          setTimeout(function(){
+            item = item.prev();
+            item.children('.place-indicator').attr('data-place', i).text(i);
+          }, y * 400);
+        })(y);
+      }
+    }
+  }
 
   //rubrique destroy
   $(".btn-destroy-rubrique").click(function(){
