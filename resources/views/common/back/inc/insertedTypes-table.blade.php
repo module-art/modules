@@ -22,7 +22,7 @@
     </tr>
   </thead>
   <tbody{{ $type->default_filtre == 'place' ? ' id=sortable' : '' }}>
-    @php //dd($results); @endphp
+    @php //dd($json_fields);//dd($results); @endphp
     @if($results->count() > 0)
       @foreach ($results as $result)
         <tr>
@@ -47,6 +47,7 @@
           @endphp
           @foreach ($json_fields as $field)
             @php
+              //dd($field->name);
               $contenu = $bloc_fields->where('type', $field->name)->first()->contenu;
             @endphp
             @if($field->type == 'date')

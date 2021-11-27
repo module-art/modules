@@ -1,6 +1,7 @@
 {
-    "/js/lists.js": "/js/lists.js",
-    "/js/themes/tarot/scripts.js": "/js/themes/tarot/scripts.js",
-    "/css/themes/tarot/styles.css": "/css/themes/tarot/styles.css",
+    "/js/admin.js": "/js/admin.js",
+    "/js/insert_form.js": "/js/insert_form.js",
+    "/js/themes/ricochet/scripts.js": "/js/themes/ricochet/scripts.js",
+    "/css/themes/ricochet/styles.css": "/css/themes/ricochet/styles.css",
     "/css/admin.css": "/css/admin.css"
 }

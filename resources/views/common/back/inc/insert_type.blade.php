@@ -124,6 +124,11 @@
         {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
         <textarea name="{{ $field->name }}" class="form-control simple-redactored">{{ $editing ? $contenu : old($field->name) }}</textarea>
       </div>
+    @elseif(preg_match('/image/i', $field->name))
+      <div class="form-group">
+        {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
+        <textarea name="{{ $field->name }}" class="form-control image-redactored">{{ $editing ? $contenu : old($field->name) }}</textarea>
+      </div>
     @else
       <div class="form-group">
         {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
