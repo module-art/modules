@@ -155,7 +155,7 @@ var tinyconf = {
   var tinyconf_image = tinyconf;
   tinyconf_image.selector = '.image-redactored';
   tinyconf_image.menubar = false;
-  tinyconf_image.height = 200;
+  tinyconf_image.height = 500;
   tinyconf_image.toolbar1 =  "code | responsivefilemanager";
 
   tinymce.init(tinyconf_image);
