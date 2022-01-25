@@ -244,7 +244,7 @@ class PageController extends Controller
       $to = config('mail.dest');
       Mail::send('themes.'.config('modules.theme').'.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail,$fromname)
       {
-        $message->from($frommail, $fromname);
+        $message->from($frommail);
         $message->to($to)->subject('Message du site : '.$subject);
       });
 

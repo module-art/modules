@@ -19,7 +19,6 @@ class MailController extends Controller
     $this->middleware('authAsAdmin');
     $this->nbrPerPage = $controlRepository->nbrPerPage;
     $this->domain = MailDomain::where('name', $request->getHttpHost())->first();
-    //$this->domain = MailDomain::where('name', 'lebaramots.fr')->first();
   }
 
   public function index(Request $request)
