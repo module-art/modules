@@ -5,14 +5,18 @@ if (session_id() == '') session_start();
 
 $theme = $_COOKIE['modth'];
 $username = $_COOKIE['modus'];
+$keyfile = "../../../../storage/app/" . $username . ".key";
 
 /*$keyfile = fopen("../../../../storage/app/rfm.key", "r") or die("Access denied !");
 $key = fgets($keyfile);
 fclose($keyfile);*/
-
-$accesskeyfile = fopen("../../../../storage/app/" . $username . ".key", "r") or die("Access denied !");
-$accesskey = fgets($accesskeyfile);
-fclose($accesskeyfile);
+if (file_exists($keyfile)){
+  $accesskeyfile = fopen($keyfile, "r") or die("Access denied !");
+  $accesskey = fgets($accesskeyfile);
+  fclose($accesskeyfile);
+}else{
+  header( 'Location: https://module-art.fr/error404' );
+}
 
 //echo '<pre>';
 ////var_dump($_SESSION);
