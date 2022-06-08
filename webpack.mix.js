@@ -12,10 +12,15 @@ let mix = require('laravel-mix');
  */
 
 var current_theme = process.env.MODULES_THEME;
-mix.config.fileLoaderDirs.fonts = 'storage/'+current_theme+'/fonts';
+//mix.config.fileLoaderDirs.fonts = 'storage/'+current_theme+'/fonts';
 
-mix
-   .js('Themes/'+current_theme+'/assets/js/scripts.js', 'public/js/themes/'+current_theme)
+mix.options({
+    fileLoaderDirs:  {
+        fonts: 'storage/'+current_theme+'/fonts',
+    }
+});
+
+mix.js('Themes/'+current_theme+'/assets/js/scripts.js', 'public/js/themes/'+current_theme)
    //.js('resources/assets/js/app.js', 'public/js')
    //.js('resources/assets/js/admin.js', 'public/js')
    //.js('resources/assets/js/lists.js', 'public/js')

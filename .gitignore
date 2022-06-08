@@ -23,3 +23,5 @@ nohup.out
 *.vim
 /.dockerignore
 /Dockerfile
+/composer.lock
+/package-lock.json
