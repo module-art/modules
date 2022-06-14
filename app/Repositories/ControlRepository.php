@@ -55,10 +55,14 @@ class ControlRepository
     return $new_array;
   }
 
-  public function getTypedRub($id){
+  public function getTypedRub($id, $order_by = "created_at", $desc = 0){
 
+    if(!in_array($order_by, ['created_at', 'place', 'updated_at'])){
+      $order_by = "created_at";
+    }
+    $order = $desc ? 'desc' : 'asc';
     $type = Type::find($id);
-    return $type->rubriques()->where('publie', 1)->get();
+    return $type->rubriques()->where('publie', 1)->orderBy($order_by, $order)->get();
   }
 
   public function getData($typed_rubrique, $type){
