@@ -24,4 +24,4 @@ nohup.out
 /.dockerignore
 /Dockerfile
 /composer.lock
-/package-lock.json
+**/package-lock.json

@@ -20,7 +20,7 @@ mix.options({
     }
 });
 
-mix.js('Themes/'+current_theme+'/assets/js/scripts.js', 'public/js/themes/'+current_theme)
+mix.js('Themes/'+current_theme+'/assets/js/scripts.js', 'public/js/themes/'+current_theme+'/scripts.js')
    //.js('resources/assets/js/app.js', 'public/js')
    //.js('resources/assets/js/admin.js', 'public/js')
    //.js('resources/assets/js/lists.js', 'public/js')
@@ -28,7 +28,7 @@ mix.js('Themes/'+current_theme+'/assets/js/scripts.js', 'public/js/themes/'+curr
    //.js('resources/assets/js/insert_form.js', 'public/js')
    //.js('resources/assets/js/categorie.js', 'public/js')
    //.js('resources/assets/js/fields.js', 'public/js')
-   .sass('Themes/'+current_theme+'/assets/sass/styles.scss', 'public/css/themes/'+current_theme)
+   .sass('Themes/'+current_theme+'/assets/sass/styles.scss', 'public/css/themes/'+current_theme+'/styles.css')
    //.sass('Themes/'+current_theme+'/assets/sass/tiny_custom.scss', 'public/css')
    .sass('resources/assets/sass/admin.scss', 'public/css')
 ;
