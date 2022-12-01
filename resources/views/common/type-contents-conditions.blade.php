@@ -1,3 +1,4 @@
+{{--Master ou pas ?--}}
 @inject('module_control', 'ModuleControl'){{--make instance like new ModuleControl--}}
 @if(isset($rubrique->type_contents))
   @php
