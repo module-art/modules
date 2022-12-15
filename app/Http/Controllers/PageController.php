@@ -16,7 +16,7 @@ use App\Models\Rubrique;
 use App\Models\Bloc;
 use App\Models\User;
 use App\Models\Type;
-use Illuminate\Support\Facades\Cookie;
+//use Illuminate\Support\Facades\Cookie;
 
 class PageController extends Controller
 {
@@ -46,8 +46,10 @@ class PageController extends Controller
 
   public function filemanager()
   {
-    $fmkey = Cookie::get('fmk');
-    return redirect('/js/rfm/filemanager/dialog.php?type=0&akey='.$fmkey);
+    //$fmkey = Cookie::get('fmk');
+    //return redirect('/js/rfm/filemanager/dialog.php?type=0&akey='.$fmkey);
+    $menus = $this->menusRepository->makeAdminMenus();
+    return view('common.back.fileManager', compact('menus'));
   }
 
   public function show(Request $request, $slug)

@@ -48,7 +48,14 @@ return [
             'root' => storage_path('app'),
         ],
 
-        'public' => [
+        'fichiers' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/'.env('MODULES_THEME').'/files'),
+            'url' => env('APP_URL').'/storage/'.env('MODULES_THEME').'/files',
+            'visibility' => 'public',
+        ],
+
+        'auth' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',

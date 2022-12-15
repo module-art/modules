@@ -4,7 +4,7 @@ namespace App\Listeners;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Cookie;
+//use Illuminate\Support\Facades\Cookie;
 use Storage;
 
 class LogSuccessfulLogin
@@ -27,7 +27,9 @@ class LogSuccessfulLogin
      */
     public function handle($event)
     {
-      $role = $event->user->role;
+      //It's here you can add cookies on login
+      //old security for responsive file manager replaces by laravel file manager
+      /*$role = $event->user->role;
       if($role == 'admin' || $role == 'maintainer'){
         $theme = config('modules.theme');
         Cookie::queue('modth', $theme, 720, "", "", 0, 0);
@@ -35,7 +37,6 @@ class LogSuccessfulLogin
         $value = md5(uniqid());
         Cookie::queue('fmk', $value, 720, "", "", 0, 0);
         Storage::put($event->user->username.'.key', $value);
-        //Storage::put('rfm.key', config('modules.rfm_key'));
-      }
+      }*/
     }
 }

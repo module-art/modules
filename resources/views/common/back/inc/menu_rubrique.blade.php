@@ -26,7 +26,7 @@
 
       <div class="dropdown-item">
         <label for="gallery">Galerie d'images</label><br>
-        <input name="gallery" type="text" class="select-gallery" placeholder="Choisir..." autocomplete="off" data-toggle="popover" data-content="error"/>
+        <input name="gallery" type="text" class="select-gallery" placeholder="Entrer nom..." autocomplete="off" data-toggle="popover" data-content="error"/>
       </div>
     </div>
   </div>

@@ -42,7 +42,6 @@ const app = new Vue({
     })
     .fail(function(data) {
       var errors = data.responseJSON.message + '\n';
-      //var errors = '';
       $.each(data.responseJSON.errors, function (key, value) {
         errors += value + '\n';
       });

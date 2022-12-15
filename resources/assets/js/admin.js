@@ -7,7 +7,68 @@ $(document).ready(function()
   $('.sidebarCollapse').on('click', function () {
     $('#sidebar').toggleClass('active');
   });
-  
+
+  /// ---------- TYNIMCE 5.2 ------
+
+  const tinyconf = {
+    selector: '.editable',
+    inline: true,
+    language: 'fr_FR',
+    menubar: true,
+    branding: false,
+    plugins: ['advlist autolink lists link image charmap print preview anchor','searchreplace visualblocks fullscreen', 'insertdatetime media table paste code help wordcount '],
+    toolbar: 'code | bold italic underline | bullist numlist | forecolor backcolor | link unlink | media image',
+    block_formats: 'Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5;Paragraph=p',
+    fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+    paste_as_text: true,
+    image_advtab: true ,
+    entity_encoding : "raw",
+    //force_br_newlines : true,
+    //force_p_newlines : false,
+    //forced_root_block : '', // Needed for 3.x
+    valid_elements : '+*[*]',
+    relative_urls: false,
+    media_live_embeds: true,
+    extended_valid_elements : "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|style|onmouseover|onmouseout|name],$elements",
+    //audio_template_callback: function(data) {
+      //return '<audio class="toto" controls>' + '\n<source src="' + data.source1 + '"' + (data.source1mime ? ' type="' + data.source1mime + '"' : '') + ' />\n' + '</audio>';
+    //},
+    file_picker_callback (callback, value, meta) {
+      let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
+      let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight
+
+      tinymce.activeEditor.windowManager.openUrl({
+        url : '/file-manager/tinymce5',
+        title : 'Gestionnaire de fichiers',
+        width : x * 0.8,
+        height : y * 0.8,
+        onMessage: (api, message) => {
+          callback(message.content, { text: message.text })
+        }
+      })
+    },
+    init_instance_callback: function (editor) {
+      blocCallback(editor);
+    }
+  };
+
+  const tinyconf_rubrique = {...tinyconf, 
+    selector: '.editrubrique',
+    menubar: false,
+    toolbar: 'formatselect | bold italic underline | alignleft aligncenter alignright | code',
+    init_instance_callback: function (editor) {
+      rubriqueCallback(editor);
+    }
+  };
+
+  tinymce.init(tinyconf);
+  tinymce.init(tinyconf_rubrique);
+
+  function initMceBlocs(){
+    tinymce.remove('.editable');
+    tinymce.init(tinyconf);
+  }
+
   //insertion des listes par type
   
   function getTypeContents(){
@@ -215,50 +276,6 @@ $(document).ready(function()
   }
   listenToGetGallery($('.select-gallery'));
 
-  /// ---------- TYNIMCE ------
-
-  //tinyMCE vars
-  
-  var lang = 'fr_FR',
-      myPlugins = [
-            'advlist autolink lists link image charmap print preview anchor',
-            'searchreplace visualblocks code fullscreen',
-            'insertdatetime media table paste code help wordcount responsivefilemanager'
-        ],
-      fullToolbar = 'pictos insertfile undo redo | fontsizeselect | styleselect | bold italic subscript superscript exposant removeformat | alignleft aligncenter alignright alignjustify | bullist numlist nonbreaking | link unlink media responsivefilemanager insertimage insertfile | table hr | forecolor backcolor emoticons | paste code | iconesliens | fontawesome',
-      mediumToolbar = 'bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify  | bullist numlist | link unlink | media responsivefilemanager',
-      smallToolbar = 'code | bold italic underline | bullist numlist | forecolor backcolor | link unlink | media responsivefilemanager',
-      myFormats = 'Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5;Paragraph=p',
-      fontSizes = '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
-      myValidElements = '+*[*]',
-      fmPath = "/js/rfm/filemanager/",
-      fmTitle = "Gestionnaire de fichiers",
-      fmSortBy = "date",
-      fmDesc = true,
-      fmKey = "",
-      myExternalPlugins = { "filemanager" : "/js/rfm/filemanager/plugin.min.js"},
-      myExtendedValidElements = "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|style|onmouseover|onmouseout|name],$elements";
-
-  function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        //return c.substring(name.length, c.length);
-        fmKey = c.substring(name.length, c.length);
-        initMceBlocs();
-        initMceRubriques();
-      }
-    }
-    return "";
-  }
-
-  getCookie('fmk');
   listenToAddBloc();
   listenToDestroy();
   colsManager();
@@ -366,6 +383,7 @@ $(document).ready(function()
   function blocCallback(editor) {
     editor.on('focus', function (e) {
       //console.log(e);
+      console.log('callback');
       var tar = $(e.target.bodyElement);
 
       tar.parent().append('<div id="bloc-buttons" class="d-flex justify-content-end"><button class="btn btn-primary btn-save">Enregistrer</button></div>');
@@ -420,105 +438,6 @@ $(document).ready(function()
     editor.on('Change', function (e) {
       var tar = $(e.target.bodyElement);
       tar.css('border', '1px red solid');
-    });
-  }
-
-  function initMceRubriques(){
-    $('.editrubrique').off();
-
-    tinymce.init({
-      selector: '.editrubrique',
-      inline: true,
-      language: lang,
-      //menubar: false,
-      branding: false,
-      plugins: myPlugins,
-      toolbar: smallToolbar,
-      block_formats: myFormats,
-      fontsize_formats: fontSizes,
-      paste_as_text: true,
-      image_advtab: true ,
-      entity_encoding : "raw",
-      valid_elements : myValidElements,
-      external_filemanager_path: fmPath,
-      filemanager_title: fmTitle,
-      filemanager_sort_by: fmSortBy,
-      filemanager_descending: fmDesc,
-      filemanager_access_key: fmKey,
-      relative_urls: false,
-      media_live_embeds: true,
-      external_plugins: myExternalPlugins,
-      extended_valid_elements : myExtendedValidElements,
-      init_instance_callback: function (editor) {
-        rubriqueCallback(editor);
-      }
-    });
-  }
-
-  function initMceBlocs(){
-    $('.editable').off();
-    $('.edititre').off();
-
-    tinymce.init({
-      selector: '.editable',
-      inline: true,
-      language: lang,
-      //menubar: false,
-      branding: false,
-      plugins: myPlugins,
-      toolbar: smallToolbar,
-      block_formats: myFormats,
-      fontsize_formats: fontSizes,
-      paste_as_text: true,
-      image_advtab: true ,
-      entity_encoding : "raw",
-      //force_br_newlines : true,
-      //force_p_newlines : false,
-      //forced_root_block : '', // Needed for 3.x
-      valid_elements : myValidElements,
-      external_filemanager_path: fmPath,
-      filemanager_title: fmTitle,
-      filemanager_sort_by: fmSortBy,
-      filemanager_descending: fmDesc,
-      filemanager_access_key: fmKey,
-      relative_urls: false,
-      media_live_embeds: true,
-      external_plugins: myExternalPlugins,
-      extended_valid_elements : myExtendedValidElements,
-      //audio_template_callback: function(data) {
-        //return '<audio class="toto" controls>' + '\n<source src="' + data.source1 + '"' + (data.source1mime ? ' type="' + data.source1mime + '"' : '') + ' />\n' + '</audio>';
-      //},
-      init_instance_callback: function (editor) {
-        blocCallback(editor);
-      }
-    });
-
-    tinymce.init({
-      selector: '.edititre',
-      inline: true,
-      language: lang,
-      menubar: false,
-      branding: false,
-      plugins: myPlugins,
-      toolbar: smallToolbar,
-      block_formats: myFormats,
-      fontsize_formats: fontSizes,
-      paste_as_text: true,
-      image_advtab: true ,
-      entity_encoding : "raw",
-      valid_elements : myValidElements,
-      external_filemanager_path: fmPath,
-      filemanager_title: fmTitle,
-      filemanager_sort_by: fmSortBy,
-      filemanager_descending: fmDesc,
-      filemanager_access_key: fmKey,
-      relative_urls: false,
-      media_live_embeds: true,
-      external_plugins: myExternalPlugins,
-      extended_valid_elements : myExtendedValidElements,
-      init_instance_callback: function (editor) {
-        blocCallback(editor);
-      }
     });
   }
 

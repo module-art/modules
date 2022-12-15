@@ -12,9 +12,7 @@ class EncryptCookies extends Middleware
      * @var array
      */
     protected $except = [
-      'fmk',
-      'modth',
-      'modus',
+      'no-rgpd',
         //
     ];
 }

@@ -79,7 +79,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => ['auth']), function 
 
 Route::get('rgpd-notice', function () {
   return response('ok', 200)->cookie('no_rgpd', 'ok', 43200);
-});
+})->middleware('web');
 Route::post('mail', 'PageController@mailFromContact')->name('page.mail');
 Route::get('get-type-contents/{type}', 'RubriqueController@getTypeContents');
 Route::get('{type}/{id_rubrique}/{title?}', 'RubriqueController@showTypeContentPage')->name('type_content');

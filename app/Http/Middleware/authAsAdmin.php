@@ -18,9 +18,6 @@ class authAsAdmin
     {
       $role = $request->user()->role;
       if($role == 'admin' || $role == 'maintainer'){
-        /*if ( ! session_id() ) @ session_start();
-        if ( ! isset($_SESSION['fmanager-ts'])) $_SESSION['fmanager-ts'] = time();
-        $_SESSION['fmanager'] = md5($_SESSION['fmanager-ts'].config('modules.rfm_key'));*/
         return $next($request);
       }
       abort(403);
