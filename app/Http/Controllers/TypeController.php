@@ -25,6 +25,18 @@ class TypeController extends Controller
     $this->moduleControl = $module_control;
   }
 
+  /**
+   * Display the specified resource.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function show()
+  {
+      //
+    dd('$id');
+  }
+
   private function validateInsertion($inputs, $json_fields){
 
     $rules = [];
@@ -106,17 +118,6 @@ class TypeController extends Controller
     //dd($inputs);
     Type::create($inputs);
     return redirect()->route('type.index')->withInfo('Le type ' . $request->content_type . ' est crée.');
-  }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function show($id)
-  {
-      //
   }
 
   /**
@@ -325,6 +326,13 @@ class TypeController extends Controller
     return $total;
   }
 
+
+  /**
+   * Show the form for create the specified resource.
+   *
+   * @param  varchar  $type_name
+   * @return \Illuminate\Http\Response
+   */
   public function showInsertForm($type_name)
   {
     $operation = 'insert';

@@ -161,7 +161,7 @@ $(document).ready(function()
       $.ajax({
           method: 'delete',
           url: '/coulisses/destroypage/'+ idPage,
-          data: { _token: csrfToken},//token!!!
+          data: { _token: csrfToken},
       })
       .done(function(data) {
         alert(data);
@@ -179,7 +179,7 @@ $(document).ready(function()
     $.ajax({
         method: 'post',
         url: '/coulisses/publicationpage/'+ idPage,
-        data: { _token: csrfToken},//token!!!
+        data: { _token: csrfToken},
     })
     .done(function(data) {
       console.log(data);
@@ -206,16 +206,16 @@ $(document).ready(function()
     $.ajax({
         method: 'post',
         url: '/coulisses/'+routeUrl+'/'+idContent,
-        data: { _token: csrfToken},//token!!!
+        data: { _token: csrfToken},
     })
     .done(function(data) {
       document.body.style.cursor = 'default';
-      console.log(data);
+      //console.log(data);
       if(nodeStatus.is('.published')){
-        nodeStatus.removeClass('published').addClass('unpublished').html('<i class="fas fa-eye"></i>');
+        nodeStatus.removeClass('published').addClass('unpublished').html('<i class="fas fa-eye-slash"></i>');
         nodeBtn.attr('title', 'Publier cette rubrique');
       }else{
-        nodeStatus.removeClass('unpublished').addClass('published').html('<i class="fas fa-eye-slash"></i>');
+        nodeStatus.removeClass('unpublished').addClass('published').html('<i class="fas fa-eye"></i>');
         nodeBtn.attr('title', 'Masquer cette rubrique');
       }
     })
