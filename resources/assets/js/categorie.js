@@ -47,6 +47,7 @@ $(document).ready(function()
         listenToRemove();
       });
       $('#modalCategorie').modal('hide');
+      $('#name').val('');
       edit = false;
       $('#title-ajout').html('Ajouter une catégorie');
       $('input').removeClass('is-invalid');

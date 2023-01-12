@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Categorie;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CategorieRequest extends FormRequest
 {
@@ -22,14 +24,14 @@ class CategorieRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
       if(isset($request->categorie)){//case for update
         $categorie = Categorie::findOrFail($request->categorie);
         $rules1 = [
           'name' => [
             'required',
-            'unique:categories,name,'.$categorie->id.',id'
+            Rule::unique('categories')->ignore($categorie->id),
           ]
         ];
       }else{

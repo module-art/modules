@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use App\Models\Type;
+use Illuminate\Validation\Rule;
 
 class TypeRequest extends FormRequest
 {
@@ -25,13 +26,12 @@ class TypeRequest extends FormRequest
    */
   public function rules(Request $request)
   {
-    //dd($request->type);
     if(isset($request->type)){//case for update
       $type = type::findOrFail($request->type);
       $rules1 = [
         'content_type' => [
           'required',
-          'unique:types,content_type,'.$type->id.',id'
+          Rule::unique('types')->ignore($type->id),
         ]
       ];
     }else{

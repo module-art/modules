@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 use App\Models\Page;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PageRequest extends FormRequest
 {
@@ -30,7 +31,9 @@ class PageRequest extends FormRequest
         $rules1 = [
           'menu_title' => [
             'required',
-            'unique:pages,menu_title,'.$page->id.',id,deleted_at,NULL'
+            Rule::unique('pages')->ignore($page->id)->where(function ($query) {
+                return $query->where('deleted_at', NULL);
+            }),
           ]
         ];
       }else{
