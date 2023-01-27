@@ -73,7 +73,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => ['auth']), function 
   //Route::get('imagemanager', 'RedactorController@imageManager');
   Route::post('get-gallery', 'RedactorController@getGallery');
   
-  Route::get('', 'PageController@goHome')->name('page.home');
+  Route::get('', 'PageController@goHome');
   Route::get('{page_title}', 'PageController@show')->name('back_page.show')->middleware('authAsAdmin');
 });
 

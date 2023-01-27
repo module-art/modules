@@ -21,10 +21,10 @@ mix.options({
 
 mix.js('Themes/'+current_theme+'/assets/js/scripts.js', 'public/js/themes/'+current_theme+'/scripts.js')
    //.js('resources/assets/js/app.js', 'public/js')
-   .js('resources/assets/js/admin.js', 'public/js')
+   //.js('resources/assets/js/admin.js', 'public/js')
    //.js('resources/assets/js/lists.js', 'public/js')
    //.js('resources/assets/js/contact.js', 'public/js')
-   .js('resources/assets/js/insert_form.js', 'public/js')
+   //.js('resources/assets/js/insert_form.js', 'public/js')
    //.js('resources/assets/js/categorie.js', 'public/js')
    //.js('resources/assets/js/fields.js', 'public/js')
    //.sass('resources/assets/sass/app.scss', 'public/css')
