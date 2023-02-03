@@ -595,7 +595,7 @@ class TypeController extends Controller
     $content->publie = $state;
     $content->save();
 
-    return response('La rubrique '. $content->id . $verbe . 'publié.');
+    return response('La rubrique '. $content->id . $verbe . 'publiée.');
   }
 
   public function switchArchivage($id)
