@@ -29,7 +29,9 @@
           <h3 class="card-title">Gestionnaire de fichiers</h3>
         </div>
         <div class="card-body">
-          <div id="fm"></div>
+          <div class="fm-container">
+            <div id="fm"></div>
+          </div>
           <div class="card-footer d-flex justify-content-end mt-2">
             <a class="btn btn-primary btn-sm" href="{{ route('page.home') }}"><i class="fa fa-redo"></i> retour à l'accueil</a>
           </div>

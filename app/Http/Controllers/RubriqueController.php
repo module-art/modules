@@ -190,6 +190,12 @@ class RubriqueController extends Controller
     {
       $rubrique = Rubrique::findOrFail($id);
 
+      //remove image if isset
+      if(!is_null($rubrique->background_img_url)){
+        $image_path = preg_replace('/^\/?storage/', 'public', $rubrique->background_img_url);
+        $image_removed = Storage::delete($image_path);
+      }
+
       if(isset($rubrique->page_id)){
         $page = $rubrique->page;
 

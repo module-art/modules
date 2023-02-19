@@ -702,7 +702,7 @@ $(document).ready(function()
           .done(function(data) {
             elem.parents('tr').remove();
             console.log(data);
-            document.location.reload(true);
+            //document.location.reload(true);
           })
           .fail(function() {
             alert('Oups! une erreur a empêché la suppression.');

@@ -562,6 +562,17 @@ class TypeController extends Controller
     $rubrique = Rubrique::findOrFail($id);
     $type = $rubrique->type;
 
+    //remove image if isset
+    if(!is_null($rubrique->background_img_url)){
+      $image_path = preg_replace('/^\/?storage/', 'public', $rubrique->background_img_url);
+      $image_removed = Storage::delete($image_path);
+    }
+    
+    //detach categories
+    foreach($rubrique->categories as $category){
+      $rubrique->categories()->detach($category->id);
+    }
+  
     $rubriques_to_decrease = $type->rubriques()->where('place', '>', $rubrique->place)->get();
 
     if($rubriques_to_decrease){
@@ -576,7 +587,7 @@ class TypeController extends Controller
     }
     $rubrique->delete();
 
-    return response('La rubrique '.$id . ' de type ' . $type->content_type . ' et ses blocs associés viennent d\'être effacés');
+    return response('La rubrique '.$id . ' de type ' . $type->content_type . ' et ses blocs associés viennent d\'être effacés'. $image_removed ? " ainsi que son image associée." : "");
   }
 
   public function switchPublication($id)
