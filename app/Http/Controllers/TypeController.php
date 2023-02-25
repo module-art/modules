@@ -557,16 +557,16 @@ class TypeController extends Controller
     return redirect()->route('type.insertedIndex', [$type->id])->withInfo('La modification s\'est bien déroulée.');
   }
 
-  public function destroyInsertedRubrique($id)
+  public function destroyInsertedRubrique($id, Request $request)
   {
     $rubrique = Rubrique::findOrFail($id);
     $type = $rubrique->type;
 
     //remove image if isset
-    if(!is_null($rubrique->background_img_url)){
+    /*if(!is_null($rubrique->background_img_url)){
       $image_path = preg_replace('/^\/?storage/', 'public', $rubrique->background_img_url);
       $image_removed = Storage::delete($image_path);
-    }
+    }*/
     
     //detach categories
     foreach($rubrique->categories as $category){
@@ -587,7 +587,14 @@ class TypeController extends Controller
     }
     $rubrique->delete();
 
-    return response('La rubrique '.$id . ' de type ' . $type->content_type . ' et ses blocs associés viennent d\'être effacés'. $image_removed ? " ainsi que son image associée." : "");
+    $message = 'La rubrique '.$id . ' de type ' . $type->content_type . ' et ses blocs associés viennent d\'être effacés';
+    //if($image_removed) $message .= " ainsi que son image associée.";
+
+    if($request->ajax()){
+      return response($message);
+    }else{
+      return redirect()->route('type.insertedIndex', $type->id)->withInfo($message);
+    }
   }
 
   public function switchPublication($id)

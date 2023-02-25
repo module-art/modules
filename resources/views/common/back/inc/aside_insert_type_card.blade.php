@@ -15,6 +15,9 @@
   @endif
   <div class="d-flex justify-content-between">
     <button class="btn btn-info" type="submit"><i class="far fa-save"></i>{{ isset($type_content) ? ' Modifier' : ' Insérer'}}</button>
+    @if(isset($type_content))
+      <a class="btn btn-danger" href="{{ route('type.destroyInsert', $type_content->id) }}" ><i class="far fa-trash-alt"></i> Supprimer</a>
+    @endif
     <a href="javascript:history.back()" class="btn btn-primary">
       <i class="fa fa-redo"></i> Retour
     </a>
