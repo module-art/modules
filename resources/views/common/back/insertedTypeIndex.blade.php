@@ -27,7 +27,26 @@
       @endif
       <div class="card" id="typeList" data-typeid="{{$type->id}}">
         <div class="card-header">
-          <h3 class="card-title">Liste du type : {{$type->content_type}}</h3>
+          <h3 class="card-title w-50 d-inline-block">Liste du type : {{$type->content_type}}</h3>
+          {!! Form::open(array('route' => 'bloc.search', 'method' => 'POST', 'class' => 'w-50 float-right form-inline')) !!}
+            <div class="form-group mb-3">
+              <input type="text" name="string" class="form-control border-secondary bg-transparent {{ $errors->has("string") ? ' is-invalid' : '' }}">
+              <div class="input-group-append">
+              {!! Form::submit('Rechercher', ['class' => 'btn btn-primary']) !!}
+              </div>
+              {!! $errors->first('string', '<small class="invalid-feedback">:message</small>') !!}
+            </div>
+            <div class="form-group mx-sm-3 mb-3">
+              <label for="search-fields">dans le champ </label>
+              <select name="field" class="form-control ml-2" id="search-fields">
+                @foreach($json_fields as $field)
+                  @if( !in_array(strtolower($field->name), ['image', 'photo']) )
+                    <option>{{ $field->name }}</option>
+                  @endif
+                @endforeach
+              </select>
+            </div>
+          {!! Form::close() !!}
         </div>
         <div class="card-body">
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\BlocRequest;
+use App\Http\Requests\SearchRequest;
 use App\Http\Requests\AjaxBlocRequest;
 use App\Models\Page;
 use App\Models\Rubrique;
@@ -12,15 +13,19 @@ use App\Models\User;
 use App\Models\Type;
 use ModuleControl;
 use View;
+use App\Repositories\MenusRepository;
+use App\Repositories\ControlRepository;
 
 class BlocController extends Controller
 {
   
-  public function __construct(ModuleControl $module_control)
+  public function __construct(ModuleControl $module_control, MenusRepository $menusRepository, ControlRepository $controlRepository)
   {
     $this->middleware('authAsAdmin');
-    $this->middleware('ajax');
+    $this->middleware('ajax', ['except' => ['search']]);
     $this->moduleControl = $module_control;
+    $this->menusRepository = $menusRepository;
+    $this->nbrPerPage = $controlRepository->nbrPerPage;
   }
 
     /**
@@ -117,5 +122,11 @@ class BlocController extends Controller
       if($list_galleries == '') $list_galleries = 'Aucun Résultat.';
 
       return response($list_galleries);
+    }
+
+    public function search(SearchRequest $request){
+      $blocs = Bloc::where('type', $request->field)->where('contenu', 'REGEXP',$request->string)->paginate($this->nbrPerPage);
+      $menus = $this->menusRepository->makeAdminMenus();
+      return view('common.back.searchIndex', compact('blocs', 'menus'));
     }
 }

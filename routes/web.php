@@ -54,6 +54,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => ['auth']), function 
   Route::get('partial_bloc/{id}', 'BlocController@partialShow');
   Route::get('partial_drag/{id}', 'BlocController@partialShowDrag');
   Route::post('list-galleries', 'BlocController@listGalleries')->middleware('ajax');
+  Route::post('search', 'BlocController@search')->name('bloc.search');
 
   Route::get('rubriques/{page_id}', 'RubriqueController@index')->name('rubrique.index');
   Route::post('rubrique/{id}', 'RubriqueController@update');
