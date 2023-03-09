@@ -366,9 +366,8 @@ class TypeController extends Controller
 
   }
 
-  public function insertType(Request $request, $type_id)
+  private function copyOrStoreInsert($request, $type_id, $copy = false)
   {
-    //dd($request->all());
     $type = Type::findOrFail($type_id);
     $type_name = $type->content_type;
     $json_fields = json_decode($type->json_fields)->fields;
@@ -394,7 +393,7 @@ class TypeController extends Controller
       'contenu' => $type_name,
       'type_id' => $type_id,
       'place' => $place,
-      'publie' => $request->has('publie') ? 1 : 0,
+      'publie' => $request->has('publie') && !$copy ? 1 : 0,
       'archive' => $request->has('archive') ? 1 : 0,
       'parent_id' => $request->parent_id
     ];
@@ -441,7 +440,16 @@ class TypeController extends Controller
       }
     }
 
-    return redirect()->route('type.insertform', $type_name)->withInfo('L\'insertion s\'est bien déroulée.');
+    return [$type_name, $rubrique_id];
+  }
+
+  public function insertType(Request $request, $type_id)
+  {
+    //dd($request->all());
+
+    $typeAndRubrique = $this->copyOrStoreInsert($request, $type_id);
+
+    return redirect()->route('type.insertUpdate', [$typeAndRubrique[0], $typeAndRubrique[1]])->withInfo('L\'insertion s\'est bien déroulée.');
   }
 
   public function editInsertForm($type_name, $id)
@@ -480,81 +488,88 @@ class TypeController extends Controller
   {
     //dd($request->all());
 
-    $type_content = Rubrique::findOrFail($id);
-    $type = Type::findOrFail($type_id);
-    $type_name = $type->content_type;
-    $json_fields = json_decode($type->json_fields)->fields;
+    if($request->submitbutton == 'copy'){
+      $copy = true;
+      $typeAndRubrique = $this->copyOrStoreInsert($request, $type_id, true);//same than for store whith $copy = true
+    }else{
+      $copy = false;
+      $type_content = Rubrique::findOrFail($id);
+      $type = Type::findOrFail($type_id);
+      $typeAndRubrique = [$type->content_type, $id];
+      $json_fields = json_decode($type->json_fields)->fields;
 
-    $validator = $this->validateInsertion($request->all(), $json_fields);
-    if ($validator->fails()) {
-      return back()->withErrors($validator)->withInput();
-    }
-
-    //make placement
-    $old_place = $type_content->place;
-    $new_place = $request->rubrique_place;
-    if($new_place > $old_place){
-      foreach($type->rubriques()->where('place', '>', $old_place)->where('place', '<=', $new_place)->get() as $rubrique_to_decrease){
-        $rubrique_to_decrease->place = $rubrique_to_decrease->place - 1;
-        $rubrique_to_decrease->save();
+      $validator = $this->validateInsertion($request->all(), $json_fields);
+      if ($validator->fails()) {
+        return back()->withErrors($validator)->withInput();
       }
-    }elseif($new_place < $old_place){
-      foreach($type->rubriques()->where('place', '>=', $new_place)->where('place', '<', $old_place)->get() as $rubrique_to_increase){
-        $rubrique_to_increase->place = $rubrique_to_increase->place + 1;
-        $rubrique_to_increase->save();
-      }
-    }
 
-    //publication et archivage
-    $type_content->publie = $request->has('publie') ? 1:0;
-    $type_content->archive = $request->has('archive') ? 1:0;
-    $type_content->place = $request->rubrique_place;
-    $type_content->parent_id = $request->parent_id;
-    $type_content->save();
-
-    $old_categories_ids = array();
-    $new_categories_ids = array();
-    foreach($type_content->categories as $categorie){
-      $old_categories_ids[] = $categorie->id;
-    }
-
-    foreach($request->except(array('_token', 'publie', 'archive', 'rubrique_place', 'parent_id')) as $key => $value){
-      if(preg_match('/categorie/', $key)){
-        $new_categories_ids[] = (int)$value;
-      }else{
-        foreach($json_fields as $field){
-          if($field->name == preg_replace('/_/', ' ', $key)) $field_type = $field->type;
+      //make placement
+      $old_place = $type_content->place;
+      $new_place = $request->rubrique_place;
+      if($new_place > $old_place){
+        foreach($type->rubriques()->where('place', '>', $old_place)->where('place', '<=', $new_place)->get() as $rubrique_to_decrease){
+          $rubrique_to_decrease->place = $rubrique_to_decrease->place - 1;
+          $rubrique_to_decrease->save();
         }
-        if($field_type == 'date'){
-          $value = preg_replace('/^(\d{2})\/(\d{2})\/(\d{4})$/', '$3-$2-$1', $value);
-        }elseif($field_type == 'time'){
-          $value = preg_replace('/^(\d{2}:\d{2})$/', '$1:00', $value);
+      }elseif($new_place < $old_place){
+        foreach($type->rubriques()->where('place', '>=', $new_place)->where('place', '<', $old_place)->get() as $rubrique_to_increase){
+          $rubrique_to_increase->place = $rubrique_to_increase->place + 1;
+          $rubrique_to_increase->save();
         }
-        $type_content->blocs()->where('type', preg_replace('/_/', ' ', $key))->first()->update([
-          'contenu' => $value,
-        ]);
       }
-    }
 
-    // unchecked checkboxes
-    foreach($json_fields as $field){
-      if($field->type == "checkbox" && !$request->has(preg_replace('/\s/', '_', $field->name))){
-        $type_content->blocs()->where('type', $field->name)->first()->update([
-          'contenu' => 0,
-        ]);
+      //publication et archivage
+      $type_content->publie = $request->has('publie') ? 1:0;
+      $type_content->archive = $request->has('archive') ? 1:0;
+      $type_content->place = $request->rubrique_place;
+      $type_content->parent_id = $request->parent_id;
+      $type_content->save();
+
+      $old_categories_ids = array();
+      $new_categories_ids = array();
+      foreach($type_content->categories as $categorie){
+        $old_categories_ids[] = $categorie->id;
       }
-    }
 
-    //categories
-    foreach(array_diff($old_categories_ids, $new_categories_ids) as $cat_id){
-      $type_content->categories()->detach($cat_id);
-    }
-    foreach(array_diff($new_categories_ids, $old_categories_ids) as $cat_id){
-      $type_content->categories()->attach($cat_id);
-    }
+      foreach($request->except(array('_token', 'publie', 'archive', 'rubrique_place', 'parent_id')) as $key => $value){
+        if(preg_match('/categorie/', $key)){
+          $new_categories_ids[] = (int)$value;
+        }else{
+          foreach($json_fields as $field){
+            if($field->name == preg_replace('/_/', ' ', $key)) $field_type = $field->type;
+          }
+          if($field_type == 'date'){
+            $value = preg_replace('/^(\d{2})\/(\d{2})\/(\d{4})$/', '$3-$2-$1', $value);
+          }elseif($field_type == 'time'){
+            $value = preg_replace('/^(\d{2}:\d{2})$/', '$1:00', $value);
+          }
+          $type_content->blocs()->where('type', preg_replace('/_/', ' ', $key))->first()->update([
+            'contenu' => $value,
+          ]);
+        }
+      }
 
-    //return redirect()->route('type.insertUpdate', [$type_name, $id])->withInfo('La modification s\'est bien déroulée.');
-    return redirect()->route('type.insertedIndex', [$type->id])->withInfo('La modification s\'est bien déroulée.');
+      // unchecked checkboxes
+      foreach($json_fields as $field){
+        if($field->type == "checkbox" && !$request->has(preg_replace('/\s/', '_', $field->name))){
+          $type_content->blocs()->where('type', $field->name)->first()->update([
+            'contenu' => 0,
+          ]);
+        }
+      }
+
+      //categories
+      foreach(array_diff($old_categories_ids, $new_categories_ids) as $cat_id){
+        $type_content->categories()->detach($cat_id);
+      }
+      foreach(array_diff($new_categories_ids, $old_categories_ids) as $cat_id){
+        $type_content->categories()->attach($cat_id);
+      }
+    }//end else submitbutton != copy
+
+    $info = $copy ? 'La copie' : 'La modification';
+    $info .= ' s\'est bien déroulée.';
+    return redirect()->route('type.insertUpdate', [$typeAndRubrique[0], $typeAndRubrique[1]])->withInfo($info);
   }
 
   public function destroyInsertedRubrique($id, Request $request)

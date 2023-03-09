@@ -14,17 +14,18 @@
     </div>
   @endif
   <div class="d-flex justify-content-between">
-    <button class="btn btn-info" type="submit"><i class="far fa-save"></i>{{ isset($type_content) ? ' Modifier' : ' Insérer'}}</button>
+    <button class="btn btn-info" name="submitbutton" type="submit" value="save"><i class="far fa-save"></i>{{ isset($type_content) ? ' Modifier' : ' Insérer'}}</button>
     @if(isset($type_content))
+      <button class="btn btn-warning" name="submitbutton" type="submit" value="copy"><i class="far fa-copy"></i> Dupliquer</button>
       <a class="btn btn-danger" href="{{ route('type.destroyInsert', $type_content->id) }}" ><i class="far fa-trash-alt"></i> Supprimer</a>
     @endif
-    <a href="javascript:history.back()" class="btn btn-primary">
-      <i class="fa fa-redo"></i> Retour
-    </a>
   </div>
   {!! Form::close() !!}
 </div>
-<div class="card-footer d-flex justify-content-end">
+<div class="card-footer d-flex justify-content-between">
+  <a href="javascript:history.back()" class="btn btn-primary btn-sm">
+    <i class="fa fa-redo"></i> Retour
+  </a>
   <a class="btn btn-primary btn-sm" href="{{ route('page.home') }}"><i class="fa fa-redo"></i> retour à l'accueil</a>
 </div>
 

@@ -36,7 +36,7 @@
               </div>
               {!! $errors->first('string', '<small class="invalid-feedback">:message</small>') !!}
             </div>
-            <div class="form-group mx-sm-3 mb-3">
+            <div class="form-group ml-sm-2 mb-3">
               <label for="search-fields">dans le champ </label>
               <select name="field" class="form-control ml-2" id="search-fields">
                 @foreach($json_fields as $field)
