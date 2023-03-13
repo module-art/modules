@@ -15,7 +15,8 @@ class EventMigrationSeeder extends Seeder
      */
     public function run()
     {
-      $events = DB::connection('mysql_mails')->table('ar_ai1ec_events')->where('post_id','>', 8602)->get();
+      //go on after 8948
+      $events = DB::connection('mysql_mails')->table('ar_ai1ec_events')->where('post_id','>', 8905)->get();
       
       //$event = DB::connection('mysql_mails')->table('ar_ai1ec_events')->where('post_id', 8183)->first();
       foreach($events as $event){
