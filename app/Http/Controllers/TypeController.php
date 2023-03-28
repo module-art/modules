@@ -42,7 +42,8 @@ class TypeController extends Controller
     $rules = [];
     $messages = [];
     foreach($json_fields as $field){//validation
-      $field_name = preg_replace('/\s/', '_', $field->name);
+      //$field_name = preg_replace('/\s/', '_', $field->name);
+      $field_name = $field->name;
       if($field->type == 'date'){
         $rules[$field_name] = 'date_format:d/m/Y';
         $messages[$field_name.'.date_format'] = 'Le champ :attribute doit être une date ex: 15/08/2004.';
@@ -404,11 +405,11 @@ class TypeController extends Controller
     $i = 1;
     
     // insert blocs for each field
-    foreach($request->except(array('_token', 'publie', 'archive', 'rubrique_place', 'parent_id')) as $key => $value){
+    foreach($request->except(array('_token', 'publie', 'archive', 'rubrique_place', 'parent_id', 'submitbutton')) as $key => $value){
       if(preg_match('/categorie/', $key)){
         $typed_rubrique->categories()->attach((int)$value);
       }else{
-        $key = preg_replace('/_/', ' ', $key);
+        //$key = preg_replace('/_/', ' ', $key);
         foreach($json_fields as $field){
           if($field->name == $key) $field_type = $field->type;
         }
@@ -429,7 +430,8 @@ class TypeController extends Controller
 
     // unchecked checkboxes
     foreach($json_fields as $field){
-      if($field->type == "checkbox" && !$request->has(preg_replace('/\s/', '_', $field->name))){
+      //if($field->type == "checkbox" && !$request->has(preg_replace('/\s/', '_', $field->name))){
+      if($field->type == "checkbox" && !$request->has($field->name)){
         Bloc::create([
           'contenu' => 0,
           'place' => $i,
@@ -531,19 +533,21 @@ class TypeController extends Controller
         $old_categories_ids[] = $categorie->id;
       }
 
-      foreach($request->except(array('_token', 'publie', 'archive', 'rubrique_place', 'parent_id')) as $key => $value){
+      foreach($request->except(array('_token', 'publie', 'archive', 'rubrique_place', 'parent_id', 'submitbutton')) as $key => $value){
         if(preg_match('/categorie/', $key)){
           $new_categories_ids[] = (int)$value;
         }else{
           foreach($json_fields as $field){
-            if($field->name == preg_replace('/_/', ' ', $key)) $field_type = $field->type;
+            //if($field->name == preg_replace('/_/', ' ', $key)) $field_type = $field->type;
+            if($field->name == $key) $field_type = $field->type;
           }
           if($field_type == 'date'){
             $value = preg_replace('/^(\d{2})\/(\d{2})\/(\d{4})$/', '$3-$2-$1', $value);
           }elseif($field_type == 'time'){
             $value = preg_replace('/^(\d{2}:\d{2})$/', '$1:00', $value);
           }
-          $type_content->blocs()->where('type', preg_replace('/_/', ' ', $key))->first()->update([
+          //$type_content->blocs()->where('type', preg_replace('/_/', ' ', $key))->first()->update([
+          $type_content->blocs()->where('type', $key)->first()->update([
             'contenu' => $value,
           ]);
         }
@@ -551,7 +555,8 @@ class TypeController extends Controller
 
       // unchecked checkboxes
       foreach($json_fields as $field){
-        if($field->type == "checkbox" && !$request->has(preg_replace('/\s/', '_', $field->name))){
+        //if($field->type == "checkbox" && !$request->has(preg_replace('/\s/', '_', $field->name))){
+        if($field->type == "checkbox" && !$request->has($field->name)){
           $type_content->blocs()->where('type', $field->name)->first()->update([
             'contenu' => 0,
           ]);
