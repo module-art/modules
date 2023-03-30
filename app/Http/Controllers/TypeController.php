@@ -51,7 +51,7 @@ class TypeController extends Controller
         $rules[$field_name] = 'date_format:H:i';
         $messages[$field_name.'.date_format'] = 'Le champ :attribute doit être une heure ex: 15:45.';
       }else if($field->type == 'nb'){
-        $rules[$field_name] = 'numeric';
+        $rules[$field_name] = 'nullable|numeric';
       }
     }
     return Validator::make($inputs, $rules, $messages);
