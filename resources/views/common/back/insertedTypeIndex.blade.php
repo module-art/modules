@@ -32,7 +32,7 @@
             <div class="form-group mb-3">
               <input type="text" name="string" class="form-control border-secondary bg-transparent {{ $errors->has("string") ? ' is-invalid' : '' }}">
               <div class="input-group-append">
-              {!! Form::submit('Rechercher', ['class' => 'btn btn-primary']) !!}
+                <button type="submit" class="btn btn-primary"><span class="icon-search"></span></button>
               </div>
               {!! $errors->first('string', '<small class="invalid-feedback">:message</small>') !!}
             </div>
