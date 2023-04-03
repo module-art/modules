@@ -19,18 +19,29 @@ $(function()
     })
     .done(function(data) {
       $('.fa-cog').css('display', 'none');
-      alert(data['response']);
       form[0].reset();
+      if(data['response']){
+        form.prev().removeClass('d-none alert-danger').addClass('alert-success').html(data['response']);
+        form.find('input').removeClass('is-invalid');
+      }else{
+        console.log(data);
+        form.prev().removeClass('d-none alert-success').addClass('alert-danger').html(data['error']);
+        form.find('input').addClass('is-invalid');
+      }
     })
     .fail(function(data) {
+      $('input,textarea').removeClass('is-invalid');
       $('.fa-cog').css('display', 'none');
-      //console.log(data);
+      console.log(data);
       var errors = '';
       $.each(data.responseJSON.errors, function (key, value) {
-        errors += value + '\n';
+        errors += value + '<br>';
+        form.find('input[name="'+ key +'"]').addClass('is-invalid').after('<small class="invalid-feedback">'+value+'</small>');
+        form.find('textarea[name="'+ key +'"]').addClass('is-invalid').after('<small class="invalid-feedback">'+value+'</small>');
+        form.find('select[name="'+ key +'"]').addClass('is-invalid').after('<small class="invalid-feedback">'+value+'</small>');
       });
-      errors += data.responseJSON.message;
-      alert(errors);
+      //errors += data.responseJSON.message;
+      form.prev().removeClass('d-none alert-success').addClass('alert-danger').html(errors);
       //history.back();
     });
   });
