@@ -302,7 +302,7 @@ class TypeController extends Controller
   {
     $operation = 'index';
     $type = Type::findOrFail($type_id);
-    $this->moduleControl->moveCsvToJsonFields($type);
+    //$this->moduleControl->moveCsvToJsonFields($type);
 
     $menus = $this->menusRepository->makeAdminMenus();
     $footer = $this->footerRepository->makeFooter();
@@ -593,18 +593,16 @@ class TypeController extends Controller
       $rubrique->categories()->detach($category->id);
     }
   
-    $rubriques_to_decrease = $type->rubriques()->where('place', '>', $rubrique->place)->get();
-
-    if($rubriques_to_decrease){
-      foreach($rubriques_to_decrease as $newplace){
-        $newplace->place = $newplace->place - 1;
-        $newplace->save();
-      } 
+    if($type->default_filtre == 'place'){
+      $rubriques_to_decrease = $type->rubriques()->where('place', '>', $rubrique->place)->get();
+      if($rubriques_to_decrease){
+        foreach($rubriques_to_decrease as $newplace){
+          $newplace->place = $newplace->place - 1;
+          $newplace->save();
+        } 
+      }
     }
 
-    foreach($rubrique->blocs as $bloc){
-      $bloc->delete();
-    }
     $rubrique->delete();
 
     $message = 'La rubrique '.$id . ' de type ' . $type->content_type . ' et ses blocs associés viennent d\'être effacés';
