@@ -629,6 +629,7 @@ class TypeController extends Controller
     }
     
     $content->publie = $state;
+    $content->timestamps = false;
     $content->save();
 
     return response('La rubrique '. $content->id . $verbe . 'publiée.');
@@ -648,6 +649,7 @@ class TypeController extends Controller
     }
     
     $content->archive = $state;
+    $content->timestamps = false;
     $content->save();
 
     return response('Le contenu '. $content->contenu . $verbe . 'archivé.');
