@@ -17,8 +17,18 @@ class FixSubscribeUpdatedAtSeeder extends Seeder
     public function run()
     {
       $subscribers = Rubrique::where('contenu', 'subscriber')->get();
-      
+      //$subscriber = Rubrique::where('contenu', 'subscriber')->first();
+
+      //Unpublish all for test
       foreach($subscribers as $subscriber){
+        $subscriber->publie = 0;
+        $subscriber->timestamps = false;
+        $subscriber->save();
+        echo($subscriber->id."\nDépublié\n\n");
+      }
+      
+      //will make update_at equal to each created_at
+      /*foreach($subscribers as $subscriber){
 
         $created_at = $subscriber->created_at;
         echo($subscriber->blocs()->where('type', 'email')->first()->contenu."\n".$created_at."\n\n");
@@ -26,7 +36,7 @@ class FixSubscribeUpdatedAtSeeder extends Seeder
           'updated_at' => $created_at,
         ]);
 
-      }//end foreach
+      }//end foreach*/
       
     }
 }
