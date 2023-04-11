@@ -319,7 +319,9 @@ class ControlRepository
 
     $gallery_url = preg_replace('/(<p>)?.*\[gallery\surl="\/(.*)"\stype="(.*)"\].*(<\/p>)?/', '$2', $string_with_gallery);
 
+
     $thumbs = $this->galleryThumbsManager($gallery_url);
+    //dd($thumbs);
     //make html for fancybox
     $fancy = '';
 

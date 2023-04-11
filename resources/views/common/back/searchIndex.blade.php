@@ -31,6 +31,7 @@
           <table class="table">
             <thead>
               <tr>
+                <th>Publié</th>
                 <th>Type de contenu</th>
                 <th>Contenu</th>
                 <th></th>{{--voir--}}
@@ -43,6 +44,9 @@
                   $rubrique = $bloc->rubrique;
                 @endphp
                 <tr>
+                  <td data-toggle="content-publication" data-content_id="{{ $rubrique->id }}">
+                    {!! $rubrique->publie ? '<span class="published"><i class="far fa-check-circle"></i></span>' : '<span class="unpublished"><i class="far fa-times-circle"></i></span>' !!}
+                  </td>
                   <td><strong>{!! $rubrique->contenu !!}</strong></td>
                   <td>{!! str_limit( strip_tags( $bloc->contenu ), $limit = 100, $end = ' [...]' ) !!}</td>
           <td>

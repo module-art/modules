@@ -321,6 +321,7 @@ class TypeController extends Controller
     if($max != $total-1){
       foreach($type->rubriques()->orderBy($type->default_filtre)->get() as $y => $rubrique_to_number){
         $rubrique_to_number->place = $y;
+        $rubrique_to_number->timestamps = false;
         $rubrique_to_number->save();
       }
     }
@@ -386,6 +387,7 @@ class TypeController extends Controller
     }elseif($place < $total){
       foreach($type->rubriques()->where('place', '>=', $place)->get() as $rubrique_to_increase){
         $rubrique_to_increase->place = $rubrique_to_increase->place + 1;
+        $rubrique_to_increase->timestamps = false;
         $rubrique_to_increase->save();
       }
     }
@@ -511,11 +513,13 @@ class TypeController extends Controller
       if($new_place > $old_place){
         foreach($type->rubriques()->where('place', '>', $old_place)->where('place', '<=', $new_place)->get() as $rubrique_to_decrease){
           $rubrique_to_decrease->place = $rubrique_to_decrease->place - 1;
+          $rubrique_to_decrease->timestamps = false;
           $rubrique_to_decrease->save();
         }
       }elseif($new_place < $old_place){
         foreach($type->rubriques()->where('place', '>=', $new_place)->where('place', '<', $old_place)->get() as $rubrique_to_increase){
           $rubrique_to_increase->place = $rubrique_to_increase->place + 1;
+          $rubrique_to_increase->timestamps = false;
           $rubrique_to_increase->save();
         }
       }
@@ -547,6 +551,9 @@ class TypeController extends Controller
             $value = preg_replace('/^(\d{2}:\d{2})$/', '$1:00', $value);
           }
           //$type_content->blocs()->where('type', preg_replace('/_/', ' ', $key))->first()->update([
+          if($type_content->blocs()->where('type', $key)->first()->contenu != $value){
+            $type_content->touch();//update updated_at field if a child block change
+          }
           $type_content->blocs()->where('type', $key)->first()->update([
             'contenu' => $value,
           ]);
@@ -598,6 +605,7 @@ class TypeController extends Controller
       if($rubriques_to_decrease){
         foreach($rubriques_to_decrease as $newplace){
           $newplace->place = $newplace->place - 1;
+          $newplace->timestamps = false;
           $newplace->save();
         } 
       }
@@ -669,18 +677,22 @@ class TypeController extends Controller
       for($i = $numTo; $i < $numFrom; $i++){
         $rubriqueToMove = $rubriques->where('place', $i)->first();
         $rubriqueToMove->place = $i+1;
+        $rubriqueToMove->timestamps = false;
         $rubriqueToMove->save();
       }
       $movedRubrique->place = $numTo;
+      $movedRubrique->timestamps = false;
       $movedRubrique->save();
     }else{
       for($i = ($numFrom+1); $i < $numTo; $i++){
         $rubriqueToMove = $rubriques->where('place', $i)->first();
         $rubriqueToMove->place = ($i-1);
+        $rubriqueToMove->timestamps = false;
         $rubriqueToMove->save();
         //$steps[] = $i . " -> " . ($i-1);
       }
       $movedRubrique->place = ($numTo-1);
+      $movedRubrique->timestamps = false;
       $movedRubrique->save();
       //$steps[] = $numFrom . " -> " . ($numTo-1);
     }
