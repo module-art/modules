@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
       if(config('modules.schedule_command')){
-        $schedule->command(config('modules.schedule_command'))->weekly();
+        $schedule->command(config('modules.schedule_command'))->weeklyOn(2, '2:00');
         //$schedule->command(config('modules.schedule_command'))->everyMinute();
       }
     }
