@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Repositories\Themes\ModuleSchedules;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,8 +25,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+      if(config('modules.schedule_command')){
+        $schedule->command(config('modules.schedule_command'))->weekly();
+        //$schedule->command(config('modules.schedule_command'))->everyMinute();
+      }
     }
 
     /**
@@ -36,6 +39,10 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
+        //trying to load theme commands
+        if(file_exists(__DIR__.'/../../Themes/'.config('modules.theme').'/Commands')){
+          $this->load(__DIR__.'/../../Themes/'.config('modules.theme').'/Commands');
+        }
 
         require base_path('routes/console.php');
     }

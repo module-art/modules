@@ -14,11 +14,11 @@ return [
 
   /*
   |--------------------------------------------------------------------------
-  | Modules rfm key 
+  | Modules command attached to theme for task schduling 
   |--------------------------------------------------------------------------
    */
 
-  'rfm_key' => env('APP_KEY'),
+  'schedule_command' => env('MODULES_SCHEDULE_COMMAND', false),
 
   /*
   |--------------------------------------------------------------------------
