@@ -98,7 +98,7 @@ function getCookie(cname) {
 }
 getCookie('fmk');*/
 
-var tinyconf = {
+const tinyconf = {
       
       selector: '.redactored_full',
       language: 'fr_FR',
@@ -126,6 +126,7 @@ var tinyconf = {
       //filemanager_descending:true,
       //filemanager_access_key: fmKey,
       relative_urls: false,
+      //convert_urls: false,
       media_live_embeds: true,
       //external_plugins: { "filemanager" : "/js/rfm/filemanager/plugin.min.js"},
       extended_valid_elements : "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],$elements",
@@ -147,14 +148,20 @@ var tinyconf = {
   };
   tinymce.init(tinyconf);
 
-  var tinyconf_medium = tinyconf;
+  const tinyconf_medium = tinyconf;
   tinyconf_medium.selector = '.redactored';
   tinyconf_medium.menubar = true,
-  tinyconf_medium.toolbar1 = 'bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify  | bullist numlist | link unlink | media image';
+  tinyconf_medium.toolbar1 = 'code | bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify  | bullist numlist | link unlink | media image';
   
   tinymce.init(tinyconf_medium);
 
-  var tinyconf_small = tinyconf;
+  const tinyconf_url = tinyconf;//keep previous attributes as toolbar1
+  tinyconf_url.selector = ".redactored-full-url";
+  tinyconf_url.convert_urls = false;
+
+  tinymce.init(tinyconf_url);
+
+  const tinyconf_small = tinyconf;
   tinyconf_small.selector = '.simple-redactored';
   tinyconf_small.menubar = false;
   tinyconf_small.block_formats = 'Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5';
@@ -164,7 +171,7 @@ var tinyconf = {
 
   tinymce.init(tinyconf_small);
 
-  var tinyconf_image = tinyconf;
+  const tinyconf_image = tinyconf;
   tinyconf_image.selector = '.image-redactored';
   tinyconf_image.menubar = false;
   tinyconf_image.height = 500;
