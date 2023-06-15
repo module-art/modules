@@ -105,6 +105,8 @@ const tinyconf = {
       height: 360,
       menubar: true,
       branding: false,
+      browser_spellcheck: true,
+      contextmenu: false,
       content_css : "/css/tiny_custom.css",//current_theme is defined with php in template view file
       plugins: [
           'advlist autolink lists link image charmap print preview anchor',
