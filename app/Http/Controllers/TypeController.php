@@ -309,9 +309,10 @@ class TypeController extends Controller
 
     $champs = explode(',', $type->champs);
     $json_fields = json_decode($type->json_fields)->fields;
+    $total = $type->rubriques()->count();
     $results = $this->moduleControl->getSortedTypeRubriques($type, $type->default_filtre, $type->descendant, $archive = false, true);// results utilisable avec un foreach;
 
-    return view('common.back.insertedTypeIndex', compact('type', 'results', 'json_fields', 'menus', 'operation', 'footer'));
+    return view('common.back.insertedTypeIndex', compact('type', 'results', 'total', 'json_fields', 'menus', 'operation', 'footer'));
   }
 
   private function placeManagement($type){

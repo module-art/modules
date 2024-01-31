@@ -35,7 +35,8 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
-        //trying to load theme commands
+        //trying to load theme commands not working for now, commands in theme folder are linked in App\Console\Commands\Themes\<theme name>
+        //It could be try to define namespace in command file to Theme\arrosoir\Commands
         if(file_exists(__DIR__.'/../../Themes/'.config('modules.theme').'/Commands')){
           $this->load(__DIR__.'/../../Themes/'.config('modules.theme').'/Commands');
         }

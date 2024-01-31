@@ -47,6 +47,7 @@
               </select>
             </div>
           {!! Form::close() !!}
+          <p>Nombre total : {{$total}}</p>
         </div>
         <div class="card-body">
 
