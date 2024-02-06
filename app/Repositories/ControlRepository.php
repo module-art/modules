@@ -67,6 +67,10 @@ class ControlRepository
 
   public function getData($typed_rubrique, $type){
 
+    //uncomment tu hunt db content failure.
+    /*if(!isset($typed_rubrique->blocs()->where('type', $type)->first()->contenu)){
+      dd([$typed_rubrique->id, $type]);
+    }*/
     return $typed_rubrique->blocs()->where('type', $type)->first()->contenu;
   }
 
