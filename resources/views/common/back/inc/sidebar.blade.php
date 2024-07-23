@@ -16,10 +16,10 @@
           <a href="#submenu-page" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Page</a>
           <ul class="collapse list-unstyled" id="submenu-page">
             <li>
-              {{ link_to_route('page.create', 'Ajouter', null, ['class' => '']) }}
+              <a href="{{ route('page.create') }}">Ajouter</a>
             </li>
             <li>
-              {{ link_to_route('page.edit', 'Modifier', $page->id, ['class' => '']) }}
+              <a href={{ route('page.edit', $page->id) }}">Modifier</a>
             </li>
             <li>
               <a id="destroy-page">Supprimer</a>
@@ -27,32 +27,32 @@
             <li>
               <a id="publication">{{ $page->publie? "Masquer" : "Publier" }}</a>
             </li>
-            @if(config('modules.multi_rubrique') == true)
+            @if(config('modules.multi_rubrique'))
               <li>
-                {{ link_to_route('rubrique.index', 'Liste des rubriques', $page->id, ['class' => '']) }}
+                <a href="{{ route('rubrique.index', $page->id) }}">Liste des rubriques</a>
               </li>
               <li>
                 <a id="add-rubrique">Ajouter une rubrique</a>
               </li>
             @endif
             <li>
-              {{ link_to_route('page.index', 'Liste des pages', null, ['class' => '']) }}
+              <a href="{{ route('page.index') }}">Liste des pages</a>
             </li>
           </ul>
         </li>
       @else
         <li>
-          {{ link_to_route('page.index', 'Liste des pages', null, ['class' => '']) }}
+          <a href="{{ route('page.index') }}">Liste des pages</a>
         </li>
       @endif
       <li>
         <a href="#submenu-type" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Types de contenus</a>
         <ul class="collapse list-unstyled" id="submenu-type">
           <li>
-            {{ link_to_route('type.create', 'Créer', null, ['class' => '']) }}
+            <a href="{{ route('type.create') }}">Créer</a>
           </li>
           <li>
-            {{ link_to_route('type.index', 'Voir les types de contenu', null, ['class' => '']) }}
+            <a href="{{ route('type.index') }}">Voir les types de contenu</a>
           </li>
         </ul>
       </li>
@@ -67,7 +67,7 @@
           <ul class="collapse list-unstyled" id="subsubmenu-types">
             @foreach($types as $type)
               <li>
-                {{ link_to_route('type.insertform', $type->content_type, $type->content_type, ['class' => '']) }}
+                <a href="{{ 'type.insertform', $type->content_type }}">{{ $type->content_type }}</a>
               </li>
             @endforeach
           </ul>
@@ -77,7 +77,7 @@
           <ul class="collapse list-unstyled" id="subsubmenu-insertedTypes">
             @foreach($types as $type)
               <li>
-                {{ link_to_route('type.insertedIndex', $type->content_type, $type->id, ['class' => '']) }}
+                <a href="{{ route('type.insertedIndex', $type->id) }}">{{ $type->content_type }}</a>
               </li>
             @endforeach
           </ul>
@@ -109,8 +109,9 @@
            document.getElementById('logout-form').submit();">
           <i class="fas fa-sign-out-alt"></i> Déconnexion
         </a>
-        {{ Form::open(['id' => 'logout-form', 'method' => 'POST', 'route' => 'logout', 'hidden']) }}
-        {{ Form::close() }}
+        <form method="POST" action="{{ route('logout') }}" accept-charset="UTF-8" id="logout-form" hidden="">
+          <input name="_token" type="hidden" value="{{ csrf_token() }}">
+        </form>
       </li>
       <li>
         <div class="sidebarCollapse chevron"><i class="fas fa-chevron-circle-left"></i></div>

@@ -14,6 +14,7 @@ use App\Models\Page;
 use App\Models\Rubrique;
 use App\Models\Type;
 use ModuleControl;
+use Storage;
 
 class RubriqueController extends Controller
 {

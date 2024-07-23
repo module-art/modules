@@ -85,6 +85,9 @@
 @endsection
 
 @section('scripts')
+  {{--jquery-ui and tinymce not used but called to avoid reference error--}}
+  <script src="/tools/jquery_ui/jquery-ui.min.js"></script>
+  <script src="/js/tinymce/tinymce.min.js"></script>
   <script src="/js/admin.js"></script>
   <script src="/js/lists.js"></script>
 @endsection

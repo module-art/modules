@@ -172,7 +172,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Collective\Html\HtmlServiceProvider::class,
+        //Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         //Jenssegers\Date\DateServiceProvider::class,
         //Laravel\Scout\ScoutServiceProvider::class,
