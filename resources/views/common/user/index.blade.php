@@ -53,10 +53,12 @@
                   </td>
                   <td>
                     {{--@if(Auth::user()->role == 'admin')--}}
-                      {!! Form::open(['method' => 'DELETE', 'route' => ['user.destroy', $user->id]]) !!}
-                      {{-- Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return confirm(\'Vraiment supprimer cet utilisateur ?\')']) --}}
-                      <button type="submit" class="btn btn-danger" onclick="return confirm('Vraiment supprimer cet utilisateur ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
-                      {!! Form::close() !!}
+                      <form method="POST" action="{{ route('user.destroy', $user->id) }}" accept-charset="UTF-8">
+                        <input name="_method" type="hidden" value="DELETE">
+                        <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                      
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Vraiment supprimer cet utilisateur ?')"><i class="fas fa-trash-alt"></i><span class="sr-only"> Supprimer</span></button>
+                      </form>
                     {{--@endif--}}
                   </td>
                 </tr>
@@ -66,7 +68,7 @@
           {!! $links !!}
           <div class="row justify-content-between px-3">
             {{--@if(Auth::user()->role == 'admin')--}}
-              {!! link_to_route('user.create', 'Ajouter un utilisateur', [], ['class' => 'btn btn-info']) !!}
+              <a href="{{ route('user.create') }}" class="btn btn-info">Ajouter un utilisateur</a>
             {{--@endif--}}
             <a href="javascript:history.back()" class="btn btn-primary">
               <i class="fas fa-redo"></i> Retour

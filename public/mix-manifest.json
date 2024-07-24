@@ -1,4 +1,5 @@
 {
-    "/js/themes/arrosoir/scripts.js": "/js/themes/arrosoir/scripts.js",
-    "/css/themes/arrosoir/styles.css": "/css/themes/arrosoir/styles.css"
+    "/js/themes/module-art/scripts.js": "/js/themes/module-art/scripts.js",
+    "/js/fields.js": "/js/fields.js",
+    "/css/themes/module-art/styles.css": "/css/themes/module-art/styles.css"
 }

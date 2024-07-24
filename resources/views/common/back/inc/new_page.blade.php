@@ -1,7 +1,11 @@
 <div class="card-header"><h1>{{ $operation == 'create' ? 'Ajout' : 'Modification' }} d'une page</h1></div>
 <br/>
 <div class="card-body"> 
-  <form method="POST" action="{{ route($operation == 'create' ? 'page.store' : 'page.update', $page->id) }}" accept-charset="UTF-8">
+  @if($operation == 'create')
+    <form method="POST" action="{{ route('page.store') }}" accept-charset="UTF-8">
+  @else
+    <form method="POST" action="{{ route('page.update', $page->id) }}" accept-charset="UTF-8">
+  @endif
     <input name="_token" type="hidden" value="{{ csrf_token() }}">
     <div class="form-group">
       <label for="title" class="control-label">Description de la nouvelle page :</label>
@@ -10,7 +14,7 @@
     </div>
     <div class="form-group">
       <label for="menu_title" class="control-label">Expression courte pour le menu :</label>
-      <input class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="menu_title" type="text" id="menu_title" value="{{ $operation == 'create' ? old('menu_title') : $page->menu_title }}">
+      <input class="form-control{{ $errors->has('menu_title') ? ' is-invalid' : '' }}" name="menu_title" type="text" id="menu_title" value="{{ $operation == 'create' ? old('menu_title') : $page->menu_title }}">
       {!! $errors->first('menu_title', '<small class="invalid-feedback">:message</small>') !!}
     </div>
     @if($operation == 'edit')

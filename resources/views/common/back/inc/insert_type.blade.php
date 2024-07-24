@@ -14,7 +14,13 @@
       @include('common.back.inc.galleries')
     </div>
   </div>
-  {!! Form::open(array('route' => $editing ? ['type.insertUpdate', $type->id, $type_content->id] : ['type.insert', $type->id], 'method' => 'POST')) !!}
+    @if($editing)
+    <form method="POST" action="{{ route('type.insertUpdate', [$type->id, $type_content->id]) }}" accept-charset="UTF-8">
+    @else
+    <form method="POST" action="{{ route('type.insert', $type->id) }}" accept-charset="UTF-8">
+    @endif
+    <input name="_token" type="hidden" value="{{ csrf_token() }}">
+  {{--{!! Form::open(array('route' => $editing ? ['type.insertUpdate', $type->id, $type_content->id] : ['type.insert', $type->id], 'method' => 'POST')) !!}--}}
   <div class="form-row">
     <div class="form-check col-12 col-md-6">
       <input type="checkbox" name="publie" value="1"{{ $editing && $type_content->publie ? ' checked' : '' }}/>
@@ -29,7 +35,8 @@
   @if($type->child_of > 0)
     <div class="form-row">
       <div class="col-2 col-form-label">
-        {{ Form::label('parent_id', 'Appartient à :' ) }}
+        <label for="parent_id">Appartient à :</label>
+        {{--{{ Form::label('parent_id', 'Appartient à :' ) }}--}}
       </div>
       <div class="col-10 form-group">
         @foreach($parent_type->rubriques as $parent)
@@ -70,7 +77,8 @@
     @if($field->type == 'date')
       <div class="form-group">
         <div class="form-row">
-          {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label col-12 col-lg-3']) !!}
+          <label for="{{ $field->name }}" class="control-label col-12 col-lg-3">{{ $field->name . ' :' }}</label>
+          {{--{!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label col-12 col-lg-3']) !!}--}}
           <div class="input-group date col-12 col-lg-4" id="datepicker{{ $i }}" data-target-input="nearest">
             <input type="text" name="{{ $field->name }}" class="form-control datetimepicker-input {{ $errors->has($field_name_error) ? ' is-invalid' : '' }}" value="{{ $editing ? date_format(date_create($contenu), 'd/m/Y') : old($field->name) }}"/>
             <div class="input-group-append" data-target="#datepicker{{ $i }}" data-toggle="datetimepicker">
@@ -83,7 +91,8 @@
     @elseif($field->type == 'time')
       <div class="form-group">
         <div class="form-row">
-          {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label col-12 col-lg-3']) !!}
+          <label for="{{ $field->name }}" class="control-label col-12 col-lg-3">{{ $field->name . ' :' }}</label>
+          {{--{!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label col-12 col-lg-3']) !!}--}}
           <div class="input-group heure col-12 col-lg-4" id="timepicker{{ $i }}" data-target-input="nearest">
             <input type="text" name="{{ $field->name }}" class="form-control datetimepicker-input {{ $errors->has($field_name_error) ? ' is-invalid' : '' }}" value="{{ $editing ? date_format(date_create($contenu), 'H:i') : old($field->name) }}"/>
             <div class="input-group-append" data-target="#timepicker{{ $i }}" data-toggle="datetimepicker">
@@ -96,7 +105,8 @@
       <div class="form-group">
         <div class="form-row">
           <div class="input-group">
-            {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
+            <label for="{{ $field->name }}" class="control-label">{{ $field->name . ' :' }}</label>
+            {{--{!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}--}}
             <input type="number" step="0.01" name="{{ $field->name }}" class="form-control col-12 col-lg-4 offset-lg-1{{ $errors->has($field_name_error) ? ' is-invalid' : '' }}" value="{{ $editing ? $contenu : old($field->name) }}"/>
           </div>
         </div>
@@ -105,7 +115,8 @@
       <div class="form-group">
         <div class="form-row">
           <div class="input-group">
-            {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
+            <label for="{{ $field->name }}" class="control-label">{{ $field->name . ' :' }}</label>
+            {{--{!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}--}}
             <input type="text" name="{{ $field->name }}" class="form-control col-12 col-lg-4 offset-lg-1{{ $errors->has($field_name_error) ? ' is-invalid' : '' }}" value="{{ $editing ? $contenu : old($field->name) }}"/>
           </div>
         </div>
@@ -121,17 +132,20 @@
       </div>
     @elseif(preg_match('/titre/i', $field->name))
       <div class="form-group">
-        {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
+        <label for="{{ $field->name }}" class="control-label">{{ $field->name . ' :' }}</label>
+        {{--{!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}--}}
         <textarea name="{{ $field->name }}" class="form-control simple-redactored">{{ $editing ? $contenu : old($field->name) }}</textarea>
       </div>
     @elseif(preg_match('/image/i', $field->name))
       <div class="form-group">
-        {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
+        <label for="{{ $field->name }}" class="control-label">{{ $field->name . ' :' }}</label>
+        {{--{!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}--}}
         <textarea name="{{ $field->name }}" class="form-control image-redactored">{{ $editing ? $contenu : old($field->name) }}</textarea>
       </div>
     @else
       <div class="form-group">
-        {!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}
+        <label for="{{ $field->name }}" class="control-label">{{ $field->name . ' :' }}</label>
+        {{--{!! Form::label($field->name, $field->name . ' :', ['class' => 'control-label']) !!}--}}
         <textarea name="{{ $field->name }}" class="form-control redactored">{{ $editing ? $contenu : old($field->name) }}</textarea>
       </div>
     @endif

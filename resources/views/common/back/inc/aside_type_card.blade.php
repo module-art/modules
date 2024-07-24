@@ -16,7 +16,8 @@
     </button>
   </div>
   <div class="form-group">
-    {!! Form::text('choose_cat', null, ['class' => 'form-control', 'placeholder' => 'Chercher...']) !!}
+    <label for="choose_cat" class="control-label">Attacher une catégorie existante :</label>
+    <input class="form-control" placeholder="Chercher..." name="choose_cat" type="text">
   </div>
 
   <div class="d-flex justify-content-between">
@@ -25,7 +26,7 @@
       <i class="fa fa-redo"></i> Retour
     </a>
   </div>
-  {!! Form::close() !!}
+  </form>
 </div>
 <div class="card-footer d-flex justify-content-end">
   <a class="btn btn-primary btn-sm" href="{{ route('page.home') }}"><i class="fa fa-redo"></i> retour à l'accueil</a>
@@ -45,10 +46,10 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          {!! Form::label('name', 'Nom', ['class' => 'control-label'], false) !!}
-          {!! Form::text('name', null, array('class' => 'form-control') ) !!}
+          <label for="name" class="control-label">Nom</label>
+          <input class="form-control" name="name" type="text" id="name">
           <small class="invalid-feedback"></small>
-          {!! Form::number('type_id', $type->id, array('class' => 'd-none') ) !!}
+          <input class="d-none" name="type_id" type="number" value="{{ $type->id }}">
         </div>
       </div>
       <div class="modal-footer">

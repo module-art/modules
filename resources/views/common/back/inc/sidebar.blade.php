@@ -67,7 +67,7 @@
           <ul class="collapse list-unstyled" id="subsubmenu-types">
             @foreach($types as $type)
               <li>
-                <a href="{{ 'type.insertform', $type->content_type }}">{{ $type->content_type }}</a>
+                <a href="{{ route('type.insertform', $type->content_type) }}">{{ $type->content_type }}</a>
               </li>
             @endforeach
           </ul>

@@ -20,7 +20,7 @@
       <a class="btn btn-danger" href="{{ route('type.destroyInsert', $type_content->id) }}" ><i class="far fa-trash-alt"></i> Supprimer</a>
     @endif
   </div>
-  {!! Form::close() !!}
+  </form>
 </div>
 <div class="card-footer d-flex justify-content-between">
   <a href="javascript:history.back()" class="btn btn-primary btn-sm">

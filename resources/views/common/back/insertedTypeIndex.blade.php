@@ -28,7 +28,8 @@
       <div class="card" id="typeList" data-typeid="{{$type->id}}">
         <div class="card-header">
           <h3 class="card-title w-50 d-inline-block">Liste du type : {{$type->content_type}}</h3>
-          {!! Form::open(array('route' => 'bloc.search', 'method' => 'POST', 'class' => 'w-50 float-right form-inline')) !!}
+          <form method="POST" action="{{ route('bloc.search') }}" class="w-50 float-right form-inline" accept-charset="UTF-8">
+            <input name="_token" type="hidden" value="{{ csrf_token() }}">
             <div class="form-group mb-3">
               <input type="text" name="string" class="form-control border-secondary bg-transparent {{ $errors->has("string") ? ' is-invalid' : '' }}">
               <div class="input-group-append">
@@ -46,7 +47,7 @@
                 @endforeach
               </select>
             </div>
-          {!! Form::close() !!}
+          </form>
           <p>Nombre total : {{$total}}</p>
         </div>
         <div class="card-body">
