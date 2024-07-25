@@ -28,6 +28,7 @@ $(document).ready(function()
     //forced_root_block : '', // Needed for 3.x
     valid_elements : '+*[*]',
     relative_urls: false,
+    //convert_urls: true,
     media_live_embeds: true,
     extended_valid_elements : "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|style|onmouseover|onmouseout|name],$elements",
     //audio_template_callback: function(data) {

@@ -38,7 +38,7 @@ const app = new Vue({
       //dataType : 'json',
     })
     .done(function(data) {
-      console.log('Seuls les jetons de sécurité seront utilisée comme cookies, les statistiques de fréquentation du site se font à partir des journaux serveur.')
+      console.log('Seuls les jetons de sécurité seront utilisés comme cookies, les statistiques de fréquentation du site se font à partir des journaux serveur.')
     })
     .fail(function(data) {
       var errors = data.responseJSON.message + '\n';
