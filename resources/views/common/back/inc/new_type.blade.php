@@ -14,7 +14,7 @@
       {!! $errors->first('content_type', '<small class="invalid-feedback">:message</small>') !!}
     </div>
     <div class="form-row">
-      <label for="champs" class="control-label col-12 col-md-6">Champs (ex: titre,date,lieu...) :</label>
+      <label for="champs" class="control-label col-12 col-md-6">Champs (ex: titre,date,lieu...) sans underscore ! :</label>
       <label class="control-label col-12 col-md-6">Type de champ :</label>
       <input type="text" name="champs" value="{{ $operation == 'create' ? old('champs') : $type->champs }}" class="form-control d-none {{ $errors->has('champs') ? ' is-invalid' : '' }}" />
       {{--{!! $errors->first('champs', '<small class="invalid-feedback">:message</small>') !!}--}}
