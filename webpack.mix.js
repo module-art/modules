@@ -13,11 +13,11 @@ let mix = require('laravel-mix');
 
 var current_theme = process.env.MODULES_THEME;
 
-/*mix.options({
+mix.options({
     fileLoaderDirs:  {
         fonts: 'storage/'+current_theme+'/fonts',
     }
-});*/
+});
 
 mix.js('Themes/'+current_theme+'/assets/js/scripts.js', 'public/js/themes/'+current_theme+'/scripts.js')
    //.js('resources/assets/js/app.js', 'public/js')
@@ -30,5 +30,5 @@ mix.js('Themes/'+current_theme+'/assets/js/scripts.js', 'public/js/themes/'+curr
    //.sass('resources/assets/sass/app.scss', 'public/css')
    .sass('Themes/'+current_theme+'/assets/sass/styles.scss', 'public/css/themes/'+current_theme+'/styles.css')
    //.sass('Themes/'+current_theme+'/assets/sass/tiny_custom.scss', 'public/css')
-   .sass('resources/assets/sass/admin.scss', 'public/css')
+   //.sass('resources/assets/sass/admin.scss', 'public/css')
 ;

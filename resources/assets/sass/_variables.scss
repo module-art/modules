@@ -1,22 +1,58 @@
 @font-face {
     font-family: 'cuprum';
-    src: url('fonts/cuprum/Cuprum-Regular-webfont.eot');
-    src: url('fonts/cuprum/Cuprum-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/cuprum/Cuprum-Regular-webfont.woff') format('woff'),
-         url('fonts/cuprum/Cuprum-Regular-webfont.ttf') format('truetype'),
-         url('fonts/cuprum/Cuprum-Regular-webfont.svg#cuprumregular') format('svg');
+    src: url('/fonts/Cuprum-Regular-webfont.woff') format('woff'),
+         url('/fonts/Cuprum-Regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'cuprum';
+    src: url('/fonts/Cuprum-BoldItalic-webfont.woff') format('woff'),
+         url('/fonts/Cuprum-BoldItalic-webfont.ttf') format('truetype');
+    font-weight: bold;
+    font-style: oblique;
+}
+@font-face {
+    font-family: 'cuprum';
+    src: url('/fonts/Cuprum-Bold-webfont.woff') format('woff'),
+         url('/fonts/Cuprum-Bold-webfont.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'cuprum';
+    src: url('/fonts/Cuprum-Italic-webfont.woff') format('woff'),
+         url('/fonts/Cuprum-Italic-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: oblique;
+}
+@font-face {
+    font-family: 'quantico';
+    src: url('/fonts/Quantico-Regular-webfont.woff') format('woff'),
+         url('/fonts/Quantico-Regular-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'quantico';
-    src: url('fonts/quantico/Quantico-Regular-webfont.eot');
-    src: url('fonts/quantico/Quantico-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/quantico/Quantico-Regular-webfont.woff') format('woff'),
-         url('fonts/quantico/Quantico-Regular-webfont.ttf') format('truetype'),
-         url('fonts/quantico/Quantico-Regular-webfont.svg#quanticoregular') format('svg');
-    font-weight: normal;
+    src: url('/fonts/Quantico-BoldItalic-webfont.woff') format('woff'),
+         url('/fonts/Quantico-BoldItalic-webfont.ttf') format('truetype');
+    font-weight: bold;
+    font-style: oblique;
+}
+@font-face {
+    font-family: 'quantico';
+    src: url('/fonts/Quantico-Bold-webfont.woff') format('woff'),
+         url('/fonts/Quantico-Bold-webfont.ttf') format('truetype');
+    font-weight: bold;
     font-style: normal;
+}
+@font-face {
+    font-family: 'quantico';
+    src: url('/fonts/Quantico-Italic-webfont.woff') format('woff'),
+         url('/fonts/Quantico-Italic-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: oblique;
 }
 
 // Body
@@ -46,9 +82,9 @@ $dark-gray:#454545;
 $light-black:#232729;
 
 // Typography
-$font-family-serif: 'Spectral', Georgia, Times, serif;
+$font-family-serif: Georgia, Times, serif;
 $font-family-titles: 'quantico', Helvetica, Arial, sans-serif;
-$font-family-sans-serif: 'Faune', Helvetica, Arial, sans-serif;
+$font-family-sans-serif: Helvetica, Arial, sans-serif;
 $font-family-admin: 'cuprum', monospace;
 $font-size-base: 1rem;
 $line-height-base: 1.5;
