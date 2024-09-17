@@ -351,7 +351,11 @@ class TypeController extends Controller
     $galleries = $this->moduleControl->getGalleriesArray();
 
     //place management
-    $total = $this->placeManagement($type);
+    if(in_array($type->default_filtre, ['created_at','updated_at','place'])){
+      $total = $this->placeManagement($type);
+    }else{
+      $total = $type->rubriques()->count();
+    }
 
     if($type->child_of > 0){
       $parent_type = Type::findOrFail($type->child_of);
@@ -479,7 +483,11 @@ class TypeController extends Controller
     $galleries = $this->moduleControl->getGalleriesArray();
 
     //place management
-    $total = $this->placeManagement($type);
+    if(in_array($type->default_filtre, ['created_at','updated_at','place'])){
+      $total = $this->placeManagement($type);
+    }else{
+      $total = $type->rubriques()->count();
+    }
 
     if($type->child_of > 0){
       $parent_type = Type::findOrFail($type->child_of);
