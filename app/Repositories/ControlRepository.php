@@ -340,4 +340,28 @@ class ControlRepository
 
     return $fancy;
   }
+
+  public function parseGalleryInTypeContent($matches){
+    $gallery_url = $matches[1];
+    $is_rounds = preg_match('/circle/', $matches[2]);
+
+    $thumbs = $this->galleryThumbsManager($gallery_url);
+    //make html for fancybox
+    $fancy = '<figure class="gallery row justify-content-center">';
+
+    foreach($thumbs as $thumb_url){
+      $image_url = preg_replace('/\/thumbs/', '', $thumb_url );
+      $fancy .= '<a class="fancy col-6 col-sm-4 col-md-3 col-lg-2" href="';
+      $fancy .= $image_url;
+      $fancy .= '" data-fancybox="gallery"><img src="';
+      $fancy .= $thumb_url;
+      if($is_rounds){
+        $fancy .= '" class="rond';
+      }
+      $fancy .= '" alt="image" border="0"></a>';
+    }
+    $fancy .= '</figure>';
+
+    return $fancy;
+  }
 }
