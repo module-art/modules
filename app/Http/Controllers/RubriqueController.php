@@ -71,18 +71,19 @@ class RubriqueController extends Controller
     $page = Page::where('slug', $type_name)->firstOrFail();
     //return response($page);
 
-    $footer = FooterRepository::makeFooter();
-    $menus = Auth::check() ? MenusRepository::makeAdminMenus() : MenusRepository::makeMenus();
-    $first_rubrique = $page->rubriques()->first();
-    $bg_img = $first_rubrique->background_img_url;
-
     if(Auth::check()){
       $context = 'back';
       $types = Type::all();
     }else{
+      if(! $type_content->publie) abort(404);
       $context = 'front';
       $types = false;
     }
+
+    $footer = FooterRepository::makeFooter();
+    $menus = Auth::check() ? MenusRepository::makeAdminMenus() : MenusRepository::makeMenus();
+    $first_rubrique = $page->rubriques()->first();
+    $bg_img = $first_rubrique->background_img_url;
 
     //obtention des champs d'un élément enfant !
     //return response($type_content->children()->first()->blocs);
