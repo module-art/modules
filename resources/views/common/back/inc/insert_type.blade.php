@@ -1,3 +1,4 @@
+@inject('module_control', 'ModuleControl')
 @php
   $editing = isset($type_content) ? true : false;
 @endphp
@@ -61,9 +62,10 @@
   @for($i=0; $i<$nb_champs; $i++)
     @php
       $field = $json_fields->fields[$i];
+      //in all cases, space must be replaced by _ in form name
       $field_name_error = preg_replace('/\s/', '_', $field->name);
       if($editing){
-        $contenu = $type_content->blocs()->where('type', $field->name)->first()->contenu;
+        $contenu = $module_control->getData($type_content, $field->name);
         if($field->type == "date" && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $contenu)){
           $contenu = "2004-08-15";
         }elseif($field->type == "time" && !preg_match('/^\d{2}:\d{2}:\d{2}$/', $contenu)){

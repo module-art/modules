@@ -416,8 +416,11 @@ class TypeController extends Controller
       if(preg_match('/categorie/', $key)){
         $typed_rubrique->categories()->attach((int)$value);
       }else{
-        //$key = preg_replace('/_/', ' ', $key);
         foreach($json_fields as $field){
+          //if field name as a space ex : "my field", the corresponding key from request is "my_field"
+          //So key must be changed to "my field" to avoid sql errors select from null.
+          if($field->name == preg_replace('/_/', ' ', $key)) $key = $field->name;
+          //get field type for that key
           if($field->name == $key) $field_type = $field->type;
         }
         if($field_type == 'date'){
@@ -551,19 +554,21 @@ class TypeController extends Controller
           $new_categories_ids[] = (int)$value;
         }else{
           foreach($json_fields as $field){
-            // when there is a space in field name ex: my field, the for input attribute is my_field
+            // when there is a space in field name ex: "my field", the for input attribute is "my_field"
             // so, to match field name from database and field name from request, a preg_replace is necessary.
-            if($field->name == preg_replace('/_/', ' ', $key)) $field_type = $field->type;
+            if($field->name == preg_replace('/_/', ' ', $key)) $key = $field->name;
+            //get field type for that key
+            if($field->name == $key) $field_type = $field->type;
           }
           if($field_type == 'date'){
             $value = preg_replace('/^(\d{2})\/(\d{2})\/(\d{4})$/', '$3-$2-$1', $value);
           }elseif($field_type == 'time'){
             $value = preg_replace('/^(\d{2}:\d{2})$/', '$1:00', $value);
           }
-          if($type_content->blocs()->where('type', preg_replace('/_/', ' ', $key))->first()->contenu != $value){
+          if($type_content->blocs()->where('type', $key)->first()->contenu != $value){
             $type_content->touch();//update updated_at field if a child block change
           }
-          $type_content->blocs()->where('type', preg_replace('/_/', ' ', $key))->first()->update([
+          $type_content->blocs()->where('type', $key)->first()->update([
             'contenu' => $value,
           ]);
         }
