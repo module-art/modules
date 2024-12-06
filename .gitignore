@@ -17,6 +17,7 @@ yarn-error.log
 .htaccess
 .env
 nohup.out
+package.json
 *~
 *.swp
 *.swo
