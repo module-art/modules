@@ -240,13 +240,14 @@ class PageController extends Controller
     }else{
       //return response()->json(['response' => $request->nom]);
 
-      $frommail = $request->email;
+      $frommail = config('mail.from.address');
       $fromname = config('mail.from.name');
       $subject = $request->subject;
       $to = config('mail.dest');
-      Mail::send('themes.'.config('modules.theme').'.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail,$fromname)
+      $sender = $request->email;
+      Mail::send('themes.'.config('modules.theme').'.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail,$fromname,$sender)
       {
-        $message->from($frommail);
+        $message->from($frommail)->replyTo($sender);
         $message->to($to)->subject('Message du site : '.$subject);
       });
 
