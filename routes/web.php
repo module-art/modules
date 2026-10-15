@@ -70,7 +70,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => ['auth']), function 
   Route::post('sortpagerubriques/{page_id}', 'RubriqueController@sortRubriques');
   Route::post('updaterubriqueclass/{id}', 'RubriqueController@updateClass');
   
-  Route::resource('mail', 'MailController');
+  //Route::resource('mail', 'MailController');
 
   //Route::post('redactorimgupload', 'RedactorController@uploadImage');
   //Route::get('imagemanager', 'RedactorController@imageManager');
