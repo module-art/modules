@@ -33,7 +33,15 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "policy": {
+          "advisories": {
+              "ignore-id": {
+                  "PKSA-1wr2-d1dm-qbvs": "File manager derrière auth admin + mitigations en place, remplacement prévu",
+                  "PKSA-hxrf-fpvh-g3vm": "idem"
+              }
+          }
+      }
     },
     "extra": {
         "laravel": {
