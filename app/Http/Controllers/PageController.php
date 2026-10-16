@@ -6,6 +6,7 @@ use Mail;
 use Auth;
 use Storage;
 use Illuminate\Http\Request;
+use Illuminate\Mail\SentMessage;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\PageRequest;
 use App\Repositories\FooterRepository;
@@ -245,14 +246,33 @@ class PageController extends Controller
       $subject = $request->subject;
       $to = config('mail.dest');
       $sender = $request->email;
-      Mail::send('themes.'.config('modules.theme').'.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail,$fromname,$sender)
+
+      /*Mail::send('themes.'.config('modules.theme').'.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail,$fromname,$sender)
       {
         $message->from($frommail)->replyTo($sender);
         $message->to($to)->subject('Message du site : '.$subject);
-      });
+      });*/
 
-      $back_message = count(Mail::failures()) == 0 ? 'Le message est bien envoyé.' : 'Echec de l\'envoi du message, merci de nous contacter autrement.';
-   
+      try {
+        $sent = Mail::send(
+            'themes.'.config('modules.theme').'.back.email_contact',
+            $request->all(),
+            function ($message) use ($subject, $to, $frommail, $fromname, $sender) {
+                $message->from($frommail)->replyTo($sender);
+                $message->to($to)->subject('Message du site : '.$subject);
+            }
+        );
+
+        $ok = $sent instanceof SentMessage;
+    } catch (\Throwable $e) {
+        report($e);   // trace dans storage/logs/laravel.log
+        $ok = false;
+    }
+
+    $back_message = $ok
+        ? 'Le message est bien envoyé.'
+        : 'Echec de l\'envoi du message, merci de nous contacter autrement.';
+
       return response()->json(['response' => $back_message]);
     }
   }

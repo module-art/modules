@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+  'default' => env('FILESYSTEM_DRIVER', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -46,13 +46,15 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+            'throw' => true,
         ],
 
-        'fichiers' => [
+        'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/'.env('MODULES_THEME').'/files'),
-            'url' => env('APP_URL').'/storage/'.env('MODULES_THEME').'/files',
+            'root' => storage_path('app/public/'.env('MODULES_THEME')),
+            'url' => env('APP_URL').'/storage/'.env('MODULES_THEME'),
             'visibility' => 'public',
+            'throw' => true,
         ],
 
         'auth' => [
@@ -60,8 +62,10 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+            'throw' => true,
         ],
 
+        //From Laravel 9, league/flysystem-aws-s3-v3 "^3.0" is required for s3 filesystem
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
