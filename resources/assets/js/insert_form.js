@@ -133,20 +133,23 @@ const tinyconf = {
       //external_plugins: { "filemanager" : "/js/rfm/filemanager/plugin.min.js"},
       extended_valid_elements : "i[class],a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],$elements",
       images_upload_url: '/filemanager.php',
-      file_picker_callback (callback, value, meta) {
-        let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
-        let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight
+    file_picker_callback (callback, value, meta) {
+      let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
+      let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight
 
-        tinymce.activeEditor.windowManager.openUrl({
-          url : '/file-manager/tinymce5',
-          title : 'Gestionnaire de fichiers',
-          width : x * 0.8,
-          height : y * 0.8,
-          onMessage: (api, message) => {
-            callback(message.content, { text: message.text })
-          }
-        })
-      }
+      let url = '/unisharp-filemanager?editor=' + meta.fieldname
+      url += (meta.filetype === 'image') ? '&type=Images' : '&type=Files'
+
+      tinymce.activeEditor.windowManager.openUrl({
+        url : url,
+        title : 'Gestionnaire de fichiers',
+        width : x * 0.8,
+        height : y * 0.8,
+        onMessage: (api, message) => {
+          callback(message.content)
+        }
+      })
+    },
   };
   tinymce.init(tinyconf);
 

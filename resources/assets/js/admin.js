@@ -38,13 +38,16 @@ $(document).ready(function()
       let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
       let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight
 
+      let url = '/unisharp-filemanager?editor=' + meta.fieldname
+      url += (meta.filetype === 'image') ? '&type=Images' : '&type=Files'
+
       tinymce.activeEditor.windowManager.openUrl({
-        url : '/file-manager/tinymce5',
+        url : url,
         title : 'Gestionnaire de fichiers',
         width : x * 0.8,
         height : y * 0.8,
         onMessage: (api, message) => {
-          callback(message.content, { text: message.text })
+          callback(message.content)
         }
       })
     },

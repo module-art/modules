@@ -3,7 +3,6 @@
 @section('title')
   <title>Gestionnaire de fichiers</title>
   <link href="/css/admin.css" rel="stylesheet">
-  <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
 @endsection
 
 @section('sidebar')
@@ -17,7 +16,7 @@
 @section('contenu')
 
   <section class='row center-card'>
-    <div class="">
+    <div class="w-100">
       @if(session()->has('info'))
         <div class="alert alert-success alert-dismissible">{!! session('info') !!}</div>
       @endif
@@ -30,7 +29,8 @@
         </div>
         <div class="card-body">
           <div class="fm-container">
-            <div id="fm"></div>
+            <iframe src="{{ url('unisharp-filemanager') }}"
+                    style="width:100%; height:100%; border:none;"></iframe>
           </div>
           <div class="card-footer d-flex justify-content-end mt-2">
             <a class="btn btn-primary btn-sm" href="{{ route('page.home') }}"><i class="fa fa-redo"></i> retour à l'accueil</a>
@@ -43,7 +43,6 @@
 
 @section('scripts')
   <script src="/js/tinymce/tinymce.min.js"></script>
-  {{--<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>--}}
   <script src="/js/admin.js"></script>
   {{--<script src="/js/lists.js"></script>--}}
 @endsection
