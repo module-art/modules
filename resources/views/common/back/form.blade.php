@@ -70,7 +70,7 @@
 
 @section('scripts')
   <script src="/js/tinymce/tinymce.min.js"></script>
-  <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
+  {{--<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>--}}
   <script src="/js/tempus-dominus/moment-with-locales.min.js"></script>
   <script src="/js/tempus-dominus/tempusdominus-bootstrap-4.min.js"></script>
   <script src="/js/admin.js"></script>

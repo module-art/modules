@@ -43,7 +43,7 @@
 
 @section('scripts')
   <script src="/js/tinymce/tinymce.min.js"></script>
-  <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
+  {{--<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>--}}
   <script src="/js/admin.js"></script>
   {{--<script src="/js/lists.js"></script>--}}
 @endsection
