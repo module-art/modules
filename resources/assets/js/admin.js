@@ -38,7 +38,7 @@ $(document).ready(function()
       let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
       let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight
 
-      let url = '/unisharp-filemanager?editor=' + meta.fieldname
+      let url = '/laravel-filemanager?editor=' + meta.fieldname
       url += (meta.filetype === 'image') ? '&type=Images' : '&type=Files'
 
       tinymce.activeEditor.windowManager.openUrl({

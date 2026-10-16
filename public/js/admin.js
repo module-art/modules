@@ -290,7 +290,7 @@ $(document).ready(function () {
     file_picker_callback: function file_picker_callback(callback, value, meta) {
       var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
       var y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
-      var url = '/unisharp-filemanager?editor=' + meta.fieldname;
+      var url = '/laravel-filemanager?editor=' + meta.fieldname;
       url += meta.filetype === 'image' ? '&type=Images' : '&type=Files';
       tinymce.activeEditor.windowManager.openUrl({
         url: url,

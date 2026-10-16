@@ -80,6 +80,10 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => ['auth']), function 
   Route::get('{page_title}', 'PageController@show')->name('back_page.show')->middleware('authAsAdmin');
 });
 
+ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+     \UniSharp\LaravelFilemanager\Lfm::routes();
+ });
+
 Route::get('rgpd-notice', function () {
   return response('ok', 200)->cookie('no_rgpd', 'ok', 43200);
 })->middleware('web');

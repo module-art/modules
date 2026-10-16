@@ -29,7 +29,7 @@
         </div>
         <div class="card-body">
           <div class="fm-container">
-            <iframe src="{{ url('unisharp-filemanager') }}"
+            <iframe src="{{ url('laravel-filemanager') }}"
                     style="width:100%; height:100%; border:none;"></iframe>
           </div>
           <div class="card-footer d-flex justify-content-end mt-2">
