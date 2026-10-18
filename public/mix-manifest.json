@@ -1,4 +1,6 @@
 {
     "/js/themes/infolibre/scripts.js": "/js/themes/infolibre/scripts.js",
+    "/js/admin.js": "/js/admin.js",
+    "/js/insert_form.js": "/js/insert_form.js",
     "/css/themes/infolibre/styles.css": "/css/themes/infolibre/styles.css"
 }

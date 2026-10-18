@@ -96,13 +96,6 @@
       <li>
         <a href="{{ route('filemanager') }}" target="_blank"><i class="fas fa-folder-open"></i> Gestionnaire de Fichiers</a>
       </li>
-      @if(config('modules.mails') == true)
-        <li>
-          <a href='{{ route('mail.index') }}'>
-            <i class="fas fa-at"></i> Gestion des Emails
-          </a>
-        </li>
-      @endif
       <li>
         <a href="{{ route('logout') }}"
            onclick="event.preventDefault();

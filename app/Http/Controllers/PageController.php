@@ -245,14 +245,29 @@ class PageController extends Controller
       $subject = $request->subject;
       $to = config('mail.dest');
       $sender = $request->email;
-      Mail::send('themes.'.config('modules.theme').'.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail,$fromname,$sender)
-      {
-        $message->from($frommail)->replyTo($sender);
-        $message->to($to)->subject('Message du site : '.$subject);
-      });
 
-      $back_message = count(Mail::failures()) == 0 ? 'Le message est bien envoyé.' : 'Echec de l\'envoi du message, merci de nous contacter autrement.';
-   
+      try {
+        Mail::send(
+            'themes.'.config('modules.theme').'.back.email_contact',
+            $request->all(),
+            function ($message) use ($subject, $to, $frommail, $fromname, $sender) {
+                $message->from($frommail)->replyTo($sender);
+                $message->to($to)->subject('Message du site : '.$subject);
+            }
+        );
+
+        // Add use Illuminate\Mail\SentMessage; for using next line
+        //$ok = $sent instanceof SentMessage;
+        $ok = true;
+      } catch (\Throwable $e) {
+        report($e);   // trace dans storage/logs/laravel.log
+        $ok = false;
+      }
+
+      $back_message = $ok
+          ? 'Le message est bien envoyé.'
+          : 'Echec de l\'envoi du message, merci de nous contacter autrement.';
+
       return response()->json(['response' => $back_message]);
     }
   }

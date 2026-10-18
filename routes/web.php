@@ -70,7 +70,7 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => ['auth']), function 
   Route::post('sortpagerubriques/{page_id}', 'RubriqueController@sortRubriques');
   Route::post('updaterubriqueclass/{id}', 'RubriqueController@updateClass');
   
-  Route::resource('mail', 'MailController');
+  //Route::resource('mail', 'MailController');
 
   //Route::post('redactorimgupload', 'RedactorController@uploadImage');
   //Route::get('imagemanager', 'RedactorController@imageManager');
@@ -79,6 +79,10 @@ Route::group(array('prefix' => 'coulisses', 'middleware' => ['auth']), function 
   Route::get('', 'PageController@goHome');
   Route::get('{page_title}', 'PageController@show')->name('back_page.show')->middleware('authAsAdmin');
 });
+
+ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+     \UniSharp\LaravelFilemanager\Lfm::routes();
+ });
 
 Route::get('rgpd-notice', function () {
   return response('ok', 200)->cookie('no_rgpd', 'ok', 43200);
