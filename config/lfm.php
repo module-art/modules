@@ -60,7 +60,7 @@ return [
                 'image/gif',
                 'image/webp',
                 'application/pdf',
-                'text/plain',
+                //'text/plain',
             ],
         ],
         'image' => [
@@ -102,11 +102,11 @@ return [
 
     'rename_duplicates'        => false,
 
-    'alphanumeric_filename'    => false,
+    'alphanumeric_filename'    => true,
 
-    'alphanumeric_directory'   => false,
+    'alphanumeric_directory'   => true,
 
-    'should_validate_size'     => false,
+    'should_validate_size'     => true,
 
     'should_validate_mime'     => true,
 

@@ -6,7 +6,6 @@ use Mail;
 use Auth;
 use Storage;
 use Illuminate\Http\Request;
-use Illuminate\Mail\SentMessage;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\PageRequest;
 use App\Repositories\FooterRepository;
@@ -247,14 +246,8 @@ class PageController extends Controller
       $to = config('mail.dest');
       $sender = $request->email;
 
-      /*Mail::send('themes.'.config('modules.theme').'.back.email_contact', $request->all(), function($message) use ($subject,$to,$frommail,$fromname,$sender)
-      {
-        $message->from($frommail)->replyTo($sender);
-        $message->to($to)->subject('Message du site : '.$subject);
-      });*/
-
       try {
-        $sent = Mail::send(
+        Mail::send(
             'themes.'.config('modules.theme').'.back.email_contact',
             $request->all(),
             function ($message) use ($subject, $to, $frommail, $fromname, $sender) {
@@ -263,15 +256,17 @@ class PageController extends Controller
             }
         );
 
-        $ok = $sent instanceof SentMessage;
-    } catch (\Throwable $e) {
+        // Add use Illuminate\Mail\SentMessage; for using next line
+        //$ok = $sent instanceof SentMessage;
+        $ok = true;
+      } catch (\Throwable $e) {
         report($e);   // trace dans storage/logs/laravel.log
         $ok = false;
-    }
+      }
 
-    $back_message = $ok
-        ? 'Le message est bien envoyé.'
-        : 'Echec de l\'envoi du message, merci de nous contacter autrement.';
+      $back_message = $ok
+          ? 'Le message est bien envoyé.'
+          : 'Echec de l\'envoi du message, merci de nous contacter autrement.';
 
       return response()->json(['response' => $back_message]);
     }
