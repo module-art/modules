@@ -295,7 +295,7 @@ class PageController extends Controller
       } 
     } 
     
-    $page->forcedelete();
+    $page->delete();
 
     if ($request->ajax()){
       return response('La page '.$id . ' et ce qu\'elle contient viennent d\'être effacés.' );

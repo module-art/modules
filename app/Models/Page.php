@@ -12,7 +12,7 @@ class Page extends Model
     public $timestamps = true;
 
     use SoftDeletes;
-    protected $dates = ['deleted_at'];
+    //protected $casts = ['deleted_at' => 'datetime'];
 
     protected $fillable = array('title', 'menu_title', 'place', 'slug', 'is_home', 'publie');
 
